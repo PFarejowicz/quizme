@@ -4,11 +4,12 @@ DROP TABLE IF EXISTS users;
  -- remove table if it already exists and start from scratch
 
 CREATE TABLE users (
-	user_id INT(16) UNSIGNED,
+	user_id INT UNSIGNED AUTO_INCREMENT,
     email VARCHAR(255),
     password VARCHAR(255),
     name VARCHAR(255),
-    admin_privilege BOOL
+    admin_privilege BOOL,
+    PRIMARY KEY (user_id)
 );
 
 DROP TABLE IF EXISTS friends;
