@@ -1,5 +1,6 @@
 package hw6Quiz;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -38,14 +39,22 @@ public class QuizListener implements ServletContextListener, HttpSessionListener
      * @see ServletContextListener#contextDestroyed(ServletContextEvent)
      */
     public void contextDestroyed(ServletContextEvent arg0)  { 
-         // TODO Auto-generated method stub
+    	ServletContext context = arg0.getServletContext();
+    	DBConnection connection = (DBConnection) context.getAttribute("connection");
+    	
+    	// close the connection to the database
+    	connection.close();
     }
 
 	/**
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent arg0)  { 
-         // TODO Auto-generated method stub
+    	DBConnection connection = new DBConnection();
+        ServletContext context = arg0.getServletContext();
+        
+        // store the catalog and connection for use between all users
+        context.setAttribute("connection", connection);
     }
 	
 }
