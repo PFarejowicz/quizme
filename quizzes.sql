@@ -7,6 +7,7 @@ CREATE TABLE users (
 	user_id INT UNSIGNED AUTO_INCREMENT,
     email VARCHAR(255),
     password VARCHAR(255),
+    salt VARCHAR(255)
     name VARCHAR(255),
     admin_privilege BOOL,
     PRIMARY KEY (user_id)
