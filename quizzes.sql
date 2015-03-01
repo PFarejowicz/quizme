@@ -19,10 +19,10 @@ CREATE TABLE quizzes (
 	quiz_id INT UNSIGNED AUTO_INCREMENT,
     name VARCHAR(255),
     description VARCHAR(255),
-    user_id INT,
+    author_id INT,
     random_order BOOL,
     multiple_pages BOOL,
-    auto_correction BOOL,
+    immediate_correction BOOL,
     PRIMARY KEY (quiz_id)
 );
 
@@ -82,10 +82,7 @@ CREATE TABLE fill_in_the_blank_questions (
 	question_id INT UNSIGNED AUTO_INCREMENT,
 	quiz_id INT,
 	prompt VARCHAR(255),
-	response_a VARCHAR(255),
-	response_b VARCHAR(255),
-	response_c VARCHAR(255),
-	response_d VARCHAR(255),
+	responses VARCHAR(255),
 	points INT
 );
 
