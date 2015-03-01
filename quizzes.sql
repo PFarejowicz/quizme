@@ -38,7 +38,7 @@ CREATE TABLE quizzes (
     PRIMARY KEY (quiz_id)
 );
 
-DROP TABLE IF EXISTS quizHistory;
+DROP TABLE IF EXISTS quiz_history;
 
 CREATE TABLE quizHistory(
 	quiz_id INT,
