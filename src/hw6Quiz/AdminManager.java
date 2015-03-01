@@ -12,5 +12,33 @@ public class AdminManager {
 		this.con = con;
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void addAnnouncement(String announcement){
+		
+	}
+	
+	public void removeAnnouncement(int id){
+		
+	}
+	
+	public void removeUserAccount(int id){
+		
+	}
+	
+	public void clearHistoryForQuiz(int id){
+		
+	}
+	
+	public void promoteToAdmin(int id){
+		
+	}
+	
+	public int getNumberOfUsers(){
+		return 0; // TODO
+	}
+	
+	public int getNumberOfQuizzes(){
+		return 0; // TODO
+	}
 
 }
