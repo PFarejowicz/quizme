@@ -9,7 +9,6 @@
 <body>
 <h1>Select Question Type</h1>
 <form action="QuestionCreationTypeServlet" method="post">
-
 <p>Question Type: 
 <select name="ques_type">
 <option value="text_response">Question-Response Question</option>
@@ -17,6 +16,7 @@
 <option value="multiple_choice">Multiple Choice Question</option>
 <option value="picture">Picture-Response Question</option>
 </select>
+<input  type="submit" value="Next" />
 </p>
 </form>
 </body>
