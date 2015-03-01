@@ -68,7 +68,7 @@ public class UserManager {
 
 	public void addUser(String email, String password, String name) {
 		try {
-			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO users VALUES(?, ?, ?)");
+			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO users VALUES(?, ?, ?, ?, ?)");
 			prepStmt.setString(1, email);
 			prepStmt.setString(4, name);
 			
@@ -83,6 +83,7 @@ public class UserManager {
 			byte[] mdbytes = md.digest(password.getBytes());				// hash the password + salt 
 			password = UserManager.hexToString(mdbytes);					// convert back to string	
 			prepStmt.setString(2, password);
+			prepStmt.setBoolean(5, false);
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
