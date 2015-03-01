@@ -45,5 +45,5 @@ DROP TABLE IF EXISTS messages;
 CREATE TABLE messages (
 	sender_id INT UNSIGNED,
 	receiver_id INT UNSIGNED,
-	data VARCHAR(255),
+	data VARCHAR(255)
 );
