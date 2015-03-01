@@ -38,6 +38,14 @@ CREATE TABLE quizzes (
     PRIMARY KEY (quiz_id)
 );
 
+DROP TABLE IF EXISTS quizHistory;
+
+CREATE TABLE quizHistory(
+	quiz_id INT,
+	user_id INT,
+	score INT
+);
+
 DROP TABLE IF EXISTS friends;
 
 CREATE TABLE friends (
