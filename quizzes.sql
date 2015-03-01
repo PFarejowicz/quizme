@@ -55,3 +55,11 @@ CREATE TABLE messages (
 	receiver_id INT UNSIGNED,
 	data VARCHAR(255)
 );
+
+DROP TABLE IF EXISTS announcements;
+
+CREATE TABLE announcements(
+	announcement_id INT UNSIGNED AUTO_INCREMENT,
+	description VARCHAR(255),
+	PRIMARY KEY (announcement_id)
+);
