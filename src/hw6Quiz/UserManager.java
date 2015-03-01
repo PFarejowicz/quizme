@@ -17,25 +17,6 @@ public class UserManager {
 	public UserManager(Connection con) {
 		this.con = con; 
 	}
-	
-	public User populateUserInfo (String email) {
-		User user = new User(email);
-		Statement stmt; 
-		try {
-			stmt = con.createStatement();
-			rs = stmt.executeQuery("SELECT * FROM users WHERE email = \"" + email + "\"");
-			if (rs.next()) {
-				user.setPassword(rs.getString("password"));
-			}
-			rs = stmt.executeQuery("SELECT * FROM users WHERE email = \"" + email + "\"");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		
-		
-		return user;
-	}
 
 	public boolean containsUser(String email) {
 		Statement stmt; 
