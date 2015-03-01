@@ -1,9 +1,25 @@
 package hw6Quiz;
 
-public class MessageManager {
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
-	public MessageManager() {
-		// TODO Auto-generated constructor stub
+public class MessageManager {
+	
+	private Connection con; 
+	private ResultSet rs; 
+
+	public MessageManager(Connection con) {
+		this.con = con; 
+	}
+	
+	public void addMessage() {
+		try {
+			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO messages VALUES(?, ?, ?)");
+			prepStmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
