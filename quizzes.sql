@@ -13,9 +13,21 @@ CREATE TABLE users (
     PRIMARY KEY (user_id)
 );
 
+DROP TABLE IF EXISTS admins;
+
+CREATE TABLE admins (
+	user_id INT UNSIGNED AUTO_INCREMENT,
+    email VARCHAR(255),
+    password VARCHAR(255),
+    salt VARCHAR(255)
+    name VARCHAR(255),
+    admin_privilege BOOL,
+    PRIMARY KEY (user_id)
+);
+
 DROP TABLE IF EXISTS friends;
 
-CREATE TABLE friend s(
+CREATE TABLE friends(
 	user_id_1 INT(16) UNSIGNED,
 	user_id_2 INT(16) UNSIGNED
 );
