@@ -29,6 +29,21 @@ public class UserManager {
 		}
 		return false; 
 	}
+	
+	public boolean isAdmin(String email) {
+		Statement stmt; 
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM users WHERE email = \"" + email + "\"");
+			if(rs.next()){
+				return rs.getBoolean("admin_privilege");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false; 
+	}
 
 	public boolean checkPassword(String email, String password) {
 		try {
