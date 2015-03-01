@@ -14,12 +14,26 @@ public class FriendsManager {
 	}
 	
 	public void addFriend() {
+		
 		try {
 			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO friends VALUES(?, ?)");
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+//		Statement stmt; 
+//		try {
+//			stmt = con.createStatement();
+//			rs = stmt.executeQuery("SELECT * FROM users WHERE email = \"" + email + "\"");
+//			if (rs.next()) {
+//				user.setPassword(rs.getString("password"));
+//			}
+//			rs = stmt.executeQuery("SELECT * FROM friends WHERE email = \"" + email + "\"");
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+		
 	}
 	
 	public void addFriendRequest() {
