@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class AccountCreationServlet
@@ -37,20 +38,22 @@ public class AccountCreationServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext context = getServletContext();
-		UserManager manager = (UserManager) context.getAttribute("user manager");
+		HttpSession session = request.getSession();
+		UserManager userManager = (UserManager) context.getAttribute("user manager");
 		
 		// pull the name and password from the form data
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String name = request.getParameter("name");
 		
-		if (manager.containsUser(email)) {
+		if (userManager.containsUser(email)) {
 			// redirect to already used name page because the manager is already storing the name
 			RequestDispatcher dispatch = request.getRequestDispatcher("used_account.jsp");
 			dispatch.forward(request, response);
 		} else {
 			// switch to welcome page because account was created
-			manager.addUser(email, password, name);
+			userManager.addUser(email, password, name);
+			session.setAttribute("user id", userManager.getIDByEmail(email));
 			RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
 			dispatch.forward(request, response);
 		}

@@ -64,26 +64,29 @@ CREATE TABLE text_questions (
 	prompt VARCHAR(255),
 	response VARCHAR(255),
 	points INT
+	PRIMARY KEY (question_id)
 );
 
-DROP TABLE IF EXISTS fill_in_the_blank_questions;
+DROP TABLE IF EXISTS fill_blank_questions;
 
-CREATE TABLE fill_in_the_blank_questions (
+CREATE TABLE fill_blank_questions (
 	question_id INT UNSIGNED AUTO_INCREMENT,
 	quiz_id INT,
 	prompt VARCHAR(255),
 	response VARCHAR(255),
 	points INT
+	PRIMARY KEY (question_id)
 );
 
 DROP TABLE IF EXISTS multiple_choice_questions;
 
-CREATE TABLE fill_in_the_blank_questions (
+CREATE TABLE multiple_choice_questions (
 	question_id INT UNSIGNED AUTO_INCREMENT,
 	quiz_id INT,
 	prompt VARCHAR(255),
 	responses VARCHAR(255),
 	points INT
+	PRIMARY KEY (question_id)
 );
 
 DROP TABLE IF EXISTS picture_questions;
@@ -94,6 +97,7 @@ CREATE TABLE picture_questions (
 	img_url VARCHAR(255),
 	response VARCHAR(255),
 	points INT
+	PRIMARY KEY (question_id)
 );
 
 DROP TABLE IF EXISTS announcements;

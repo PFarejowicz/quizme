@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class LoginServlet
@@ -39,6 +40,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext context = getServletContext();
+		HttpSession session = request.getSession();
 		UserManager userManager = (UserManager) context.getAttribute("user manager");
 		
 		// pull the name and password from the creation servlet
@@ -47,6 +49,7 @@ public class LoginServlet extends HttpServlet {
 		
 		if (userManager.containsUser(email) && userManager.checkPassword(email, password)) {
 			// redirect to welcome page if login was successful
+			session.setAttribute("user id", userManager.getIDByEmail(email));
 			if(userManager.isAdmin(email)){
 				RequestDispatcher dispatch = request.getRequestDispatcher("admin_homepage.jsp");
 				dispatch.forward(request, response);
