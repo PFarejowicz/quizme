@@ -2,20 +2,24 @@ package hw6Quiz;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 public class QuizManager {
 	
 	private Connection con; 
-	private ResultSet rs;
 
 	public QuizManager(Connection con) {
 		this.con = con; 
 	}
 	
-	public void addQuiz() {
+	public void addQuiz(String name, String description, int author, boolean random, boolean pages, boolean correction) {
 		try {
-			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO quizzes VALUES(?, ?, ?, ?, ?, ?)");
+			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO quizzes (name, description, author_id, random_order, multiple_pages, immediate_correction) VALUES(?, ?, ?, ?, ?, ?)");
+			prepStmt.setString(1, name);
+			prepStmt.setString(2, description);
+			prepStmt.setInt(3, author);
+			prepStmt.setBoolean(4, random);
+			prepStmt.setBoolean(5, pages);
+			prepStmt.setBoolean(6, correction);
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

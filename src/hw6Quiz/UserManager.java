@@ -109,7 +109,7 @@ public class UserManager {
 			final Random r = new SecureRandom();
 			byte[] saltBytes = new byte[32];			
 			r.nextBytes(saltBytes);											// generate salt
-			String salt =UserManager.hexToString(saltBytes);
+			String salt = UserManager.hexToString(saltBytes);
 			prepStmt.setString(3, salt);
 			
 			MessageDigest md = MessageDigest.getInstance("SHA");
