@@ -13,6 +13,18 @@ CREATE TABLE users (
     PRIMARY KEY (user_id)
 );
 
+DROP TABLE IF EXISTS admins;
+
+CREATE TABLE admins (
+	user_id INT UNSIGNED AUTO_INCREMENT,
+    email VARCHAR(255),
+    password VARCHAR(255),
+    salt VARCHAR(255)
+    name VARCHAR(255),
+    admin_privilege BOOL,
+    PRIMARY KEY (user_id)
+);
+
 DROP TABLE IF EXISTS quizzes;
 
 CREATE TABLE quizzes (
@@ -24,6 +36,14 @@ CREATE TABLE quizzes (
     multiple_pages BOOL,
     auto_correction BOOL,
     PRIMARY KEY (quiz_id)
+);
+
+DROP TABLE IF EXISTS quizHistory;
+
+CREATE TABLE quizHistory(
+	quiz_id INT,
+	user_id INT,
+	score INT
 );
 
 DROP TABLE IF EXISTS friends;
