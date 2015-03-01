@@ -28,7 +28,7 @@ CREATE TABLE quizzes (
 
 DROP TABLE IF EXISTS quiz_history;
 
-CREATE TABLE quizHistory(
+CREATE TABLE quiz_history(
 	quiz_id INT,
 	user_id INT,
 	score INT
