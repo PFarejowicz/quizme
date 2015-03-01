@@ -82,10 +82,7 @@ CREATE TABLE fill_in_the_blank_questions (
 	question_id INT UNSIGNED AUTO_INCREMENT,
 	quiz_id INT,
 	prompt VARCHAR(255),
-	response_a VARCHAR(255),
-	response_b VARCHAR(255),
-	response_c VARCHAR(255),
-	response_d VARCHAR(255),
+	responses VARCHAR(255),
 	points INT
 );
 
