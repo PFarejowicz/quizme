@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>Create Quiz</h1>
-<form action="AccountCreationServlet" method="post">
+<form action="QuizCreationServlet" method="post">
 
 <p>Name: <input type="text" name="name" />
 <p>Description: <br><textarea rows="4" cols="50" name="description" ></textarea>
