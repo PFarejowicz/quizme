@@ -22,7 +22,7 @@ CREATE TABLE quizzes (
     user_id INT,
     random_order BOOL,
     multiple_pages BOOL,
-    auto_correction BOOL,
+    immediate_correction BOOL,
     PRIMARY KEY (quiz_id)
 );
 
