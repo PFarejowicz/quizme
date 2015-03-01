@@ -38,7 +38,7 @@ CREATE TABLE quizzes (
     PRIMARY KEY (quiz_id)
 );
 
-DROP TABLE IF EXISTS quizHistory;
+DROP TABLE IF EXISTS quiz_history;
 
 CREATE TABLE quizHistory(
 	quiz_id INT,
@@ -65,5 +65,5 @@ DROP TABLE IF EXISTS messages;
 CREATE TABLE messages (
 	sender_id INT UNSIGNED,
 	receiver_id INT UNSIGNED,
-	data VARCHAR(255),
+	data VARCHAR(255)
 );
