@@ -68,7 +68,7 @@ public class UserManager {
 
 	public void addUser(String email, String password, String name) {
 		try {
-			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO users VALUES(?, ?, ?");
+			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO users VALUES(?, ?, ?)");
 			prepStmt.setString(1, email);
 			prepStmt.setString(4, name);
 			
