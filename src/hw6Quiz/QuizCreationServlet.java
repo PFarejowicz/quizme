@@ -39,7 +39,6 @@ public class QuizCreationServlet extends HttpServlet {
 		QuizManager quizManager = (QuizManager) getServletContext().getAttribute("quiz manager");
 		int user_id = (Integer) request.getSession().getAttribute("user id"); 
 		
-		// pull the name and password from the form data
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
 		Boolean random_order = request.getParameter("random_order").equals("Yes");

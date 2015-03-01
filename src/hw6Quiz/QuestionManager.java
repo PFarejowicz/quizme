@@ -11,7 +11,7 @@ public class QuestionManager {
 		this.con = con;
 	}
 	
-	public void addTextResponseQuestion() {
+	public void addTextResponseQuestion(String prompt, int points) {
 		try {
 			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO text_questions VALUES(?, ?, ?, ?)");
 			prepStmt.executeUpdate();
@@ -20,7 +20,7 @@ public class QuestionManager {
 		}
 	}
 	
-	public void addFillBlankQuestion() {
+	public void addFillBlankQuestion(String prompt) {
 		try {
 			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO fill_blank_questions VALUES(?, ?, ?, ?)");
 			prepStmt.executeUpdate();
@@ -29,7 +29,7 @@ public class QuestionManager {
 		}
 	}
 	
-	public void addMultipleChoiceQuestion() {
+	public void addMultipleChoiceQuestion(String prompt) {
 		try {
 			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO multiple_choice_questions VALUES(?, ?, ?, ?)");
 			prepStmt.executeUpdate();
@@ -38,7 +38,7 @@ public class QuestionManager {
 		}
 	}
 	
-	public void addPictureQuestion() {
+	public void addPictureQuestion(String prompt) {
 		try {
 			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO picture_questions VALUES(?, ?, ?, ?)");
 			prepStmt.executeUpdate();
