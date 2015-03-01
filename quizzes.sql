@@ -63,7 +63,7 @@ CREATE TABLE text_questions (
 	quiz_id INT,
 	prompt VARCHAR(255),
 	response VARCHAR(255),
-	points INT
+	points INT,
 	PRIMARY KEY (question_id)
 );
 
@@ -74,7 +74,7 @@ CREATE TABLE fill_blank_questions (
 	quiz_id INT,
 	prompt VARCHAR(255),
 	response VARCHAR(255),
-	points INT
+	points INT,
 	PRIMARY KEY (question_id)
 );
 
@@ -85,7 +85,7 @@ CREATE TABLE multiple_choice_questions (
 	quiz_id INT,
 	prompt VARCHAR(255),
 	responses VARCHAR(255),
-	points INT
+	points INT,
 	PRIMARY KEY (question_id)
 );
 
@@ -96,7 +96,7 @@ CREATE TABLE picture_questions (
 	quiz_id INT,
 	img_url VARCHAR(255),
 	response VARCHAR(255),
-	points INT
+	points INT,
 	PRIMARY KEY (question_id)
 );
 
