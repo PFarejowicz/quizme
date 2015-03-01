@@ -47,8 +47,13 @@ public class LoginServlet extends HttpServlet {
 		
 		if (userManager.containsUser(email) && userManager.checkPassword(email, password)) {
 			// redirect to welcome page if login was successful
-			RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
-			dispatch.forward(request, response);
+			if(userManager.isAdmin(email)){
+				RequestDispatcher dispatch = request.getRequestDispatcher("adminpage.jsp");
+				dispatch.forward(request, response);
+			} else{
+				RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
+				dispatch.forward(request, response);
+			}
 		} else {
 			// redirect to invalid page if user name or password do not match or are wrong
 			RequestDispatcher dispatch = request.getRequestDispatcher("invalid_account.jsp");
