@@ -47,6 +47,6 @@ public class QuizCreationServlet extends HttpServlet {
 		Boolean immediate_correction = request.getParameter("immediate_correction").equals("Yes");
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("add_question.jsp");
-		dispatcher.forward(request, response); 
+		dispatch.forward(request, response); 
 	}
 }
