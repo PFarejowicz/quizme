@@ -2,6 +2,7 @@ package hw6Quiz;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class QuizManager {
 	
@@ -24,6 +25,18 @@ public class QuizManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public int getId(String name) {
+		try {
+			PreparedStatement prepStmt = con.prepareStatement("SELECT * FROM quizzes WHERE NAME = ?");
+			prepStmt.setString(1, name);
+			ResultSet rs = prepStmt.executeQuery();
+			return rs.getInt("name");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 
 }

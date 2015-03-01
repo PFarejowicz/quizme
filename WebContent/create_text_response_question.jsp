@@ -9,15 +9,18 @@
 <body>
 <h1>Create Text Response Question</h1>
 <form action="QuestionCreationServlet" method="post">
-</form>
 <p>Question: <br>
-<textarea rows="4" cols="50" name="prompt" ></textarea>
+<textarea rows="4" cols="50" name="prompt" ></textarea></p>
+<p>Answer: <br>
+<textarea rows="4" cols="50" name="answer" ></textarea></p>
+<p>Points: <input type="text" name="points"/></p>
+<!-- TODO: Add number check -->
 <input type="hidden" name="ques_type" value="text_response"/>
+<input type="hidden" name="quiz_id" value=${quiz_id}/>
 
-<!-- TODO -->
-<input type="submit" name="next" value="Next" />
-<input type="submit" name="previous" value="Previous">
+<input type="submit" name="next" value="Next"/>
+<input type="submit" name="previous" value="Previous"/>
 <input type="submit" name="finish" value="Finish" />
-</p>
+</form>
 </body>
 </html>

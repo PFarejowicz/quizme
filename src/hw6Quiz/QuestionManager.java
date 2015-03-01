@@ -11,9 +11,13 @@ public class QuestionManager {
 		this.con = con;
 	}
 	
-	public void addTextResponseQuestion(String prompt, int points) {
+	public void addTextResponseQuestion(int quiz_id, String prompt, String answer, int points) {
 		try {
-			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO text_questions VALUES(?, ?, ?, ?)");
+			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO text_questions (quiz_id, prompt, response, points) VALUES(?, ?, ?, ?)");
+			prepStmt.setInt(1, quiz_id);
+			prepStmt.setString(2, prompt);
+			prepStmt.setString(3, answer);
+			prepStmt.setInt(4, points);
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

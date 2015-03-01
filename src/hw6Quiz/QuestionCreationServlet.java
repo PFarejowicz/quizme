@@ -40,10 +40,12 @@ public class QuestionCreationServlet extends HttpServlet {
 		if (request.getParameter("previous") != null) {
 			// TODO go back
 		} else {
+			int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
 			String prompt = request.getParameter("prompt");
+			String answer = request.getParameter("answer");
 			int points = Integer.parseInt(request.getParameter("points"));
 			if (request.getParameter("ques_type").equals("text_response")) {
-				quesManager.addTextResponseQuestion(prompt, points);
+				quesManager.addTextResponseQuestion(quiz_id, prompt, answer, points);
 			} else if (request.getParameter("ques_type").equals("fill_blank")) {
 				// TODO
 			} else if (request.getParameter("ques_type").equals("multiple_choice")) {

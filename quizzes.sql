@@ -62,7 +62,7 @@ CREATE TABLE text_questions (
 	question_id INT UNSIGNED AUTO_INCREMENT,
 	quiz_id INT,
 	prompt VARCHAR(255),
-	response VARCHAR(255),
+	answer VARCHAR(255),
 	points INT,
 	PRIMARY KEY (question_id)
 );
@@ -73,7 +73,7 @@ CREATE TABLE fill_blank_questions (
 	question_id INT UNSIGNED AUTO_INCREMENT,
 	quiz_id INT,
 	prompt VARCHAR(255),
-	response VARCHAR(255),
+	answer VARCHAR(255),
 	points INT,
 	PRIMARY KEY (question_id)
 );
@@ -84,7 +84,7 @@ CREATE TABLE multiple_choice_questions (
 	question_id INT UNSIGNED AUTO_INCREMENT,
 	quiz_id INT,
 	prompt VARCHAR(255),
-	responses VARCHAR(255),
+	answer VARCHAR(255),
 	points INT,
 	PRIMARY KEY (question_id)
 );
@@ -95,7 +95,7 @@ CREATE TABLE picture_questions (
 	question_id INT UNSIGNED AUTO_INCREMENT,
 	quiz_id INT,
 	img_url VARCHAR(255),
-	response VARCHAR(255),
+	answer VARCHAR(255),
 	points INT,
 	PRIMARY KEY (question_id)
 );

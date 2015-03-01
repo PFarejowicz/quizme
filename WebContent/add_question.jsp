@@ -16,8 +16,8 @@
 <option value="multiple_choice">Multiple Choice Question</option>
 <option value="picture">Picture-Response Question</option>
 </select>
-<input  type="submit" value="Next" />
 </p>
+<p><input  type="submit" value="Next" /></p>
 </form>
 </body>
 </html>
