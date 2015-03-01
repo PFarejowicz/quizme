@@ -9,19 +9,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class AccountCreationServlet
+ * Servlet implementation class QuizCreationServlet
  */
-@WebServlet("/AccountCreationServlet")
-public class AccountCreationServlet extends HttpServlet {
+@WebServlet("/QuizCreationServlet")
+public class QuizCreationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AccountCreationServlet() {
+    public QuizCreationServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,27 +36,18 @@ public class AccountCreationServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ServletContext context = getServletContext();
-		HttpSession session = request.getSession();
-		UserManager userManager = (UserManager) context.getAttribute("user manager");
+		QuizManager quizManager = (QuizManager) getServletContext().getAttribute("quiz manager");
+		int user_id = (Integer) request.getSession().getAttribute("user id"); 
 		
 		// pull the name and password from the form data
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
 		String name = request.getParameter("name");
+		String description = request.getParameter("description");
+		Boolean random_order = request.getParameter("random_order").equals("Yes");
+		Boolean multiple_pages = request.getParameter("multiple_pages").equals("Yes");
+		Boolean immediate_correction = request.getParameter("immediate_correction").equals("Yes");
 		
-		if (userManager.containsUser(email)) {
-			// redirect to already used name page because the manager is already storing the name
-			RequestDispatcher dispatch = request.getRequestDispatcher("used_account.jsp");
-			dispatch.forward(request, response);
-		} else {
-			// switch to welcome page because account was created
-			userManager.addUser(email, password, name);
-			session.setAttribute("user id", userManager.getIDByEmail(email));
-			RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
-			dispatch.forward(request, response);
-		}
-
+		quizManager.addQuiz(name, description, user_id, random_order, multiple_pages, immediate_correction);
+		RequestDispatcher dispatch = request.getRequestDispatcher("add_question.jsp");
+		dispatch.forward(request, response); 
 	}
-
 }

@@ -104,4 +104,19 @@ public class UserManager {
 			e.printStackTrace();
 		}
 	}
+
+	public int getIDByEmail(String email) {
+		Statement stmt; 
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM users WHERE email = \"" + email + "\"");
+			if(rs.next()){
+				return rs.getInt("user_id");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
 }
