@@ -19,7 +19,7 @@ CREATE TABLE quizzes (
 	quiz_id INT UNSIGNED AUTO_INCREMENT,
     name VARCHAR(255),
     description VARCHAR(255),
-    user_id INT,
+    author_id INT,
     random_order BOOL,
     multiple_pages BOOL,
     auto_correction BOOL,
