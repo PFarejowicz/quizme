@@ -36,8 +36,8 @@ public class QuizCreationServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserManager manager = (UserManager) getServletContext().getAttribute("user manager");
-		String user_id = (String) request.getSession().getAttribute("user id"); 
+		QuizManager manager = (QuizManager) getServletContext().getAttribute("user manager");
+		int user_id = (Integer) request.getSession().getAttribute("user id"); 
 		
 		// pull the name and password from the form data
 		String name = request.getParameter("name");
@@ -46,6 +46,7 @@ public class QuizCreationServlet extends HttpServlet {
 		Boolean multiple_pages = request.getParameter("multiple_pages").equals("Yes");
 		Boolean immediate_correction = request.getParameter("immediate_correction").equals("Yes");
 		
+		manager.addQuiz(name, description, user_id, random_order, multiple_pages, immediate_correction);
 		RequestDispatcher dispatch = request.getRequestDispatcher("add_question.jsp");
 		dispatch.forward(request, response); 
 	}
