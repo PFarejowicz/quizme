@@ -39,15 +39,19 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext context = getServletContext();
-		UserManager manager = (UserManager) context.getAttribute("user manager");
+		UserManager userManager = (UserManager) context.getAttribute("user manager");
+		AdminManager adminManager = (AdminManager) context.getAttribute("admin manager");
 		
 		// pull the name and password from the creation servlet
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		if (manager.containsUser(email) && manager.checkPassword(email, password)) {
+		if (userManager.containsUser(email) && userManager.checkPassword(email, password)) {
 			// redirect to welcome page if login was successful
 			RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
+			dispatch.forward(request, response);
+		} else if(adminManager.containsAdmin(email) && adminManager.checkPassword(email, password)){
+			RequestDispatcher dispatch = request.getRequestDispatcher("adminpage.jsp");
 			dispatch.forward(request, response);
 		} else {
 			// redirect to invalid page if user name or password do not match or are wrong
