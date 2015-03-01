@@ -56,10 +56,45 @@ CREATE TABLE messages (
 	data VARCHAR(255)
 );
 
-DROP TABLE IF EXISTS announcements;
+DROP TABLE IF EXISTS text_questions;
 
-CREATE TABLE announcements(
-	announcement_id INT UNSIGNED AUTO_INCREMENT,
-	description VARCHAR(255),
-	PRIMARY KEY (announcement_id)
+CREATE TABLE text_questions (
+	question_id INT UNSIGNED AUTO_INCREMENT,
+	quiz_id INT,
+	prompt VARCHAR(255),
+	response VARCHAR(255),
+	points INT
+);
+
+DROP TABLE IF EXISTS fill_in_the_blank_questions;
+
+CREATE TABLE fill_in_the_blank_questions (
+	question_id INT UNSIGNED AUTO_INCREMENT,
+	quiz_id INT,
+	prompt VARCHAR(255),
+	response VARCHAR(255),
+	points INT
+);
+
+DROP TABLE IF EXISTS multiple_choice_questions;
+
+CREATE TABLE fill_in_the_blank_questions (
+	question_id INT UNSIGNED AUTO_INCREMENT,
+	quiz_id INT,
+	prompt VARCHAR(255),
+	response_a VARCHAR(255),
+	response_b VARCHAR(255),
+	response_c VARCHAR(255),
+	response_d VARCHAR(255),
+	points INT
+);
+
+DROP TABLE IF EXISTS picture_questions;
+
+CREATE TABLE picture_questions (
+	question_id INT UNSIGNED AUTO_INCREMENT,
+	quiz_id INT,
+	img_url VARCHAR(255),
+	response VARCHAR(255),
+	points INT
 );
