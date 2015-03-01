@@ -11,8 +11,8 @@ import java.util.Random;
 
 public class UserManager {
 
-	Connection con; 
-	ResultSet rs; 
+	private Connection con; 
+	private ResultSet rs; 
 	
 	public UserManager(Connection con) {
 		this.con = con; 

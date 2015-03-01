@@ -51,12 +51,19 @@ public class QuizListener implements ServletContextListener, HttpSessionListener
      */
     public void contextInitialized(ServletContextEvent arg0)  { 
     	DBConnection connection = new DBConnection();
-    	UserManager manager = new UserManager(connection.getConnection());
+    	UserManager userManager = new UserManager(connection.getConnection());
+    	QuizManager quizManager = new QuizManager(connection.getConnection());
+    	MessageManager messageManager = new MessageManager(connection.getConnection());
+    	FriendsManager friendsManager = new FriendsManager(connection.getConnection());
+    	
         ServletContext context = arg0.getServletContext();
         
         // store the catalog and connection for use between all users
         context.setAttribute("connection", connection);
-        context.setAttribute("user manager", manager);
+        context.setAttribute("user manager", userManager);
+        context.setAttribute("quiz manager", quizManager);
+        context.setAttribute("message manager", messageManager);
+        context.setAttribute("friends manager", friendsManager);
     }
 	
 }
