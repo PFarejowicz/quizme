@@ -29,10 +29,12 @@ public class QuizManager {
 	
 	public int getId(String name) {
 		try {
-			PreparedStatement prepStmt = con.prepareStatement("SELECT * FROM quizzes WHERE NAME = ?");
+			PreparedStatement prepStmt = con.prepareStatement("SELECT * FROM quizzes WHERE name = ?");
 			prepStmt.setString(1, name);
 			ResultSet rs = prepStmt.executeQuery();
-			return rs.getInt("name");
+			rs.next();
+			System.out.println(rs.getInt("quiz_id"));
+			return rs.getInt("quiz_id");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

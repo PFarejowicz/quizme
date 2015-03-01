@@ -48,7 +48,7 @@ public class QuizCreationServlet extends HttpServlet {
 		
 		quizManager.addQuiz(name, description, user_id, random_order, multiple_pages, immediate_correction);
 		// TODO: check if quiz already exists
-		request.setAttribute("quiz_id", quizManager.getId(name));
+		request.setAttribute("quiz_id", Integer.toString(quizManager.getId(name)));
 		RequestDispatcher dispatch = request.getRequestDispatcher("add_question.jsp");
 		dispatch.forward(request, response); 
 	}

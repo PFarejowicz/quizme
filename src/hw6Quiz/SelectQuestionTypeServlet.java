@@ -37,6 +37,7 @@ public class SelectQuestionTypeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String ques_type = request.getParameter("ques_type");
 		
+		request.setAttribute("quiz_id", request.getParameter("quiz_id"));
 		if (ques_type.equals("text_response")) {
 			RequestDispatcher dispatch = request.getRequestDispatcher("create_text_response_question.jsp");
 			dispatch.forward(request, response); 

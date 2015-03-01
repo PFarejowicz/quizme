@@ -16,7 +16,10 @@
 <p>Points: <input type="text" name="points"/></p>
 <!-- TODO: Add number check -->
 <input type="hidden" name="ques_type" value="text_response"/>
-<input type="hidden" name="quiz_id" value=${quiz_id}/>
+<%
+	String quiz_id = (String) request.getAttribute("quiz_id");
+%>
+<input type="hidden" name="quiz_id" value="<%=quiz_id%>"/>
 
 <input type="submit" name="next" value="Next"/>
 <input type="submit" name="previous" value="Previous"/>

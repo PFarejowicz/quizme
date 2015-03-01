@@ -17,6 +17,10 @@
 <option value="picture">Picture-Response Question</option>
 </select>
 </p>
+<%
+	String quiz_id = (String) request.getAttribute("quiz_id");
+%>
+<input type="hidden" name="quiz_id" value="<%=quiz_id%>"/>
 <p><input  type="submit" value="Next" /></p>
 </form>
 </body>
