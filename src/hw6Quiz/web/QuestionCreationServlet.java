@@ -1,6 +1,7 @@
 package hw6Quiz.web;
 
 import hw6Quiz.manager.QuestionManager;
+import hw6Quiz.model.QuestionResponse;
 
 import java.io.IOException;
 
@@ -43,11 +44,13 @@ public class QuestionCreationServlet extends HttpServlet {
 			// TODO go back
 		} else {
 			int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
+			int user_id = (Integer) request.getSession().getAttribute("user id"); 
 			String prompt = request.getParameter("prompt");
 			String answer = request.getParameter("answer");
 			int points = Integer.parseInt(request.getParameter("points"));
 			if (request.getParameter("ques_type").equals("text_response")) {
-				quesManager.addTextResponseQuestion(quiz_id, prompt, answer, points);
+				QuestionResponse questionObj = new QuestionResponse(quiz_id, user_id, prompt, answer);
+				quesManager.addQuestion(quiz_id, "QuestionResponse", questionObj);
 			} else if (request.getParameter("ques_type").equals("fill_blank")) {
 				// TODO
 			} else if (request.getParameter("ques_type").equals("multiple_choice")) {
