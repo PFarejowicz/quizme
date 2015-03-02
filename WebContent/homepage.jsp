@@ -24,19 +24,19 @@
 <p>History</p>
 
 <p>Send Messages</p>
-<form action="MessageServlet" method="post">
-<p>Send to: <input type="text" name="receiver" />
-<p>Message: <input type="text" name="new message" />
-<input type="submit" value="Send" /></p>
-</form>
+	<form action="MessageServlet" method="post">
+	<p>Send to: <input type="text" name="receiver" />
+	<p>Message: <input type="text" name="new message" />
+	<input type="submit" value="Send" /></p>
+	</form>
 
 <p>Your Messages</p>
 	<ul>
 	<% 
-	HashMap<String, String> messages = messageManager.getMessage(email);
+	ArrayList<String> messages = messageManager.getMessage(email);
 	%>
-	<%for (String from : messages.keySet()) { %>
-		<li><%=from%>: <%=messages.get(from)%></li>
+	<%for (int i = messages.size() - 1 ; i >= 0 ; i-=2) { %>
+		<li><%=messages.get(i)%>: <%=messages.get(i-i)%></li>
 	<%}%>
 	</ul>
 
