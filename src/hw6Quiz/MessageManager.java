@@ -26,10 +26,6 @@ public class MessageManager {
 			if (rs.next()) {
 				receiverId = rs.getInt("user_id");
 			}
-			System.out.println(senderId);
-			System.out.println(receiverId);
-			System.out.println(message);
-
 			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO messages VALUES(\"" + senderId + "\",\"" + receiverId + "\",\"" + message + "\")");
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
@@ -37,33 +33,30 @@ public class MessageManager {
 		}	
 	}
 	
-	public HashMap<String, String> getMessage (String receiver) {
+	public ArrayList<String> getMessage (String receiver) {
 		Statement stmt;
+		Statement stmt2;
 		int receiverId = 0;
-		HashMap<String, String> messages = new HashMap<String, String>();
+		ArrayList<String> messages = new ArrayList<String>();
 		try {
 			stmt = con.createStatement();
-//			System.out.println("test");
+			stmt2 = con.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM users WHERE email = \"" + receiver + "\"");
 			if (rs.next()) {
 				receiverId = rs.getInt("user_id");
 			}
 			rs = stmt.executeQuery("SELECT * FROM messages WHERE receiver_id = \"" + receiverId + "\"");
-			System.out.println(receiverId);
 
 			while (rs.next()) {
 				int senderId = rs.getInt(1);
 				String message = rs.getString(3);
-				System.out.println(senderId);
-				System.out.println(message);
-
-				ResultSet resultSet = stmt.executeQuery("SELECT * FROM users WHERE user_id = \"" + senderId + "\"");
+				ResultSet resultSet = stmt2.executeQuery("SELECT * FROM users WHERE user_id = \"" + senderId + "\"");
 				String senderEmail = "";
 				if (resultSet.next()) {
 					senderEmail = resultSet.getString("email");
 				}
-				System.out.println(senderEmail);
-				messages.put(senderEmail, message);
+				messages.add(message);
+				messages.add(senderEmail);
 			}
 			return messages;
 		} catch (Exception e) {
