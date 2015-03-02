@@ -8,19 +8,26 @@
 <title>
 <%
 QuizManager quizManager = (QuizManager) application.getAttribute("quiz manager");
-int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
+UserManager userManager = (UserManager) application.getAttribute("user manager");
+int quiz_id = 1;
+//Integer.parseInt(request.getParameter("quiz_id"));
 Quiz quiz = quizManager.getQuiz(quiz_id);
 out.println(quiz.getName());
 %>
 </title>
 </head>
 <body>
-<h1>Welcome to a QuizMe Quiz :)</h1>
-<p>Quiz Name:<%= quiz.getName() %></p>
-<p>Quiz Description:<%= quiz.getDescription() %></p>
-<p>Quiz Author:<%= quiz.getAuthorID() %></p>
-<p>Questions Presented in Random Order?:<%= quiz.isRandomOrder() %></p>
-<p>Questions Presented on Multiple Pages?:<%= quiz.isMultiplePages() %></p>
-<p>Immediate Corrections Provided for Questions?:<%= quiz.isImmediateCorrection() %></p>
+<h1>Welcome to a QuizMe Quiz</h1>
+<p>Quiz Name: <%= quiz.getName() %></p>
+<p>Quiz Description: <%= quiz.getDescription() %></p>
+<p>Quiz Author: <%= userManager.getNameByID(quiz.getAuthorID()) %></p>
+<p>Questions Presented in Random Order? <%= quiz.isRandomOrder() ? "Yes" : "No" %></p>
+<p>Questions Presented on Multiple Pages? <%= quiz.isMultiplePages() ? "Yes" : "No" %></p>
+<p>Immediate Corrections Provided for Questions? <%= quiz.isImmediateCorrection() ? "Yes" : "No" %></p>
+<a href="homepage.jsp"><button type="button">Return Home</button></a>
+<form action="QuizDispatcherServlet" method="post" style="display: inline">
+<input type="hidden" name="quiz_id" value="<%=quiz_id%>"/>
+<input  type="submit" value="Take Quiz" />
+</form>
 </body>
 </html>

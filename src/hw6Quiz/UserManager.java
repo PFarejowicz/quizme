@@ -120,4 +120,19 @@ public class UserManager {
 		return -1;
 	}
 	
+	public String getNameByID(int user_id) {
+		Statement stmt; 
+		try {
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE user_id = \"" + user_id + "\"");
+			if(rs.next()){
+				return rs.getString("name");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 }
