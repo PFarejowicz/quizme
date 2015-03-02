@@ -5,7 +5,7 @@ import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Random;
+import java.util.*;
 
 public class AdminManager {
 	
@@ -25,6 +25,20 @@ public class AdminManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<String> getAnnouncements(){
+		ArrayList<String> announcements = new ArrayList<String>();
+		try {
+			PreparedStatement prepStmt = con.prepareStatement("SELECT * FROM announcements");
+			rs = prepStmt.executeQuery();
+			while(rs.next()){
+				announcements.add(rs.getString("description"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return announcements;
 	}
 	
 	public void removeAnnouncement(int id){
