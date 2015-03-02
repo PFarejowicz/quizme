@@ -8,6 +8,7 @@
 <title>
 <%
 QuizManager quizManager = (QuizManager) application.getAttribute("quiz manager");
+UserManager userManager = (UserManager) application.getAttribute("user manager");
 int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
 Quiz quiz = quizManager.getQuiz(quiz_id);
 out.println(quiz.getName());
@@ -15,12 +16,15 @@ out.println(quiz.getName());
 </title>
 </head>
 <body>
-<h1>Welcome to a QuizMe Quiz :)</h1>
+<h1>Welcome to a QuizMe Quiz</h1>
 <p>Quiz Name:<%= quiz.getName() %></p>
 <p>Quiz Description:<%= quiz.getDescription() %></p>
-<p>Quiz Author:<%= quiz.getAuthorID() %></p>
-<p>Questions Presented in Random Order?:<%= quiz.isRandomOrder() %></p>
-<p>Questions Presented on Multiple Pages?:<%= quiz.isMultiplePages() %></p>
-<p>Immediate Corrections Provided for Questions?:<%= quiz.isImmediateCorrection() %></p>
+<p>Quiz Author:<%= userManager.getNameByID(quiz.getAuthorID()) %></p>
+<p>Questions Presented in Random Order?:<%= quiz.isRandomOrder() ? "Yes" : "No" %></p>
+<p>Questions Presented on Multiple Pages?:<%= quiz.isMultiplePages() ? "Yes" : "No" %></p>
+<p>Immediate Corrections Provided for Questions?:<%= quiz.isImmediateCorrection() ? "Yes" : "No" %></p>
+<form action="homepage.jsp">
+    <input type="submit" value="Go to Homepage">
+</form>
 </body>
 </html>
