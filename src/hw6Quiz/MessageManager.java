@@ -1,8 +1,7 @@
 package hw6Quiz;
 
 import java.sql.*;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.*;
 
 public class MessageManager {
 	
@@ -34,6 +33,33 @@ public class MessageManager {
 		}	
 	}
 	
-	
+	public HashMap<String, String> getMessage (String receiver) {
+		Statement stmt;
+		int receiverId = 0;
+		HashMap<String, String> messages = new HashMap<String, String>();
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM users WHERE email = \"" + receiver + "\"");
+			if (rs.next()) {
+				receiverId = rs.getInt("user_id");
+			}
+			rs = stmt.executeQuery("SELECT * FROM messages WHERE receiver_id = \"" + receiverId + "\"");
+		
+			while (rs.next()) {
+				int senderId = rs.getInt(1);
+				String message = rs.getString(3);
+				ResultSet resultSet = stmt.executeQuery("SELECT * FROM users WHERE user_id = \"" + senderId + "\"");
+				String senderEmail = "";
+				if (resultSet.next()) {
+					senderEmail = resultSet.getString("email");
+				}
+				messages.put(senderEmail, message);
+			}
+			return messages;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }

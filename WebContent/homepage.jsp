@@ -23,7 +23,22 @@
 
 <p>History</p>
 
-<p>Messages</p>
+<p>Send Messages</p>
+<form action="MessageServlet" method="post">
+<p>Send to: <input type="text" name="receiver" />
+<p>Message: <input type="text" name="new message" />
+<input type="submit" value="Send" /></p>
+</form>
+
+<p>Your Messages</p>
+	<ul>
+	<% 
+	HashMap<String, String> messages = messageManager.getMessage(email);
+	%>
+	<%for (String message : messages.keySet()) { %>
+		<li><%=message%>: <%=messages.get(message)%></li>
+	<%}%>
+	</ul>
 
 <p>Achievements</p>
 
