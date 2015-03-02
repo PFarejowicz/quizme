@@ -36,7 +36,7 @@
 	ArrayList<String> messages = messageManager.getMessage(email);
 	%>
 	<%for (int i = messages.size() - 1 ; i >= 0 ; i-=2) { %>
-		<li><%=messages.get(i)%>: <%=messages.get(i-i)%></li>
+		<li><%=messages.get(i)%>: <%=messages.get(i-1)%></li>
 	<%}%>
 	</ul>
 
