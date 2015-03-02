@@ -39,12 +39,12 @@ public class MessageServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext context = getServletContext();
 		HttpSession session = request.getSession();
+		
 		MessageManager messageManager = (MessageManager) context.getAttribute("message manager");
 		UserManager userManager = (UserManager) context.getAttribute("user manager");
-		String sender = (String) context.getAttribute("email");
+		String sender = (String) request.getSession().getAttribute("email");
 		
-		// pull the name and password from the creation servlet
-		String message = request.getParameter("message");
+		String message = request.getParameter("new message");
 		String receiver = request.getParameter("receiver");
 		
 		if (userManager.containsUser(receiver) && userManager.containsUser(sender)) {
