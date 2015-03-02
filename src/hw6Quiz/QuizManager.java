@@ -3,6 +3,8 @@ package hw6Quiz;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class QuizManager {
 	
@@ -27,7 +29,7 @@ public class QuizManager {
 		}
 	}
 	
-	public int getId(String name) {
+	public int getIDByName(String name) {
 		try {
 			PreparedStatement prepStmt = con.prepareStatement("SELECT * FROM quizzes WHERE name = ?");
 			prepStmt.setString(1, name);
@@ -39,6 +41,21 @@ public class QuizManager {
 			e.printStackTrace();
 		}
 		return -1;
+	}
+	
+	public Quiz getQuiz(int quiz_id) {
+		Statement stmt;
+		try {
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE quiz_id = \"" + quiz_id + "\"");
+			if(rs.next()){
+				Quiz quiz = new Quiz(quiz_id, rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"));
+				return quiz;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

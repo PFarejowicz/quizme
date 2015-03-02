@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>Select Question Type</h1>
-<form action="QuestionCreationTypeServlet" method="post">
+<form action="SelectQuestionTypeServlet" method="post">
 <p>Question Type: 
 <select name="ques_type">
 <option value="text_response">Question-Response Question</option>

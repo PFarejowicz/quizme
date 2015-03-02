@@ -107,3 +107,5 @@ CREATE TABLE announcements(
 	description VARCHAR(255),
 	PRIMARY KEY (announcement_id)
 );
+
+SET @@auto_increment_increment=1;
