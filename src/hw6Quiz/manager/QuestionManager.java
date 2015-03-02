@@ -11,40 +11,13 @@ public class QuestionManager {
 		this.con = con;
 	}
 	
-	public void addTextResponseQuestion(int quiz_id, String prompt, String answer, int points) {
+	public void addQuestion(int quiz_id, String prompt, String answer, int points) {
 		try {
-			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO text_questions (quiz_id, prompt, response, points) VALUES(?, ?, ?, ?)");
+			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO questions (quiz_id, prompt, response, points) VALUES(?, ?, ?, ?)");
 			prepStmt.setInt(1, quiz_id);
 			prepStmt.setString(2, prompt);
 			prepStmt.setString(3, answer);
 			prepStmt.setInt(4, points);
-			prepStmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void addFillBlankQuestion(String prompt) {
-		try {
-			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO fill_blank_questions VALUES(?, ?, ?, ?)");
-			prepStmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void addMultipleChoiceQuestion(String prompt) {
-		try {
-			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO multiple_choice_questions VALUES(?, ?, ?, ?)");
-			prepStmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void addPictureQuestion(String prompt) {
-		try {
-			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO picture_questions VALUES(?, ?, ?, ?)");
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
