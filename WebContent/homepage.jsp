@@ -27,6 +27,11 @@
 
 <p>Achievements</p>
 
+<p>Quiz</p>
+
+<p><a href="create_quiz.jsp">Create a Quiz</a></p>
+
+
 </body>
 </html>
 
