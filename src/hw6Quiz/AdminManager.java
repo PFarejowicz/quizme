@@ -49,6 +49,20 @@ public class AdminManager {
 			e.printStackTrace();
 		}
 	}
+
+	public ArrayList<String> getUsers(){
+		ArrayList<String> users = new ArrayList<String>();
+		try {
+			PreparedStatement prepStmt = con.prepareStatement("SELECT * FROM users");
+			rs = prepStmt.executeQuery();
+			while(rs.next()){
+				users.add(rs.getString("name"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return users;
+	}
 	
 	public void removeUserAccount(int id){
 		try {
@@ -58,16 +72,7 @@ public class AdminManager {
 			e.printStackTrace();
 		}
 	}
-	
-	public void clearHistoryForQuiz(int id){
-		try {
-			PreparedStatement prepStmt = con.prepareStatement("DELETE FROM quiz_history WHERE quiz_id = " + id);
-			prepStmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
+
 	public void promoteToAdmin(int id){
 		try {
 			PreparedStatement prepStmt = con.prepareStatement("UPDATE users SET admin_privilege = true WHERE user_id = " + id);
@@ -77,18 +82,27 @@ public class AdminManager {
 		}
 	}
 	
-	public int getNumberOfUsers(){
-		int count = 0;
+	public ArrayList<String> getQuizzes(){
+		ArrayList<String> quizzes = new ArrayList<String>();
 		try {
-			PreparedStatement prepStmt = con.prepareStatement("SELECT * FROM users");
+			PreparedStatement prepStmt = con.prepareStatement("SELECT * FROM quizzes");
 			rs = prepStmt.executeQuery();
 			while(rs.next()){
-				count++;
+				quizzes.add(rs.getString("name"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return count;
+		return quizzes;
+	}
+	
+	public void clearHistoryForQuiz(int id){
+		try {
+			PreparedStatement prepStmt = con.prepareStatement("DELETE FROM quiz_history WHERE quiz_id = " + id);
+			prepStmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public int getNumberOfQuizzes(){

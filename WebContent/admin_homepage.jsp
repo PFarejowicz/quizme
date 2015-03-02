@@ -17,5 +17,22 @@
 <li><%= announcements.get(i) %></li>
 <% } %>
 </ul>
+<h3>Users</h3>
+<% ArrayList<String> users = adminManager.getUsers(); %>
+<ul>
+<% for(int i = 0; i < users.size(); i++){ %>
+<li><%= users.get(i) %></li>
+<% } %>
+</ul>
+<h3>Quizzes</h3>
+<% ArrayList<String> quizzes = adminManager.getQuizzes(); %>
+<ul>
+<% for(int i = 0; i < quizzes.size(); i++){ %>
+<li><%= quizzes.get(i) %></li>
+<% } %>
+</ul>
+<h3>Site Statistics</h3>
+<p>Number of users: <%= users.size() %></p>
+<p>Number of quizzes taken: <%= adminManager.getNumberOfQuizzes() %></p>
 </body>
 </html>
