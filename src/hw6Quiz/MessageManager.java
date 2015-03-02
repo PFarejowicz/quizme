@@ -26,7 +26,11 @@ public class MessageManager {
 			if (rs.next()) {
 				receiverId = rs.getInt("user_id");
 			}
-			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO messages VALUES(" + senderId + ", " + receiverId + ", " + message + ")");
+			System.out.println(senderId);
+			System.out.println(receiverId);
+			System.out.println(message);
+
+			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO messages VALUES(\"" + senderId + "\",\"" + receiverId + "\",\"" + message + "\")");
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -39,20 +43,26 @@ public class MessageManager {
 		HashMap<String, String> messages = new HashMap<String, String>();
 		try {
 			stmt = con.createStatement();
+//			System.out.println("test");
 			rs = stmt.executeQuery("SELECT * FROM users WHERE email = \"" + receiver + "\"");
 			if (rs.next()) {
 				receiverId = rs.getInt("user_id");
 			}
 			rs = stmt.executeQuery("SELECT * FROM messages WHERE receiver_id = \"" + receiverId + "\"");
-		
+			System.out.println(receiverId);
+
 			while (rs.next()) {
 				int senderId = rs.getInt(1);
 				String message = rs.getString(3);
+				System.out.println(senderId);
+				System.out.println(message);
+
 				ResultSet resultSet = stmt.executeQuery("SELECT * FROM users WHERE user_id = \"" + senderId + "\"");
 				String senderEmail = "";
 				if (resultSet.next()) {
 					senderEmail = resultSet.getString("email");
 				}
+				System.out.println(senderEmail);
 				messages.put(senderEmail, message);
 			}
 			return messages;

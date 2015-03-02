@@ -35,10 +35,11 @@
 	<% 
 	HashMap<String, String> messages = messageManager.getMessage(email);
 	%>
-	<%for (String message : messages.keySet()) { %>
-		<li><%=message%>: <%=messages.get(message)%></li>
+	<%for (String from : messages.keySet()) { %>
+		<li><%=from%>: <%=messages.get(from)%></li>
 	<%}%>
 	</ul>
+
 
 <p>Achievements</p>
 
