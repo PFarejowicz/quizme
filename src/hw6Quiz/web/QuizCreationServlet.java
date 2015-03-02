@@ -1,4 +1,6 @@
-package hw6Quiz;
+package hw6Quiz.web;
+
+import hw6Quiz.manager.QuizManager;
 
 import java.io.IOException;
 

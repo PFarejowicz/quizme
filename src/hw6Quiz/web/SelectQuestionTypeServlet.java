@@ -1,4 +1,4 @@
-package hw6Quiz;
+package hw6Quiz.web;
 
 import java.io.IOException;
 

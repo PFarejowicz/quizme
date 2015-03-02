@@ -1,4 +1,4 @@
-package hw6Quiz;
+package hw6Quiz.manager;
 
 import java.sql.*;
 import java.util.*;

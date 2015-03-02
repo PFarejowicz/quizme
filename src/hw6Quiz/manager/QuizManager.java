@@ -1,4 +1,6 @@
-package hw6Quiz;
+package hw6Quiz.manager;
+
+import hw6Quiz.model.Quiz;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

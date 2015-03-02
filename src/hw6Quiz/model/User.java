@@ -1,4 +1,4 @@
-package hw6Quiz;
+package hw6Quiz.model;
 
 import java.util.*;
 

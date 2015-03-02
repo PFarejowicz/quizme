@@ -1,4 +1,4 @@
-package hw6Quiz;
+package hw6Quiz.manager;
 
 import java.security.MessageDigest;
 import java.security.SecureRandom;

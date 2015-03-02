@@ -1,4 +1,7 @@
-package hw6Quiz;
+package hw6Quiz.web;
+
+import hw6Quiz.manager.MessageManager;
+import hw6Quiz.manager.UserManager;
 
 import java.io.IOException;
 
@@ -12,16 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class AccountCreationServlet
+ * Servlet implementation class MessageServlet
  */
-@WebServlet("/AccountCreationServlet")
-public class AccountCreationServlet extends HttpServlet {
+@WebServlet("/MessageServlet")
+public class MessageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AccountCreationServlet() {
+    public MessageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,25 +42,17 @@ public class AccountCreationServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext context = getServletContext();
 		HttpSession session = request.getSession();
+		
+		MessageManager messageManager = (MessageManager) context.getAttribute("message manager");
 		UserManager userManager = (UserManager) context.getAttribute("user manager");
+		String sender = (String) request.getSession().getAttribute("email");
 		
-		// pull the name and password from the form data
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String name = request.getParameter("name");
+		String message = request.getParameter("new message");
+		String receiver = request.getParameter("receiver");
 		
-		if (userManager.containsUser(email)) {
-			// redirect to already used name page because the manager is already storing the name
-			RequestDispatcher dispatch = request.getRequestDispatcher("used_account.jsp");
-			dispatch.forward(request, response);
-		} else {
-			// switch to welcome page because account was created
-			userManager.addUser(email, password, name);
-			session.setAttribute("user id", userManager.getIDByEmail(email));
-			RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
-			dispatch.forward(request, response);
+		if (userManager.containsUser(receiver) && userManager.containsUser(sender)) {
+			messageManager.sendMessage(message, sender, receiver);
 		}
-
 	}
 
 }
