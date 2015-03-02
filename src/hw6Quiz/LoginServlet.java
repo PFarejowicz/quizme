@@ -50,6 +50,7 @@ public class LoginServlet extends HttpServlet {
 		if (userManager.containsUser(email) && userManager.checkPassword(email, password)) {
 			// redirect to welcome page if login was successful
 			session.setAttribute("user id", userManager.getIDByEmail(email));
+			session.setAttribute("email", email);
 			if(userManager.isAdmin(email)){
 				RequestDispatcher dispatch = request.getRequestDispatcher("admin_homepage.jsp");
 				dispatch.forward(request, response);
@@ -63,5 +64,5 @@ public class LoginServlet extends HttpServlet {
 			dispatch.forward(request, response);
 		}
 	}
-
+	
 }

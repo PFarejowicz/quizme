@@ -13,7 +13,7 @@ public class MessageManager {
 		this.con = con; 
 	}
 	
-	public void addMessage(String message, String sender, String receiver) {
+	public void sendMessage(String message, String sender, String receiver) {
 		Statement stmt;
 		int senderId = 0;
 		int receiverId = 0;
@@ -33,5 +33,7 @@ public class MessageManager {
 			e.printStackTrace();
 		}	
 	}
+	
+	
 
 }
