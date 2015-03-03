@@ -25,8 +25,11 @@ out.println(quiz.getName());
 <p>Questions Presented on Multiple Pages? <%= quiz.isMultiplePages() ? "Yes" : "No" %></p>
 <p>Immediate Corrections Provided for Questions? <%= quiz.isImmediateCorrection() ? "Yes" : "No" %></p>
 <a href="homepage.jsp"><button type="button">Return Home</button></a>
-<form action="QuizDispatcherServlet" method="post" style="display: inline">
+<form action="QuizStartServlet" method="post" style="display: inline">
 <input type="hidden" name="quiz_id" value="<%=quiz_id%>"/>
+<input type="hidden" name="random_order" value="<%=quiz.isRandomOrder()%>"/>
+<input type="hidden" name="multiple_pages" value="<%=quiz.isMultiplePages()%>"/>
+<input type="hidden" name="immediate_correction" value="<%=quiz.isImmediateCorrection()%>"/>
 <input  type="submit" value="Take Quiz" />
 </form>
 </body>

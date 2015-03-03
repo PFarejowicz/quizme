@@ -3,7 +3,6 @@ package hw6Quiz.manager;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class QuestionManager {
 
@@ -30,13 +29,13 @@ public class QuestionManager {
 		}
 	}
 	
-	public HashMap<Integer, String> getQuestionIDs(int quiz_id) {
-		HashMap<Integer, String> questions = new HashMap<Integer, String>();
+	public ArrayList<Integer> getQuestionIDs(int quiz_id) {
+		ArrayList<Integer> questions = new ArrayList<Integer>();
 		try {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM questions WHERE quiz_id = \"" + quiz_id + "\"");
 			while (rs.next()){
-				questions.put(rs.getInt("question_id"), rs.getString("question_type"));
+				questions.add(rs.getInt("question_id"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -59,6 +58,19 @@ public class QuestionManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public String getTypeByID(int question_id) {
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM questions WHERE question_id = \"" + question_id + "\"");
+			if (rs.next()){
+				return rs.getString("question_type");
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
