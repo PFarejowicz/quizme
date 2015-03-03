@@ -9,7 +9,6 @@ CREATE TABLE IF NOT EXISTS users (
     salt VARCHAR(255),
     name VARCHAR(255),
     admin_privilege BOOL,
-    friends LONGBLOB,
     PRIMARY KEY (user_id)
 );
 
@@ -41,9 +40,8 @@ CREATE TABLE IF NOT EXISTS quiz_history (
 );
 
 CREATE TABLE IF NOT EXISTS friends (
-	friends_id INT UNSIGNED AUTO_INCREMENT,
-	user_id_1 INT UNSIGNED,
-	user_id_2 INT UNSIGNED,
+	user_id INT UNSIGNED AUTO_INCREMENT,
+    friends LONGBLOB,
 	PRIMARY KEY (friends_id)
 );
 
