@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS users (
     salt VARCHAR(255),
     name VARCHAR(255),
     admin_privilege BOOL,
+    friends LONGBLOB,
     PRIMARY KEY (user_id)
 );
 
