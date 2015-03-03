@@ -1,6 +1,9 @@
 package hw6Quiz.web;
 
 import hw6Quiz.manager.QuestionManager;
+import hw6Quiz.model.FillInTheBlank;
+import hw6Quiz.model.MultipleChoice;
+import hw6Quiz.model.PictureResponse;
 import hw6Quiz.model.QuestionResponse;
 
 import java.io.IOException;
@@ -39,24 +42,31 @@ public class QuestionCreationServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		QuestionManager quesManager = (QuestionManager) getServletContext().getAttribute("question manager");
-		
+		request.setAttribute("quiz_id", request.getParameter("quiz_id"));
 		if (request.getParameter("previous") != null) {
 			// TODO go back
 		} else {
 			int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
-			int user_id = (Integer) request.getSession().getAttribute("user id"); 
+			int user_id = 1;			// TODO set default for testing
+			if (request.getSession().getAttribute("user id") != null) {
+				user_id = (Integer) request.getSession().getAttribute("user id");
+			}
 			String prompt = request.getParameter("prompt");
 			String answer = request.getParameter("answer");
-			int points = Integer.parseInt(request.getParameter("points"));
-			if (request.getParameter("ques_type").equals("text_response")) {
+//			int points = Integer.parseInt(request.getParameter("points"));
+			if (request.getParameter("ques_type").equals("question_response")) {
 				QuestionResponse questionObj = new QuestionResponse(quiz_id, user_id, prompt, answer);
 				quesManager.addQuestion(quiz_id, "QuestionResponse", questionObj);
 			} else if (request.getParameter("ques_type").equals("fill_blank")) {
-				// TODO
+				FillInTheBlank questionObj = new FillInTheBlank(quiz_id, user_id, prompt, answer);
+				quesManager.addQuestion(quiz_id, "FillInTheBlank", questionObj);
 			} else if (request.getParameter("ques_type").equals("multiple_choice")) {
-				// TODO
+				String choices = request.getParameter("choices");
+				MultipleChoice questionObj = new MultipleChoice(quiz_id, user_id, prompt, choices, answer);
+				quesManager.addQuestion(quiz_id, "MultipleChoice", questionObj);
 			} else if (request.getParameter("ques_type").equals("picture")) {
-				// TODO
+				PictureResponse questionObj = new PictureResponse(quiz_id, user_id, prompt, answer);
+				quesManager.addQuestion(quiz_id, "PictureResponse", questionObj);
 			}
 			
 			if (request.getParameter("next") != null) {						// next question

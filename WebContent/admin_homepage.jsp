@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="hw6Quiz.manager.*, java.text.*, java.util.*" %>
+<%@ page import="hw6Quiz.manager.*, java.text.*, java.util.*, hw6Quiz.model.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,15 +17,29 @@
 <li><%= announcements.get(i) %></li>
 <% } %>
 </ul>
-<h3>Users</h3>
-<% ArrayList<String> users = adminManager.getUsers(); %>
-<ul>
+<form action="AdminCreateAnnouncementServlet" method="post">
+<p><input type="text" name="announcement" /></p>
+<input type="submit" value="Add Announcement" />
+</form>
+<% ArrayList<User> users = adminManager.getUsers(); %>
+<h3>Admins</h3>
 <% for(int i = 0; i < users.size(); i++){ %>
-<li><%= users.get(i) %></li>
+	<% if (users.get(i).getAdmin()){ %>
+		<p><%= users.get(i).getName() %></p>
+	<% } %>
 <% } %>
-</ul>
-<h3>Quizzes</h3>
+<h3>Users</h3>
+<% for(int i = 0; i < users.size(); i++){ %>
+	<% if (!users.get(i).getAdmin()){ %>
+		<%= users.get(i).getName() %>
+		<form action="AdminPromotionServlet" method="post">
+		<input name="id" type="hidden" value="<%= users.get(i).getId() %>"/>
+		<input type="submit" value="Promote to Admin" />
+		</form><br/>
+	<% } %>
+<% } %>
 <% ArrayList<String> quizzes = adminManager.getQuizzes(); %>
+<h3>Quizzes</h3>
 <ul>
 <% for(int i = 0; i < quizzes.size(); i++){ %>
 <li><%= quizzes.get(i) %></li>

@@ -6,13 +6,13 @@ public class PictureResponse implements java.io.Serializable {
 	private int quiz_id;
 	private int author_id;
 	private String img_url;
-	private String answer_text;
+	private String answer;
 
 	public PictureResponse(int quiz_id, int author_id, String url, String answer) {
 		this.quiz_id = quiz_id;
 		this.author_id = author_id;
 		this.img_url = url;
-		this.answer_text = answer;
+		this.answer = answer;
 	}
 
 	public String getImageURL() {
@@ -20,7 +20,7 @@ public class PictureResponse implements java.io.Serializable {
 	}
 	
 	public String getAnswerText() {
-		return answer_text;
+		return answer;
 	}
 
 }
