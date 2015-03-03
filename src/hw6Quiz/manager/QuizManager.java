@@ -59,5 +59,23 @@ public class QuizManager {
 		}
 		return null;
 	}
+	
+	/**
+	 * Adds quiz result to quiz history
+	 * @param quiz_id quiz ID
+	 * @param user_id user ID
+	 * @param score score of quiz
+	 */
+	public void addQuizResult(int quiz_id, int user_id, int score) {
+		try {
+			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO quiz_history (quiz_id, user_id, score) VALUES (?, ?, ?)");
+			prepStmt.setInt(1, quiz_id);
+			prepStmt.setInt(2, user_id);
+			prepStmt.setInt(3, score);
+			prepStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

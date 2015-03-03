@@ -50,6 +50,7 @@ for (int question_id : questions) {
 	question_number++;
 }
 %>
+<input type="hidden" name="quiz_id" value="<%=quiz_id%>" />
 <input type="submit" value="Grade Quiz" />
 </form>
 </body>
