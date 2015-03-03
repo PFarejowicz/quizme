@@ -39,15 +39,18 @@ public class QuestionCreationServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		QuestionManager quesManager = (QuestionManager) getServletContext().getAttribute("question manager");
-		
+		request.setAttribute("quiz_id", request.getParameter("quiz_id"));
 		if (request.getParameter("previous") != null) {
 			// TODO go back
 		} else {
 			int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
-			int user_id = (Integer) request.getSession().getAttribute("user id"); 
+			int user_id = 1;			// TODO set default for testing
+			if (request.getSession().getAttribute("user id") != null) {
+				user_id = (Integer) request.getSession().getAttribute("user id");
+			}
 			String prompt = request.getParameter("prompt");
 			String answer = request.getParameter("answer");
-			int points = Integer.parseInt(request.getParameter("points"));
+//			int points = Integer.parseInt(request.getParameter("points"));
 			if (request.getParameter("ques_type").equals("text_response")) {
 				QuestionResponse questionObj = new QuestionResponse(quiz_id, user_id, prompt, answer);
 				quesManager.addQuestion(quiz_id, "QuestionResponse", questionObj);
