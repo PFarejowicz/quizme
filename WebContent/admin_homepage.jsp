@@ -17,6 +17,10 @@
 <li><%= announcements.get(i) %></li>
 <% } %>
 </ul>
+<form action="AdminCreateAnnouncementServlet" method="post">
+<p><input type="text" name="announcement" /></p>
+<input type="submit" value="Add Announcement" />
+</form>
 <% ArrayList<User> users = adminManager.getUsers(); %>
 <h3>Admins</h3>
 <ul>
