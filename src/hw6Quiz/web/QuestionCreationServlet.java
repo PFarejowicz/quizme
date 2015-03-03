@@ -1,6 +1,9 @@
 package hw6Quiz.web;
 
 import hw6Quiz.manager.QuestionManager;
+import hw6Quiz.model.FillInTheBlank;
+import hw6Quiz.model.MultipleChoice;
+import hw6Quiz.model.PictureResponse;
 import hw6Quiz.model.QuestionResponse;
 
 import java.io.IOException;
@@ -50,15 +53,19 @@ public class QuestionCreationServlet extends HttpServlet {
 			}
 			String prompt = request.getParameter("prompt");
 			String answer = request.getParameter("answer");
-			QuestionResponse questionObj = new QuestionResponse(quiz_id, user_id, prompt, answer);
 //			int points = Integer.parseInt(request.getParameter("points"));
 			if (request.getParameter("ques_type").equals("question_response")) {
+				QuestionResponse questionObj = new QuestionResponse(quiz_id, user_id, prompt, answer);
 				quesManager.addQuestion(quiz_id, "QuestionResponse", questionObj);
 			} else if (request.getParameter("ques_type").equals("fill_blank")) {
+				FillInTheBlank questionObj = new FillInTheBlank(quiz_id, user_id, prompt, answer);
 				quesManager.addQuestion(quiz_id, "FillInTheBlank", questionObj);
 			} else if (request.getParameter("ques_type").equals("multiple_choice")) {
+				String choices = request.getParameter("choices");
+				MultipleChoice questionObj = new MultipleChoice(quiz_id, user_id, prompt, choices, answer);
 				quesManager.addQuestion(quiz_id, "MultipleChoice", questionObj);
 			} else if (request.getParameter("ques_type").equals("picture")) {
+				PictureResponse questionObj = new PictureResponse(quiz_id, user_id, prompt, answer);
 				quesManager.addQuestion(quiz_id, "PictureResponse", questionObj);
 			}
 			
