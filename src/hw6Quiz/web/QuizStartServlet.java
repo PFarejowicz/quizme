@@ -42,7 +42,7 @@ public class QuizStartServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		QuestionManager questionManager = (QuestionManager) getServletContext().getAttribute("question manager");
-		int quiz_id = Integer.parseInt(request.getParameter("quiz id"));
+		int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
 		
 		ArrayList<Integer> questions = questionManager.getQuestionIDs(quiz_id);
 		boolean random_order = request.getParameter("random_order").equals("true");
@@ -51,7 +51,9 @@ public class QuizStartServlet extends HttpServlet {
 		
 		boolean multiple_pages = request.getParameter("multiple_pages").equals("true");
 		if (multiple_pages) {
-			boolean immediate_correction = request.getParameter("immediate_correction").equals("true");
+			request.setAttribute("question_num", 1);
+			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_multiple_page_view.jsp");
+			dispatch.forward(request, response); 
 		} else {
 			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_single_page_view.jsp");
 			dispatch.forward(request, response); 
