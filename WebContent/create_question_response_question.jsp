@@ -15,7 +15,7 @@
 <textarea rows="4" cols="50" name="answer" ></textarea></p>
 <p>Points: <input type="text" name="points"/></p>
 <!-- TODO: Add number check -->
-<input type="hidden" name="ques_type" value="text_response"/>
+<input type="hidden" name="ques_type" value="question_response"/>
 <%
 	String quiz_id = (String) request.getAttribute("quiz_id");
 %>

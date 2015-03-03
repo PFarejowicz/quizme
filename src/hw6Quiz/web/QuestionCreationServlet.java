@@ -50,16 +50,16 @@ public class QuestionCreationServlet extends HttpServlet {
 			}
 			String prompt = request.getParameter("prompt");
 			String answer = request.getParameter("answer");
+			QuestionResponse questionObj = new QuestionResponse(quiz_id, user_id, prompt, answer);
 //			int points = Integer.parseInt(request.getParameter("points"));
-			if (request.getParameter("ques_type").equals("text_response")) {
-				QuestionResponse questionObj = new QuestionResponse(quiz_id, user_id, prompt, answer);
+			if (request.getParameter("ques_type").equals("question_response")) {
 				quesManager.addQuestion(quiz_id, "QuestionResponse", questionObj);
 			} else if (request.getParameter("ques_type").equals("fill_blank")) {
-				// TODO
+				quesManager.addQuestion(quiz_id, "FillInTheBlank", questionObj);
 			} else if (request.getParameter("ques_type").equals("multiple_choice")) {
-				// TODO
+				quesManager.addQuestion(quiz_id, "MultipleChoice", questionObj);
 			} else if (request.getParameter("ques_type").equals("picture")) {
-				// TODO
+				quesManager.addQuestion(quiz_id, "PictureResponse", questionObj);
 			}
 			
 			if (request.getParameter("next") != null) {						// next question
