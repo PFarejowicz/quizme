@@ -41,8 +41,8 @@ CREATE TABLE IF NOT EXISTS quiz_history (
 
 CREATE TABLE IF NOT EXISTS friends (
 	user_id INT UNSIGNED AUTO_INCREMENT,
-    friends LONGBLOB,
-	PRIMARY KEY (friends_id)
+    friend_list LONGBLOB,
+	PRIMARY KEY (user_id)
 );
 
 CREATE TABLE IF NOT EXISTS friend_requests (

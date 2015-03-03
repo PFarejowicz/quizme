@@ -33,6 +33,16 @@
 	<input type="submit" value="Add" /></p>
 	</form>
 	
+<p>Your Friends</p>
+<%-- 	<ul>
+	<% 
+	ArrayList<String> messages = messageManager.getMessage(email);
+	%>
+	<%for (int i = messages.size() - 1 ; i >= 0 ; i-=2) { %>
+		<li><%=messages.get(i)%>: <%=messages.get(i-1)%></li>
+	<%}%>
+	</ul> --%>
+	
 <p>Send Messages</p>
 	<form action="MessageServlet" method="post">
 	<p>Send to: <input type="text" name="receiver" />
