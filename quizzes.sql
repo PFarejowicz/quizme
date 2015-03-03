@@ -1,5 +1,7 @@
 USE c_cs108_pfarejow;
   
+SET @@auto_increment_increment=1;
+
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
 	user_id INT UNSIGNED AUTO_INCREMENT,
@@ -64,5 +66,3 @@ CREATE TABLE announcements (
 	description VARCHAR(255),
 	PRIMARY KEY (announcement_id)
 );
-
-SET @@auto_increment_increment=1;

@@ -1,4 +1,5 @@
 package hw6Quiz.manager;
+import hw6Quiz.model.*;
 
 import java.security.MessageDigest;
 import java.security.SecureRandom;
@@ -50,13 +51,14 @@ public class AdminManager {
 		}
 	}
 
-	public ArrayList<String> getUsers(){
-		ArrayList<String> users = new ArrayList<String>();
+	public ArrayList<User> getUsers(){
+		ArrayList<User> users = new ArrayList<User>();
 		try {
 			PreparedStatement prepStmt = con.prepareStatement("SELECT * FROM users");
 			rs = prepStmt.executeQuery();
 			while(rs.next()){
-				users.add(rs.getString("name"));
+				User user = new User(rs.getInt("user_id"), rs.getString("email"), rs.getString("name"), rs.getBoolean("admin_privilege"));
+				users.add(user);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -4,25 +4,31 @@ import java.util.*;
 
 public class User {
 
-	String username = "";
-	String password = "";
-	ArrayList<String> message;
-	ArrayList<String> friends;
+	private int id;
+	private String email;
+	private String name;
+	private boolean admin;
 	
-	public User(String username) {
-		this.username = username;
+	public User(int id, String email, String name, boolean admin) {
+		this.id = id;
+		this.email = email;
+		this.name = name;
+		this.admin = admin;
 	}
 	
-	public void setPassword(String password) {
-		this.password = password;
+	public int getId(){
+		return id;
 	}
 	
-	public void setMessage(ArrayList<String> message) {
-		this.message = message;
+	public String getEmail(){
+		return email;
 	}
 	
-	public void setFriends(ArrayList<String> friends) {
-		this.friends = friends;
+	public String getName(){
+		return name;
 	}
 	
+	public boolean getAdmin(){
+		return admin;
+	}
 }
