@@ -35,26 +35,30 @@ CREATE TABLE IF NOT EXISTS quiz_history (
 	quiz_history_id INT UNSIGNED AUTO_INCREMENT,
 	quiz_id INT,
 	user_id INT,
-	score INT
+	score INT,
+	PRIMARY KEY (quiz_history_id)
 );
 
 CREATE TABLE IF NOT EXISTS friends (
 	friends_id INT UNSIGNED AUTO_INCREMENT,
 	user_id_1 INT UNSIGNED,
-	user_id_2 INT UNSIGNED
+	user_id_2 INT UNSIGNED,
+	PRIMARY KEY (friends_id)
 );
 
 CREATE TABLE IF NOT EXISTS friend_requests (
 	friend_request_id INT UNSIGNED AUTO_INCREMENT,
 	from_user_id INT UNSIGNED,
-	to_user_id INT UNSIGNED
+	to_user_id INT UNSIGNED,
+	PRIMARY KEY (friend_request_id)
 );
 
 CREATE TABLE IF NOT EXISTS messages (
 	message_id INT UNSIGNED AUTO_INCREMENT,
 	sender_id INT UNSIGNED,
 	receiver_id INT UNSIGNED,
-	data VARCHAR(255)
+	data VARCHAR(255),
+	PRIMARY KEY (message_id)
 );
 
 CREATE TABLE IF NOT EXISTS announcements (
