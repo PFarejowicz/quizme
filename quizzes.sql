@@ -2,8 +2,7 @@ USE c_cs108_pfarejow;
   
 SET @@auto_increment_increment=1;
 
-DROP TABLE IF EXISTS users;
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
 	user_id INT UNSIGNED AUTO_INCREMENT,
     email VARCHAR(255),
     password VARCHAR(255),
@@ -13,8 +12,7 @@ CREATE TABLE users (
     PRIMARY KEY (user_id)
 );
 
-DROP TABLE IF EXISTS quizzes;
-CREATE TABLE quizzes (
+CREATE TABLE IF NOT EXISTS quizzes (
 	quiz_id INT UNSIGNED AUTO_INCREMENT,
     name VARCHAR(255),
     description VARCHAR(255),
@@ -25,8 +23,7 @@ CREATE TABLE quizzes (
     PRIMARY KEY (quiz_id)
 );
 
-DROP TABLE IF EXISTS questions;
-CREATE TABLE questions (
+CREATE TABLE IF NOT EXISTS questions (
   question_id INT UNSIGNED AUTO_INCREMENT,
   quiz_id INT,
   question_type enum('QuestionResponse','FillInTheBlank','MultipleChoice','PictureResponse'),
@@ -34,34 +31,33 @@ CREATE TABLE questions (
   PRIMARY KEY (question_id)
 );
 
-DROP TABLE IF EXISTS quiz_history;
-CREATE TABLE quiz_history (
+CREATE TABLE IF NOT EXISTS quiz_history (
+	quiz_history_id INT UNSIGNED AUTO_INCREMENT,
 	quiz_id INT,
 	user_id INT,
 	score INT
 );
 
-DROP TABLE IF EXISTS friends;
-CREATE TABLE friends (
+CREATE TABLE IF NOT EXISTS friends (
+	friends_id INT UNSIGNED AUTO_INCREMENT,
 	user_id_1 INT UNSIGNED,
 	user_id_2 INT UNSIGNED
 );
 
-DROP TABLE IF EXISTS friend_requests;
-CREATE TABLE friend_requests (
+CREATE TABLE IF NOT EXISTS friend_requests (
+	friend_request_id INT UNSIGNED AUTO_INCREMENT,
 	from_user_id INT UNSIGNED,
 	to_user_id INT UNSIGNED
 );
 
-DROP TABLE IF EXISTS messages;
-CREATE TABLE messages (
+CREATE TABLE IF NOT EXISTS messages (
+	message_id INT UNSIGNED AUTO_INCREMENT,
 	sender_id INT UNSIGNED,
 	receiver_id INT UNSIGNED,
 	data VARCHAR(255)
 );
 
-DROP TABLE IF EXISTS announcements;
-CREATE TABLE announcements (
+CREATE TABLE IF NOT EXISTS announcements (
 	announcement_id INT UNSIGNED AUTO_INCREMENT,
 	description VARCHAR(255),
 	PRIMARY KEY (announcement_id)
