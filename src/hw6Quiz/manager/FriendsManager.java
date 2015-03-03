@@ -42,7 +42,7 @@ public class FriendsManager {
 				ObjectOutputStream os = new ObjectOutputStream(bs);
 				os.writeObject(friendsList);
 				os.close();
-				PreparedStatement prepStmt = con.prepareStatement("INSERT INTO users (friends) VALUES(?)");
+				PreparedStatement prepStmt = con.prepareStatement("INSERT INTO friends VALUES(?)");
 				prepStmt.setObject(7, bs.toByteArray());
 				prepStmt.executeUpdate();
 			}		
