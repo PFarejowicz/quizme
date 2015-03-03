@@ -23,21 +23,21 @@
 </form>
 <% ArrayList<User> users = adminManager.getUsers(); %>
 <h3>Admins</h3>
-<ul>
 <% for(int i = 0; i < users.size(); i++){ %>
 	<% if (users.get(i).getAdmin()){ %>
-		<li><%= users.get(i).getName() %></li>
+		<p><%= users.get(i).getName() %></p>
 	<% } %>
 <% } %>
-</ul>
 <h3>Users</h3>
-<ul>
 <% for(int i = 0; i < users.size(); i++){ %>
 	<% if (!users.get(i).getAdmin()){ %>
-		<li><%= users.get(i).getName() %></li>
+		<%= users.get(i).getName() %>
+		<form action="AdminPromotionServlet" method="post">
+		<input name="id" type="hidden" value="<%= users.get(i).getId() %>"/>
+		<input type="submit" value="Promote to Admin" />
+		</form><br/>
 	<% } %>
 <% } %>
-</ul>
 <% ArrayList<String> quizzes = adminManager.getQuizzes(); %>
 <h3>Quizzes</h3>
 <ul>
