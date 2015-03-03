@@ -50,7 +50,7 @@ for (int question_id : questions) {
 	question_number++;
 }
 %>
-<input type="submit" value="Grade Quiz" />
+<p><input type="submit" value="Grade Quiz" /></p>
 </form>
 </body>
 </html>
