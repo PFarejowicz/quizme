@@ -17,7 +17,16 @@ out.println(quiz.getName());
 </head>
 <body>
 <h1><%=quiz.getName() %></h1>
-<form action="QuizDispatcherServlet" method="post">
+<h2>
+<%
+if ((Boolean) request.getAttribute("correct_answer")) {
+	out.println("Correct Answer");
+} else {
+	out.println("Incorrect Answer");
+}
+%>
+</h2>
+<form action="quiz_mulitple_page_view.jsp" method="post">
 <%
 ArrayList<Integer> questions = (ArrayList<Integer>) session.getAttribute("questions");
 int question_number = (Integer) request.getAttribute("question_num");
@@ -48,12 +57,8 @@ if (type.equals("QuestionResponse")) {
 	out.println("<p><img src=" + question.getQuestionText() + "/></p>");
 	out.println("<input type=\"text\" name=\"question_" + question_number + "\"/>");
 }
-int score = (Integer) request.getAttribute("score");
 %>
-<input type="hidden" name="quiz_id" value="<%=quiz_id%>" />
-<input type="hidden" name="question_num" value="<%=question_number%>" />
-<input type="hidden" name="score" value="<%=score%>" />
-<p><input type="submit" value="Next" /></p>
+<p><input type="submit" value="Continue" /></p>
 </form>
 </body>
 </html>

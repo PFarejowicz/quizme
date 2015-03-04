@@ -51,32 +51,43 @@ public class QuizDispatcherServlet extends HttpServlet {
 		int question_number = Integer.parseInt(request.getParameter("question_num"));
 		int question_id = questions.get(question_number-1);
 		String type = questionManager.getTypeByID(question_id);
+		request.setAttribute("correct_answer", false);
 		if (type.equals("QuestionResponse")) {
 			QuestionResponse question = (QuestionResponse) questionManager.getQuestionByID(question_id);
 			if (question.getAnswerText().equals(request.getParameter("question_" + question_number))) {
+				request.setAttribute("correct_answer", true);
 				score++;
 			}
 		} else if (type.equals("FillInTheBlank")) {
 			FillInTheBlank question = (FillInTheBlank) questionManager.getQuestionByID(question_id);
 			int num_answers = question.getNumBlanks();
+			int partials = 0;
 			for (int i = 0; i < num_answers; i++) {
 				if (question.getAnswerText().get(i).equals(request.getParameter("question_" + question_number + "_" + i))) {
 					score++;
+					partials++;
 				}
 			}
+			if (partials == num_answers) request.setAttribute("correct_answer", true);
 		} else if (type.equals("MultipleChoice")) {
 			MultipleChoice question = (MultipleChoice) questionManager.getQuestionByID(question_id);
 			if (question.getAnswerText().equals(request.getParameter("question_" + question_number))) {
+				request.setAttribute("correct_answer", true);
 				score++;
 			}
 		} else if (type.equals("PictureResponse")) {
 			PictureResponse question = (PictureResponse) questionManager.getQuestionByID(question_id);
 			if (question.getAnswerText().equals(request.getParameter("question_" + question_number))) {
+				request.setAttribute("correct_answer", true);
 				score++;
 			}
 		}
 		request.setAttribute("score", score);
 		request.setAttribute("question_num", question_number);
+		if ((Boolean) request.getAttribute("immediate_correction")) {
+			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_immediate_feedback.jsp");
+			dispatch.forward(request, response);
+		}
 		if (question_number >= questions.size()) {
 			quizManager.addQuizResult(quiz_id, (Integer) request.getSession().getAttribute("user id"), score);
 			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_results.jsp");
