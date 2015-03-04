@@ -5,17 +5,22 @@
 <%
 	UserManager userManager = (UserManager) getServletContext().getAttribute("user manager");
 	DBConnection connection = (DBConnection) getServletContext().getAttribute("connection");
+	MessageManager messageManager = (MessageManager) getServletContext().getAttribute("message manager");
 	FriendsManager friendsManager = (FriendsManager) getServletContext().getAttribute("friends manager");
-	String email = request.getParameter("email");
+	String friendEmail = request.getParameter("friendEmail");
+	int friendId = userManager.getIDByEmail(friendEmail);
 	int userId = (Integer) session.getAttribute("user id");
 %>
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title><%=userManager.getNameByID(friendId)%>'s Profile</title>
 </head>
 <body>
+
+<h1><%=userManager.getNameByID(friendId)%></h1>
+
 
 </body>
 </html>

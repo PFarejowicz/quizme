@@ -57,7 +57,7 @@
 	ArrayList<String> messages = messageManager.getMessage(email);
 	%>
 	<%for (int i = messages.size() - 1 ; i >= 0 ; i-=2) { %>
-		<li><a href="friend_homepage.jsp?friendId=<%=userManager.getIDByEmail(messages.get(i))%>"><%=messages.get(i)%></a>: <%=messages.get(i-1)%></li>
+		<li><a href="friend_homepage.jsp?friendEmail=<%=messages.get(i)%>"><%=messages.get(i)%></a>: <%=messages.get(i-1)%></li>
 		
 	<%}%>
 	</ul>

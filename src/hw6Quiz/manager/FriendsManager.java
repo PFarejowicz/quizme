@@ -107,4 +107,9 @@ public class FriendsManager {
 		return null;
 	}
 
+	public ArrayList<Integer> findMutualFriends() {
+		ArrayList<Integer> mutuals = new ArrayList<Integer>();
+		return mutuals;
+	}
+	
 }
