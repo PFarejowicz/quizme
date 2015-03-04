@@ -3,14 +3,9 @@ package hw6Quiz.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MultipleChoice implements java.io.Serializable {
+public class MultipleChoice extends Question implements java.io.Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private int quiz_id;
-	private int author_id;
-	private String question;
 	private String choices;
-	private String answer;
 
 	public MultipleChoice(int quiz_id, int author_id, String prompt, String choices, String answer) {
 		this.quiz_id = quiz_id;

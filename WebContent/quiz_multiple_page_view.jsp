@@ -19,7 +19,7 @@ out.println(quiz.getName());
 <h1><%=quiz.getName() %></h1>
 <form action="QuizDispatcherServlet" method="post">
 <%
-ArrayList<Integer> questions = (ArrayList<Integer>) session.getAttribute("questions");
+	ArrayList<Integer> questions = (ArrayList<Integer>) session.getAttribute("questions");
 int question_number = (Integer) request.getAttribute("question_num");
 int question_id = questions.get(question_number);
 question_number++;
@@ -45,7 +45,7 @@ if (type.equals("QuestionResponse")) {
 } else if (type.equals("PictureResponse")) {
 	PictureResponse question = (PictureResponse) questionManager.getQuestionByID(question_id);
 	out.println("<p>" + question_number + ".) " + "</p>");
-	out.println("<p><img src=" + question.getImageURL() + "/></p>");
+	out.println("<p><img src=" + question.getQuestionText() + "/></p>");
 	out.println("<input type=\"text\" name=\"question_" + question_number + "\"/>");
 }
 int score = (Integer) request.getAttribute("score");

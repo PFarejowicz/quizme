@@ -3,13 +3,7 @@ package hw6Quiz.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class FillInTheBlank implements java.io.Serializable {
-
-	private static final long serialVersionUID = 1L;
-	private int quiz_id;
-	private int author_id;
-	private String question;
-	private String answer;
+public class FillInTheBlank extends Question implements java.io.Serializable {
 
 	public FillInTheBlank(int quiz_id, int author_id, String prompt, String answer) {
 		this.quiz_id = quiz_id;
@@ -23,7 +17,7 @@ public class FillInTheBlank implements java.io.Serializable {
 		count += answer.length() - answer.replace(",", "").length();
 		return count;
 	}
-
+	
 	public String getQuestionText() {
 		return question.replaceAll("\\*", "__________");
 	}
