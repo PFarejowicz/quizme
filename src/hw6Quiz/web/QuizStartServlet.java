@@ -52,6 +52,8 @@ public class QuizStartServlet extends HttpServlet {
 		
 		boolean multiple_pages = request.getParameter("multiple_pages").equals("true");
 		if (multiple_pages) {
+			boolean immediate_correction = request.getParameter("immediate_correction").equals("true");
+			request.setAttribute("immediate_correction", immediate_correction);
 			request.setAttribute("question_num", 0);
 			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_multiple_page_view.jsp");
 			dispatch.forward(request, response); 
