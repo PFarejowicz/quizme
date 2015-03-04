@@ -20,13 +20,13 @@
 
 <h1>Welcome, <%=userManager.getNameByID(userId)%>!</h1>
 
-<p>Quiz</p>
+<p>Your Quizzes</p>
 
 <p>Achievements</p>
 
 <p><a href="create_quiz.jsp">Create a Quiz</a></p>
 
-<p>History</p>
+<p>Quiz History</p>
 
 <p>Friends</p>
 	<form action="FriendServlet" method="post">

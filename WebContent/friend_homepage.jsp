@@ -10,16 +10,48 @@
 	String friendEmail = request.getParameter("friendEmail");
 	int friendId = userManager.getIDByEmail(friendEmail);
 	int userId = (Integer) session.getAttribute("user id");
+	String friendName = userManager.getNameByID(friendId);
 %>
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title><%=userManager.getNameByID(friendId)%>'s Profile</title>
+<title><%=friendName%>'s Profile</title>
 </head>
 <body>
 
-<h1><%=userManager.getNameByID(friendId)%></h1>
+<h1><%=friendName%></h1>
+
+<p><%=friendName%>'s Quizzes</p>
+
+<p><%=friendName%>'s Achievements</p>
+
+<p><a href="create_quiz.jsp">Create a Quiz</a></p>
+
+<p><%=friendName%>'s Quiz History</p>
+
+<p>Add Friend</p>
+	<form action="FriendServlet" method="post">
+	<p>Add: <input type="text" name="friend" />
+	<input type="submit" value="Add" /></p>
+	</form>
+	
+<p><%=friendName%>'s Friends</p>
+	<ul>
+	<% 
+	ArrayList<Integer> friendsList = friendsManager.getFriends(userId);
+	%>
+	<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
+		<li><%=userManager.getNameByID(friendsList.get(i))%></li>
+	<%}%>
+	</ul>
+	
+<p>Send Messages</p>
+	<form action="MessageServlet" method="post">
+	<p>Send to: <input type="text" name="receiver" />
+	<p>Message: <input type="text" name="new message" />
+	<input type="submit" value="Send" /></p>
+	</form>
 
 
 </body>

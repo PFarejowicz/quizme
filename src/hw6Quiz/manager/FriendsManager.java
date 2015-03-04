@@ -76,8 +76,22 @@ public class FriendsManager {
 		return null;
 	}
 
-	public void sendFriendRequest() {
+	public void sendFriendRequest(int from, int to) {
+		Statement stmt;
 		try {
+			boolean alreadyRequested = false;
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM friends WHERE from_user_id = \"" + from + "\"");
+			while(rs.next()) {
+				if (rs.getInt("to_user_id") == to) {
+					alreadyRequested = true;
+				}
+			}
+			if (!alreadyRequested) {
+				
+			}
+			
+			
 			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO friend_request VALUES(?, ?)");
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
