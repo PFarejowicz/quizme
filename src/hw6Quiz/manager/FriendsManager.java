@@ -48,7 +48,6 @@ public class FriendsManager {
 			if (!alreadyAdded) {
 				PreparedStatement prepStmt = con.prepareStatement("INSERT INTO friends VALUES(\"" + userId + "\",\"" + friendId + "\")");
 				prepStmt.executeUpdate();
-				System.out.println("test8");
 			}
 
 		} catch (Exception e) {
@@ -63,7 +62,6 @@ public class FriendsManager {
 		try {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id1 = \"" + userId + "\"");
-			System.out.println("try2");
 			while (rs.next()) {
 				friendsList.add(rs.getInt(2));
 			}

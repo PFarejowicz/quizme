@@ -26,7 +26,11 @@ public class MessageManager {
 			if (rs.next()) {
 				receiverId = rs.getInt("user_id");
 			}
-			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO messages VALUES(\"" + senderId + "\",\"" + receiverId + "\",\"" + message + "\")");
+			
+			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO messages (sender_id, receiver_id, data) VALUES(?, ?, ?)");
+			prepStmt.setInt(1, senderId);
+			prepStmt.setInt(2, receiverId);
+			prepStmt.setString(3, message);
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
