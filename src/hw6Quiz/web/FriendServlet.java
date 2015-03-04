@@ -49,6 +49,7 @@ public class FriendServlet extends HttpServlet {
 		
 		if (userManager.containsUser(userEmail) && userManager.containsUser(friendEmail)) {
 			friendsManager.addFriend(userEmail, friendEmail);
+			friendsManager.addFriend(friendEmail, userEmail);
 		}
 	}
 }

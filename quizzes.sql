@@ -40,9 +40,9 @@ CREATE TABLE IF NOT EXISTS quiz_history (
 );
 
 CREATE TABLE IF NOT EXISTS friends (
-	user_id INT UNSIGNED AUTO_INCREMENT,
-    friend_list LONGBLOB,
-	PRIMARY KEY (user_id)
+	user_id1 INT UNSIGNED,
+    user_id2 INT UNSIGNED,
+	PRIMARY KEY (user_id1)
 );
 
 CREATE TABLE IF NOT EXISTS friend_requests (

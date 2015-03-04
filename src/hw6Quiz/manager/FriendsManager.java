@@ -23,6 +23,7 @@ public class FriendsManager {
 		Statement stmt;
 		int userId = 0;
 		int friendId = 0;
+		boolean alreadyAdded = false;
 		ArrayList<Integer> friendsList;
 		System.out.println("test1");
 		try {
@@ -37,33 +38,27 @@ public class FriendsManager {
 			if (rs.next()) {
 				friendId = rs.getInt("user_id");
 			}
-			System.out.println("test3");
+//			System.out.println("test3");
 
-			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id = \"" + userId + "\"");
-			if (rs.next()) {
-				System.out.println("test4");
-
-				Object obj = rs.getObject("friend_list");
-				ByteArrayInputStream bs = new ByteArrayInputStream((byte[]) obj);
-				ObjectInputStream is = new ObjectInputStream(bs);
-				friendsList = (ArrayList<Integer>) is.readObject();
-				System.out.println("test5");
-
-			} else {
-				friendsList = new ArrayList<Integer>();
-				System.out.println("test6");
+			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id1 = \"" + userId + "\"");
+			while (rs.next()) {
+				if (rs.getInt(2) == friendId) alreadyAdded = true;
+//				System.out.println("test4");
+				
+				
+//				System.out.println("test5");
 
 			}
-			friendsList.add(friendId);
-			ByteArrayOutputStream bs = new ByteArrayOutputStream();
-			ObjectOutputStream os = new ObjectOutputStream(bs);
-			os.writeObject(friendsList);
-			System.out.println("test7");
-
-			os.close();
-			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO friends VALUES(\"" + userId + "\",\"" + bs.toByteArray() + "\")");
-			prepStmt.executeUpdate();
-			System.out.println("test8");
+			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id2 = \"" + userId + "\"");
+			while (rs.next()) {
+				if (rs.getInt(1) == friendId) alreadyAdded = true;
+			}
+			
+			if (!alreadyAdded) {
+				PreparedStatement prepStmt = con.prepareStatement("INSERT INTO friends VALUES(\"" + userId + "\",\"" + friendId + "\")");
+				prepStmt.executeUpdate();
+				System.out.println("test8");
+			}
 
 
 		} catch (Exception e) {
@@ -74,28 +69,18 @@ public class FriendsManager {
 	public ArrayList<Integer> getFriends(int userId) {
 		Statement stmt;
 		ArrayList<Integer> friendsList = new ArrayList<Integer>();
-		System.out.println("try1");
+		System.out.println(userId);
 
 		try {
 			stmt = con.createStatement();
-			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id = \"" + userId + "\"");
+			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id1 = \"" + userId + "\"");
 			System.out.println("try2");
-
-			if (rs.next()) {
-				System.out.println("try3");
-
-				Object obj = rs.getBlob("friend_list");
-				System.out.println("try4");
-
-				ByteArrayInputStream bs = new ByteArrayInputStream((byte[]) obj);
-				System.out.println("try5");
-
-				ObjectInputStream is = new ObjectInputStream(bs);
-				System.out.println("try6");
-
-				friendsList = (ArrayList<Integer>) is.readObject();
-				System.out.println("try7");
-
+			while (rs.next()) {
+				friendsList.add(rs.getInt(2));
+			}
+			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id2 = \"" + userId + "\"");
+			while (rs.next()) {
+				friendsList.add(rs.getInt(1));
 			}
 			return friendsList;
 		} catch (Exception e) {
