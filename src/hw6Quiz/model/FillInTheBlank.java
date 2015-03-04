@@ -19,7 +19,9 @@ public class FillInTheBlank implements java.io.Serializable {
 	}
 	
 	public int getNumBlanks() {
-		return answer.split("\\*").length;
+		int count = 1;
+		count += answer.length() - answer.replace(",", "").length();
+		return count;
 	}
 
 	public String getQuestionText() {
