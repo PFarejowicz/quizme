@@ -6,10 +6,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <% AdminManager adminManager = ((AdminManager)request.getServletContext().getAttribute("admin manager")); %>
+<% UserManager userManager = (UserManager) getServletContext().getAttribute("user manager"); %>
+<% int userId = (Integer) session.getAttribute("user id"); %>
 <title>Admin</title>
 </head>
 <body>
-<h1>Welcome <%= request.getParameter("email") %></h1>
+<h1>Welcome <%= userManager.getNameByID(userId) %></h1>
 <h3>Announcements</h3>
 <% ArrayList<String> announcements = adminManager.getAnnouncements(); %>
 <ul>
@@ -28,7 +30,7 @@
 		<p><%= users.get(i).getName() %></p>
 		<form action="AdminRemoveUserServlet" method="post">
 		<input name="id" type="hidden" value="<%= users.get(i).getId() %>"/>
-		<input type="submit" value="Promote to Admin" />
+		<input type="submit" value="Delete User" />
 		</form>
 	<% } %>
 <% } %>
@@ -42,7 +44,7 @@
 		</form>
 		<form action="AdminRemoveUserServlet" method="post">
 		<input name="id" type="hidden" value="<%= users.get(i).getId() %>"/>
-		<input type="submit" value="Promote to Admin" />
+		<input type="submit" value="Delete User" />
 		</form>
 	<% } %>
 <% } %>
