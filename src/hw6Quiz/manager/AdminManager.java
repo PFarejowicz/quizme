@@ -84,13 +84,14 @@ public class AdminManager {
 		}
 	}
 	
-	public ArrayList<String> getQuizzes(){
-		ArrayList<String> quizzes = new ArrayList<String>();
+	public ArrayList<Quiz> getQuizzes(){
+		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
 		try {
 			PreparedStatement prepStmt = con.prepareStatement("SELECT * FROM quizzes");
 			rs = prepStmt.executeQuery();
 			while(rs.next()){
-				quizzes.add(rs.getString("name"));
+				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"));
+				quizzes.add(quiz);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,6 +102,15 @@ public class AdminManager {
 	public void clearHistoryForQuiz(int id){
 		try {
 			PreparedStatement prepStmt = con.prepareStatement("DELETE FROM quiz_history WHERE quiz_id = " + id);
+			prepStmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void removeQuiz(int id){
+		try {
+			PreparedStatement prepStmt = con.prepareStatement("DELETE FROM quizzes WHERE quiz_id = " + id);
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -120,5 +130,5 @@ public class AdminManager {
 		}
 		return count;
 	}
-
+	
 }
