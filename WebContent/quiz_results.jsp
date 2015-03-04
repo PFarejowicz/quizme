@@ -18,5 +18,6 @@ out.println(quiz.getName() + " Results");
 <body>
 <h1><%=quiz.getName()%> Results</h1>
 <p>Score: <%=request.getParameter("score")%></p>
+<p>Time Elapsed: <%=request.getAttribute("time_elapsed_str")%></p>
 </body>
 </html>

@@ -5,6 +5,8 @@ import hw6Quiz.manager.QuestionManager;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
+import java.util.Calendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,6 +50,11 @@ public class QuizStartServlet extends HttpServlet {
 		boolean random_order = request.getParameter("random_order").equals("true");
 		if (random_order) Collections.shuffle(questions);
 		session.setAttribute("questions", questions);
+		
+		// start timer
+		Calendar cal = Calendar.getInstance();
+		Date startTime = new Date(cal.getTimeInMillis());
+		session.setAttribute("start_time", startTime);
 		
 		boolean multiple_pages = request.getParameter("multiple_pages").equals("true");
 		if (multiple_pages) {
