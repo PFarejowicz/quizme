@@ -51,11 +51,11 @@ public class QuizDispatcherServlet extends HttpServlet {
 		int question_number = Integer.parseInt(request.getParameter("question_num"));
 		int question_id = questions.get(question_number-1);
 		String type = questionManager.getTypeByID(question_id);
-		request.setAttribute("correct_answer", false);
+		String correct_answer = "false";
 		if (type.equals("QuestionResponse")) {
 			QuestionResponse question = (QuestionResponse) questionManager.getQuestionByID(question_id);
 			if (question.getAnswerText().equals(request.getParameter("question_" + question_number))) {
-				request.setAttribute("correct_answer", true);
+				correct_answer = "true";
 				score++;
 			}
 		} else if (type.equals("FillInTheBlank")) {
@@ -68,7 +68,7 @@ public class QuizDispatcherServlet extends HttpServlet {
 					partials++;
 				}
 			}
-			if (partials == num_answers) request.setAttribute("correct_answer", true);
+			if (partials == num_answers) correct_answer = "true";
 		} else if (type.equals("MultipleChoice")) {
 			MultipleChoice question = (MultipleChoice) questionManager.getQuestionByID(question_id);
 			if (question.getAnswerText().equals(request.getParameter("question_" + question_number))) {
@@ -78,23 +78,22 @@ public class QuizDispatcherServlet extends HttpServlet {
 		} else if (type.equals("PictureResponse")) {
 			PictureResponse question = (PictureResponse) questionManager.getQuestionByID(question_id);
 			if (question.getAnswerText().equals(request.getParameter("question_" + question_number))) {
-				request.setAttribute("correct_answer", true);
+				correct_answer = "true";
 				score++;
 			}
 		}
-		request.setAttribute("score", score);
-		request.setAttribute("question_num", question_number);
-		if ((Boolean) request.getAttribute("immediate_correction")) {
-			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_immediate_feedback.jsp");
-			dispatch.forward(request, response);
-		}
-		if (question_number >= questions.size()) {
-			quizManager.addQuizResult(quiz_id, (Integer) request.getSession().getAttribute("user id"), score);
-			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_results.jsp");
+		if (request.getParameter("immediate_correction").equals("true")) {
+			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_immediate_feedback.jsp?correct_answer="+correct_answer+"question_num="+question_number+"&sentinel="+questions.size()+"&score="+score+"&immediate_correction="+request.getParameter("immediate_correction"));
 			dispatch.forward(request, response);
 		} else {
-			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_multiple_page_view.jsp");
-			dispatch.forward(request, response);
+			if (question_number >= questions.size()) {
+				quizManager.addQuizResult(quiz_id, (Integer) request.getSession().getAttribute("user id"), score);
+				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_results.jsp?score="+score);
+				dispatch.forward(request, response);
+			} else {
+				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_multiple_page_view.jsp?question_num="+question_number+"&score="+score+"&immediate_correction="+request.getParameter("immediate_correction"));
+				dispatch.forward(request, response);
+			}
 		}
 	}
 

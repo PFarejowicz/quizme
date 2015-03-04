@@ -20,7 +20,7 @@ out.println(quiz.getName());
 <form action="QuizDispatcherServlet" method="post">
 <%
 ArrayList<Integer> questions = (ArrayList<Integer>) session.getAttribute("questions");
-int question_number = (Integer) request.getAttribute("question_num");
+int question_number = Integer.parseInt(request.getParameter("question_num"));
 int question_id = questions.get(question_number);
 question_number++;
 String type = questionManager.getTypeByID(question_id);
@@ -48,11 +48,11 @@ if (type.equals("QuestionResponse")) {
 	out.println("<p><img src=" + question.getQuestionText() + "/></p>");
 	out.println("<input type=\"text\" name=\"question_" + question_number + "\"/>");
 }
-int score = (Integer) request.getAttribute("score");
 %>
 <input type="hidden" name="quiz_id" value="<%=quiz_id%>" />
 <input type="hidden" name="question_num" value="<%=question_number%>" />
-<input type="hidden" name="score" value="<%=score%>" />
+<input type="hidden" name="score" value="<%=request.getParameter("score")%>" />
+<input type="hidden" name="immediate_correction" value="<%=request.getParameter("immediate_correction")%>" />
 <p><input type="submit" value="Next" /></p>
 </form>
 </body>

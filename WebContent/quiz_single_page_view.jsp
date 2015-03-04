@@ -19,7 +19,7 @@ out.println(quiz.getName());
 <h1><%=quiz.getName() %></h1>
 <form action="QuizGradeServlet" method="post">
 <%
-	ArrayList<Integer> questions = (ArrayList<Integer>) session.getAttribute("questions");
+ArrayList<Integer> questions = (ArrayList<Integer>) session.getAttribute("questions");
 int question_number = 1;
 for (int question_id : questions) {
 	String type = questionManager.getTypeByID(question_id);

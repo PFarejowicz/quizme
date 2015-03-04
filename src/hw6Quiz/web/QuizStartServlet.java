@@ -48,14 +48,10 @@ public class QuizStartServlet extends HttpServlet {
 		boolean random_order = request.getParameter("random_order").equals("true");
 		if (random_order) Collections.shuffle(questions);
 		session.setAttribute("questions", questions);
-		request.setAttribute("score", 0);
 		
 		boolean multiple_pages = request.getParameter("multiple_pages").equals("true");
 		if (multiple_pages) {
-			boolean immediate_correction = request.getParameter("immediate_correction").equals("true");
-			request.setAttribute("immediate_correction", immediate_correction);
-			request.setAttribute("question_num", 0);
-			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_multiple_page_view.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_multiple_page_view.jsp?question_num=0&score=0&immediate_correction="+request.getParameter("immediate_correction"));
 			dispatch.forward(request, response); 
 		} else {
 			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_single_page_view.jsp");

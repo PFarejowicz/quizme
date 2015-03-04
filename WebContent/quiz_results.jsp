@@ -17,6 +17,6 @@ out.println(quiz.getName() + " Results");
 </head>
 <body>
 <h1><%=quiz.getName()%> Results</h1>
-<p>Score: <%=request.getAttribute("score")%></p>
+<p>Score: <%=request.getParameter("score")%></p>
 </body>
 </html>

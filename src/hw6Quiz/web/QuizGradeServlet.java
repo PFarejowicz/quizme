@@ -79,9 +79,8 @@ public class QuizGradeServlet extends HttpServlet {
 			question_number++;
 		}
 		quizManager.addQuizResult(quiz_id, (Integer) request.getSession().getAttribute("user id"), score);
-		request.setAttribute("score", Integer.toString(score));
 		request.setAttribute("quiz_id", Integer.toString(quiz_id));
-		RequestDispatcher dispatch = request.getRequestDispatcher("quiz_results.jsp");
+		RequestDispatcher dispatch = request.getRequestDispatcher("quiz_results.jsp?quiz_id="+quiz_id+"&score="+score);
 		dispatch.forward(request, response); 
 	}
 }

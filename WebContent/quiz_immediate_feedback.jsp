@@ -19,46 +19,31 @@ out.println(quiz.getName());
 <h1><%=quiz.getName() %></h1>
 <h2>
 <%
-if ((Boolean) request.getAttribute("correct_answer")) {
+if (request.getParameter("correct_answer").equals("true")) {
 	out.println("Correct Answer");
 } else {
 	out.println("Incorrect Answer");
 }
 %>
 </h2>
-<form action="quiz_mulitple_page_view.jsp" method="post">
 <%
-ArrayList<Integer> questions = (ArrayList<Integer>) session.getAttribute("questions");
-int question_number = (Integer) request.getAttribute("question_num");
-int question_id = questions.get(question_number);
-question_number++;
-String type = questionManager.getTypeByID(question_id);
-if (type.equals("QuestionResponse")) {
-	QuestionResponse question = (QuestionResponse) questionManager.getQuestionByID(question_id);
-	out.println("<p>" + question_number + ".) " + question.getQuestionText() + "</p>");
-	out.println("<input type=\"text\" name=\"question_" + question_number + "\"/>");
-} else if (type.equals("FillInTheBlank")) {
-	FillInTheBlank question = (FillInTheBlank) questionManager.getQuestionByID(question_id);
-	out.println("<p>" + question_number + ".) " + question.getQuestionText() + "</p>");
-	int num_answers = question.getNumBlanks();
-	for (int i = 0; i < num_answers; i++) {
-		out.println("<input type=\"text\" name=\"question_" + question_number + "_" + num_answers+ "\"/>");
-	}
-} else if (type.equals("MultipleChoice")) {
-	MultipleChoice question = (MultipleChoice) questionManager.getQuestionByID(question_id);
-	out.println("<p>" + question_number + ".) " + question.getQuestionText() + "</p>");
-	ArrayList<String> choices = question.getChoicesText();
-	for (String choice : choices) {
-		out.println("<input type=\"radio\" name=\"question_" + question_number + "\" value=\"" + choice + "\">" + choice + "<br>");
-	}
-} else if (type.equals("PictureResponse")) {
-	PictureResponse question = (PictureResponse) questionManager.getQuestionByID(question_id);
-	out.println("<p>" + question_number + ".) " + "</p>");
-	out.println("<p><img src=" + question.getQuestionText() + "/></p>");
-	out.println("<input type=\"text\" name=\"question_" + question_number + "\"/>");
+int question_num = Integer.parseInt(request.getParameter("question_num"));
+int sentinel = Integer.parseInt(request.getParameter("sentinel"));
+if (question_num >= sentinel) {
+	out.println("<form action=\"quiz_results.jsp\" method=\"post\">");
+	out.println("<input type=\"hidden\" name=\"quiz_id\" value=\""+quiz_id+"\" />");
+	out.println("<input type=\"hidden\" name=\"score\" value=\""+request.getParameter("score")+"\" />");
+	out.println("<p><input type=\"submit\" value=\"Get Results\" /></p>");
+	out.println("</form>");
+} else {
+	out.println("<form action=\"quiz_multiple_page_view.jsp\" method=\"post\">");
+	out.println("<input type=\"hidden\" name=\"quiz_id\" value=\""+quiz_id+"\" />");
+	out.println("<input type=\"hidden\" name=\"question_num\" value=\""+question_num+"\" />");
+	out.println("<input type=\"hidden\" name=\"score\" value=\""+request.getParameter("score")+"\" />");
+	out.println("<input type=\"hidden\" name=\"immediate_correction\" value=\""+request.getParameter("immediate_correction")+"\" />");
+	out.println("<p><input type=\"submit\" value=\"Continue\" /></p>");
+	out.println("</form>");
 }
 %>
-<p><input type="submit" value="Continue" /></p>
-</form>
 </body>
 </html>
