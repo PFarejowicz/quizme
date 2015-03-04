@@ -26,25 +26,39 @@
 <% for(int i = 0; i < users.size(); i++){ %>
 	<% if (users.get(i).getAdmin()){ %>
 		<p><%= users.get(i).getName() %></p>
+		<form action="AdminRemoveUserServlet" method="post">
+		<input name="id" type="hidden" value="<%= users.get(i).getId() %>"/>
+		<input type="submit" value="Promote to Admin" />
+		</form>
 	<% } %>
 <% } %>
 <h3>Users</h3>
 <% for(int i = 0; i < users.size(); i++){ %>
 	<% if (!users.get(i).getAdmin()){ %>
-		<%= users.get(i).getName() %>
+		<p><%= users.get(i).getName() %></p>
 		<form action="AdminPromotionServlet" method="post">
 		<input name="id" type="hidden" value="<%= users.get(i).getId() %>"/>
 		<input type="submit" value="Promote to Admin" />
-		</form><br/>
+		</form>
+		<form action="AdminRemoveUserServlet" method="post">
+		<input name="id" type="hidden" value="<%= users.get(i).getId() %>"/>
+		<input type="submit" value="Promote to Admin" />
+		</form>
 	<% } %>
 <% } %>
-<% ArrayList<String> quizzes = adminManager.getQuizzes(); %>
+<% ArrayList<Quiz> quizzes = adminManager.getQuizzes(); %>
 <h3>Quizzes</h3>
-<ul>
 <% for(int i = 0; i < quizzes.size(); i++){ %>
-<li><%= quizzes.get(i) %></li>
+	<%= quizzes.get(i).getName() %>
+	<form action="AdminClearQuizHistoryServlet" method="post">
+	<p><input name="id" type="hidden" value="<%= quizzes.get(i).getQuizID() %>"/>
+	<input type="submit" value="Clear Quiz History" /></p>
+	</form>
+	<form action="AdminRemoveQuizServlet" method="post">
+	<p><input name="id" type="hidden" value="<%= quizzes.get(i).getQuizID() %>"/>
+	<input type="submit" value="Delete Quiz" /></p>
+	</form>
 <% } %>
-</ul>
 <h3>Site Statistics</h3>
 <p>Number of users: <%= users.size() %></p>
 <p>Number of quizzes taken: <%= adminManager.getNumberOfQuizzes() %></p>
