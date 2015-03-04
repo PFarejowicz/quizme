@@ -24,30 +24,21 @@ public class FriendsManager {
 		int userId = 0;
 		int friendId = 0;
 		boolean alreadyAdded = false;
-		ArrayList<Integer> friendsList;
-		System.out.println("test1");
 		try {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM users WHERE email = \"" + userEmail + "\"");
 			if (rs.next()) {
 				userId = rs.getInt("user_id");
 			}
-			System.out.println("test2");
 
 			rs = stmt.executeQuery("SELECT * FROM users WHERE email = \"" + friendEmail + "\"");
 			if (rs.next()) {
 				friendId = rs.getInt("user_id");
 			}
-//			System.out.println("test3");
 
 			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id1 = \"" + userId + "\"");
 			while (rs.next()) {
 				if (rs.getInt(2) == friendId) alreadyAdded = true;
-//				System.out.println("test4");
-				
-				
-//				System.out.println("test5");
-
 			}
 			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id2 = \"" + userId + "\"");
 			while (rs.next()) {
@@ -60,7 +51,6 @@ public class FriendsManager {
 				System.out.println("test8");
 			}
 
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -69,8 +59,7 @@ public class FriendsManager {
 	public ArrayList<Integer> getFriends(int userId) {
 		Statement stmt;
 		ArrayList<Integer> friendsList = new ArrayList<Integer>();
-		System.out.println(userId);
-
+		
 		try {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id1 = \"" + userId + "\"");
@@ -89,13 +78,35 @@ public class FriendsManager {
 		return null;
 	}
 
-	public void addFriendRequest() {
+	public void sendFriendRequest() {
 		try {
 			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO friend_request VALUES(?, ?)");
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<Integer> showFriendRequests(int userId) {
+		Statement stmt;
+		ArrayList<Integer> friendsList = new ArrayList<Integer>();
+		
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id1 = \"" + userId + "\"");
+			System.out.println("try2");
+			while (rs.next()) {
+				friendsList.add(rs.getInt(2));
+			}
+			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id2 = \"" + userId + "\"");
+			while (rs.next()) {
+				friendsList.add(rs.getInt(1));
+			}
+			return friendsList;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

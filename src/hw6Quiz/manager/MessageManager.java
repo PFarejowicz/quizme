@@ -48,8 +48,8 @@ public class MessageManager {
 			rs = stmt.executeQuery("SELECT * FROM messages WHERE receiver_id = \"" + receiverId + "\"");
 
 			while (rs.next()) {
-				int senderId = rs.getInt(1);
-				String message = rs.getString(3);
+				int senderId = rs.getInt("sender_id");
+				String message = rs.getString("data");
 				ResultSet resultSet = stmt2.executeQuery("SELECT * FROM users WHERE user_id = \"" + senderId + "\"");
 				String senderEmail = "";
 				if (resultSet.next()) {
