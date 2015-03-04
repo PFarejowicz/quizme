@@ -6,6 +6,7 @@
 	UserManager userManager = (UserManager) getServletContext().getAttribute("user manager");
 	DBConnection connection = (DBConnection) getServletContext().getAttribute("connection");
 	MessageManager messageManager = (MessageManager) getServletContext().getAttribute("message manager");
+	FriendsManager friendsManager = (FriendsManager) getServletContext().getAttribute("friends manager");
 	String email = request.getParameter("email");
 	int userId = (Integer) session.getAttribute("user id");
 %>
@@ -34,14 +35,14 @@
 	</form>
 	
 <p>Your Friends</p>
-<%-- 	<ul>
+	<ul>
 	<% 
-	ArrayList<String> messages = messageManager.getMessage(email);
+	ArrayList<Integer> friendsList = friendsManager.getFriends(userId);
 	%>
-	<%for (int i = messages.size() - 1 ; i >= 0 ; i-=2) { %>
-		<li><%=messages.get(i)%>: <%=messages.get(i-1)%></li>
+	<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
+		<li><%=userManager.getNameByID(friendsList.get(i))%></li>
 	<%}%>
-	</ul> --%>
+	</ul>
 	
 <p>Send Messages</p>
 	<form action="MessageServlet" method="post">
