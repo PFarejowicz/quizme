@@ -1,6 +1,6 @@
 package hw6Quiz.model;
 
-public class QuestionResponse extends Question implements java.io.Serializable {
+public class QuestionResponse extends Question {
 
 	public QuestionResponse(int quiz_id, int author_id, String prompt, String answer) {
 		this.quiz_id = quiz_id;
