@@ -10,7 +10,7 @@
 QuizManager quizManager = (QuizManager) application.getAttribute("quiz manager");
 QuestionManager questionManager = (QuestionManager) application.getAttribute("question manager");
 int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
-Quiz quiz = quizManager.getQuiz(quiz_id);
+Quiz quiz = quizManager.getQuizByID(quiz_id);
 out.println(quiz.getName());
 %>
 </title>

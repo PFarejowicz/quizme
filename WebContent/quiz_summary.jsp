@@ -9,9 +9,8 @@
 <%
 QuizManager quizManager = (QuizManager) application.getAttribute("quiz manager");
 UserManager userManager = (UserManager) application.getAttribute("user manager");
-int quiz_id = 5;
-//Integer.parseInt(request.getParameter("quiz_id"));
-Quiz quiz = quizManager.getQuiz(quiz_id);
+int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
+Quiz quiz = quizManager.getQuizByID(quiz_id);
 out.println(quiz.getName());
 %>
 </title>
