@@ -32,7 +32,7 @@ for (int question_id : questions) {
 		out.println("<p>" + question_number + ".) " + question.getQuestionText() + "</p>");
 		int num_answers = question.getNumBlanks();
 		for (int i = 0; i < num_answers; i++) {
-			out.println("<input type=\"text\" name=\"question_" + question_number + "_" + num_answers+ "\"/>");
+			out.println("<input type=\"text\" name=\"question_" + question_number + "_" + i + "\"/>");
 		}
 	} else if (type.equals("MultipleChoice")) {
 		MultipleChoice question = (MultipleChoice) questionManager.getQuestionByID(question_id);

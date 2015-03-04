@@ -59,8 +59,11 @@ public class QuizGradeServlet extends HttpServlet {
 				}
 			} else if (type.equals("FillInTheBlank")) {
 				FillInTheBlank question = (FillInTheBlank) questionManager.getQuestionByID(question_id);
-				if (question.getAnswerText().equals(request.getParameter("question_" + question_number))) {
-					score++;
+				int num_answers = question.getNumBlanks();
+				for (int i = 0; i < num_answers; i++) {
+					if (question.getAnswerText().get(i).equals(request.getParameter("question_" + question_number + "_" + i))) {
+						score++;
+					}
 				}
 			} else if (type.equals("MultipleChoice")) {
 				MultipleChoice question = (MultipleChoice) questionManager.getQuestionByID(question_id);

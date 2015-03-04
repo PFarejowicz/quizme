@@ -20,8 +20,9 @@ out.println(quiz.getName());
 <form action="QuizDispatcherServlet" method="post">
 <%
 ArrayList<Integer> questions = (ArrayList<Integer>) session.getAttribute("questions");
-int question_number = Integer.parseInt(request.getParameter("question_num"));
-int question_id = questions.get(question_number-1);
+int question_number = (Integer) request.getAttribute("question_num");
+int question_id = questions.get(question_number);
+question_number++;
 String type = questionManager.getTypeByID(question_id);
 if (type.equals("QuestionResponse")) {
 	QuestionResponse question = (QuestionResponse) questionManager.getQuestionByID(question_id);
@@ -44,12 +45,15 @@ if (type.equals("QuestionResponse")) {
 } else if (type.equals("PictureResponse")) {
 	PictureResponse question = (PictureResponse) questionManager.getQuestionByID(question_id);
 	out.println("<p>" + question_number + ".) " + "</p>");
-	out.println("<img src=" + question.getImageURL() + "/>");
+	out.println("<p><img src=" + question.getImageURL() + "/></p>");
 	out.println("<input type=\"text\" name=\"question_" + question_number + "\"/>");
 }
-request.setAttribute("question_num", question_number++);
+int score = (Integer) request.getAttribute("score");
 %>
-<input type="submit" value="Next" />
+<input type="hidden" name="quiz_id" value="<%=quiz_id%>" />
+<input type="hidden" name="question_num" value="<%=question_number%>" />
+<input type="hidden" name="score" value="<%=score%>" />
+<p><input type="submit" value="Next" /></p>
 </form>
 </body>
 </html>
