@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class QuizManager {
 	
@@ -45,7 +46,7 @@ public class QuizManager {
 		return -1;
 	}
 	
-	public Quiz getQuiz(int quiz_id) {
+	public Quiz getQuizByID(int quiz_id) {
 		Statement stmt;
 		try {
 			stmt = con.createStatement();
@@ -58,6 +59,20 @@ public class QuizManager {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public ArrayList<Quiz> getQuizzes() {
+		ArrayList<Quiz> quizList = new ArrayList<Quiz>();
+		try {
+			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM quizzes ORDER BY name");
+			while (rs.next()) {
+				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"));
+				quizList.add(quiz);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return quizList;
 	}
 	
 	/**
