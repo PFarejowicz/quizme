@@ -6,7 +6,8 @@ import hw6Quiz.model.FillInTheBlank;
 import hw6Quiz.model.MultipleChoice;
 import hw6Quiz.model.PictureResponse;
 import hw6Quiz.model.QuestionResponse;
-import hw6Quiz.model.Quiz;
+import java.util.Date;
+import java.util.Calendar;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class QuizGradeServlet
@@ -47,6 +49,19 @@ public class QuizGradeServlet extends HttpServlet {
 		QuestionManager questionManager = (QuestionManager) getServletContext().getAttribute("question manager");
 		QuizManager quizManager = (QuizManager) getServletContext().getAttribute("quiz manager");
 		int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
+		HttpSession session = request.getSession();
+		
+		// get time elapsed
+		Date startTime = (Date) session.getAttribute("start_time");
+		Calendar cal = Calendar.getInstance();
+		Date endTime = new Date(cal.getTimeInMillis()); 
+		long diff = endTime.getTime() - startTime.getTime();
+		int diffMin = (int) (diff / (60 * 1000));
+		int diffSec = (int) (diff / 1000);
+		String timeElapsedStr = diffMin + " minutes, " + diffSec + " seconds";
+		request.setAttribute("time_elapsed_str", timeElapsedStr);
+		System.out.println(diffMin + " minutes, " + diffSec + " seconds");
+		
 		ArrayList<Integer> questions = (ArrayList<Integer>) request.getSession().getAttribute("questions");
 		int score = 0; 
 		int question_number = 1;
