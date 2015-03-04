@@ -3,7 +3,7 @@ package hw6Quiz.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class FillInTheBlank extends Question implements java.io.Serializable {
+public class FillInTheBlank extends Question {
 
 	public FillInTheBlank(int quiz_id, int author_id, String prompt, String answer) {
 		this.quiz_id = quiz_id;

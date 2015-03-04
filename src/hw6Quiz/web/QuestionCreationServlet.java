@@ -44,7 +44,8 @@ public class QuestionCreationServlet extends HttpServlet {
 		QuestionManager quesManager = (QuestionManager) getServletContext().getAttribute("question manager");
 		request.setAttribute("quiz_id", request.getParameter("quiz_id"));
 		if (request.getParameter("previous") != null) {
-			// TODO go back
+			RequestDispatcher dispatch = request.getRequestDispatcher("add_question.jsp");
+			dispatch.forward(request, response); 
 		} else {
 			int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
 			int user_id = 1;			// TODO set default for testing

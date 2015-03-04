@@ -3,7 +3,7 @@ package hw6Quiz.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MultipleChoice extends Question implements java.io.Serializable {
+public class MultipleChoice extends Question {
 
 	private String choices;
 
