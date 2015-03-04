@@ -28,7 +28,7 @@
 		<p><%= users.get(i).getName() %></p>
 		<form action="AdminRemoveUserServlet" method="post">
 		<input name="id" type="hidden" value="<%= users.get(i).getId() %>"/>
-		<input type="submit" value="Promote to Admin" />
+		<input type="submit" value="Delete User" />
 		</form>
 	<% } %>
 <% } %>
@@ -42,7 +42,7 @@
 		</form>
 		<form action="AdminRemoveUserServlet" method="post">
 		<input name="id" type="hidden" value="<%= users.get(i).getId() %>"/>
-		<input type="submit" value="Promote to Admin" />
+		<input type="submit" value="Delete User" />
 		</form>
 	<% } %>
 <% } %>
