@@ -186,7 +186,8 @@ public class FriendsManager {
 			}
 			PreparedStatement prepStmt = con.prepareStatement("DELETE FROM friend_requests WHERE from_user_id = \"" + friendRequestId + "\" AND to_user_id = \"" + userId + "\"");
 			prepStmt.executeUpdate();
-
+			prepStmt = con.prepareStatement("DELETE FROM friend_requests WHERE from_user_id = \"" + userId + "\" AND to_user_id = \"" + friendRequestId + "\"");
+			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

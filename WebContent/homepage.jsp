@@ -18,6 +18,9 @@
 </head>
 <body>
 
+<a href="index.html"><button type="button">Log Out</button></a>
+
+
 <h1>Welcome, <%=userManager.getNameByID(userId)%>!</h1>
 
 <p>Your Quizzes</p>

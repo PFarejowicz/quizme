@@ -65,5 +65,8 @@
 	<%}%>
 	</ul>
 
+<a href="homepage.jsp"><button type="button">Back to My Profile</button></a>
+
+
 </body>
 </html>

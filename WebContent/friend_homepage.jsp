@@ -21,6 +21,8 @@
 </head>
 <body>
 
+<a href="homepage.jsp"><button type="button">Back to My Profile</button></a>
+
 <h1><%=friendName%></h1>
 
 <%
@@ -70,9 +72,9 @@
 	<%}%>
 	</ul>
 	
-<p> Unfriend <%=friendName%></p>
 	<%
 	if (isFriend == 1) {%> 
+		<p> Unfriend <%=friendName%></p>
 		<form action="FriendServlet" method="post">
 		<input type="hidden" value=<%=friendEmail%> name="friendEmail" />
 		<input type="submit" value="Unfriend" name="decision"/>
