@@ -32,7 +32,7 @@
 
 <p>Add Friend</p>
 	<form action="FriendRequestServlet" method="post">
-	<p><input type="hidden" value=friendId name="friend" />
+	<p><input type="hidden" value=<%=friendEmail%> name="friendEmail" />
 	<input type="submit" value="Add" /></p>
 	</form>
 	

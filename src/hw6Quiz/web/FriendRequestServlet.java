@@ -46,11 +46,11 @@ public class FriendRequestServlet extends HttpServlet {
 		UserManager userManager = (UserManager) context.getAttribute("user manager");
 		String userEmail = (String) request.getSession().getAttribute("email");
 		
-		String friendEmail = request.getParameter("friend");
-		
+		String friendEmail = request.getParameter("friendEmail");
+		System.out.println(friendEmail);
+
 		if (userManager.containsUser(userEmail) && userManager.containsUser(friendEmail)) {
-			friendsManager.addFriend(userEmail, friendEmail);
-			friendsManager.addFriend(friendEmail, userEmail);
+			friendsManager.sendFriendRequest(userManager.getIDByEmail(userEmail), userManager.getIDByEmail(friendEmail));
 		}
 	}
 

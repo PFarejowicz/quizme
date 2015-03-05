@@ -49,7 +49,7 @@
 	<% 
 	ArrayList<Integer> requestList = friendsManager.showFriendRequests(userId);
 	%>
-	<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
+	<%for (int i = 0 ; i < requestList.size() ; i++) { %>
 		<li><%=userManager.getNameByID(requestList.get(i))%></li>
 	<%}%>
 	</ul>
