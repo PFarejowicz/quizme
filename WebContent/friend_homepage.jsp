@@ -39,19 +39,19 @@
 <p><%=friendName%>'s Friends</p>
 	<ul>
 	<% 
-	ArrayList<Integer> friendsList = friendsManager.getFriends(userId);
+	ArrayList<Integer> friendsList = friendsManager.getFriends(friendId);
 	%>
 	<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
 		<li><%=userManager.getNameByID(friendsList.get(i))%></li>
 	<%}%>
 	</ul>
 	
-<p>Send Messages</p>
+<!-- <p>Send Messages</p>
 	<form action="MessageServlet" method="post">
 	<p>Send to: <input type="text" name="receiver" />
 	<p>Message: <input type="text" name="new message" />
 	<input type="submit" value="Send" /></p>
-	</form>
+	</form> -->
 
 
 </body>

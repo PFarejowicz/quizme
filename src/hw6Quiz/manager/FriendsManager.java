@@ -63,11 +63,11 @@ public class FriendsManager {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id1 = \"" + userId + "\"");
 			while (rs.next()) {
-				friendsList.add(rs.getInt(2));
+				friendsList.add(rs.getInt("user_id2"));
 			}
 			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id2 = \"" + userId + "\"");
 			while (rs.next()) {
-				friendsList.add(rs.getInt(1));
+				friendsList.add(rs.getInt("user_id1"));
 			}
 			return friendsList;
 		} catch (Exception e) {
