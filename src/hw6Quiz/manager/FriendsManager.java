@@ -63,11 +63,11 @@ public class FriendsManager {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id1 = \"" + userId + "\"");
 			while (rs.next()) {
-				friendsList.add(rs.getInt(2));
+				friendsList.add(rs.getInt("user_id2"));
 			}
 			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id2 = \"" + userId + "\"");
 			while (rs.next()) {
-				friendsList.add(rs.getInt(1));
+				friendsList.add(rs.getInt("user_id1"));
 			}
 			return friendsList;
 		} catch (Exception e) {
@@ -81,6 +81,15 @@ public class FriendsManager {
 		try {
 			boolean alreadyRequested = false;
 			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id1 = \"" + from + "\"");
+			while (rs.next()) {
+				if (rs.getInt("user_id2") == to) alreadyRequested = true;
+			}
+			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id2 = \"" + from + "\"");
+			while (rs.next()) {
+				if (rs.getInt("user_id1") == to) alreadyRequested = true;
+			}
+			
 			rs = stmt.executeQuery("SELECT * FROM friend_requests WHERE from_user_id = \"" + from + "\"");
 			while(rs.next()) {
 				if (rs.getInt("to_user_id") == to) {
@@ -93,6 +102,8 @@ public class FriendsManager {
 					alreadyRequested = true;
 				}
 			}
+			rs = stmt.executeQuery("SELECT * FROM friend_requests WHERE to_user_id = \"" + from + "\"");
+
 			if (!alreadyRequested) {
 				PreparedStatement prepStmt = con.prepareStatement("INSERT INTO friend_requests (from_user_id, to_user_id) VALUES(?, ?)");
 				prepStmt.setInt(1, from);
