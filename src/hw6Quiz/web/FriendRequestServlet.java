@@ -47,7 +47,6 @@ public class FriendRequestServlet extends HttpServlet {
 		String userEmail = (String) request.getSession().getAttribute("email");
 		
 		String friendEmail = request.getParameter("friendEmail");
-		System.out.println(friendEmail);
 
 		if (userManager.containsUser(userEmail) && userManager.containsUser(friendEmail)) {
 			friendsManager.sendFriendRequest(userManager.getIDByEmail(userEmail), userManager.getIDByEmail(friendEmail));

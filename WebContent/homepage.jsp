@@ -51,6 +51,10 @@
 	%>
 	<%for (int i = 0 ; i < requestList.size() ; i++) { %>
 		<li><%=userManager.getNameByID(requestList.get(i))%></li>
+<%-- 		<form action="FriendRequestServlet" method="post">
+		<p><input type="hidden" value=<%=friendEmail%> name="friendEmail" />
+		<input type="submit" value="Add" /></p>
+		</form> --%>
 	<%}%>
 	</ul>
 	

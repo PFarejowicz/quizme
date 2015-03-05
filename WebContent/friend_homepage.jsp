@@ -11,6 +11,7 @@
 	int friendId = userManager.getIDByEmail(friendEmail);
 	int userId = (Integer) session.getAttribute("user id");
 	String friendName = userManager.getNameByID(friendId);
+	boolean isFriend = friendsManager.checkFriend(userId, friendId);
 %>
 
 <html>
@@ -26,16 +27,17 @@
 
 <p><%=friendName%>'s Achievements</p>
 
-<p><a href="create_quiz.jsp">Create a Quiz</a></p>
-
 <p><%=friendName%>'s Quiz History</p>
 
-<p>Add Friend</p>
-	<form action="FriendRequestServlet" method="post">
-	<p><input type="hidden" value=<%=friendEmail%> name="friendEmail" />
-	<input type="submit" value="Add" /></p>
-	</form>
-	
+	<%
+	if (!isFriend) {%>  
+		<p>Add Friend</p>
+		<form action="FriendRequestServlet" method="post">
+		<p><input type="hidden" value=<%=friendEmail%> name="friendEmail" />
+	    <input type="submit" value="Add" /></p>
+	    </form>
+	<%}%>
+		
 <p><%=friendName%>'s Friends</p>
 	<ul>
 	<% 

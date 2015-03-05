@@ -38,11 +38,11 @@ public class FriendsManager {
 
 			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id1 = \"" + userId + "\"");
 			while (rs.next()) {
-				if (rs.getInt(2) == friendId) alreadyAdded = true;
+				if (rs.getInt("user_id2") == friendId) alreadyAdded = true;
 			}
 			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id2 = \"" + userId + "\"");
 			while (rs.next()) {
-				if (rs.getInt(1) == friendId) alreadyAdded = true;
+				if (rs.getInt("user_id1") == friendId) alreadyAdded = true;
 			}
 			
 			if (!alreadyAdded) {
@@ -136,6 +136,26 @@ public class FriendsManager {
 	public ArrayList<Integer> findMutualFriends() {
 		ArrayList<Integer> mutuals = new ArrayList<Integer>();
 		return mutuals;
+	}
+	
+	public boolean checkFriend(int userId1, int userId2) {
+		Statement stmt;
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id1 = \"" + userId1 + "\"");
+			while (rs.next()) {
+				if (rs.getInt("user_id2") == userId2) return true;
+			}
+			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id2 = \"" + userId1 + "\"");
+			while (rs.next()) {
+				if (rs.getInt("user_id1") == userId2) return true;
+			}
+			return false;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+		
 	}
 	
 }
