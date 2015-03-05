@@ -59,8 +59,6 @@ public class QuizGradeServlet extends HttpServlet {
 		int diffMin = (int) (diff / (60 * 1000));
 		int diffSec = (int) (diff / 1000);
 		String timeElapsedStr = diffMin + " minutes, " + diffSec + " seconds";
-		request.setAttribute("time_elapsed_str", timeElapsedStr);
-		System.out.println(diffMin + " minutes, " + diffSec + " seconds");
 		
 		ArrayList<Integer> questions = (ArrayList<Integer>) request.getSession().getAttribute("questions");
 		int score = 0; 
@@ -95,7 +93,7 @@ public class QuizGradeServlet extends HttpServlet {
 		}
 		quizManager.addQuizResult(quiz_id, (Integer) request.getSession().getAttribute("user id"), score);
 		request.setAttribute("quiz_id", Integer.toString(quiz_id));
-		RequestDispatcher dispatch = request.getRequestDispatcher("quiz_results.jsp?quiz_id="+quiz_id+"&score="+score);
+		RequestDispatcher dispatch = request.getRequestDispatcher("quiz_results.jsp?quiz_id="+quiz_id+"&score="+score+"&time_elapsed="+timeElapsedStr);
 		dispatch.forward(request, response); 
 	}
 }
