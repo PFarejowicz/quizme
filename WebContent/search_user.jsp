@@ -33,6 +33,10 @@
 		<li>
 		<a href="friend_homepage.jsp?friendEmail=<%=otherUserEmail%>"><%=userManager.getNameByID(otherUserId)%>: <%=otherUserEmail%></a>
 		<%
+		if (friendStatus == 1) {%>  
+			<p>Friends</p>
+		<%}%>
+		<%
 		if (friendStatus == 2) {%>  
 			<p>Friend Request Sent</p>
 		<%}%>
@@ -40,17 +44,20 @@
 		if (friendStatus == 3) {%>  
 			<form action="FriendServlet" method="post">
 			<input type="hidden" value=<%=otherUserEmail%> name="friendEmail" />
-			<input type="submit" value="Accept" name="decision" />
+			<input type="hidden" value="Accept From Search Page" name="decision" />
+			<input type="submit" value="Accept Request" />
 			</form>
 			<form action="FriendServlet" method="post">
 			<input type="hidden" value=<%=otherUserEmail%> name="friendEmail" />
-			<input type="submit" value="Reject" name="decision" />
+			<input type="hidden" value="Reject From Search Page" name="decision" />
+			<input type="submit" value="Reject Request" />
 			</form>
 		<%}%>
 		<%
 		if (friendStatus == 4) {%>  
 			<form action="FriendRequestServlet" method="post">
 			<p><input type="hidden" value=<%=otherUserEmail%> name="friendEmail" />
+			<input type="hidden" value="Request from Search Page" name="requestSent" />
 		    <input type="submit" value="Send Friend Request" /></p>
 		    </form>
 		<%}%>

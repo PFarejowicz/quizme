@@ -32,11 +32,13 @@
 		<p>Respond to Friend Request</p>
 		<form action="FriendServlet" method="post">
 		<input type="hidden" value=<%=friendEmail%> name="friendEmail" />
-		<input type="submit" value="Accept" name="decision" />
+		<input type="hidden" value="Accept From Friend Page" name="decision" />
+		<input type="submit" value="Accept Friend Request" />
 		</form>
 		<form action="FriendServlet" method="post">
 		<input type="hidden" value=<%=friendEmail%> name="friendEmail" />
-		<input type="submit" value="Reject" name="decision" />
+		<input type="hidden" value="Reject From Friend Page" name="decision" />
+		<input type="submit" value="Reject Friend Request" />
 		</form>
 	<%}%>
 	<%
@@ -44,6 +46,7 @@
 		<p>Add Friend</p>
 		<form action="FriendRequestServlet" method="post">
 		<p><input type="hidden" value=<%=friendEmail%> name="friendEmail" />
+		<input type="hidden" value="Request from Friend Page" name="requestSent" />
 	    <input type="submit" value="Send Friend Request" /></p>
 	    </form>
 	<%}%>

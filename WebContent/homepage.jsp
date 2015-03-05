@@ -46,14 +46,20 @@
 	%>
 	<%
 	for (int i = 0 ; i < requestList.size() ; i++) { %>
-		<li><%=userManager.getNameByID(requestList.get(i))%>
+		<% 
+		int otherUserId = requestList.get(i); 
+		String otherUserEmail = userManager.getEmailByID(otherUserId);
+		%>
+			<li><a href="friend_homepage.jsp?friendEmail=<%=otherUserEmail%>"><%=userManager.getNameByID(requestList.get(i))%></a>
 			<form action="FriendServlet" method="post">
-			<input type="hidden" value=<%=userManager.getEmailByID(requestList.get(i))%> name="friendEmail" />
-		    <input type="submit" value="Accept" name="decision" />
+			<input type="hidden" value=<%=otherUserEmail%> name="friendEmail" />
+		    <input type="hidden" value="Accept From Home Page" name="decision" />
+		    <input type="submit" value="Accept Friend Request" />
 		    </form>
 		    <form action="FriendServlet" method="post">
-			<input type="hidden" value=<%=userManager.getEmailByID(requestList.get(i))%> name="friendEmail" />
-		    <input type="submit" value="Reject" name="decision" />
+			<input type="hidden" value=<%=otherUserEmail%> name="friendEmail" />
+			<input type="hidden" value="Reject From Home Page" name="decision" />
+		    <input type="submit" value="Reject Friend Request" />
 		    </form>
 		</li>
 	<%}%>

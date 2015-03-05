@@ -4,6 +4,7 @@ import hw6Quiz.manager.*;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,12 +49,36 @@ public class FriendServlet extends HttpServlet {
 		String decision = request.getParameter("decision");
 		
 		if (userManager.containsUser(userEmail) && userManager.containsUser(friendEmail)) {
-			if (decision.equals("Accept")) {
+			if (decision.equals("Accept From Home Page")) {
 	 			friendsManager.addFriend(userEmail, friendEmail);
 				friendsManager.addFriend(friendEmail, userEmail);
 				friendsManager.deleteFriendRequest(userEmail, friendEmail);
-			} else if (decision.equals("Reject")) {
+				RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
+				dispatch.forward(request, response);
+			} else if (decision.equals("Accept From Friend Page")) {
+	 			friendsManager.addFriend(userEmail, friendEmail);
+				friendsManager.addFriend(friendEmail, userEmail);
 				friendsManager.deleteFriendRequest(userEmail, friendEmail);
+				RequestDispatcher dispatch = request.getRequestDispatcher("friend_homepage.jsp");
+				dispatch.forward(request, response);
+			} else if (decision.equals("Accept From Search Page")) {
+	 			friendsManager.addFriend(userEmail, friendEmail);
+				friendsManager.addFriend(friendEmail, userEmail);
+				friendsManager.deleteFriendRequest(userEmail, friendEmail);
+				RequestDispatcher dispatch = request.getRequestDispatcher("search_user.jsp");
+				dispatch.forward(request, response);
+			} else if (decision.equals("Reject From Home Page")) {
+				friendsManager.deleteFriendRequest(userEmail, friendEmail);
+				RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
+				dispatch.forward(request, response);
+			} else if (decision.equals("Reject From Friend Page")) {
+				friendsManager.deleteFriendRequest(userEmail, friendEmail);
+				RequestDispatcher dispatch = request.getRequestDispatcher("friend_homepage.jsp");
+				dispatch.forward(request, response);
+			} else if (decision.equals("Reject From Search Page")) {
+				friendsManager.deleteFriendRequest(userEmail, friendEmail);
+				RequestDispatcher dispatch = request.getRequestDispatcher("search_user.jsp");
+				dispatch.forward(request, response);
 			}
 		}
 	}

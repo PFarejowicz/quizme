@@ -5,6 +5,7 @@ import hw6Quiz.manager.UserManager;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,10 +48,20 @@ public class FriendRequestServlet extends HttpServlet {
 		String userEmail = (String) request.getSession().getAttribute("email");
 		
 		String friendEmail = request.getParameter("friendEmail");
+		String decision = request.getParameter("requestSent");
+
 
 		if (userManager.containsUser(userEmail) && userManager.containsUser(friendEmail)) {
 			friendsManager.sendFriendRequest(userManager.getIDByEmail(userEmail), userManager.getIDByEmail(friendEmail));
+			if (decision.equals("Request from Friend Page")) {
+				RequestDispatcher dispatch = request.getRequestDispatcher("friend_homepage.jsp");
+				dispatch.forward(request, response);
+			} else if (decision.equals("Request from Search Page")) {
+				RequestDispatcher dispatch = request.getRequestDispatcher("search_user.jsp");
+				dispatch.forward(request, response);
+			}
 		}
+				
 	}
 
 }
