@@ -79,6 +79,10 @@ public class FriendServlet extends HttpServlet {
 				friendsManager.deleteFriendRequest(userEmail, friendEmail);
 				RequestDispatcher dispatch = request.getRequestDispatcher("search_user.jsp");
 				dispatch.forward(request, response);
+			} else if (decision.equals("Unfriend")) {
+				friendsManager.unfriend(userEmail, friendEmail);
+				RequestDispatcher dispatch = request.getRequestDispatcher("friend_homepage.jsp");
+				dispatch.forward(request, response);
 			}
 		}
 	}

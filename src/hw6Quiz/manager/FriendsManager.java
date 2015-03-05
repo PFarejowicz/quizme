@@ -192,4 +192,27 @@ public class FriendsManager {
 		}
 	}
 	
+	public void unfriend(String userEmail, String friendEmail) {
+		Statement stmt;
+		int userId = 0;
+		int friendId = 0;
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM users WHERE email = \"" + userEmail + "\"");
+			if (rs.next()) {
+				userId = rs.getInt("user_id");
+			}
+			rs = stmt.executeQuery("SELECT * FROM users WHERE email = \"" + friendEmail + "\"");
+			if (rs.next()) {
+				friendId = rs.getInt("user_id");
+			}
+			PreparedStatement prepStmt = con.prepareStatement("DELETE FROM friends WHERE user_id1 = \"" + userId + "\" AND user_id2 = \"" + friendId + "\"");
+			prepStmt.executeUpdate();
+			prepStmt = con.prepareStatement("DELETE FROM friends WHERE user_id1 = \"" + friendId + "\" AND user_id2 = \"" + userId + "\"");
+			prepStmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

@@ -70,7 +70,14 @@
 	<%}%>
 	</ul>
 	
+<p> Unfriend <%=friendName%></p>
+	<%
+	if (isFriend == 1) {%> 
+		<form action="FriendServlet" method="post">
+		<input type="hidden" value=<%=friendEmail%> name="friendEmail" />
+		<input type="submit" value="Unfriend" name="decision"/>
+		</form>
+	<%}%>
 	
-
 </body>
 </html>
