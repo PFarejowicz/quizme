@@ -44,6 +44,16 @@
 	<%}%>
 	</ul>
 	
+<p>Pending Friend Requests</p>
+	<ul>
+	<% 
+	ArrayList<Integer> requestList = friendsManager.showFriendRequests(userId);
+	%>
+	<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
+		<li><%=userManager.getNameByID(requestList.get(i))%></li>
+	<%}%>
+	</ul>
+	
 <p>Send Messages</p>
 	<form action="MessageServlet" method="post">
 	<p>Send to: <input type="text" name="receiver" />

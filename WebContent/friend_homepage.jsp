@@ -31,8 +31,8 @@
 <p><%=friendName%>'s Quiz History</p>
 
 <p>Add Friend</p>
-	<form action="FriendServlet" method="post">
-	<p>Add: <input type="text" name="friend" />
+	<form action="FriendRequestServlet" method="post">
+	<p><input type="hidden" value=friendId name="friend" />
 	<input type="submit" value="Add" /></p>
 	</form>
 	
