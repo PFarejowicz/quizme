@@ -31,18 +31,16 @@ public class UserManager {
 		return false; 
 	}
 	
-	public ArrayList<Integer> findUsers(String info) {
+	public ArrayList<Integer> findUsers(int userId, String info) {
 		ArrayList<Integer> possibleUsers = new ArrayList<Integer>();
 		Statement stmt;
 		try {
 			stmt = con.createStatement();
-			rs = stmt.executeQuery("SELECT * FROM users WHERE email = \"" + info + "\"");
+			rs = stmt.executeQuery("SELECT * FROM users WHERE email LIKE \"%" + info + "%\" OR name LIKE \"%" + info + "%\"");
 			while (rs.next()) {
-				possibleUsers.add(rs.getInt("user_id"));
-			}
-			rs = stmt.executeQuery("SELECT * FROM users WHERE name = \"" + info + "\"");
-			while (rs.next()) {
-				possibleUsers.add(rs.getInt("user_id"));
+				if (rs.getInt("user_id") != userId) {
+					possibleUsers.add(rs.getInt("user_id"));
+				}
 			}
 			return possibleUsers;
 		} catch (SQLException e) {
