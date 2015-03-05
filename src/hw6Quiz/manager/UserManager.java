@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class UserManager {
@@ -28,6 +29,26 @@ public class UserManager {
 			e.printStackTrace();
 		}
 		return false; 
+	}
+	
+	public ArrayList<Integer> findUsers(String info) {
+		ArrayList<Integer> possibleUsers = new ArrayList<Integer>();
+		Statement stmt;
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM users WHERE email = \"" + info + "\"");
+			while (rs.next()) {
+				possibleUsers.add(rs.getInt("user_id"));
+			}
+			rs = stmt.executeQuery("SELECT * FROM users WHERE name = \"" + info + "\"");
+			while (rs.next()) {
+				possibleUsers.add(rs.getInt("user_id"));
+			}
+			return possibleUsers;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return possibleUsers;
 	}
 	
 	public boolean isAdmin(String email) {

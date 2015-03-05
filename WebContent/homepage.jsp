@@ -28,12 +28,6 @@
 
 <p>Quiz History</p>
 
-<!-- <p>Friends</p>
-	<form action="FriendServlet" method="post">
-	<p>Add: <input type="text" name="friend" />
-	<input type="submit" value="Add" /></p>
-	</form> -->
-	
 <p>Your Friends</p>
 	<ul>
 	<% 
@@ -64,7 +58,13 @@
 		</li>
 	<%}%>
 	</ul>
-	
+
+<p>Search Users</p>
+	<form action="UserSearchServlet" method="post">
+	<p><input type="text" name="info" />
+	<input type="submit" value="Search" /></p>
+	</form>
+
 <p>Send Messages</p>
 	<form action="MessageServlet" method="post">
 	<p>Send to: <input type="text" name="receiver" />
