@@ -23,13 +23,7 @@
 
 <h1><%=friendName%></h1>
 
-<p><%=friendName%>'s Quizzes</p>
-
-<p><%=friendName%>'s Achievements</p>
-
-<p><%=friendName%>'s Quiz History</p>
-
-	<%
+<%
 	if (isFriend == 2) {%>  
 		<p>Friend Request Sent</p>
 	<%}%>
@@ -53,6 +47,12 @@
 	    <input type="submit" value="Send Friend Request" /></p>
 	    </form>
 	<%}%>
+
+<p><%=friendName%>'s Quizzes</p>
+
+<p><%=friendName%>'s Achievements</p>
+
+<p><%=friendName%>'s Quiz History</p>
 		
 <p><%=friendName%>'s Friends</p>
 	<ul>
@@ -60,9 +60,14 @@
 	ArrayList<Integer> friendsList = friendsManager.getFriends(friendId);
 	%>
 	<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
-		<li><%=userManager.getNameByID(friendsList.get(i))%></li>
+		<%
+		if (friendsList.get(i) != userId) {%>
+				<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getEmailByID(friendsList.get(i))%></a></li>
+		<%}%>
 	<%}%>
 	</ul>
+	
+	
 
 </body>
 </html>
