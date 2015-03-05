@@ -158,4 +158,26 @@ public class FriendsManager {
 		
 	}
 	
+	public void deleteFriendRequest(String userEmail, String friendRequestEmail) {
+		Statement stmt;
+		int userId = 0;
+		int friendRequestId = 0;
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM users WHERE email = \"" + userEmail + "\"");
+			if (rs.next()) {
+				userId = rs.getInt("user_id");
+			}
+			rs = stmt.executeQuery("SELECT * FROM users WHERE email = \"" + friendRequestEmail + "\"");
+			if (rs.next()) {
+				friendRequestId = rs.getInt("user_id");
+			}
+			PreparedStatement prepStmt = con.prepareStatement("DELETE FROM friend_requests WHERE from_user_id = \"" + friendRequestId + "\" AND to_user_id = \"" + userId + "\"");
+			prepStmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

@@ -44,12 +44,17 @@ public class FriendServlet extends HttpServlet {
 		FriendsManager friendsManager = (FriendsManager) context.getAttribute("friends manager");
 		UserManager userManager = (UserManager) context.getAttribute("user manager");
 		String userEmail = (String) request.getSession().getAttribute("email");
-		
-		String friendEmail = request.getParameter("friend");
+		String friendEmail = request.getParameter("friendEmail");
+		String decision = request.getParameter("decision");
 		
 		if (userManager.containsUser(userEmail) && userManager.containsUser(friendEmail)) {
-			friendsManager.addFriend(userEmail, friendEmail);
-			friendsManager.addFriend(friendEmail, userEmail);
+			if (decision.equals("Accept")) {
+	 			friendsManager.addFriend(userEmail, friendEmail);
+				friendsManager.addFriend(friendEmail, userEmail);
+				friendsManager.deleteFriendRequest(userEmail, friendEmail);
+			} else if (decision.equals("Reject")) {
+				friendsManager.deleteFriendRequest(userEmail, friendEmail);
+			}
 		}
 	}
 }

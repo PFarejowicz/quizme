@@ -28,11 +28,11 @@
 
 <p>Quiz History</p>
 
-<p>Friends</p>
+<!-- <p>Friends</p>
 	<form action="FriendServlet" method="post">
 	<p>Add: <input type="text" name="friend" />
 	<input type="submit" value="Add" /></p>
-	</form>
+	</form> -->
 	
 <p>Your Friends</p>
 	<ul>
@@ -40,7 +40,8 @@
 	ArrayList<Integer> friendsList = friendsManager.getFriends(userId);
 	%>
 	<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
-		<li><%=userManager.getNameByID(friendsList.get(i))%></li>
+		<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getEmailByID(friendsList.get(i))%></a></li>
+		
 	<%}%>
 	</ul>
 	
@@ -53,8 +54,12 @@
 	for (int i = 0 ; i < requestList.size() ; i++) { %>
 		<li><%=userManager.getNameByID(requestList.get(i))%>
 			<form action="FriendServlet" method="post">
-			<p><input type="hidden" value=<%=userManager.getEmailByID(requestList.get(i))%> name="friendEmail" />
-		    <input type="submit" value="Add" /></p>
+			<input type="hidden" value=<%=userManager.getEmailByID(requestList.get(i))%> name="friendEmail" />
+		    <input type="submit" value="Accept" name="decision" />
+		    </form>
+		    <form action="FriendServlet" method="post">
+			<input type="hidden" value=<%=userManager.getEmailByID(requestList.get(i))%> name="friendEmail" />
+		    <input type="submit" value="Reject" name="decision" />
 		    </form>
 		</li>
 	<%}%>
