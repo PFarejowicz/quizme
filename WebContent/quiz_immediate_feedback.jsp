@@ -33,6 +33,7 @@ if (question_num >= sentinel) {
 	out.println("<form action=\"quiz_results.jsp\" method=\"post\">");
 	out.println("<input type=\"hidden\" name=\"quiz_id\" value=\""+quiz_id+"\" />");
 	out.println("<input type=\"hidden\" name=\"score\" value=\""+request.getParameter("score")+"\" />");
+	out.println("<input type=\"hidden\" name=\"time_elapsed\" value=\""+request.getParameter("time_elapsed")+"\" />");
 	out.println("<p><input type=\"submit\" value=\"Get Results\" /></p>");
 	out.println("</form>");
 } else {
