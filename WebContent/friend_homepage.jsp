@@ -11,7 +11,7 @@
 	int friendId = userManager.getIDByEmail(friendEmail);
 	int userId = (Integer) session.getAttribute("user id");
 	String friendName = userManager.getNameByID(friendId);
-	boolean isFriend = friendsManager.checkFriend(userId, friendId);
+	int isFriend = friendsManager.checkFriendStatus(userId, friendId);
 %>
 
 <html>
@@ -30,11 +30,27 @@
 <p><%=friendName%>'s Quiz History</p>
 
 	<%
-	if (!isFriend) {%>  
+	if (isFriend == 2) {%>  
+		<p>Friend Request Sent</p>
+	<%}%>
+	<%
+	if (isFriend == 3) {%>  
+		<p>Respond to Friend Request</p>
+		<form action="FriendServlet" method="post">
+		<input type="hidden" value=<%=friendEmail%> name="friendEmail" />
+		<input type="submit" value="Accept" name="decision" />
+		</form>
+		<form action="FriendServlet" method="post">
+		<input type="hidden" value=<%=friendEmail%> name="friendEmail" />
+		<input type="submit" value="Reject" name="decision" />
+		</form>
+	<%}%>
+	<%
+	if (isFriend == 4) {%>  
 		<p>Add Friend</p>
 		<form action="FriendRequestServlet" method="post">
 		<p><input type="hidden" value=<%=friendEmail%> name="friendEmail" />
-	    <input type="submit" value="Add" /></p>
+	    <input type="submit" value="Send Friend Request" /></p>
 	    </form>
 	<%}%>
 		
@@ -47,14 +63,6 @@
 		<li><%=userManager.getNameByID(friendsList.get(i))%></li>
 	<%}%>
 	</ul>
-	
-<!-- <p>Send Messages</p>
-	<form action="MessageServlet" method="post">
-	<p>Send to: <input type="text" name="receiver" />
-	<p>Message: <input type="text" name="new message" />
-	<input type="submit" value="Send" /></p>
-	</form> -->
-
 
 </body>
 </html>

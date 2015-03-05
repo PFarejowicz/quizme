@@ -138,24 +138,36 @@ public class FriendsManager {
 		return mutuals;
 	}
 	
-	public boolean checkFriend(int userId1, int userId2) {
+	public int checkFriendStatus(int userId1, int userId2) {
+		int areFriends = 1;
+		int user1Requested = 2;
+		int user2Requested = 3;
+		int noRequests = 4;
+		
 		Statement stmt;
 		try {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id1 = \"" + userId1 + "\"");
 			while (rs.next()) {
-				if (rs.getInt("user_id2") == userId2) return true;
+				if (rs.getInt("user_id2") == userId2) return areFriends;
 			}
 			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id2 = \"" + userId1 + "\"");
 			while (rs.next()) {
-				if (rs.getInt("user_id1") == userId2) return true;
+				if (rs.getInt("user_id1") == userId2) return areFriends;
 			}
-			return false;
+			rs = stmt.executeQuery("SELECT * FROM friend_requests WHERE from_user_id = \"" + userId1 + "\"");
+			while(rs.next()) {
+				if(rs.getInt("to_user_id") == userId2) return user1Requested;
+			}
+			rs = stmt.executeQuery("SELECT * FROM friend_requests WHERE to_user_id = \"" + userId1 + "\"");
+			while(rs.next()) {
+				if(rs.getInt("from_user_id") == userId2) return user2Requested;
+			}
+			return noRequests;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return false;
-		
+		return -1;
 	}
 	
 	public void deleteFriendRequest(String userEmail, String friendRequestEmail) {

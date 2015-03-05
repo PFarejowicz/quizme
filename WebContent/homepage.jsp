@@ -7,7 +7,7 @@
 	DBConnection connection = (DBConnection) getServletContext().getAttribute("connection");
 	MessageManager messageManager = (MessageManager) getServletContext().getAttribute("message manager");
 	FriendsManager friendsManager = (FriendsManager) getServletContext().getAttribute("friends manager");
-	String email = request.getParameter("email");
+	String email = (String) session.getAttribute("email");
 	int userId = (Integer) session.getAttribute("user id");
 %>
 
