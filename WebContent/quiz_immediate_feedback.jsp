@@ -32,6 +32,7 @@ if (request.getParameter("correct_answer").equals("true")) {
 <%
 int question_num = Integer.parseInt(request.getParameter("question_num"));
 boolean isQuizFinished = request.getParameter("is_quiz_finished").equals("true");
+System.out.println(isQuizFinished);
 if (isQuizFinished) {
 	out.println("<form action=\"quiz_results.jsp\" method=\"post\">");
 	out.println("<input type=\"hidden\" name=\"quiz_id\" value=\""+quiz_id+"\" />");

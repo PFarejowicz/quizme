@@ -115,6 +115,8 @@ public class QuizMultiPageDispatcherServlet extends HttpServlet {
 			}
 		} else if (type.equals("PictureResponse")) {
 			PictureResponse question = (PictureResponse) questionManager.getQuestionByID(question_id);
+			System.out.println(question);
+			System.out.println(request.getParameter("question_" + question_number).toLowerCase());
 			if (question.getAnswerText().equals(request.getParameter("question_" + question_number).toLowerCase())) {
 				correct_answer = "true";
 				score++;
@@ -134,7 +136,7 @@ public class QuizMultiPageDispatcherServlet extends HttpServlet {
 		}
 		
 		if (request.getParameter("immediate_correction").equals("true")) {
-			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_immediate_feedback.jsp?correct_answer="+correct_answer+"&question_num="+question_number+"&is_quiz_finished="+Boolean.toString(isQuizFinished)+"&score="+score+"&immediate_correction="+request.getParameter("immediate_correction")+"&time_elapsed="+timeElapsedStr);
+			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_immediate_feedback.jsp?correct_answer="+correct_answer+"&question_num="+question_number+"&is_quiz_finished="+isQuizFinished+"&score="+score+"&immediate_correction=true&time_elapsed="+timeElapsedStr);
 			dispatch.forward(request, response);
 		} else {
 			if (isQuizFinished && isPracticeMode) {
