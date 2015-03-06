@@ -24,11 +24,13 @@
 
 <h1>Welcome, <%=userManager.getNameByID(userId)%>!</h1>
 
+<p><a href="create_quiz.jsp">Create a Quiz</a></p>
+
+
 <p>Your Quizzes</p>
 
 <p>Achievements</p>
 
-<p><a href="create_quiz.jsp">Create a Quiz</a></p>
 
 <p>Quiz History</p>
 
@@ -42,6 +44,9 @@
 		
 	<%}%>
 	</ul>
+	
+<p>Challenge Friends</p>
+	
 	
 <p>Pending Friend Requests</p>
 	<ul>
