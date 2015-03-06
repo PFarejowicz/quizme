@@ -24,16 +24,16 @@
 
 <h1>Welcome, <%=userManager.getNameByID(userId)%>!</h1>
 
-<p>Your Quizzes</p>
+<h3>Your Quizzes</h3>
 
-<p>Achievements</p>
+<h3>Achievements</h3>
 
-<p><a href="create_quiz.jsp">Create a Quiz</a></p>
+<h3><a href="create_quiz.jsp">Create a Quiz</a></h3>
 
-<p>Quiz History</p>
+<h3>Quiz History</h3>
 <% ArrayList<QuizHistory> history = userManager.getQuizHistoryById(userId); %>
 <% if(history.size() > 0){ %>
-	<p>Your Most Recent Quizzes:</p><br/>
+	<h5>Your Most Recent Quizzes:</h5><br/>
 	<% for(int i = history.size() - 1; i >= 0 && i >= history.size() - 3; i--){ %>
 		<p>Quiz Name:<%= history.get(i).getQuizId() %></p>
 		<p>Score: <%= history.get(i).getScore() %></p><br/>
@@ -41,7 +41,7 @@
 <% } %>
 <p><a href="user_quiz_history.jsp">All Quizzes</a></p><br/>
 
-<p>Your Friends</p>
+<h3>Your Friends</h3>
 	<ul>
 	<% 
 	ArrayList<Integer> friendsList = friendsManager.getFriends(userId);
@@ -52,7 +52,7 @@
 	<%}%>
 	</ul>
 	
-<p>Pending Friend Requests</p>
+<h3>Pending Friend Requests</h3>
 	<ul>
 	<% 
 	ArrayList<Integer> requestList = friendsManager.showFriendRequests(userId);
@@ -78,32 +78,29 @@
 	<%}%>
 	</ul>
 
-<p>Search Users</p>
+<h3>Search Users</h3>
 	<form action="UserSearchServlet" method="post">
 	<p><input type="text" name="info" />
 	<input type="submit" value="Search" /></p>
 	</form>
 
-<p>Send Messages</p>
+<h3>Send Messages</h3>
 	
 	<form action="MessageServlet" method="post">
-	<p>Send to: <input type="text" name="receiver" />
+	<p>Send to: <input type="text" name="receiver" /></p>
 	<p>Message: <input type="text" name="new message" />
 	<input type="submit" value="Send" /></p>
 	</form>
-	<%
-	if (messageStatus != null) { %>
-		<%
-		if (messageStatus.equals("sent")) { %>
+	<% if (messageStatus != null) { %>
+		<% if (messageStatus.equals("sent")) { %>
 			<p>Message Sent!</p>
-		<%}%>
-		<%
-		if (messageStatus.equals("failed")) { %>
+		<% } %>
+		<% if (messageStatus.equals("failed")) { %>
 			<p>Failed to send message: Invalid user email</p>
-		<%}%>
-	<%} %>
+		<% } %>
+	<% } %>
 
-<p>Your Messages</p>
+<h3>Your Messages</h3>
 	<ul>
 	<% 
 	ArrayList<String> messages = messageManager.getMessage(email);
