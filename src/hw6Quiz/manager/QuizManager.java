@@ -135,11 +135,11 @@ public class QuizManager {
 		Statement stmt;
 		try {
 			stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM quiz_history WHERE user_id = \"" + user_id + "\"");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM achievements WHERE user_id = \"" + user_id + "\"");
 			while(rs.next()){
-				count++;
+				achievements.add(rs.getString("achievement"));
 			}
-			return count;
+			return achievements;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
