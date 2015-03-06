@@ -90,7 +90,7 @@ public class AdminManager {
 			PreparedStatement prepStmt = con.prepareStatement("SELECT * FROM quizzes");
 			rs = prepStmt.executeQuery();
 			while(rs.next()){
-				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"));
+				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"), rs.getTimestamp("date_time"));
 				quizzes.add(quiz);
 			}
 		} catch (Exception e) {

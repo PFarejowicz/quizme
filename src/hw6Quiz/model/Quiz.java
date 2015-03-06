@@ -1,5 +1,7 @@
 package hw6Quiz.model;
 
+import java.sql.Timestamp;
+
 public class Quiz {
 	
 	private int quiz_id;
@@ -9,8 +11,9 @@ public class Quiz {
 	private boolean random_order;
 	private boolean multiple_pages;
 	private boolean immediate_correction;
+	private Timestamp date_created;
 
-	public Quiz(int quiz_id, String name, String description, int author_id, boolean randO, boolean multP, boolean immC) {
+	public Quiz(int quiz_id, String name, String description, int author_id, boolean randO, boolean multP, boolean immC, Timestamp dt) {
 		this.quiz_id = quiz_id;
 		this.name = name;
 		this.description = description;
@@ -18,6 +21,7 @@ public class Quiz {
 		this.random_order = randO;
 		this.multiple_pages = multP;
 		this.immediate_correction = immC;
+		this.date_created = dt;
 	}
 	
 	public int getQuizID() {
@@ -46,6 +50,10 @@ public class Quiz {
 	
 	public boolean isImmediateCorrection() {
 		return immediate_correction;
+	}
+	
+	public Timestamp getDateAndTime() {
+		return date_created;
 	}
 
 }
