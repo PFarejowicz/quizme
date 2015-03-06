@@ -98,7 +98,6 @@ public class QuizManager {
 		}
 	}
 	
-<<<<<<< HEAD
 	public void addRatingAndReview(int quiz_id, int rating, String review) {
 		try {
 			Statement stmt = con.createStatement();
@@ -109,7 +108,8 @@ public class QuizManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-=======
+	}
+		
 	public int numQuizMade(int user_id) {
 		int count = 0;
 		Statement stmt;
@@ -156,7 +156,6 @@ public class QuizManager {
 			e.printStackTrace();
 		}
 		return achievements;
->>>>>>> origin/master
 	}
 
 }
