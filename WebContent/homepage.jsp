@@ -38,6 +38,8 @@
 
 <h3>Your Quizzes</h3>
 
+<h3>Achievements</h3>
+<ul>
 <% ArrayList<String> achievements = quizManager.getAchievements(userId); 
 String check = "I am the Greatest";
 %>
@@ -48,14 +50,12 @@ for (int i = 0 ; i < achievements.size() ; i++) { %>
 	<% if (description.contains(check)) { %>
 		<% quizId = description.substring(check.length());
 		description = check; %>
-		<%=description%>: <%= quizManager.getQuizByID(Integer.parseInt(quizId)).getName() %>
+		<li><%=description%>: <%= quizManager.getQuizByID(Integer.parseInt(quizId)).getName() %></li>
 	<%} else {%>
-		<%= description %>
+		<li><%= description %></li>
 	<%}%>
 <%}%>
-
-
-<h3>Achievements</h3>
+</ul>
 
 <h3><a href="create_quiz.jsp">Create a Quiz</a></h3>
 
@@ -68,10 +68,7 @@ for (int i = 0 ; i < achievements.size() ; i++) { %>
 		<p>Score: <%= history.get(i).getScore() %></p><br/>
 	<% } %>
 <% } %>
-<form action="UserQuizHistoryServlet" method="post">
-	<input name="id" type="hidden" value="<%= userId %>"/>
-	<input type="submit" value="Show Full History" />
-	</form>
+<a href="user_quiz_history.jsp?id=<%= userId %>"><button type="button">Show Full History</button></a>
 
 <h3>Your Friends</h3>
 	<ul>
