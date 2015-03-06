@@ -27,21 +27,16 @@
 
 <h1>Welcome, <%=userManager.getNameByID(userId)%>!</h1>
 
-<<<<<<< HEAD
 <h3>Your Quizzes</h3>
-=======
-<p><a href="create_quiz.jsp">Create a Quiz</a></p>
+
+<h3><a href="create_quiz.jsp">Create a Quiz</a></h3>
 
 
-<p>Your Quizzes</p>
->>>>>>> 2f4897ffa5a5815d68fc330997c66b94bed7d871
+<h3>Your Quizzes</h3>
 
 <h3>Achievements</h3>
 
-<<<<<<< HEAD
 <h3><a href="create_quiz.jsp">Create a Quiz</a></h3>
-=======
->>>>>>> 2f4897ffa5a5815d68fc330997c66b94bed7d871
 
 <h3>Quiz History</h3>
 <% ArrayList<QuizHistory> history = userManager.getQuizHistoryById(userId); %>
@@ -65,14 +60,13 @@
 	<%}%>
 	</ul>
 	
-<<<<<<< HEAD
+
 <h3>Pending Friend Requests</h3>
-=======
-<p>Challenge Friends</p>
+
+<h3>Challenge Friends</h3>
 	
 	
-<p>Pending Friend Requests</p>
->>>>>>> 2f4897ffa5a5815d68fc330997c66b94bed7d871
+<h3>Pending Friend Requests</h3>
 	<ul>
 	<% 
 	ArrayList<Integer> requestList = friendsManager.showFriendRequests(userId);
