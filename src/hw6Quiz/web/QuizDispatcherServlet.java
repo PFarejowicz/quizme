@@ -103,7 +103,7 @@ public class QuizDispatcherServlet extends HttpServlet {
 			dispatch.forward(request, response);
 		} else {
 			if (question_number >= questions.size()) {
-				//quizManager.addQuizResult(quiz_id, (Integer) request.getSession().getAttribute("user id"), score);
+				quizManager.addQuizResult(quiz_id, (Integer) request.getSession().getAttribute("user id"), score);
 				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_results.jsp?score="+score+"&time_elapsed="+timeElapsedStr);
 				dispatch.forward(request, response);
 			} else {

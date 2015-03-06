@@ -29,26 +29,27 @@
 				if (type.equals("QuestionResponse")) {
 					QuestionResponse question = (QuestionResponse) questionManager.getQuestionByID(question_id);
 					out.println("<p>" + question_number + ".) " + question.getQuestionText() + "</p>");
-					out.println("<input type=\"text\" name=\"question_" + question_number + "\"/>");
+					out.println("<p><input type=\"text\" name=\"question_" + question_number + "\"/></p>");
 				} else if (type.equals("FillInTheBlank")) {
 					FillInTheBlank question = (FillInTheBlank) questionManager.getQuestionByID(question_id);
 					out.println("<p>" + question_number + ".) " + question.getQuestionText() + "</p>");
 					int num_answers = question.getNumBlanks();
 					for (int i = 0; i < num_answers; i++) {
-				out.println("<input type=\"text\" name=\"question_" + question_number + "_" + i + "\"/>");
+						out.println("<p><input type=\"text\" name=\"question_" + question_number + "_" + i + "\"/></p>");
 					}
 				} else if (type.equals("MultipleChoice")) {
 					MultipleChoice question = (MultipleChoice) questionManager.getQuestionByID(question_id);
 					out.println("<p>" + question_number + ".) " + question.getQuestionText() + "</p>");
 					ArrayList<String> choices = question.getChoicesText();
 					for (String choice : choices) {
-				out.println("<input type=\"radio\" name=\"question_" + question_number + "\" value=\"" + choice + "\">" + choice + "<br>");
+						out.println("<input type=\"radio\" name=\"question_" + question_number + "\" value=\"" + choice + "\">" + choice + "<br>");
 					}
+					out.println("<p></p>");
 				} else if (type.equals("PictureResponse")) {
 					PictureResponse question = (PictureResponse) questionManager.getQuestionByID(question_id);
 					out.println("<p>" + question_number + ".) " + "</p>");
 					out.println("<img src=" + question.getQuestionText() + "/>");
-					out.println("<input type=\"text\" name=\"question_" + question_number + "\"/>");
+					out.println("<p><input type=\"text\" name=\"question_" + question_number + "\"/></p>");
 				}
 				question_number++;
 			}
