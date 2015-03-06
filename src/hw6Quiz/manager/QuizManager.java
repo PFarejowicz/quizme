@@ -98,6 +98,18 @@ public class QuizManager {
 		}
 	}
 	
+	public void addRatingAndReview(int quiz_id, int rating, String review) {
+		try {
+			Statement stmt = con.createStatement();
+			String updateRating = "UPDATE quiz_history SET rating = " + rating + "WHERE quiz_id = " + quiz_id;
+			stmt.executeUpdate(updateRating);
+			String updateReview = "UPDATE quiz_history SET review = " + review + "WHERE quiz_id = " + quiz_id;
+			stmt.executeUpdate(updateReview);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+		
 	public int numQuizMade(int user_id) {
 		int count = 0;
 		Statement stmt;
@@ -137,7 +149,7 @@ public class QuizManager {
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM achievements WHERE user_id = \"" + user_id + "\"");
 			while(rs.next()){
-				achievements.add(rs.getString("achievement"));
+				achievements.add(rs.getString("description"));
 			}
 			return achievements;
 		} catch (SQLException e) {

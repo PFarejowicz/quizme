@@ -7,6 +7,7 @@
 	DBConnection connection = (DBConnection) getServletContext().getAttribute("connection");
 	MessageManager messageManager = (MessageManager) getServletContext().getAttribute("message manager");
 	FriendsManager friendsManager = (FriendsManager) getServletContext().getAttribute("friends manager");
+	QuizManager quizManager = (QuizManager) getServletContext().getAttribute("quiz manager");
 	String email = (String) session.getAttribute("email");
 	int userId = (Integer) session.getAttribute("user id");
 	String messageStatus = (String) session.getAttribute("message status");
@@ -27,6 +28,9 @@
 
 <h1>Welcome, <%=userManager.getNameByID(userId)%>!</h1>
 
+<p><a href="create_quiz.jsp">Create a Quiz</a></p>
+<p><a href="quiz_archive">Go to Quiz Archive</a></p>
+
 <h3>Your Quizzes</h3>
 
 <h3><a href="create_quiz.jsp">Create a Quiz</a></h3>
@@ -35,6 +39,23 @@
 <h3>Your Quizzes</h3>
 
 <h3>Achievements</h3>
+<ul>
+<% ArrayList<String> achievements = quizManager.getAchievements(userId); 
+String check = "I am the Greatest";
+%>
+<% 
+for (int i = 0 ; i < achievements.size() ; i++) { %>
+	<% String description = achievements.get(i);
+	String quizId = ""; %>
+	<% if (description.contains(check)) { %>
+		<% quizId = description.substring(check.length());
+		description = check; %>
+		<li><%=description%>: <%= quizManager.getQuizByID(Integer.parseInt(quizId)).getName() %></li>
+	<%} else {%>
+		<li><%= description %></li>
+	<%}%>
+<%}%>
+</ul>
 
 <h3><a href="create_quiz.jsp">Create a Quiz</a></h3>
 
@@ -47,13 +68,13 @@
 		<p>Score: <%= history.get(i).getScore() %></p><br/>
 	<% } %>
 <% } %>
-<p><a href="user_quiz_history.jsp">All Quizzes</a></p><br/>
+<a href="user_quiz_history.jsp?id=<%= userId %>"><button type="button">Show Full History</button></a>
 
 <h3>Your Friends</h3>
 	<ul>
 	<% 
 	ArrayList<Integer> friendsList = friendsManager.getFriends(userId);
-	%>
+	%> 
 	<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
 		<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getEmailByID(friendsList.get(i))%></a></li>
 		
@@ -121,7 +142,6 @@
 	%>
 	<%for (int i = messages.size() - 1 ; i >= 0 ; i-=2) { %>
 		<li><a href="friend_homepage.jsp?friendEmail=<%=messages.get(i)%>"><%=messages.get(i)%></a>: <%=messages.get(i-1)%></li>
-		
 	<%}%>
 	</ul>
 
