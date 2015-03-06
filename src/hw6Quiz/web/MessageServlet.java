@@ -51,7 +51,14 @@ public class MessageServlet extends HttpServlet {
 		String receiver = request.getParameter("receiver");
 		
 		if (userManager.containsUser(receiver) && userManager.containsUser(sender)) {
+			session.setAttribute("message status", "sent");
 			messageManager.sendMessage(message, sender, receiver);
+			RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
+			dispatch.forward(request, response);
+		} else {
+			session.setAttribute("message status", "failed");
+			RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
+			dispatch.forward(request, response);
 		}
 	}
 
