@@ -41,7 +41,7 @@
 <% ArrayList<String> achievements = quizManager.getAchievements(userId); 
 String check = "I am the Greatest";
 %>
-<%
+<% 
 for (int i = 0 ; i < achievements.size() ; i++) { %>
 	<% String description = achievements.get(i);
 	String quizId = ""; %>
