@@ -14,6 +14,9 @@
 
 <html>
 <head>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="normalize.css">
+<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>QuizMe</title>
 </head>
