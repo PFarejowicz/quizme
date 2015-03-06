@@ -1,5 +1,6 @@
 package hw6Quiz.manager;
 
+import hw6Quiz.model.*;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.sql.Connection;
@@ -168,6 +169,19 @@ public class UserManager {
 		return null;
 	}
 	
-	
+	public ArrayList<QuizHistory> getQuizHistoryById(int user_id){
+		ArrayList<QuizHistory> history = new ArrayList<QuizHistory>();
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM quiz_history WHERE user_id = " + user_id);
+			while(rs.next()){
+				QuizHistory qh = new QuizHistory(rs.getInt("quiz_history_id"), rs.getInt("quiz_id"), rs.getInt("user_id"), rs.getInt("score"));
+				history.add(qh);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return history;
+	}
 	
 }

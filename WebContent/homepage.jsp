@@ -9,6 +9,7 @@
 	FriendsManager friendsManager = (FriendsManager) getServletContext().getAttribute("friends manager");
 	String email = (String) session.getAttribute("email");
 	int userId = (Integer) session.getAttribute("user id");
+	String messageStatus = (String) session.getAttribute("message status");
 %>
 
 <html>
@@ -75,11 +76,23 @@
 	</form>
 
 <p>Send Messages</p>
+	
 	<form action="MessageServlet" method="post">
 	<p>Send to: <input type="text" name="receiver" />
 	<p>Message: <input type="text" name="new message" />
 	<input type="submit" value="Send" /></p>
 	</form>
+	<%
+	if (messageStatus != null) { %>
+		<%
+		if (messageStatus.equals("sent")) { %>
+			<p>Message Sent!</p>
+		<%}%>
+		<%
+		if (messageStatus.equals("failed")) { %>
+			<p>Failed to send message: Invalid user email</p>
+		<%}%>
+	<%} %>
 
 <p>Your Messages</p>
 	<ul>
