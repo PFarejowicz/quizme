@@ -68,3 +68,10 @@ CREATE TABLE IF NOT EXISTS announcements (
 	description VARCHAR(255),
 	PRIMARY KEY (announcement_id)
 );
+
+CREATE TABLE IF NOT EXISTS achievements (
+	achievement_id INT UNSIGNED AUTO_INCREMENT,
+	user_id INT UNSIGNED,
+	description VARCHAR(255),
+	PRIMARY KEY (achievement_id)
+);
