@@ -99,11 +99,11 @@ public class QuizDispatcherServlet extends HttpServlet {
 			}
 		}
 		if (request.getParameter("immediate_correction").equals("true")) {
-			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_immediate_feedback.jsp?correct_answer="+correct_answer+"question_num="+question_number+"&sentinel="+questions.size()+"&score="+score+"&immediate_correction="+request.getParameter("immediate_correction")+"&time_elapsed="+timeElapsedStr);
+			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_immediate_feedback.jsp?correct_answer="+correct_answer+"&question_num="+question_number+"&sentinel="+questions.size()+"&score="+score+"&immediate_correction="+request.getParameter("immediate_correction")+"&time_elapsed="+timeElapsedStr);
 			dispatch.forward(request, response);
 		} else {
 			if (question_number >= questions.size()) {
-				quizManager.addQuizResult(quiz_id, (Integer) request.getSession().getAttribute("user id"), score);
+				//quizManager.addQuizResult(quiz_id, (Integer) request.getSession().getAttribute("user id"), score);
 				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_results.jsp?score="+score+"&time_elapsed="+timeElapsedStr);
 				dispatch.forward(request, response);
 			} else {
