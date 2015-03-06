@@ -54,7 +54,6 @@ public class QuestionCreationServlet extends HttpServlet {
 			}
 			String prompt = request.getParameter("prompt");
 			String answer = request.getParameter("answer");
-//			int points = Integer.parseInt(request.getParameter("points"));
 			if (request.getParameter("ques_type").equals("question_response")) {
 				QuestionResponse questionObj = new QuestionResponse(quiz_id, user_id, prompt, answer);
 				quesManager.addQuestion(quiz_id, "QuestionResponse", questionObj);
