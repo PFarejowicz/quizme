@@ -67,25 +67,25 @@ public class QuizGradeServlet extends HttpServlet {
 			String type = questionManager.getTypeByID(question_id);
 			if (type.equals("QuestionResponse")) {
 				QuestionResponse question = (QuestionResponse) questionManager.getQuestionByID(question_id);
-				if (question.getAnswerText().equals(request.getParameter("question_" + question_number))) {
+				if (question.getAnswerText().equals(request.getParameter("question_" + question_number).toLowerCase())) {
 					score++;
 				}
 			} else if (type.equals("FillInTheBlank")) {
 				FillInTheBlank question = (FillInTheBlank) questionManager.getQuestionByID(question_id);
 				int num_answers = question.getNumBlanks();
 				for (int i = 0; i < num_answers; i++) {
-					if (question.getAnswerText().get(i).equals(request.getParameter("question_" + question_number + "_" + i))) {
+					if (question.getAnswerText().get(i).equals(request.getParameter("question_" + question_number + "_" + i).toLowerCase())) {
 						score++;
 					}
 				}
 			} else if (type.equals("MultipleChoice")) {
 				MultipleChoice question = (MultipleChoice) questionManager.getQuestionByID(question_id);
-				if (question.getAnswerText().equals(request.getParameter("question_" + question_number))) {
+				if (question.getAnswerText().equals(request.getParameter("question_" + question_number).toLowerCase())) {
 					score++;
 				}
 			} else if (type.equals("PictureResponse")) {
 				PictureResponse question = (PictureResponse) questionManager.getQuestionByID(question_id);
-				if (question.getAnswerText().equals(request.getParameter("question_" + question_number))) {
+				if (question.getAnswerText().equals(request.getParameter("question_" + question_number).toLowerCase())) {
 					score++;
 				}
 			}

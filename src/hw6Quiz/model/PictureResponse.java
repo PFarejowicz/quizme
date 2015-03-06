@@ -14,7 +14,7 @@ public class PictureResponse extends Question {
 	}
 	
 	public String getAnswerText() {
-		return answer;
+		return answer.toLowerCase();
 	}
 
 }

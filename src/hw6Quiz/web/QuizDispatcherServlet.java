@@ -70,7 +70,7 @@ public class QuizDispatcherServlet extends HttpServlet {
 		String correct_answer = "false";
 		if (type.equals("QuestionResponse")) {
 			QuestionResponse question = (QuestionResponse) questionManager.getQuestionByID(question_id);
-			if (question.getAnswerText().equals(request.getParameter("question_" + question_number))) {
+			if (question.getAnswerText().equals(request.getParameter("question_" + question_number).toLowerCase())) {
 				correct_answer = "true";
 				score++;
 			}
@@ -79,7 +79,7 @@ public class QuizDispatcherServlet extends HttpServlet {
 			int num_answers = question.getNumBlanks();
 			int partials = 0;
 			for (int i = 0; i < num_answers; i++) {
-				if (question.getAnswerText().get(i).equals(request.getParameter("question_" + question_number + "_" + i))) {
+				if (question.getAnswerText().get(i).equals(request.getParameter("question_" + question_number + "_" + i).toLowerCase())) {
 					score++;
 					partials++;
 				}
@@ -87,13 +87,13 @@ public class QuizDispatcherServlet extends HttpServlet {
 			if (partials == num_answers) correct_answer = "true";
 		} else if (type.equals("MultipleChoice")) {
 			MultipleChoice question = (MultipleChoice) questionManager.getQuestionByID(question_id);
-			if (question.getAnswerText().equals(request.getParameter("question_" + question_number))) {
+			if (question.getAnswerText().equals(request.getParameter("question_" + question_number).toLowerCase())) {
 				correct_answer = "true";
 				score++;
 			}
 		} else if (type.equals("PictureResponse")) {
 			PictureResponse question = (PictureResponse) questionManager.getQuestionByID(question_id);
-			if (question.getAnswerText().equals(request.getParameter("question_" + question_number))) {
+			if (question.getAnswerText().equals(request.getParameter("question_" + question_number).toLowerCase())) {
 				correct_answer = "true";
 				score++;
 			}

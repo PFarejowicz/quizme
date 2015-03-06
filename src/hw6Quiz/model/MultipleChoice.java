@@ -24,7 +24,7 @@ public class MultipleChoice extends Question {
 	}
 	
 	public ArrayList<String> getChoicesText() {
-		ArrayList<String> choiceList = new ArrayList<String>(Arrays.asList(choices.split(",")));
+		ArrayList<String> choiceList = new ArrayList<String>(Arrays.asList(choices.trim().toLowerCase().split("\\s*,\\s*")));
 		return choiceList;
 	}
 	
