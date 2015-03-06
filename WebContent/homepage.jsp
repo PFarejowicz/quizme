@@ -14,6 +14,9 @@
 
 <html>
 <head>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="normalize.css">
+<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>QuizMe</title>
 </head>
@@ -24,11 +27,21 @@
 
 <h1>Welcome, <%=userManager.getNameByID(userId)%>!</h1>
 
+<<<<<<< HEAD
 <h3>Your Quizzes</h3>
+=======
+<p><a href="create_quiz.jsp">Create a Quiz</a></p>
+
+
+<p>Your Quizzes</p>
+>>>>>>> 2f4897ffa5a5815d68fc330997c66b94bed7d871
 
 <h3>Achievements</h3>
 
+<<<<<<< HEAD
 <h3><a href="create_quiz.jsp">Create a Quiz</a></h3>
+=======
+>>>>>>> 2f4897ffa5a5815d68fc330997c66b94bed7d871
 
 <h3>Quiz History</h3>
 <% ArrayList<QuizHistory> history = userManager.getQuizHistoryById(userId); %>
@@ -52,7 +65,14 @@
 	<%}%>
 	</ul>
 	
+<<<<<<< HEAD
 <h3>Pending Friend Requests</h3>
+=======
+<p>Challenge Friends</p>
+	
+	
+<p>Pending Friend Requests</p>
+>>>>>>> 2f4897ffa5a5815d68fc330997c66b94bed7d871
 	<ul>
 	<% 
 	ArrayList<Integer> requestList = friendsManager.showFriendRequests(userId);
