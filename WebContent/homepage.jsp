@@ -68,7 +68,10 @@ for (int i = 0 ; i < achievements.size() ; i++) { %>
 		<p>Score: <%= history.get(i).getScore() %></p><br/>
 	<% } %>
 <% } %>
-<p><a href="user_quiz_history.jsp">All Quizzes</a></p><br/>
+<form action="UserQuizHistoryServlet" method="post">
+	<input name="id" type="hidden" value="<%= userId %>"/>
+	<input type="submit" value="Show Full History" />
+	</form>
 
 <h3>Your Friends</h3>
 	<ul>
