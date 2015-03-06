@@ -63,16 +63,11 @@ public class QuizMultiPageDispatcherServlet extends HttpServlet {
 		int question_id = questions.get(question_number - 1);
 		
 		boolean isPracticeMode = request.getParameter("practice_mode").equals("true");
-		System.out.println("multi " + isPracticeMode);
 		boolean random_order = request.getParameter("random_order").equals("true");
 		boolean isQuizFinished = false; 
 		HashMap<Integer, Integer> quesFrequency = new HashMap<Integer, Integer>(); 
 		if (isPracticeMode) {
 			quesFrequency = (HashMap<Integer, Integer>) session.getAttribute("ques_frequency");
-			if (question_number >= questions.size()) {
-				if (random_order) Collections.shuffle(questions);
-				question_number = 0;
-			} 
 		} else {
 			isQuizFinished = (question_number >= questions.size());
 		}
@@ -115,24 +110,27 @@ public class QuizMultiPageDispatcherServlet extends HttpServlet {
 			}
 		} else if (type.equals("PictureResponse")) {
 			PictureResponse question = (PictureResponse) questionManager.getQuestionByID(question_id);
-			System.out.println(question);
-			System.out.println(request.getParameter("question_" + question_number).toLowerCase());
 			if (question.getAnswerText().equals(request.getParameter("question_" + question_number).toLowerCase())) {
 				correct_answer = "true";
 				score++;
 			}
 		}
-		// Decrease question frequency for practice mode
-		if (correct_answer.equals("true") && isPracticeMode) {
-			int newFreq = quesFrequency.get(question_id) - 1;
-			if (newFreq == 0) {
-				quesFrequency.remove(question_id);
-				questions.remove(questions.indexOf(question_id));
-			} else {
-				quesFrequency.put(question_id, newFreq);
+		
+		if (isPracticeMode) {
+			if (correct_answer.equals("true")) {							// decrease question frequency for practice mode
+				int newFreq = quesFrequency.get(question_id) - 1;
+				if (newFreq == 0) {
+					quesFrequency.remove(question_id);
+					questions.remove(questions.indexOf(question_id));
+				} else {
+					quesFrequency.put(question_id, newFreq);
+				}
+				isQuizFinished = quesFrequency.isEmpty();					// check if all questions answered correctly 3 times
 			}
-			session.setAttribute("questions", questions);
-			isQuizFinished = quesFrequency.isEmpty();					// check if all questions answered correctly 3 times
+			if (question_number >= questions.size()) {						// restart after going through all the questions
+				if (random_order) Collections.shuffle(questions);
+				question_number = 0;
+			} 
 		}
 		
 		if (request.getParameter("immediate_correction").equals("true")) {
