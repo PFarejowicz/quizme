@@ -35,7 +35,7 @@
 	<ul>
 	<% 
 	ArrayList<Integer> friendsList = friendsManager.getFriends(userId);
-	%>
+	%> 
 	<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
 		<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getEmailByID(friendsList.get(i))%></a></li>
 		

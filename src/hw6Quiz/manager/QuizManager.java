@@ -92,5 +92,17 @@ public class QuizManager {
 			e.printStackTrace();
 		}
 	}
+	
+	public void addRatingAndReview(int quiz_id, int rating, String review) {
+		try {
+			Statement stmt = con.createStatement();
+			String updateRating = "UPDATE quiz_history SET rating = " + rating + "WHERE quiz_id = " + quiz_id;
+			stmt.executeUpdate(updateRating);
+			String updateReview = "UPDATE quiz_history SET review = " + review + "WHERE quiz_id = " + quiz_id;
+			stmt.executeUpdate(updateReview);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
