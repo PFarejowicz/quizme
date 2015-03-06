@@ -20,15 +20,16 @@ CREATE TABLE IF NOT EXISTS quizzes (
     random_order BOOL,
     multiple_pages BOOL,
     immediate_correction BOOL,
+    date_time DATETIME,
     PRIMARY KEY (quiz_id)
 );
 
 CREATE TABLE IF NOT EXISTS questions (
-  question_id INT UNSIGNED AUTO_INCREMENT,
-  quiz_id INT,
-  question_type enum('QuestionResponse','FillInTheBlank','MultipleChoice','PictureResponse'),
-  metadata LONGBLOB,
-  PRIMARY KEY (question_id)
+	question_id INT UNSIGNED AUTO_INCREMENT,
+	quiz_id INT,
+	question_type enum('QuestionResponse','FillInTheBlank','MultipleChoice','PictureResponse'),
+	metadata LONGBLOB,
+	PRIMARY KEY (question_id)
 );
 
 CREATE TABLE IF NOT EXISTS quiz_history (
@@ -36,6 +37,8 @@ CREATE TABLE IF NOT EXISTS quiz_history (
 	quiz_id INT,
 	user_id INT,
 	score INT,
+	rating INT UNSIGNED,
+	review VARCHAR(255),
 	PRIMARY KEY (quiz_history_id)
 );
 
@@ -64,4 +67,11 @@ CREATE TABLE IF NOT EXISTS announcements (
 	announcement_id INT UNSIGNED AUTO_INCREMENT,
 	description VARCHAR(255),
 	PRIMARY KEY (announcement_id)
+);
+
+CREATE TABLE IF NOT EXISTS achievements (
+	achievement_id INT UNSIGNED AUTO_INCREMENT,
+	user_id INT UNSIGNED,
+	description VARCHAR(255),
+	PRIMARY KEY (achievement_id)
 );

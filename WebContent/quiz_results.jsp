@@ -5,6 +5,9 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="normalize.css">
+	<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="jquery.rating.css">
 	<script src="jquery.js"></script>
 	<script src="jquery.rating.js"></script>

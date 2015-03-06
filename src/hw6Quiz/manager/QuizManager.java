@@ -7,7 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class QuizManager {
 	
@@ -19,13 +21,16 @@ public class QuizManager {
 	
 	public void addQuiz(String name, String description, int author, boolean random, boolean pages, boolean correction) {
 		try {
-			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO quizzes (name, description, author_id, random_order, multiple_pages, immediate_correction) VALUES(?, ?, ?, ?, ?, ?)");
+		    Calendar calendar = Calendar.getInstance();
+		    Timestamp timeStamp = new Timestamp(calendar.getTime().getTime());
+			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO quizzes (name, description, author_id, random_order, multiple_pages, immediate_correction, date_time) VALUES(?, ?, ?, ?, ?, ?, ?)");
 			prepStmt.setString(1, name);
 			prepStmt.setString(2, description);
 			prepStmt.setInt(3, author);
 			prepStmt.setBoolean(4, random);
 			prepStmt.setBoolean(5, pages);
 			prepStmt.setBoolean(6, correction);
+			prepStmt.setTimestamp(7, timeStamp);
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,7 +57,7 @@ public class QuizManager {
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE quiz_id = \"" + quiz_id + "\"");
 			if(rs.next()){
-				Quiz quiz = new Quiz(quiz_id, rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"));
+				Quiz quiz = new Quiz(quiz_id, rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"), rs.getTimestamp("date_time"));
 				return quiz;
 			}
 		} catch (SQLException e) {
@@ -66,7 +71,7 @@ public class QuizManager {
 		try {
 			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM quizzes ORDER BY name");
 			while (rs.next()) {
-				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"));
+				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"), rs.getTimestamp("date_time"));
 				quizList.add(quiz);
 			}
 		} catch (SQLException e) {
@@ -93,6 +98,7 @@ public class QuizManager {
 		}
 	}
 	
+<<<<<<< HEAD
 	public void addRatingAndReview(int quiz_id, int rating, String review) {
 		try {
 			Statement stmt = con.createStatement();
@@ -103,6 +109,54 @@ public class QuizManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+=======
+	public int numQuizMade(int user_id) {
+		int count = 0;
+		Statement stmt;
+		try {
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE author_id = \"" + user_id + "\"");
+			while(rs.next()){
+				count++;
+			}
+			return count;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	public int numQuizzesTaken(int user_id) {
+		int count = 0;
+		Statement stmt;
+		try {
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM quiz_history WHERE user_id = \"" + user_id + "\"");
+			while(rs.next()){
+				count++;
+			}
+			return count;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	public ArrayList<String> getAchievements(int user_id) {
+		ArrayList<String> achievements = new ArrayList<String>();
+		Statement stmt;
+		try {
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM achievements WHERE user_id = \"" + user_id + "\"");
+			while(rs.next()){
+				achievements.add(rs.getString("achievement"));
+			}
+			return achievements;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return achievements;
+>>>>>>> origin/master
 	}
 
 }
