@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import ="java.util.*, hw6Quiz.*, hw6Quiz.manager.*"%>
+    pageEncoding="ISO-8859-1" import ="java.util.*, hw6Quiz.*, hw6Quiz.manager.*, hw6Quiz.model.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%
@@ -24,13 +24,24 @@
 
 <h1>Welcome, <%=userManager.getNameByID(userId)%>!</h1>
 
+<p><a href="create_quiz.jsp">Create a Quiz</a></p>
+
+
 <p>Your Quizzes</p>
 
 <p>Achievements</p>
 
-<p><a href="create_quiz.jsp">Create a Quiz</a></p>
 
 <p>Quiz History</p>
+<% ArrayList<QuizHistory> history = userManager.getQuizHistoryById(userId); %>
+<% if(history.size() > 0){ %>
+	<p>Your Most Recent Quizzes:</p><br/>
+	<% for(int i = history.size() - 1; i >= 0 && i >= history.size() - 3; i--){ %>
+		<p>Quiz Name:<%= history.get(i).getQuizId() %></p>
+		<p>Score: <%= history.get(i).getScore() %></p><br/>
+	<% } %>
+<% } %>
+<p><a href="user_quiz_history.jsp">All Quizzes</a></p><br/>
 
 <p>Your Friends</p>
 	<ul>
@@ -42,6 +53,9 @@
 		
 	<%}%>
 	</ul>
+	
+<p>Challenge Friends</p>
+	
 	
 <p>Pending Friend Requests</p>
 	<ul>
