@@ -19,14 +19,15 @@
 	int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
 	Quiz quiz = quizManager.getQuizByID(quiz_id);
 	out.println(quiz.getName() + " Results");
+	int score = Integer.parseInt(request.getParameter("score"));
 	%>
 	</title>
 </head>
 <body>
 	<h1><%=quiz.getName()%> Results</h1>
-	<p>Score: <%=request.getParameter("score")%></p>
+	<p>Score: <%=score%></p>
 	<p>Time Elapsed: <%=request.getParameter("time_elapsed")%></p> 
-	<form>
+	<form action="QuizReviewServlet" method="post">
 		<p>Review:</p>
 		<textarea name="review" rows="5" cols="50"></textarea>
 		<p>Rating:</p>
@@ -36,6 +37,7 @@
         <input type="radio" name="rating" value="4" class="star">
         <input type="radio" name="rating" value="5" class="star">
         <input type="hidden" name="quiz_id" value="<%=quiz_id%>" />
+        <input type="hidden" name="score" value="<%=score%>" />
         <input type="submit" name="finish" value="Finish" />
 	</form>
 </body>

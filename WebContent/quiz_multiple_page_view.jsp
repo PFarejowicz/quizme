@@ -54,6 +54,8 @@
 			%>
 			<input type="hidden" name="quiz_id" value="<%=quiz_id%>" />
 			<input type="hidden" name="question_num" value="<%=question_number%>" />
+			<input type="hidden" name="practice_mode" value="<%=request.getParameter("practice_mode")%>" />
+			<input type="hidden" name="random_order" value="<%=request.getParameter("random_order")%> "/>
 			<input type="hidden" name="score" value="<%=request.getParameter("score")%>" />
 			<input type="hidden" name="immediate_correction" value="<%=request.getParameter("immediate_correction")%>" />
 			<p><input type="submit" value="Next" /></p>

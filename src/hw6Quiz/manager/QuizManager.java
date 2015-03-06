@@ -86,25 +86,15 @@ public class QuizManager {
 	 * @param user_id user ID
 	 * @param score score of quiz
 	 */
-	public void addQuizResult(int quiz_id, int user_id, int score) {
+	public void addQuizResult(int quiz_id, int user_id, int score, int rating, String review) {
 		try {
-			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO quiz_history (quiz_id, user_id, score) VALUES (?, ?, ?)");
+			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO quiz_history (quiz_id, user_id, score, rating, review) VALUES (?, ?, ?, ?, ?)");
 			prepStmt.setInt(1, quiz_id);
 			prepStmt.setInt(2, user_id);
 			prepStmt.setInt(3, score);
+			prepStmt.setInt(4, rating);
+			prepStmt.setString(5, review);
 			prepStmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void addRatingAndReview(int quiz_id, int rating, String review) {
-		try {
-			Statement stmt = con.createStatement();
-			String updateRating = "UPDATE quiz_history SET rating = " + rating + "WHERE quiz_id = " + quiz_id;
-			stmt.executeUpdate(updateRating);
-			String updateReview = "UPDATE quiz_history SET review = " + review + "WHERE quiz_id = " + quiz_id;
-			stmt.executeUpdate(updateReview);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

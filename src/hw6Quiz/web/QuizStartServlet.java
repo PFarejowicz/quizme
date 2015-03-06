@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -46,24 +47,35 @@ public class QuizStartServlet extends HttpServlet {
 		QuestionManager questionManager = (QuestionManager) getServletContext().getAttribute("question manager");
 		int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
 		
-		ArrayList<Integer> questions = questionManager.getQuestionIDs(quiz_id);
-		boolean random_order = request.getParameter("random_order").equals("true");
-		if (random_order) Collections.shuffle(questions);
-		session.setAttribute("questions", questions);
-		
 		// start timer
 		Calendar cal = Calendar.getInstance();
 		Date startTime = new Date(cal.getTimeInMillis());
 		session.setAttribute("start_time", startTime);
 		
 		boolean multiple_pages = request.getParameter("multiple_pages").equals("true");
+		boolean random_order = request.getParameter("random_order").equals("true");
+		boolean isPracticeMode = request.getParameter("mode").equals("practice");
+		System.out.println("start servlet " + isPracticeMode);
+		ArrayList<Integer> questions = questionManager.getQuestionIDs(quiz_id);
+		
+		if (isPracticeMode) {
+			HashMap<Integer, Integer> quesFrequency = new HashMap<Integer, Integer>();
+			int frequency = 3; 															// set number of times a question should repeat
+			for (int i : questions) {
+				quesFrequency.put(i, frequency); 
+			}
+			session.setAttribute("ques_frequency", quesFrequency);
+		}
+		
+		if (random_order) Collections.shuffle(questions);
+		session.setAttribute("questions", questions);
+		
 		if (multiple_pages) {
-			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_multiple_page_view.jsp?question_num=0&score=0&immediate_correction="+request.getParameter("immediate_correction"));
+			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_multiple_page_view.jsp?question_num=0&score=0&practice_mode="+isPracticeMode+"&immediate_correction="+request.getParameter("immediate_correction")+"&random_order="+request.getParameter("random_order"));
 			dispatch.forward(request, response); 
 		} else {
-			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_single_page_view.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_single_page_view.jsp?practice_mode="+isPracticeMode+"&random_order=" + request.getParameter("random_order"));
 			dispatch.forward(request, response); 
 		}
 	}
-
 }

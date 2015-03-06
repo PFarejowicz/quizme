@@ -29,7 +29,7 @@
 <h1>Welcome, <%=userManager.getNameByID(userId)%>!</h1>
 
 <p><a href="create_quiz.jsp">Create a Quiz</a></p>
-<p><a href="quiz_archive">Go to Quiz Archive</a></p>
+<p><a href="quiz_archive.jsp">Go to Quiz Archive</a></p>
 
 <h3>Your Quizzes</h3>
 

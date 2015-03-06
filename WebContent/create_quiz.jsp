@@ -16,16 +16,16 @@
 <p>Name: <input type="text" name="name" /></p>
 <p>Description: <br><textarea rows="4" cols="50" name="description" ></textarea></p>
 <p>Random order: <br>
-<input type="radio" name="random_order" value="Yes" /> Yes <br>
-<input type="radio" name="random_order" value="No" /> No 
+<input type="radio" name="random_order" value="yes" /> Yes <br>
+<input type="radio" name="random_order" value="no" /> No 
 </p>
 <p>Multiple pages: <br>
-<input type="radio" name="multiple_pages" value="Yes" /> Yes <br>
-<input type="radio" name="multiple_pages" value="No" /> No 
+<input type="radio" name="multiple_pages" value="yes" /> Yes <br>
+<input type="radio" name="multiple_pages" value="no" /> No 
 </p>
 <p>Immediate correction: <br>
-<input type="radio" name="immediate_correction" value="Yes" /> Yes <br>
-<input type="radio" name="immediate_correction" value="No" /> No 
+<input type="radio" name="immediate_correction" value="yes" /> Yes <br>
+<input type="radio" name="immediate_correction" value="no" /> No 
 </p>
 
 <input  type="submit" value="Create" />

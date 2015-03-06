@@ -39,14 +39,14 @@ public class QuizCreationServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		QuizManager quizManager = (QuizManager) getServletContext().getAttribute("quiz manager");
-//		int user_id = (Integer) request.getSession().getAttribute("user id"); 
-		int user_id = 1;	//TODO: hardcoded
+		int user_id = (Integer) request.getSession().getAttribute("user id"); 
+//		int user_id = 1;	//TODO: hardcoded
 		
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
-		Boolean random_order = request.getParameter("random_order").equals("Yes");
-		Boolean multiple_pages = request.getParameter("multiple_pages").equals("Yes");
-		Boolean immediate_correction = request.getParameter("immediate_correction").equals("Yes");
+		boolean random_order = request.getParameter("random_order").equals("yes");
+		boolean multiple_pages = request.getParameter("multiple_pages").equals("yes");
+		boolean immediate_correction = request.getParameter("immediate_correction").equals("yes");
 		
 		quizManager.addQuiz(name, description, user_id, random_order, multiple_pages, immediate_correction);
 		// TODO: check if quiz already exists
