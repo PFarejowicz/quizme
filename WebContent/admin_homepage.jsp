@@ -67,5 +67,6 @@
 <h3>Site Statistics</h3>
 <p>Number of users: <%= users.size() %></p>
 <p>Number of quizzes taken: <%= adminManager.getNumberOfQuizzes() %></p>
+<p><a href="index.html"><button type="button">Log Out</button></a></p>
 </body>
 </html>
