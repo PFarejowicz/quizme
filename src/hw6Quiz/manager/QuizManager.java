@@ -137,7 +137,7 @@ public class QuizManager {
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM achievements WHERE user_id = \"" + user_id + "\"");
 			while(rs.next()){
-				achievements.add(rs.getString("achievement"));
+				achievements.add(rs.getString("description"));
 			}
 			return achievements;
 		} catch (SQLException e) {
