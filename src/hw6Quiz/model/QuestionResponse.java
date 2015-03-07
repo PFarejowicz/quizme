@@ -14,6 +14,6 @@ public class QuestionResponse extends Question {
 	}
 	
 	public String getAnswerText() {
-		return answer;
+		return answer.toLowerCase();
 	}
 }

@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS quizzes (
     multiple_pages BOOL,
     immediate_correction BOOL,
     date_time DATETIME,
+    points INT,
     PRIMARY KEY (quiz_id)
 );
 

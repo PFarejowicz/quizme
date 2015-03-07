@@ -23,7 +23,7 @@ public class FillInTheBlank extends Question {
 	}
 	
 	public ArrayList<String> getAnswerText() {
-		ArrayList<String> answerList = new ArrayList<String>(Arrays.asList(answer.split(",")));
+		ArrayList<String> answerList = new ArrayList<String>(Arrays.asList(answer.trim().toLowerCase().split("\\s*,\\s*")));
 		return answerList;
 	}
 

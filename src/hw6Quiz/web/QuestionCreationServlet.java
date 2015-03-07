@@ -1,6 +1,7 @@
 package hw6Quiz.web;
 
 import hw6Quiz.manager.QuestionManager;
+import hw6Quiz.manager.QuizManager;
 import hw6Quiz.model.FillInTheBlank;
 import hw6Quiz.model.MultipleChoice;
 import hw6Quiz.model.PictureResponse;
@@ -43,8 +44,9 @@ public class QuestionCreationServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		QuestionManager quesManager = (QuestionManager) getServletContext().getAttribute("question manager");
 		request.setAttribute("quiz_id", request.getParameter("quiz_id"));
+		int points = Integer.parseInt(request.getParameter("points"));
 		if (request.getParameter("previous") != null) {
-			RequestDispatcher dispatch = request.getRequestDispatcher("add_question.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("add_question.jsp?points="+points);
 			dispatch.forward(request, response); 
 		} else {
 			int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
@@ -54,26 +56,31 @@ public class QuestionCreationServlet extends HttpServlet {
 			}
 			String prompt = request.getParameter("prompt");
 			String answer = request.getParameter("answer");
-//			int points = Integer.parseInt(request.getParameter("points"));
 			if (request.getParameter("ques_type").equals("question_response")) {
 				QuestionResponse questionObj = new QuestionResponse(quiz_id, user_id, prompt, answer);
 				quesManager.addQuestion(quiz_id, "QuestionResponse", questionObj);
+				points++;
 			} else if (request.getParameter("ques_type").equals("fill_blank")) {
 				FillInTheBlank questionObj = new FillInTheBlank(quiz_id, user_id, prompt, answer);
 				quesManager.addQuestion(quiz_id, "FillInTheBlank", questionObj);
+				points+=questionObj.getNumBlanks();
 			} else if (request.getParameter("ques_type").equals("multiple_choice")) {
 				String choices = request.getParameter("choices");
 				MultipleChoice questionObj = new MultipleChoice(quiz_id, user_id, prompt, choices, answer);
 				quesManager.addQuestion(quiz_id, "MultipleChoice", questionObj);
+				points++;
 			} else if (request.getParameter("ques_type").equals("picture")) {
 				PictureResponse questionObj = new PictureResponse(quiz_id, user_id, prompt, answer);
 				quesManager.addQuestion(quiz_id, "PictureResponse", questionObj);
+				points++;
 			}
 			
 			if (request.getParameter("next") != null) {						// next question
-				RequestDispatcher dispatch = request.getRequestDispatcher("add_question.jsp");
+				RequestDispatcher dispatch = request.getRequestDispatcher("add_question.jsp?points="+points);
 				dispatch.forward(request, response); 	
 			} else if (request.getParameter("finish") != null) {			// finished questions
+				QuizManager quizManager = (QuizManager) getServletContext().getAttribute("quiz manager");
+				quizManager.updateQuizPoints(quiz_id, points);
 				RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
 				dispatch.forward(request, response); 	
 			}

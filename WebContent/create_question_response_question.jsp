@@ -16,14 +16,12 @@
 		<textarea rows="4" cols="50" name="prompt" ></textarea></p>
 		<p>Answer: <br>
 		<textarea rows="4" cols="50" name="answer" ></textarea></p>
-		<p>Points: <input type="text" name="points"/></p>
-		<!-- TODO: Add number check -->
 		<input type="hidden" name="ques_type" value="question_response"/>
 		<%
 			String quiz_id = (String) request.getAttribute("quiz_id");
 		%>
 		<input type="hidden" name="quiz_id" value="<%=quiz_id%>"/>
-		
+		<input type="hidden" name="points" value="<%=request.getParameter("points")%>"/>
 		<input type="submit" name="next" value="Next"/>
 		<input type="submit" name="previous" value="Previous"/>
 		<input type="submit" name="finish" value="Finish" />

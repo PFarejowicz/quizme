@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head>
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="normalize.css">
-<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-<meta charset="UTF-8">
-<title>Create QuizMe Account</title>
-</head>
-<body>
-<h1>Create New QuizMe Account</h1>
-<p>Please enter proposed name and password.</p>
-<form action="AccountCreationServlet" method="post">
-<p>Email: <input type="text" name="email" />
-<p>Password: <input type="text" name="password" />
-<p>Full Name: <input type="text" name="name" />
-<input  type="submit" value="Create" /></p>
-</form>
-</body>
+	<head>
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="normalize.css">
+		<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+		<meta charset="UTF-8">
+		<title>Create QuizMe Account</title>
+	</head>
+	<body>
+		<h1 class="auth-center">Create New QuizMe Account</h1>
+		<p class="auth-center">Please enter proposed name and password.</p>
+		<form class="auth-center" action="AccountCreationServlet" method="post">
+			<p>Email: <input type="text" name="email" /></p>
+			<p>Password: <input type="text" name="password" /></p>
+			<p>Full Name: <input type="text" name="name" /></p>
+			<input  type="submit" value="Create" />
+		</form>
+	</body>
 </html>

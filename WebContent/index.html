@@ -8,13 +8,14 @@
 		<title>Welcome to QuizMe</title>
 	</head>
 	<body>
-		<h1>Welcome to QuizMe</h1>
-		<p>Please log in with your user credentials</p>
-		<form action="LoginServlet" method="post">
-		<p>Email: <input type="text" name="email" /></p>
-		<p>Password: <input type="text" name="password" /></p>
-		<input type="submit" value="Login" />
-		<a href="create_account.html"><button type="button">Create New Account</button></a>
+		<h1 class="auth-center">Welcome to QuizMe</h1>
+		<img alt="QuizMe Logo" src="images/quizme_logo_1.png" class="img-center">
+		<p class="auth-center">Please log in with your user credentials</p>
+		<form  class="auth-center" action="LoginServlet" method="post">
+			<p>Email: <input type="text" name="email" /></p>
+			<p>Password: <input type="text" name="password" /></p>
+			<input type="submit" value="Login" />
+			<a href="create_account.html"><button type="button">Create New Account</button></a>
 		</form>
 	</body>
 </html>

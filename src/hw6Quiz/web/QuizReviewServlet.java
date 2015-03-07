@@ -39,10 +39,15 @@ public class QuizReviewServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
-		int rating = Integer.parseInt(request.getParameter("rating"));
+		int user_id = (Integer) request.getSession().getAttribute("user id");
+		int score = Integer.parseInt(request.getParameter("score"));
+		int rating = 0; 													// no voting is 0 stars
+		if (request.getParameter("rating") != null) {
+			rating = Integer.parseInt(request.getParameter("rating"));	
+		}
 		String review = request.getParameter("review");
 		QuizManager quizManager = (QuizManager) getServletContext().getAttribute("quiz manager");
-		quizManager.addRatingAndReview(quiz_id, rating, review);
+		quizManager.addQuizResult(quiz_id, user_id, score, rating, review);
 		RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
 		dispatch.forward(request, response); 
 	}

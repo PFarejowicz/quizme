@@ -28,6 +28,10 @@
 	<p>Immediate Corrections Provided for Questions? <%= quiz.isImmediateCorrection() ? "Yes" : "No" %></p>
 	<a href="homepage.jsp"><button type="button">Return Home</button></a>
 	<form action="QuizStartServlet" method="post" style="display: inline">
+		<p>Mode: <br>
+		<input type="radio" name="mode" value="regular" /> Regular <br>
+		<input type="radio" name="mode" value="practice" /> Practice 
+		</p>
 		<input type="hidden" name="quiz_id" value="<%=quiz_id%>"/>
 		<input type="hidden" name="random_order" value="<%=quiz.isRandomOrder()%>"/>
 		<input type="hidden" name="multiple_pages" value="<%=quiz.isMultiplePages()%>"/>
