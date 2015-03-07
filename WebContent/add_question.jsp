@@ -24,6 +24,7 @@
 	String quiz_id = (String) request.getAttribute("quiz_id");
 %>
 <input type="hidden" name="quiz_id" value="<%=quiz_id%>"/>
+<input type="hidden" name="points" value="<%=request.getParameter("points")%>"/>
 <p><input  type="submit" value="Next" /></p>
 </form>
 </body>

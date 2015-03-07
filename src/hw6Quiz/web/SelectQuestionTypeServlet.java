@@ -38,16 +38,16 @@ public class SelectQuestionTypeServlet extends HttpServlet {
 		String ques_type = request.getParameter("ques_type");
 		request.setAttribute("quiz_id", request.getParameter("quiz_id"));
 		if (ques_type.equals("text_response")) {
-			RequestDispatcher dispatch = request.getRequestDispatcher("create_question_response_question.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("create_question_response_question.jsp?points="+request.getParameter("points"));
 			dispatch.forward(request, response); 
 		} else if (ques_type.equals("fill_blank")) {
-			RequestDispatcher dispatch = request.getRequestDispatcher("create_fill_blank_question.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("create_fill_blank_question.jsp?points="+request.getParameter("points"));
 			dispatch.forward(request, response); 
 		} else if (ques_type.equals("multiple_choice")) {
-			RequestDispatcher dispatch = request.getRequestDispatcher("create_multiple_choice_question.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("create_multiple_choice_question.jsp?points="+request.getParameter("points"));
 			dispatch.forward(request, response); 
 		} else if (ques_type.equals("picture")) {
-			RequestDispatcher dispatch = request.getRequestDispatcher("create_picture_question.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("create_picture_question.jsp?points="+request.getParameter("points"));
 			dispatch.forward(request, response); 
 		}
 	}

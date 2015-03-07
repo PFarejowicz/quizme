@@ -23,7 +23,7 @@
 				String quiz_id = (String) request.getAttribute("quiz_id");
 			%>
 			<input type="hidden" name="quiz_id" value="<%=quiz_id%>"/>
-			
+			<input type="hidden" name="points" value="<%=request.getParameter("points")%>"/>
 			<input type="submit" name="next" value="Next"/>
 			<input type="submit" name="previous" value="Previous"/>
 			<input type="submit" name="finish" value="Finish" />

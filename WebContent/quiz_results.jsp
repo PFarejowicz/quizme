@@ -20,12 +20,13 @@
 	Quiz quiz = quizManager.getQuizByID(quiz_id);
 	out.println(quiz.getName() + " Results");
 	int score = Integer.parseInt(request.getParameter("score"));
+	int total = quizManager.getQuizPoints(quiz_id);
 	%>
 	</title>
 </head>
 <body>
 	<h1><%=quiz.getName()%> Results</h1>
-	<p>Score: <%=score%></p>
+	<p>Score: <%=score%> / <%= total%> (<%=score/total*100 %>%)</p>
 	<p>Time Elapsed: <%=request.getParameter("time_elapsed")%></p> 
 	<form action="QuizReviewServlet" method="post">
 		<p>Review:</p>
