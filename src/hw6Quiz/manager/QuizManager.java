@@ -100,37 +100,130 @@ public class QuizManager {
 		}
 	}
 		
-	public int numQuizMade(int user_id) {
+	
+	public boolean authorAchievement(int user_id) {
 		int count = 0;
 		Statement stmt;
+		boolean achievementAdded = false;
 		try {
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE author_id = \"" + user_id + "\"");
 			while(rs.next()){
 				count++;
 			}
-			return count;
+			if (count == 1) {
+				PreparedStatement prepStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
+				prepStmt.setInt(1, user_id);
+				prepStmt.setString(2, "Amateur Author");
+				achievementAdded = true;
+			}
+			if (count == 5) {
+				PreparedStatement prepStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
+				prepStmt.setInt(1, user_id);
+				prepStmt.setString(2, "Prolific Author");
+				achievementAdded = true;
+			}
+			if (count == 10) {
+				PreparedStatement prepStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
+				prepStmt.setInt(1, user_id);
+				prepStmt.setString(2, "Prodigious Author");
+				achievementAdded = true;
+			}
+			return achievementAdded;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return count;
+		return achievementAdded;
 	}
 	
-	public int numQuizzesTaken(int user_id) {
+	public boolean quizTakerAchievement(int user_id) {
 		int count = 0;
 		Statement stmt;
+		boolean achievementAdded = false;
 		try {
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM quiz_history WHERE user_id = \"" + user_id + "\"");
 			while(rs.next()){
 				count++;
 			}
-			return count;
+			if (count == 10) {
+				PreparedStatement prepStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
+				prepStmt.setInt(1, user_id);
+				prepStmt.setString(2, "Quiz Machine");
+				achievementAdded = true;
+			}
+			return achievementAdded;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return count;
+		return achievementAdded;
 	}
+	
+	public boolean iAmGreatestAchievement(int user_id, int quiz_id, int score) {
+		int highest = 0;
+		Statement stmt;
+		boolean alreadyAdded = false;
+		boolean achievementAdded = false;
+		String achievement = "I am the Greatest" + quiz_id;
+		try {
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM achievements WHERE user_id = \"" + user_id + "\"");
+			while(rs.next()) {
+				if (rs.getString("description").equals(achievement)) alreadyAdded = true;
+			}
+			if (!alreadyAdded) {
+				rs = stmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\"");
+				while(rs.next()){
+					int currScore = rs.getInt("score");
+					if (currScore > highest) {
+						highest = currScore;
+					}
+					if (score >= highest) {
+						PreparedStatement prepStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
+						prepStmt.setInt(1, user_id);
+						prepStmt.setString(2, achievement);
+						achievementAdded = true;
+					}
+				}
+				return achievementAdded;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return achievementAdded;
+	}
+	
+//	public int numQuizMade(int user_id) {
+//		int count = 0;
+//		Statement stmt;
+//		try {
+//			stmt = con.createStatement();
+//			ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE author_id = \"" + user_id + "\"");
+//			while(rs.next()){
+//				count++;
+//			}
+//			return count;
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return count;
+//	}
+	
+//	public int numQuizzesTaken(int user_id) {
+//		int count = 0;
+//		Statement stmt;
+//		try {
+//			stmt = con.createStatement();
+//			ResultSet rs = stmt.executeQuery("SELECT * FROM quiz_history WHERE user_id = \"" + user_id + "\"");
+//			while(rs.next()){
+//				count++;
+//			}
+//			return count;
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return count;
+//	}
 	
 	public ArrayList<String> getAchievements(int user_id) {
 		ArrayList<String> achievements = new ArrayList<String>();
