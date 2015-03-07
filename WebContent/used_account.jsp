@@ -11,6 +11,7 @@
 	</head>
 	<body>
 		<h1 class="auth-center">The email <%= request.getParameter("email") %> is already in use</h1>
+		<img alt="QuizMe Error" src="images/quizme_error.png" class="img-center">
 		<p class="auth-center">Please enter another email and password.</p>
 		<p class="auth-center"><a href="create_account.html"><button type="button">Go Back</button></a></p>
 	</body>

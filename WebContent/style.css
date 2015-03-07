@@ -103,6 +103,11 @@ body {
 .auth-center{
 	text-align: center;
 }
+.img-center{
+	margin-left: auto;
+	margin-right: auto;
+	display:block;
+}
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
   margin-bottom: 2rem;
@@ -130,9 +135,9 @@ p {
 /* Links
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 a {
-  color: #1EAEDB; }
+  color: #94C4E9; }
 a:hover {
-  color: #0FA0CE; }
+  color: #478FCC; }
 
 
 /* Buttons
@@ -178,8 +183,8 @@ input[type="submit"].button-primary,
 input[type="reset"].button-primary,
 input[type="button"].button-primary {
   color: #FFF;
-  background-color: #33C3F0;
-  border-color: #33C3F0; }
+  background-color: #478FCC;
+  border-color: #478FCC; }
 .button.button-primary:hover,
 button.button-primary:hover,
 input[type="submit"].button-primary:hover,
@@ -191,8 +196,8 @@ input[type="submit"].button-primary:focus,
 input[type="reset"].button-primary:focus,
 input[type="button"].button-primary:focus {
   color: #FFF;
-  background-color: #1EAEDB;
-  border-color: #1EAEDB; }
+  background-color: #478FCC;
+  border-color: #478FCC; }
 
 
 /* Forms
@@ -237,7 +242,7 @@ input[type="url"]:focus,
 input[type="password"]:focus,
 textarea:focus,
 select:focus {
-  border: 1px solid #33C3F0;
+  border: 1px solid #94C4E9;
   outline: 0; }
 label,
 legend {
