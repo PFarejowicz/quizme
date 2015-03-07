@@ -58,6 +58,11 @@
 			<input type="hidden" name="random_order" value="<%=request.getParameter("random_order")%> "/>
 			<input type="hidden" name="score" value="<%=request.getParameter("score")%>" />
 			<input type="hidden" name="immediate_correction" value="<%=request.getParameter("immediate_correction")%>" />
+			<% 
+			if (request.getParameter("practice_mode").equals("true")) {											
+				out.println("<input type=\"submit\" name=\"quit\" value=\"Quit\" />");
+			}
+			%>
 			<p><input type="submit" value="Next" /></p>
 		</form>
 	</body>

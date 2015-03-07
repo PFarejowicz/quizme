@@ -39,8 +39,8 @@ public class QuizCreationServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		QuizManager quizManager = (QuizManager) getServletContext().getAttribute("quiz manager");
-		//int user_id = (Integer) request.getSession().getAttribute("user id"); 
-		int user_id = 1;	//TODO: hardcoded
+		int user_id = (Integer) request.getSession().getAttribute("user id"); 
+//		int user_id = 1;	//TODO: hardcoded
 		
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
