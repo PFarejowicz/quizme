@@ -57,7 +57,7 @@
 		<% if(history.size() > 0){ %>
 			<h5>Your Most Recent Quizzes:</h5><br/>
 			<% for(int i = history.size() - 1; i >= 0 && i >= history.size() - 3; i--){ %>
-				<p>Quiz Name:<%= history.get(i).getQuizId() %></p>
+				<p>Quiz Name: <%= history.get(i).getName() %></p>
 				<p>Score: <%= history.get(i).getScore() %></p><br/>
 			<% } %>
 		<% } %>

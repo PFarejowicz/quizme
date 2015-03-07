@@ -21,12 +21,13 @@
 	out.println(quiz.getName() + " Results");
 	int score = Integer.parseInt(request.getParameter("score"));
 	int total = quizManager.getQuizPoints(quiz_id);
+	String name = quiz.getName();
 	%>
 	</title>
 </head>
 <body>
 	<h1><%=quiz.getName()%> Results</h1>
-	<p>Score: <%=score%> / <%= total%> (<%=score/total*100 %>%)</p>
+	<p>Score: <%=score%> / <%= total%> (<%=String.format("%.2f", (float)score/(float)total*100) %>%)</p>
 	<p>Time Elapsed: <%=request.getParameter("time_elapsed")%></p> 
 	<form action="QuizReviewServlet" method="post">
 		<p>Review:</p>
@@ -39,6 +40,7 @@
         <input type="radio" name="rating" value="5" class="star">
         <input type="hidden" name="quiz_id" value="<%=quiz_id%>" />
         <input type="hidden" name="score" value="<%=score%>" />
+        <input type="hidden" name="name" value="<%=name%>" />
         <input type="submit" name="finish" value="Finish" />
 	</form>
 </body>

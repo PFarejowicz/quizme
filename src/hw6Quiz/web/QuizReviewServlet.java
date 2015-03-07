@@ -46,8 +46,9 @@ public class QuizReviewServlet extends HttpServlet {
 			rating = Integer.parseInt(request.getParameter("rating"));	
 		}
 		String review = request.getParameter("review");
+		String name = request.getParameter("name");
 		QuizManager quizManager = (QuizManager) getServletContext().getAttribute("quiz manager");
-		quizManager.addQuizResult(quiz_id, user_id, score, rating, review);
+		quizManager.addQuizResult(quiz_id, user_id, score, rating, review, name);
 		RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
 		dispatch.forward(request, response); 
 	}

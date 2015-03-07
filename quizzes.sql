@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS quiz_history (
 	score INT,
 	rating INT UNSIGNED,
 	review VARCHAR(255),
+	name VARCHAR(255),
 	PRIMARY KEY (quiz_history_id)
 );
 
