@@ -110,6 +110,7 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 					if (isPracticeMode) quesFrequency.put(question_id, quesFrequency.get(question_id) - 1);
 				}
 			}
+			question_number++;
 		}
 		
 		// Delete questions if answered correctly 3 times
@@ -124,7 +125,6 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 			request.getSession().setAttribute("questions", questions);
 			isQuizFinished = quesFrequency.isEmpty();					// check if all questions answered correctly 3 times
 		} 
-		question_number++;
 		
 		if (isPracticeMode && isQuizFinished) {
 			RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
