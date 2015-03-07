@@ -21,6 +21,7 @@
 	out.println(quiz.getName() + " Results");
 	int score = Integer.parseInt(request.getParameter("score"));
 	int total = quizManager.getQuizPoints(quiz_id);
+	String name = quiz.getName();
 	%>
 	</title>
 </head>
@@ -39,6 +40,7 @@
         <input type="radio" name="rating" value="5" class="star">
         <input type="hidden" name="quiz_id" value="<%=quiz_id%>" />
         <input type="hidden" name="score" value="<%=score%>" />
+        <input type="hidden" name="name" value="<%=name%>" />
         <input type="submit" name="finish" value="Finish" />
 	</form>
 </body>

@@ -8,14 +8,16 @@ public class QuizHistory {
 	private int score;
 	private int rating;
 	private String review;
+	private String name;
 
-	public QuizHistory(int quizHistoryId, int quizId, int userId, int score, int rating, String review) {
+	public QuizHistory(int quizHistoryId, int quizId, int userId, int score, int rating, String review, String name) {
 		this.quizHistoryId = quizHistoryId;
 		this.quizId = quizId;
 		this.userId = userId;
 		this.score = score;
 		this.rating = rating;
 		this.review = review;
+		this.name = name;
 	}
 	
 	public int getQuizHistoryId(){
@@ -42,4 +44,7 @@ public class QuizHistory {
 		return review;
 	}
 
+	public String getName(){
+		return name;
+	}
 }
