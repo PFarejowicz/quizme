@@ -1,6 +1,7 @@
 package hw6Quiz.manager;
 
 import hw6Quiz.model.Quiz;
+import hw6Quiz.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +10,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Calendar;
+import java.util.Date;
 
 public class QuizManager {
 	
@@ -19,6 +23,16 @@ public class QuizManager {
 		this.con = con; 
 	}
 	
+	/**
+	 * Add quiz to database
+	 * @param name name
+	 * @param description description
+	 * @param author author
+	 * @param random random order
+	 * @param pages single or multiple
+	 * @param correction immediate correction or not
+	 * @param points total points
+	 */
 	public void addQuiz(String name, String description, int author, boolean random, boolean pages, boolean correction, int points) {
 		try {
 		    Calendar calendar = Calendar.getInstance();
@@ -38,6 +52,11 @@ public class QuizManager {
 		}
 	}
 	
+	/**
+	 * Get quiz ID given name 
+	 * @param name name
+	 * @return quiz ID
+	 */
 	public int getIDByName(String name) {
 		try {
 			PreparedStatement selectStmt = con.prepareStatement("SELECT * FROM quizzes WHERE name = ?");
@@ -52,6 +71,11 @@ public class QuizManager {
 		return -1;
 	}
 	
+	/**
+	 * Get quiz object given ID
+	 * @param quiz_id quiz ID 
+	 * @return
+	 */
 	public Quiz getQuizByID(int quiz_id) {
 		Statement stmt;
 		try {
@@ -67,6 +91,10 @@ public class QuizManager {
 		return null;
 	}
 	
+	/**
+	 * Get all the quizzes
+	 * @return quizzes ordered by name
+	 */
 	public ArrayList<Quiz> getQuizzes() {
 		ArrayList<Quiz> quizList = new ArrayList<Quiz>();
 		try {
@@ -81,6 +109,11 @@ public class QuizManager {
 		return quizList;
 	}
 	
+	/**
+	 * Updates the number of total points of a quiz
+	 * @param quiz_id quiz ID
+	 * @param points total points
+	 */
 	public void updateQuizPoints(int quiz_id, int points) {
 		try {
 			PreparedStatement updateStmt = con.prepareStatement("UPDATE quizzes SET points = ? WHERE quiz_id = ?");
@@ -92,6 +125,11 @@ public class QuizManager {
 		}
 	}
 	
+	/**
+	 * Get total points in a quiz
+	 * @param quiz_id quiz ID 
+	 * @return total points
+	 */
 	public int getQuizPoints(int quiz_id) {
 		try {
 			PreparedStatement selectStmt = con.prepareStatement("SELECT * FROM quizzes WHERE quiz_id = ?");
@@ -129,14 +167,104 @@ public class QuizManager {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public HashMap<Date, Integer> getPastPerformance(int quiz_id, int user_id) {
+		HashMap<Date, Integer> pastPerformance = new HashMap<Date, Integer>();
+		try {
+			Statement selectStmt = con.createStatement();
+			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\", user_id = \"" + user_id + "\" ORDER BY date_time DESC");
+			while (rs.next()) {
+				pastPerformance.put(rs.getDate("date_time"), rs.getInt("score"));
+				// TODO: pass back date as well
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return pastPerformance;
+	}
+	
+	/**
+	 * Gets all scores of a quiz, order by score, and return top 3 high scores
+	 * @param quiz_id quiz ID
+	 * @return map of top 3 usernames to score
+	 */
+	public Map<String, Integer> getAllTimeHighScores(int quiz_id) {
+		Map<String, Integer> userScoreList = new HashMap<String, Integer>();
+		try {
+			Statement selectStmt = con.createStatement();
+			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\" ORDER BY score DESC");
+			int count = 3;
+			while (rs.next() && count > 0) {
+				userScoreList.put(rs.getString("name"), rs.getInt("score"));
+				count--;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return userScoreList;
+	}
+	
+	/**
+	 * Gets all scores of a quiz, order by score, and return top 3 high scores in the last 24 hours
+	 * @param quiz_id quiz ID
+	 * @return map of top 3 usernames to score
+	 */
+	public Map<String, Integer> get24HourHighScores(int quiz_id) {
+		Map<String, Integer> userScoreList = new HashMap<String, Integer>();
+		try {
+			Calendar calendar = Calendar.getInstance();
+			calendar.add(Calendar.HOUR, -24);
+			Timestamp yesterTimeStamp = new Timestamp(calendar.getTime().getTime());
+			
+			Statement selectStmt = con.createStatement();
+			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\" ORDER BY score DESC");
+			int count = 3;
+			while (rs.next() && count > 0) {
+				Timestamp timeStamp = new Timestamp(((Date) rs.getDate("date_time")).getTime());
+				if (timeStamp.after(yesterTimeStamp)) {
+					userScoreList.put(rs.getString("name"), rs.getInt("score"));
+					count--;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return userScoreList;
+	}
+	
+	/**
+	 * Gets all scores of a quiz, order by score, and return 3 most recent scores
+	 * @param quiz_id quiz ID
+	 * @return map of 3 most recent usernames to score
+	 */
+	public Map<String, Integer> getRecentScores(int quiz_id) {
+		Map<String, Integer> userScoreList = new HashMap<String, Integer>();
+		try {
+			Statement selectStmt = con.createStatement();
+			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\", ORDER BY date_time DESC");
+			int count = 3;
+			while (rs.next() && count > 0) {
+				userScoreList.put(rs.getString("name"), rs.getInt("score"));
+				count--;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return userScoreList;
+	}
 		
 	
+	/**
+	 * Check if user gets achievement for creating a certain number of quizzes
+	 * @param user_id user ID 
+	 * @return true if achivement added, false if not 
+	 */
 	public boolean authorAchievement(int user_id) {
 		int count = 0;
-		Statement selectStmt;
 		boolean achievementAdded = false;
 		try {
-			selectStmt = con.createStatement();
+			Statement selectStmt = con.createStatement();
 			PreparedStatement insertStmt = null;
 			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quizzes WHERE author_id = \"" + user_id + "\"");
 			while(rs.next()){
@@ -167,19 +295,22 @@ public class QuizManager {
 		return achievementAdded;
 	}
 	
+	/**
+	 * Check if user gets achievement for taking a certain number of quizzes
+	 * @param user_id user ID
+	 * @return true if achivement added, false if not 
+	 */
 	public boolean quizTakerAchievement(int user_id) {
 		int count = 0;
-		Statement selectStmt;
-		PreparedStatement insertStmt;
 		boolean achievementAdded = false;
 		try {
-			selectStmt = con.createStatement();
+			Statement selectStmt = con.createStatement();
 			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE user_id = \"" + user_id + "\"");
 			while(rs.next()){
 				count++;
 			}
 			if (count == 10) {
-				insertStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
+				PreparedStatement insertStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
 				insertStmt.setInt(1, user_id);
 				insertStmt.setString(2, "Quiz Machine");
 				insertStmt.executeUpdate();
@@ -196,14 +327,12 @@ public class QuizManager {
 	 * @return added successfully
 	 */
 	public boolean practiceMakesPerfect(int user_id) {
-		Statement selectStmt;
-		PreparedStatement insertStmt; 
 		boolean achievementAdded = false; 
 		try {
-			selectStmt = con.createStatement();
+			Statement selectStmt = con.createStatement();
 			ResultSet rs = selectStmt.executeQuery("SELECT * FROM achievements WHERE user_id = \"" + user_id + "\" AND description = Practice Makes Perfect");
 			if (rs == null) {
-				insertStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
+				PreparedStatement insertStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
 				insertStmt.setInt(1, user_id);
 				insertStmt.setString(2, "Practice Makes Perfect");
 				insertStmt.executeUpdate();
@@ -215,14 +344,20 @@ public class QuizManager {
 		return achievementAdded;
 	}
 	
+	/**
+	 * Check if user has the highest score on a quiz
+	 * @param user_id user ID
+	 * @param quiz_id quiz ID 
+	 * @param score user's score
+	 * @return true if added, false otherwise
+	 */
 	public boolean iAmGreatestAchievement(int user_id, int quiz_id, int score) {
 		int highest = 0;
-		Statement stmt;
 		boolean alreadyAdded = false;
 		boolean achievementAdded = false;
 		String achievement = "I am the Greatest" + quiz_id;
 		try {
-			stmt = con.createStatement();
+			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM achievements WHERE user_id = \"" + user_id + "\"");
 			while(rs.next()) {
 				if (rs.getString("description").equals(achievement)) alreadyAdded = true;
@@ -248,44 +383,16 @@ public class QuizManager {
 		return achievementAdded;
 	}
 	
-//	public int numQuizMade(int user_id) {
-//		int count = 0;
-//		Statement stmt;
-//		try {
-//			stmt = con.createStatement();
-//			ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE author_id = \"" + user_id + "\"");
-//			while(rs.next()){
-//				count++;
-//			}
-//			return count;
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return count;
-//	}
-	
-//	public int numQuizzesTaken(int user_id) {
-//		int count = 0;
-//		Statement stmt;
-//		try {
-//			stmt = con.createStatement();
-//			ResultSet rs = stmt.executeQuery("SELECT * FROM quiz_history WHERE user_id = \"" + user_id + "\"");
-//			while(rs.next()){
-//				count++;
-//			}
-//			return count;
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return count;
-//	}
-	
+	/**
+	 * Get all of user's achievements
+	 * @param user_id user ID
+	 * @return arraylist of achievements
+	 */
 	public ArrayList<String> getAchievements(int user_id) {
 		ArrayList<String> achievements = new ArrayList<String>();
-		Statement stmt;
 		try {
-			stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM achievements WHERE user_id = \"" + user_id + "\"");
+			Statement selectStmt = con.createStatement();
+			ResultSet rs = selectStmt.executeQuery("SELECT * FROM achievements WHERE user_id = \"" + user_id + "\"");
 			while(rs.next()){
 				achievements.add(rs.getString("description"));
 			}
@@ -296,4 +403,37 @@ public class QuizManager {
 		return achievements;
 	}
 
+	
+	
+//	public int numQuizMade(int user_id) {
+//	int count = 0;
+//	Statement stmt;
+//	try {
+//		stmt = con.createStatement();
+//		ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE author_id = \"" + user_id + "\"");
+//		while(rs.next()){
+//			count++;
+//		}
+//		return count;
+//	} catch (SQLException e) {
+//		e.printStackTrace();
+//	}
+//	return count;
+//}
+
+//public int numQuizzesTaken(int user_id) {
+//	int count = 0;
+//	Statement stmt;
+//	try {
+//		stmt = con.createStatement();
+//		ResultSet rs = stmt.executeQuery("SELECT * FROM quiz_history WHERE user_id = \"" + user_id + "\"");
+//		while(rs.next()){
+//			count++;
+//		}
+//		return count;
+//	} catch (SQLException e) {
+//		e.printStackTrace();
+//	}
+//	return count;
+//}
 }
