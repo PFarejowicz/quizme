@@ -27,9 +27,9 @@
 			<input type="submit" value="Log Out" />
 		</form>
 		
-		<h1>Welcome, <%=userManager.getNameByID(userId)%>!</h1>
+		<h1 class="auth-center">Welcome, <%=userManager.getNameByID(userId)%>!</h1>
 		
-		<h3>Announcements</h3>
+		<h3 class="auth-center">Announcements</h3>
 		<% ArrayList<String> announcements = adminManager.getAnnouncements(); %>
 		<ul>
 			<% for(int i = 0; i < announcements.size(); i++){ %>
@@ -40,9 +40,9 @@
 		<p><a href="create_quiz.jsp">Create a Quiz</a></p>
 		<p><a href="quiz_archive.jsp">Go to Quiz Archive</a></p>
 		
-		<h3>Your Quizzes</h3>
+		<h3 class="auth-center">Your Quizzes</h3>
 		
-		<h3>Achievements</h3>
+		<h3 class="auth-center">Achievements</h3>
 			<ul>
 			<% ArrayList<String> achievements = quizManager.getAchievements(userId); 
 			String check = "I am the Greatest";
@@ -61,7 +61,7 @@
 			<%}%>
 			</ul>
 		
-		<h3>Quiz History</h3>
+		<h3 class="auth-center">Quiz History</h3>
 		<% ArrayList<QuizHistory> history = userManager.getQuizHistoryById(userId); %>
 		<% if(history.size() > 0){ %>
 			<h5>Your Most Recent Quizzes:</h5><br/>
@@ -71,7 +71,7 @@
 			<% } %>
 		<% } %>
 		<a href="user_quiz_history.jsp?id=<%= userId %>"><button type="button">Show Full History</button></a>
-		<h3>Your Friends</h3>
+		<h3 class="auth-center">Your Friends</h3>
 			<ul>
 			<% 
 			ArrayList<Integer> friendsList = friendsManager.getFriends(userId);
@@ -81,12 +81,10 @@
 				
 			<%}%>
 			</ul>
+					
+		<h3 class="auth-center">Challenge Friends</h3>
 			
-		<h3>Pending Friend Requests</h3>
-		
-		<h3>Challenge Friends</h3>
-			
-		<h3>Pending Friend Requests</h3>
+		<h3 class="auth-center">Pending Friend Requests</h3>
 			<ul>
 			<% 
 			ArrayList<Integer> requestList = friendsManager.showFriendRequests(userId);
@@ -112,13 +110,13 @@
 			<%}%>
 			</ul>
 		
-		<h3>Search Users</h3>
+		<h3 class="auth-center">Search Users</h3>
 			<form action="UserSearchServlet" method="post">
 			<p><input type="text" name="info" />
 			<input type="submit" value="Search" /></p>
 			</form>
 		
-		<h3>Send Messages</h3>
+		<h3 class="auth-center">Send Messages</h3>
 			<form action="MessageServlet" method="post">
 			<p>Send to: <input type="text" name="receiver" /></p>
 			<p>Message: <input type="text" name="new message" />
@@ -133,7 +131,7 @@
 				<% } %>
 			<% } %>
 		
-		<h3>Your Messages</h3>
+		<h3 class="auth-center">Your Messages</h3>
 			<ul>
 			<% 
 			ArrayList<String> messages = messageManager.getMessage(email);
