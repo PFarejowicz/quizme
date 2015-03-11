@@ -119,7 +119,6 @@ public class QuizManager {
 			while (rs.next()) {
 				int quizId = rs.getInt("quiz_id");
 				if(frequencies.containsKey(quizId)){
-					//System.out.println("getting frequency id: " + quizId + ", frequency" + frequencies.get(quizId));
 					frequencies.put(quizId, frequencies.get(quizId) + 1);
 				} else{
 					frequencies.put(quizId, 1);
@@ -400,7 +399,19 @@ public class QuizManager {
 		return achievements;
 	}
 
-	
+	public ArrayList<Quiz> getMostRecentlyCreatedQuizzes(){
+		ArrayList<Quiz> recentQuizzes = new ArrayList<Quiz>();
+		try{
+			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM quizzes ORDER BY date_time DESC");
+			while(rs.next()){
+				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"), rs.getTimestamp("date_time"), rs.getInt("points"));
+				recentQuizzes.add(quiz);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return recentQuizzes;
+	}
 	
 //	public int numQuizMade(int user_id) {
 //	int count = 0;

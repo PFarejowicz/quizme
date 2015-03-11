@@ -51,6 +51,14 @@
 		<% } %>
 		
 		<h3 class="auth-center">Recently Created Quizzes</h3>
+		<% ArrayList<Quiz> recentQuizzes = quizManager.getMostRecentlyCreatedQuizzes(); %>
+		<% if(recentQuizzes.size() > 0){ %>
+			<h5>Most Recently Created Quizzes:</h5><br/>
+			<% for(int i = recentQuizzes.size() - 1; i >= 0 && i >= recentQuizzes.size() - 3; i--){ %>
+				<p>Quiz Name: <%= recentQuizzes.get(i).getName() %></p>
+				<p>Description: <%= recentQuizzes.get(i).getDescription() %></p>
+			<% } %>
+		<% } %>
 		
 		<h3 class="auth-center">Your Quiz History</h3>
 		<% ArrayList<QuizHistory> history = userManager.getQuizHistoryById(userId); %>
