@@ -45,7 +45,7 @@
 		<% if(popularQuizzes.size() > 0){ %>
 			<h5>Most Popular Quizzes:</h5><br/>
 			<% for(int i = popularQuizzes.size() - 1; i >= 0 && i >= popularQuizzes.size() - 3; i--){ %>
-				<p>Quiz Name: <%= popularQuizzes.get(i).getName() %></p>
+				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= popularQuizzes.get(i).getQuizID() %>"><%= popularQuizzes.get(i).getName() %></a></p>
 				<p>Description: <%= popularQuizzes.get(i).getDescription() %></p>
 			<% } %>
 		<% } %>
@@ -55,7 +55,7 @@
 		<% if(recentQuizzes.size() > 0){ %>
 			<h5>Most Recently Created Quizzes:</h5><br/>
 			<% for(int i = recentQuizzes.size() - 1; i >= 0 && i >= recentQuizzes.size() - 3; i--){ %>
-				<p>Quiz Name: <%= recentQuizzes.get(i).getName() %></p>
+				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= recentQuizzes.get(i).getQuizID() %>"><%= recentQuizzes.get(i).getName() %></a></p>
 				<p>Description: <%= recentQuizzes.get(i).getDescription() %></p>
 			<% } %>
 		<% } %>
@@ -65,7 +65,7 @@
 		<% if(history.size() > 0){ %>
 			<h5>Your Most Recent Taken Quizzes:</h5><br/>
 			<% for(int i = history.size() - 1; i >= 0 && i >= history.size() - 3; i--){ %>
-				<p>Quiz Name: <%= history.get(i).getName() %></p>
+				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= history.get(i).getQuizId() %>"><%= history.get(i).getName() %></a></p>
 				<p>Score: <%=quizManager.convertToPercStr(history.get(i).getScore(), history.get(i).getTotal()) %></p><br/>
 			<% } %>
 		<% } %>
@@ -76,7 +76,7 @@
 		<% if(yourQuizzes.size() > 0){ %>
 			<h5>Your Most Recent Created Quizzes:</h5><br/>
 			<% for(int i = yourQuizzes.size() - 1; i >= 0 && i >= yourQuizzes.size() - 3; i--){ %>
-				<p>Quiz Name: <%= yourQuizzes.get(i).getName() %></p>
+				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= yourQuizzes.get(i).getQuizID() %>"><%= yourQuizzes.get(i).getName() %></a></p>
 				<p>Description: <%= yourQuizzes.get(i).getDescription() %></p>
 			<% } %>
 		<% } %>
