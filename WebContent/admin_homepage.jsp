@@ -67,6 +67,8 @@
 <h3>Site Statistics</h3>
 <p>Number of users: <%= users.size() %></p>
 <p>Number of quizzes taken: <%= adminManager.getNumberOfQuizzes() %></p>
-<p><a href="index.jsp"><button type="button">Log Out</button></a></p>
+<form action="LogoutServlet" method="post">
+	<input type="submit" value="Log Out" />
+</form>
 </body>
 </html>

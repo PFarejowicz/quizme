@@ -12,14 +12,6 @@ html {
   -webkit-text-size-adjust: 100%; /* 2 */
 }
 
-/**
- * Remove default margin.
- */
-
-body {
-  margin: 0;
-}
-
 /* HTML5 display definitions
    ========================================================================== */
 
@@ -131,9 +123,11 @@ dfn {
  * Address variable `h1` font-size and margin within `section` and `article`
  * contexts in Firefox 4+, Safari, and Chrome.
  */
-
+/**
+ * font-size: 2em;
+ */
 h1 {
-  font-size: 2em;
+  
   margin: 0.67em 0;
 }
 
