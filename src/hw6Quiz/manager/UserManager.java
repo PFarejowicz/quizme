@@ -1,6 +1,7 @@
 package hw6Quiz.manager;
 
 import hw6Quiz.model.*;
+
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.sql.Connection;
@@ -175,13 +176,27 @@ public class UserManager {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM quiz_history WHERE user_id = " + user_id);
 			while(rs.next()){
-				QuizHistory qh = new QuizHistory(rs.getInt("quiz_history_id"), rs.getInt("quiz_id"), rs.getInt("user_id"), rs.getInt("score"), rs.getInt("rating"), rs.getString("review"));
+				QuizHistory qh = new QuizHistory(rs.getInt("quiz_history_id"), rs.getInt("quiz_id"), rs.getInt("user_id"), rs.getInt("score"), rs.getInt("total"), rs.getInt("rating"), rs.getString("review"), rs.getString("name"), rs.getTimestamp("date_time"));
 				history.add(qh);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return history;
+	}
+	
+	public ArrayList<Quiz> getAuthoredQuizzes(int user_id) {
+		ArrayList<Quiz> quizList = new ArrayList<Quiz>();
+		try {
+			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM quizzes WHERE author_id = " + user_id);
+			while (rs.next()) {
+				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"), rs.getTimestamp("date_time"), rs.getInt("points"));
+				quizList.add(quiz);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return quizList;
 	}
 	
 }

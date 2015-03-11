@@ -54,10 +54,14 @@
 				question_number++;
 			}
 			%>
-			<%System.out.println("JSP " + request.getParameter("practice_mode")); %>
 			<input type="hidden" name="practice_mode" value="<%=request.getParameter("practice_mode")%>" />
 			<input type="hidden" name="random_order" value="<%=request.getParameter("random_order")%>" />
 			<input type="hidden" name="quiz_id" value="<%=quiz_id%>" />
+			<% 
+			if (request.getParameter("practice_mode").equals("true")) {											
+				out.println("<input type=\"submit\" name=\"quit\" value=\"Quit\" />");
+			}
+			%>
 			<input type="submit" value="Finish" />
 		</form>
 	</body>

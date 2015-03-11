@@ -33,13 +33,18 @@ CREATE TABLE IF NOT EXISTS questions (
 	PRIMARY KEY (question_id)
 );
 
+DROP TABLE IF EXISTS quiz_history;
+
 CREATE TABLE IF NOT EXISTS quiz_history (
 	quiz_history_id INT UNSIGNED AUTO_INCREMENT,
 	quiz_id INT,
 	user_id INT,
 	score INT,
+	total INT,
 	rating INT UNSIGNED,
 	review VARCHAR(255),
+	name VARCHAR(255),
+	date_time DATETIME,
 	PRIMARY KEY (quiz_history_id)
 );
 
