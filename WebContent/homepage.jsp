@@ -47,7 +47,7 @@
 		<h3 class="auth-center">Your Quiz History</h3>
 		<% ArrayList<QuizHistory> history = userManager.getQuizHistoryById(userId); %>
 		<% if(history.size() > 0){ %>
-			<h5>Your Most Recent Quizzes:</h5><br/>
+			<h5>Your Most Recent Taken Quizzes:</h5><br/>
 			<% for(int i = history.size() - 1; i >= 0 && i >= history.size() - 3; i--){ %>
 				<p>Quiz Name: <%= history.get(i).getName() %></p>
 				<p>Score: <%=String.format("%.2f", (float)history.get(i).getScore()/(float)history.get(i).getTotal()*100) %>%</p><br/>
@@ -56,6 +56,14 @@
 		<a href="user_quiz_history.jsp?id=<%= userId %>"><button type="button">Show Full History</button></a>
 		
 		<h3 class="auth-center">Your Quizzes</h3>
+		<% ArrayList<Quiz> yourQuizzes = userManager.getAuthoredQuizzes(userId); %>
+		<% if(yourQuizzes.size() > 0){ %>
+			<h5>Your Most Recent Created Quizzes:</h5><br/>
+			<% for(int i = yourQuizzes.size() - 1; i >= 0 && i >= yourQuizzes.size() - 3; i--){ %>
+				<p>Quiz Name: <%= yourQuizzes.get(i).getName() %></p>
+				<p>Description: <%= yourQuizzes.get(i).getDescription() %></p>
+			<% } %>
+		<% } %>
 		
 		<h3 class="auth-center">Achievements</h3>
 			<ul>
