@@ -22,7 +22,7 @@
 	<title>QuizMe</title>
 </head>
 	<body>
-		<a href="index.html"><button type="button">Log Out</button></a>
+		<a href="index.jsp"><button type="button">Log Out</button></a>
 		
 		<h1>Welcome, <%=userManager.getNameByID(userId)%>!</h1>
 		
