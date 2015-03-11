@@ -110,6 +110,42 @@ public class QuizManager {
 		return quizList;
 	}
 	
+	public ArrayList<Quiz> getPopularQuizzes(){
+		ArrayList<Quiz> quizList = new ArrayList<Quiz>();
+		int [] topFrequencies = new int[3];
+		Map<Integer, Integer> frequencies = new HashMap<Integer, Integer>();
+		try{
+			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM quiz_history");
+			while (rs.next()) {
+				int quizId = rs.getInt("quiz_id");
+				if(frequencies.containsKey(quizId)){
+					frequencies.put(quizId, frequencies.get(quizList) + 1);
+				} else{
+					frequencies.put(quizId, 1);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		for(int key: frequencies.keySet()){
+			Quiz quiz = getQuizByID(key);
+			if(frequencies.get(key) > topFrequencies[0]){
+				topFrequencies[2] = topFrequencies[1];
+				topFrequencies[1] = topFrequencies[0];
+				topFrequencies[0] = frequencies.get(key);
+				quizList.add(0, quiz);
+			} else if(frequencies.get(key) > topFrequencies[1]){
+				topFrequencies[2] = topFrequencies[1];
+				topFrequencies[1] = frequencies.get(key);
+				quizList.add(1, quiz);
+			} else if(frequencies.get(key) > topFrequencies[2]){
+				topFrequencies[2] = frequencies.get(key);
+				quizList.add(2, quiz);
+			}
+		}
+		return quizList;
+	}
+	
 	/**
 	 * Updates the number of total points of a quiz
 	 * @param quiz_id quiz ID
