@@ -22,7 +22,9 @@
 	<title>QuizMe</title>
 </head>
 	<body>
-		<a href="index.jsp"><button type="button">Log Out</button></a>
+		<form action="LogoutServlet" method="post">
+			<input type="submit" value="Log Out" />
+		</form>
 		
 		<h1>Welcome, <%=userManager.getNameByID(userId)%>!</h1>
 		
