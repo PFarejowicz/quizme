@@ -4,6 +4,7 @@
 
 <%
 	UserManager userManager = (UserManager) getServletContext().getAttribute("user manager");
+	AdminManager adminManager = ((AdminManager)request.getServletContext().getAttribute("admin manager"));
 	DBConnection connection = (DBConnection) getServletContext().getAttribute("connection");
 	MessageManager messageManager = (MessageManager) getServletContext().getAttribute("message manager");
 	FriendsManager friendsManager = (FriendsManager) getServletContext().getAttribute("friends manager");
@@ -27,6 +28,14 @@
 		</form>
 		
 		<h1>Welcome, <%=userManager.getNameByID(userId)%>!</h1>
+		
+		<h3>Announcements</h3>
+		<% ArrayList<String> announcements = adminManager.getAnnouncements(); %>
+		<ul>
+			<% for(int i = 0; i < announcements.size(); i++){ %>
+			<li><%= announcements.get(i) %></li>
+			<% } %>
+		</ul>
 		
 		<p><a href="create_quiz.jsp">Create a Quiz</a></p>
 		<p><a href="quiz_archive.jsp">Go to Quiz Archive</a></p>
