@@ -20,12 +20,30 @@
 </head>
 <body>
 	<h1>Welcome to a QuizMe Quiz</h1>
-	<p>Quiz Name: <%=quiz.getName() %></p>
-	<p>Quiz Description: <%=quiz.getDescription() %></p>
-	<p>Quiz Author: <%=userManager.getNameByID(quiz.getAuthorID()) %></p>
-	<p>Questions Presented in Random Order? <%= quiz.isRandomOrder() ? "Yes" : "No" %></p>
-	<p>Questions Presented on Multiple Pages? <%= quiz.isMultiplePages() ? "Yes" : "No" %></p>
-	<p>Immediate Corrections Provided for Questions? <%= quiz.isImmediateCorrection() ? "Yes" : "No" %></p>
+	<p>
+		Quiz Name: <%=quiz.getName() %><br>
+		Quiz Description: <%=quiz.getDescription() %>
+		Quiz Author: <%=userManager.getNameByID(quiz.getAuthorID()) %>
+	</p>
+	<p>
+		Questions Presented in Random Order? <%= quiz.isRandomOrder() ? "Yes" : "No" %><br>
+		Questions Presented on Multiple Pages? <%= quiz.isMultiplePages() ? "Yes" : "No" %><br>
+		Immediate Corrections Provided for Questions? <%= quiz.isImmediateCorrection() ? "Yes" : "No" %>
+	</p>
+	<h2>Your Past Performance</h2>
+	<%
+		
+	%>
+	
+	<h2>All Time High Scores</h2>
+	
+	<h2>24 Hour High Scores</h2>
+	
+	<h2>Recent Scores</h2>
+	
+	<h2>Summary Statistics</h2>
+	
+	
 	<a href="homepage.jsp"><button type="button">Return Home</button></a>
 	<form action="QuizStartServlet" method="post" style="display: inline">
 		<p>Mode: <br>
