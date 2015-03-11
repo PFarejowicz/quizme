@@ -110,7 +110,6 @@ public class QuizManager {
 		return quizList;
 	}
 	
-<<<<<<< HEAD
 	public int numTimesTaken(int quiz_id) {
 		try {
 			Statement selectStmt = con.createStatement();
