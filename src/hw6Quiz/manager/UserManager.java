@@ -175,7 +175,7 @@ public class UserManager {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM quiz_history WHERE user_id = " + user_id);
 			while(rs.next()){
-				QuizHistory qh = new QuizHistory(rs.getInt("quiz_history_id"), rs.getInt("quiz_id"), rs.getInt("user_id"), rs.getInt("score"), rs.getInt("rating"), rs.getString("review"), rs.getString("name"));
+				QuizHistory qh = new QuizHistory(rs.getInt("quiz_history_id"), rs.getInt("quiz_id"), rs.getInt("user_id"), rs.getInt("score"), rs.getInt("total"), rs.getInt("rating"), rs.getString("review"), rs.getString("name"), rs.getTimestamp("date_time"));
 				history.add(qh);
 			}
 		} catch (SQLException e) {

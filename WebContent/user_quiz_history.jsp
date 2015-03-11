@@ -13,7 +13,7 @@
 <h1><%=userManager.getNameByID(userId)%>'s Quiz History</h1>
 <% for(int i = history.size() - 1; i >= 0; i--){ %>
 	<p>Quiz Name: <%= history.get(i).getName() %></p>
-	<p>Score: <%= history.get(i).getScore() %></p><br/>
+	<p>Score: <%=String.format("%.2f", (float)history.get(i).getScore()/(float)history.get(i).getTotal()*100) %>%</p><br/>
 <% } %>
 </body>
 </html>

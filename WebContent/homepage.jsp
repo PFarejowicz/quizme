@@ -22,7 +22,7 @@
 	<title>QuizMe</title>
 </head>
 	<body>
-		<a href="index.html"><button type="button">Log Out</button></a>
+		<a href="index.jsp"><button type="button">Log Out</button></a>
 		
 		<h1>Welcome, <%=userManager.getNameByID(userId)%>!</h1>
 		
@@ -30,7 +30,6 @@
 		<p><a href="quiz_archive.jsp">Go to Quiz Archive</a></p>
 		
 		<h3>Your Quizzes</h3>
-		<h3><a href="create_quiz.jsp">Create a Quiz</a></h3>
 		
 		<h3>Achievements</h3>
 			<ul>
@@ -51,14 +50,13 @@
 			<%}%>
 			</ul>
 		
-		<h3><a href="create_quiz.jsp">Create a Quiz</a></h3>
 		<h3>Quiz History</h3>
 		<% ArrayList<QuizHistory> history = userManager.getQuizHistoryById(userId); %>
 		<% if(history.size() > 0){ %>
 			<h5>Your Most Recent Quizzes:</h5><br/>
 			<% for(int i = history.size() - 1; i >= 0 && i >= history.size() - 3; i--){ %>
 				<p>Quiz Name: <%= history.get(i).getName() %></p>
-				<p>Score: <%= history.get(i).getScore() %></p><br/>
+				<p>Score: <%=String.format("%.2f", (float)history.get(i).getScore()/(float)history.get(i).getTotal()*100) %>%</p><br/>
 			<% } %>
 		<% } %>
 		<a href="user_quiz_history.jsp?id=<%= userId %>"><button type="button">Show Full History</button></a>

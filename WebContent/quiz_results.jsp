@@ -40,6 +40,7 @@
         <input type="radio" name="rating" value="5" class="star">
         <input type="hidden" name="quiz_id" value="<%=quiz_id%>" />
         <input type="hidden" name="score" value="<%=score%>" />
+        <input type="hidden" name="total" value="<%=total%>" />
         <input type="hidden" name="name" value="<%=name%>" />
         <input type="submit" name="finish" value="Finish" />
 	</form>
