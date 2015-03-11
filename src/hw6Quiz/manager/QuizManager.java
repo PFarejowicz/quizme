@@ -23,16 +23,16 @@ public class QuizManager {
 		try {
 		    Calendar calendar = Calendar.getInstance();
 		    Timestamp timeStamp = new Timestamp(calendar.getTime().getTime());
-			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO quizzes (name, description, author_id, random_order, multiple_pages, immediate_correction, date_time, points) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
-			prepStmt.setString(1, name);
-			prepStmt.setString(2, description);
-			prepStmt.setInt(3, author);
-			prepStmt.setBoolean(4, random);
-			prepStmt.setBoolean(5, pages);
-			prepStmt.setBoolean(6, correction);
-			prepStmt.setTimestamp(7, timeStamp);
-			prepStmt.setInt(8, points);
-			prepStmt.executeUpdate();
+			PreparedStatement insertStmt = con.prepareStatement("INSERT INTO quizzes (name, description, author_id, random_order, multiple_pages, immediate_correction, date_time, points) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+			insertStmt.setString(1, name);
+			insertStmt.setString(2, description);
+			insertStmt.setInt(3, author);
+			insertStmt.setBoolean(4, random);
+			insertStmt.setBoolean(5, pages);
+			insertStmt.setBoolean(6, correction);
+			insertStmt.setTimestamp(7, timeStamp);
+			insertStmt.setInt(8, points);
+			insertStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -40,9 +40,9 @@ public class QuizManager {
 	
 	public int getIDByName(String name) {
 		try {
-			PreparedStatement prepStmt = con.prepareStatement("SELECT * FROM quizzes WHERE name = ?");
-			prepStmt.setString(1, name);
-			ResultSet rs = prepStmt.executeQuery();
+			PreparedStatement selectStmt = con.prepareStatement("SELECT * FROM quizzes WHERE name = ?");
+			selectStmt.setString(1, name);
+			ResultSet rs = selectStmt.executeQuery();
 			rs.next();
 			System.out.println(rs.getInt("quiz_id"));
 			return rs.getInt("quiz_id");
@@ -83,10 +83,10 @@ public class QuizManager {
 	
 	public void updateQuizPoints(int quiz_id, int points) {
 		try {
-			PreparedStatement prepStmt = con.prepareStatement("UPDATE quizzes SET points = ? WHERE quiz_id = ?");
-		    prepStmt.setInt(1, points);
-		    prepStmt.setInt(2, quiz_id);
-		    prepStmt.executeUpdate();
+			PreparedStatement updateStmt = con.prepareStatement("UPDATE quizzes SET points = ? WHERE quiz_id = ?");
+			updateStmt.setInt(1, points);
+			updateStmt.setInt(2, quiz_id);
+			updateStmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -94,9 +94,9 @@ public class QuizManager {
 	
 	public int getQuizPoints(int quiz_id) {
 		try {
-			PreparedStatement prepStmt = con.prepareStatement("SELECT * FROM quizzes WHERE quiz_id = ?");
-			prepStmt.setInt(1, quiz_id);
-			ResultSet rs = prepStmt.executeQuery();
+			PreparedStatement selectStmt = con.prepareStatement("SELECT * FROM quizzes WHERE quiz_id = ?");
+			selectStmt.setInt(1, quiz_id);
+			ResultSet rs = selectStmt.executeQuery();
 			rs.next();
 			return rs.getInt("points");
 		} catch (Exception e) {
@@ -113,14 +113,14 @@ public class QuizManager {
 	 */
 	public void addQuizResult(int quiz_id, int user_id, int score, int rating, String review, String name) {
 		try {
-			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO quiz_history (quiz_id, user_id, score, rating, review, name) VALUES (?, ?, ?, ?, ?, ?)");
-			prepStmt.setInt(1, quiz_id);
-			prepStmt.setInt(2, user_id);
-			prepStmt.setInt(3, score);
-			prepStmt.setInt(4, rating);
-			prepStmt.setString(5, review);
-			prepStmt.setString(6, name);
-			prepStmt.executeUpdate();
+			PreparedStatement insertStmt = con.prepareStatement("INSERT INTO quiz_history (quiz_id, user_id, score, rating, review, name) VALUES (?, ?, ?, ?, ?, ?)");
+			insertStmt.setInt(1, quiz_id);
+			insertStmt.setInt(2, user_id);
+			insertStmt.setInt(3, score);
+			insertStmt.setInt(4, rating);
+			insertStmt.setString(5, review);
+			insertStmt.setString(6, name);
+			insertStmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -129,33 +129,34 @@ public class QuizManager {
 	
 	public boolean authorAchievement(int user_id) {
 		int count = 0;
-		Statement stmt;
+		Statement selectStmt;
 		boolean achievementAdded = false;
 		try {
-			stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE author_id = \"" + user_id + "\"");
+			selectStmt = con.createStatement();
+			PreparedStatement insertStmt = null;
+			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quizzes WHERE author_id = \"" + user_id + "\"");
 			while(rs.next()){
 				count++;
 			}
 			if (count == 1) {
-				PreparedStatement prepStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
-				prepStmt.setInt(1, user_id);
-				prepStmt.setString(2, "Amateur Author");
+				insertStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
+				insertStmt.setInt(1, user_id);
+				insertStmt.setString(2, "Amateur Author");
 				achievementAdded = true;
 			}
 			if (count == 5) {
-				PreparedStatement prepStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
-				prepStmt.setInt(1, user_id);
-				prepStmt.setString(2, "Prolific Author");
+				insertStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
+				insertStmt.setInt(1, user_id);
+				insertStmt.setString(2, "Prolific Author");
 				achievementAdded = true;
 			}
 			if (count == 10) {
-				PreparedStatement prepStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
-				prepStmt.setInt(1, user_id);
-				prepStmt.setString(2, "Prodigious Author");
+				insertStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
+				insertStmt.setInt(1, user_id);
+				insertStmt.setString(2, "Prodigious Author");
 				achievementAdded = true;
 			}
-			return achievementAdded;
+			insertStmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -164,21 +165,46 @@ public class QuizManager {
 	
 	public boolean quizTakerAchievement(int user_id) {
 		int count = 0;
-		Statement stmt;
+		Statement selectStmt;
+		PreparedStatement insertStmt;
 		boolean achievementAdded = false;
 		try {
-			stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM quiz_history WHERE user_id = \"" + user_id + "\"");
+			selectStmt = con.createStatement();
+			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE user_id = \"" + user_id + "\"");
 			while(rs.next()){
 				count++;
 			}
 			if (count == 10) {
-				PreparedStatement prepStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
-				prepStmt.setInt(1, user_id);
-				prepStmt.setString(2, "Quiz Machine");
+				insertStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
+				insertStmt.setInt(1, user_id);
+				insertStmt.setString(2, "Quiz Machine");
+				insertStmt.executeUpdate();
 				achievementAdded = true;
 			}
-			return achievementAdded;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return achievementAdded;
+	}
+	
+	/**
+	 * Method called only in practice mode. Adds achievement to user if user did not already have this achievement.
+	 * @return added successfully
+	 */
+	public boolean practiceMakesPerfect(int user_id) {
+		Statement selectStmt;
+		PreparedStatement insertStmt; 
+		boolean achievementAdded = false; 
+		try {
+			selectStmt = con.createStatement();
+			ResultSet rs = selectStmt.executeQuery("SELECT * FROM achievements WHERE user_id = \"" + user_id + "\" AND description = Practice Makes Perfect");
+			if (rs == null) {
+				insertStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
+				insertStmt.setInt(1, user_id);
+				insertStmt.setString(2, "Practice Makes Perfect");
+				insertStmt.executeUpdate();
+				achievementAdded = true;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -211,7 +237,6 @@ public class QuizManager {
 						achievementAdded = true;
 					}
 				}
-				return achievementAdded;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

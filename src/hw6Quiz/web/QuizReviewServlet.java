@@ -24,31 +24,35 @@ public class QuizReviewServlet extends HttpServlet {
      */
     public QuizReviewServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		QuizManager quizManager = (QuizManager) getServletContext().getAttribute("quiz manager");
 		int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
 		int user_id = (Integer) request.getSession().getAttribute("user id");
 		int score = Integer.parseInt(request.getParameter("score"));
+		
+		// Check achievements
+		quizManager.iAmGreatestAchievement(user_id, quiz_id, score);
+		
+		// Update review and rating of quiz
 		int rating = 0; 													// no voting is 0 stars
 		if (request.getParameter("rating") != null) {
 			rating = Integer.parseInt(request.getParameter("rating"));	
 		}
 		String review = request.getParameter("review");
 		String name = request.getParameter("name");
-		QuizManager quizManager = (QuizManager) getServletContext().getAttribute("quiz manager");
 		quizManager.addQuizResult(quiz_id, user_id, score, rating, review, name);
+		
 		RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
 		dispatch.forward(request, response); 
 	}
