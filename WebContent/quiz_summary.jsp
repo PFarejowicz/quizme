@@ -26,6 +26,7 @@
 		Quiz Name: <%=quiz.getName() %><br>
 		Quiz Description: <%=quiz.getDescription() %> <br>
 		Quiz Author: <%=userManager.getNameByID(quiz.getAuthorID()) %>
+		Quiz Rating: <%=String.format("%.2f", (float)quizManager.calculateRating(quiz_id)) %>
 	</p>
 	<p>
 		Questions Presented in Random Order? <%= quiz.isRandomOrder() ? "Yes" : "No" %><br>
@@ -74,6 +75,14 @@
 	%></p>
 	
 	<h2>Summary Statistics</h2>
+	<p><%
+		out.println("Average: " + quizManager.convertToPercStr(quizManager.avgQuizScore(quiz_id), quiz.getPoints()));
+		out.println("<br>");
+		out.println("Range: " + quizManager.quizRange(quiz_id));
+		out.println("<br>");
+		out.println("Times taken: " + quizManager.numTimesTaken(quiz_id));
+		out.println("<br>");
+	%></p>
 	
 	
 	<a href="homepage.jsp"><button type="button">Return Home</button></a>
