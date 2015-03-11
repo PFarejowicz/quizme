@@ -159,7 +159,8 @@ public class QuizManager {
 			e.printStackTrace();
 		}
 		return -1;
-=======
+	}
+
 	public ArrayList<Quiz> getPopularQuizzes(){
 		ArrayList<Quiz> quizList = new ArrayList<Quiz>();
 		int [] topFrequencies = new int[3];
@@ -194,7 +195,6 @@ public class QuizManager {
 			}
 		}
 		return quizList;
->>>>>>> origin/master
 	}
 	
 	/**
