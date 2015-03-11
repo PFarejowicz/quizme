@@ -1,6 +1,7 @@
 package hw6Quiz.manager;
 
 import hw6Quiz.model.Quiz;
+import hw6Quiz.model.QuizHistory;
 import hw6Quiz.model.User;
 
 import java.sql.Connection;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 
 public class QuizManager {
 	
@@ -144,6 +145,16 @@ public class QuizManager {
 	}
 	
 	/**
+	 * Given a score and the total, it converts it into a percentage in string
+	 * @param score score
+	 * @param total total score
+	 * @return percentage in string
+	 */
+	public String convertToPercStr(int score, int total) {
+		return String.format("%.2f", (float) score / (float) total * 100) + "%";
+	}
+	
+	/**
 	 * Adds quiz result to quiz history
 	 * @param quiz_id quiz ID
 	 * @param user_id user ID
@@ -169,89 +180,38 @@ public class QuizManager {
 	}
 	
 	
-	public HashMap<Date, Integer> getPastPerformance(int quiz_id, int user_id) {
-		HashMap<Date, Integer> pastPerformance = new HashMap<Date, Integer>();
-		try {
-			Statement selectStmt = con.createStatement();
-			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\", user_id = \"" + user_id + "\" ORDER BY date_time DESC");
-			while (rs.next()) {
-				pastPerformance.put(rs.getDate("date_time"), rs.getInt("score"));
-				// TODO: pass back date as well
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return pastPerformance;
-	}
 	
-	/**
-	 * Gets all scores of a quiz, order by score, and return top 3 high scores
-	 * @param quiz_id quiz ID
-	 * @return map of top 3 usernames to score
-	 */
-	public Map<String, Integer> getAllTimeHighScores(int quiz_id) {
-		Map<String, Integer> userScoreList = new HashMap<String, Integer>();
-		try {
-			Statement selectStmt = con.createStatement();
-			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\" ORDER BY score DESC");
-			int count = 3;
-			while (rs.next() && count > 0) {
-				userScoreList.put(rs.getString("name"), rs.getInt("score"));
-				count--;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return userScoreList;
-	}
-	
-	/**
-	 * Gets all scores of a quiz, order by score, and return top 3 high scores in the last 24 hours
-	 * @param quiz_id quiz ID
-	 * @return map of top 3 usernames to score
-	 */
-	public Map<String, Integer> get24HourHighScores(int quiz_id) {
-		Map<String, Integer> userScoreList = new HashMap<String, Integer>();
+	public ArrayList<QuizHistory> getQuizHistory(int quiz_id, int user_id, String type) {
+		ArrayList<QuizHistory> history = new ArrayList<QuizHistory>();
 		try {
 			Calendar calendar = Calendar.getInstance();
 			calendar.add(Calendar.HOUR, -24);
 			Timestamp yesterTimeStamp = new Timestamp(calendar.getTime().getTime());
 			
 			Statement selectStmt = con.createStatement();
-			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\" ORDER BY score DESC");
-			int count = 3;
-			while (rs.next() && count > 0) {
-				Timestamp timeStamp = new Timestamp(((Date) rs.getDate("date_time")).getTime());
-				if (timeStamp.after(yesterTimeStamp)) {
-					userScoreList.put(rs.getString("name"), rs.getInt("score"));
-					count--;
+			ResultSet rs = null;
+			if (type.equals("past performance")) {
+				rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\" AND user_id = \"" + user_id + "\" ORDER BY date_time DESC");
+			} else if (type.equals("all time high") || type.equals("last day high")) {
+				rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\" ORDER BY score DESC");
+			} else if (type.equals("recent")) {
+				rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\" ORDER BY date_time DESC");
+			}
+			while (rs.next()){
+				QuizHistory qh = new QuizHistory(rs.getInt("quiz_history_id"), rs.getInt("quiz_id"), rs.getInt("user_id"), rs.getInt("score"), rs.getInt("total"), rs.getInt("rating"), rs.getString("review"), rs.getString("name"), rs.getTimestamp("date_time"));
+				if (type.equals("last day high")) {
+					Timestamp timeStamp = new Timestamp(((Date) rs.getDate("date_time")).getTime());
+					if (timeStamp.after(yesterTimeStamp)) {
+						history.add(qh);
+					}
+				} else {
+					history.add(qh);
 				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return userScoreList;
-	}
-	
-	/**
-	 * Gets all scores of a quiz, order by score, and return 3 most recent scores
-	 * @param quiz_id quiz ID
-	 * @return map of 3 most recent usernames to score
-	 */
-	public Map<String, Integer> getRecentScores(int quiz_id) {
-		Map<String, Integer> userScoreList = new HashMap<String, Integer>();
-		try {
-			Statement selectStmt = con.createStatement();
-			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\", ORDER BY date_time DESC");
-			int count = 3;
-			while (rs.next() && count > 0) {
-				userScoreList.put(rs.getString("name"), rs.getInt("score"));
-				count--;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return userScoreList;
+		return history;
 	}
 		
 	
