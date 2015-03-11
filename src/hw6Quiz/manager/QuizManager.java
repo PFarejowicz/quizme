@@ -110,6 +110,7 @@ public class QuizManager {
 		return quizList;
 	}
 	
+<<<<<<< HEAD
 	public int numTimesTaken(int quiz_id) {
 		try {
 			Statement selectStmt = con.createStatement();
@@ -158,6 +159,42 @@ public class QuizManager {
 			e.printStackTrace();
 		}
 		return -1;
+=======
+	public ArrayList<Quiz> getPopularQuizzes(){
+		ArrayList<Quiz> quizList = new ArrayList<Quiz>();
+		int [] topFrequencies = new int[3];
+		Map<Integer, Integer> frequencies = new HashMap<Integer, Integer>();
+		try{
+			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM quiz_history");
+			while (rs.next()) {
+				int quizId = rs.getInt("quiz_id");
+				if(frequencies.containsKey(quizId)){
+					frequencies.put(quizId, frequencies.get(quizId) + 1);
+				} else{
+					frequencies.put(quizId, 1);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		for(int key: frequencies.keySet()){
+			Quiz quiz = getQuizByID(key);
+			if(frequencies.get(key) > topFrequencies[0]){
+				topFrequencies[2] = topFrequencies[1];
+				topFrequencies[1] = topFrequencies[0];
+				topFrequencies[0] = frequencies.get(key);
+				quizList.add(0, quiz);
+			} else if(frequencies.get(key) > topFrequencies[1]){
+				topFrequencies[2] = topFrequencies[1];
+				topFrequencies[1] = frequencies.get(key);
+				quizList.add(1, quiz);
+			} else if(frequencies.get(key) > topFrequencies[2]){
+				topFrequencies[2] = frequencies.get(key);
+				quizList.add(2, quiz);
+			}
+		}
+		return quizList;
+>>>>>>> origin/master
 	}
 	
 	/**
@@ -435,7 +472,19 @@ public class QuizManager {
 		return achievements;
 	}
 
-	
+	public ArrayList<Quiz> getMostRecentlyCreatedQuizzes(){
+		ArrayList<Quiz> recentQuizzes = new ArrayList<Quiz>();
+		try{
+			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM quizzes ORDER BY date_time DESC");
+			while(rs.next()){
+				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"), rs.getTimestamp("date_time"), rs.getInt("points"));
+				recentQuizzes.add(quiz);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return recentQuizzes;
+	}
 	
 //	public int numQuizMade(int user_id) {
 //	int count = 0;

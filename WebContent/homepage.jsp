@@ -41,13 +41,29 @@
 		</ul>
 		
 		<h3 class="auth-center">Popular Quizzes</h3>
+		<% ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes(); %>
+		<% if(popularQuizzes.size() > 0){ %>
+			<h5>Most Popular Quizzes:</h5><br/>
+			<% for(int i = popularQuizzes.size() - 1; i >= 0 && i >= popularQuizzes.size() - 3; i--){ %>
+				<p>Quiz Name: <%= popularQuizzes.get(i).getName() %></p>
+				<p>Description: <%= popularQuizzes.get(i).getDescription() %></p>
+			<% } %>
+		<% } %>
 		
 		<h3 class="auth-center">Recently Created Quizzes</h3>
+		<% ArrayList<Quiz> recentQuizzes = quizManager.getMostRecentlyCreatedQuizzes(); %>
+		<% if(recentQuizzes.size() > 0){ %>
+			<h5>Most Recently Created Quizzes:</h5><br/>
+			<% for(int i = recentQuizzes.size() - 1; i >= 0 && i >= recentQuizzes.size() - 3; i--){ %>
+				<p>Quiz Name: <%= recentQuizzes.get(i).getName() %></p>
+				<p>Description: <%= recentQuizzes.get(i).getDescription() %></p>
+			<% } %>
+		<% } %>
 		
 		<h3 class="auth-center">Your Quiz History</h3>
 		<% ArrayList<QuizHistory> history = userManager.getQuizHistoryById(userId); %>
 		<% if(history.size() > 0){ %>
-			<h5>Your Most Recent Quizzes:</h5><br/>
+			<h5>Your Most Recent Taken Quizzes:</h5><br/>
 			<% for(int i = history.size() - 1; i >= 0 && i >= history.size() - 3; i--){ %>
 				<p>Quiz Name: <%= history.get(i).getName() %></p>
 				<p>Score: <%=quizManager.convertToPercStr(history.get(i).getScore(), history.get(i).getTotal()) %></p><br/>
@@ -56,6 +72,14 @@
 		<a href="user_quiz_history.jsp?id=<%= userId %>"><button type="button">Show Full History</button></a>
 		
 		<h3 class="auth-center">Your Quizzes</h3>
+		<% ArrayList<Quiz> yourQuizzes = userManager.getAuthoredQuizzes(userId); %>
+		<% if(yourQuizzes.size() > 0){ %>
+			<h5>Your Most Recent Created Quizzes:</h5><br/>
+			<% for(int i = yourQuizzes.size() - 1; i >= 0 && i >= yourQuizzes.size() - 3; i--){ %>
+				<p>Quiz Name: <%= yourQuizzes.get(i).getName() %></p>
+				<p>Description: <%= yourQuizzes.get(i).getDescription() %></p>
+			<% } %>
+		<% } %>
 		
 		<h3 class="auth-center">Achievements</h3>
 			<ul>
