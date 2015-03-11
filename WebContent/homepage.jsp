@@ -30,7 +30,6 @@
 		<p><a href="quiz_archive.jsp">Go to Quiz Archive</a></p>
 		
 		<h3>Your Quizzes</h3>
-		<h3><a href="create_quiz.jsp">Create a Quiz</a></h3>
 		
 		<h3>Achievements</h3>
 			<ul>
@@ -51,7 +50,6 @@
 			<%}%>
 			</ul>
 		
-		<h3><a href="create_quiz.jsp">Create a Quiz</a></h3>
 		<h3>Quiz History</h3>
 		<% ArrayList<QuizHistory> history = userManager.getQuizHistoryById(userId); %>
 		<% if(history.size() > 0){ %>
