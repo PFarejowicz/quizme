@@ -70,7 +70,7 @@
 	<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
 		<%
 		if (friendsList.get(i) != userId) {%>
-				<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getEmailByID(friendsList.get(i))%></a></li>
+				<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getNameByID(friendsList.get(i))%></a></li>
 		<%}%>
 	<%}%>
 	</ul>
