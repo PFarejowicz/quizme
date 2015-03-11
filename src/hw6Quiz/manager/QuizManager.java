@@ -119,7 +119,8 @@ public class QuizManager {
 			while (rs.next()) {
 				int quizId = rs.getInt("quiz_id");
 				if(frequencies.containsKey(quizId)){
-					frequencies.put(quizId, frequencies.get(quizList) + 1);
+					//System.out.println("getting frequency id: " + quizId + ", frequency" + frequencies.get(quizId));
+					frequencies.put(quizId, frequencies.get(quizId) + 1);
 				} else{
 					frequencies.put(quizId, 1);
 				}

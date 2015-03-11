@@ -41,6 +41,14 @@
 		</ul>
 		
 		<h3 class="auth-center">Popular Quizzes</h3>
+		<% ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes(); %>
+		<% if(popularQuizzes.size() > 0){ %>
+			<h5>Most Popular Quizzes:</h5><br/>
+			<% for(int i = popularQuizzes.size() - 1; i >= 0 && i >= popularQuizzes.size() - 3; i--){ %>
+				<p>Quiz Name: <%= popularQuizzes.get(i).getName() %></p>
+				<p>Description: <%= popularQuizzes.get(i).getDescription() %></p>
+			<% } %>
+		<% } %>
 		
 		<h3 class="auth-center">Recently Created Quizzes</h3>
 		
