@@ -40,6 +40,7 @@ public class QuizReviewServlet extends HttpServlet {
 		int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
 		int user_id = (Integer) request.getSession().getAttribute("user id");
 		int score = Integer.parseInt(request.getParameter("score"));
+		int total = Integer.parseInt(request.getParameter("total"));
 		
 		// Check achievements
 		quizManager.iAmGreatestAchievement(user_id, quiz_id, score);
@@ -51,7 +52,7 @@ public class QuizReviewServlet extends HttpServlet {
 		}
 		String review = request.getParameter("review");
 		String name = request.getParameter("name");
-		quizManager.addQuizResult(quiz_id, user_id, score, rating, review, name);
+		quizManager.addQuizResult(quiz_id, user_id, score, total, rating, review, name);
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
 		dispatch.forward(request, response); 

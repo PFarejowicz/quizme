@@ -6,15 +6,17 @@ public class QuizHistory {
 	private int quizId;
 	private int userId;
 	private int score;
+	private int total;
 	private int rating;
 	private String review;
 	private String name;
 
-	public QuizHistory(int quizHistoryId, int quizId, int userId, int score, int rating, String review, String name) {
+	public QuizHistory(int quizHistoryId, int quizId, int userId, int score, int total, int rating, String review, String name) {
 		this.quizHistoryId = quizHistoryId;
 		this.quizId = quizId;
 		this.userId = userId;
 		this.score = score;
+		this.total = total;
 		this.rating = rating;
 		this.review = review;
 		this.name = name;
@@ -34,6 +36,10 @@ public class QuizHistory {
 	
 	public int getScore(){
 		return score;
+	}
+	
+	public int getTotal(){
+		return total;
 	}
 	
 	public int getRating(){
