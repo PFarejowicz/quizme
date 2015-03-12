@@ -1,7 +1,6 @@
 package hw6Quiz.web;
 
-import hw6Quiz.manager.FriendsManager;
-import hw6Quiz.manager.UserManager;
+import hw6Quiz.manager.*;
 
 import java.io.IOException;
 

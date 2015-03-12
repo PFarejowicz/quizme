@@ -14,6 +14,7 @@ public class Quiz {
 	private Timestamp date_created;
 	private int points;
 	private boolean reported;
+	private int score;
 
 	public Quiz(int quiz_id, String name, String description, int author_id, boolean randO, boolean multP, boolean immC, Timestamp dt, int points, boolean reported) {
 		this.quiz_id = quiz_id;
@@ -26,6 +27,19 @@ public class Quiz {
 		this.date_created = dt;
 		this.points = points;
 		this.reported = reported;
+	}
+	
+	public Quiz(int quiz_id, String name, Timestamp dt, int score) {
+		this.quiz_id = quiz_id;
+		this.name = name;
+		this.date_created = dt;
+		this.score = score;
+	}
+	
+	public Quiz(int quiz_id, String name, Timestamp dt) {
+		this.quiz_id = quiz_id;
+		this.name = name;
+		this.date_created = dt;
 	}
 	
 	public int getQuizID() {
@@ -66,6 +80,10 @@ public class Quiz {
 	
 	public boolean isReported(){
 		return reported;
+	}
+	
+	public int getScore() {
+		return score;
 	}
 
 }

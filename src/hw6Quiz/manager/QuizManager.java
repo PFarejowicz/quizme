@@ -501,20 +501,5 @@ public class QuizManager {
 		}
 		return recentQuizzes;
 	}
-	
-//	public int numQuizMade(int user_id) {
-//	int count = 0;
-//	Statement stmt;
-//	try {
-//		stmt = con.createStatement();
-//		ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE author_id = \"" + user_id + "\"");
-//		while(rs.next()){
-//			count++;
-//		}
-//		return count;
-//	} catch (SQLException e) {
-//		e.printStackTrace();
-//	}
-//	return count;
-//}
+
 }

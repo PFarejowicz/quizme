@@ -111,9 +111,7 @@
 				
 			<%}%>
 			</ul>
-					
-		<h3 class="auth-center">Challenge Friends</h3>
-			
+								
 		<h3 class="auth-center">Pending Friend Requests</h3>
 			<ul>
 			<% 
@@ -145,6 +143,19 @@
 			<p><input type="text" name="info" />
 			<input type="submit" value="Search" /></p>
 			</form>
+		
+		<h3 class="auth-center">News Feed</h3>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		<h3 class="auth-center">Send Messages</h3>
 			<form action="MessageServlet" method="post">
