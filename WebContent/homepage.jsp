@@ -51,6 +51,14 @@
 			<% } %>
 		<% } %>
 		
+		<h3 class="auth-center">Your Recent Activities </h3>
+			<h5>Recent Quiz Taking Activities:</h5><br/>
+			<% ArrayList<Quiz> recentlyTakenQuizzes = quizManager.getRecentQuizTaken(userId); %>
+
+			<h5>Recent Quiz Taking Activities:</h5><br/>
+			
+		
+		
 		<h3 class="auth-center">Recently Created Quizzes</h3>
 		<% ArrayList<Quiz> recentQuizzes = quizManager.getMostRecentlyCreatedQuizzes(); %>
 		<% if(recentQuizzes.size() > 0){ %>
