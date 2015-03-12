@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS quiz_history (
 	review VARCHAR(255),
 	name VARCHAR(255),
 	date_time DATETIME,
-	time_taken DATETIME
+	time_taken DATETIME,
 	PRIMARY KEY (quiz_history_id)
 );
 
