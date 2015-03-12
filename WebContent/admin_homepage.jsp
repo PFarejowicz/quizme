@@ -15,8 +15,8 @@
 <title>Admin</title>
 </head>
 <body>
-<h1>Welcome <%= userManager.getNameByID(userId) %></h1>
-<h3>Announcements</h3>
+<h1 class="auth-center">Welcome <%= userManager.getNameByID(userId) %></h1>
+<h3 class="auth-center">Announcements</h3>
 <% ArrayList<String> announcements = adminManager.getAnnouncements(); %>
 <ul>
 <% for(int i = 0; i < announcements.size(); i++){ %>
@@ -28,17 +28,17 @@
 <input type="submit" value="Add Announcement" />
 </form>
 <% ArrayList<User> users = adminManager.getUsers(); %>
-<h3>Admins</h3>
+<h3 class="auth-center">Admins</h3>
 <% for(int i = 0; i < users.size(); i++){ %>
 	<% if (users.get(i).getAdmin()){ %>
 		<p><%= users.get(i).getName() %></p>
 		<form action="AdminRemoveUserServlet" method="post">
 		<input name="id" type="hidden" value="<%= users.get(i).getId() %>"/>
-		<input type="submit" value="Delete User" />
+		<input type="submit" value="Delete User" style="color:red"/>
 		</form>
 	<% } %>
 <% } %>
-<h3>Users</h3>
+<h3 class="auth-center">Users</h3>
 <% for(int i = 0; i < users.size(); i++){ %>
 	<% if (!users.get(i).getAdmin()){ %>
 		<p><%= users.get(i).getName() %></p>
@@ -48,12 +48,12 @@
 		</form>
 		<form action="AdminRemoveUserServlet" method="post">
 		<input name="id" type="hidden" value="<%= users.get(i).getId() %>"/>
-		<input type="submit" value="Delete User" />
+		<input type="submit" value="Delete User" style="color:red"/>
 		</form>
 	<% } %>
 <% } %>
 <% ArrayList<Quiz> quizzes = adminManager.getQuizzes(); %>
-<h3>Quizzes</h3>
+<h3 class="auth-center">Quizzes</h3>
 <% for(int i = 0; i < quizzes.size(); i++){ %>
 	<%= quizzes.get(i).getName() %>
 	<form action="AdminClearQuizHistoryServlet" method="post">
@@ -63,20 +63,24 @@
 	<form action="AdminRemoveQuizServlet" method="post">
 	<p><input name="id" type="hidden" value="<%= quizzes.get(i).getQuizID() %>"/>
 	<input name="admin_edit" type="hidden" value="true"/>
-	<input type="submit" value="Delete Quiz" /></p>
+	<input type="submit" value="Delete Quiz" style="color:red"/></p>
 	</form>
 <% } %>
 <% ArrayList<Quiz> reportedQuizzes = adminManager.getReportedQuizzes(); %>
-<h3>Reported Quizzes</h3>
+<h3 class="auth-center">Reported Quizzes</h3>
 <% for(int i = 0; i < reportedQuizzes.size(); i++){ %>
 	<%= reportedQuizzes.get(i).getName() %>
-	<form action="AdminRemoveQuizServlet" method="post">
-	<p><input name="id" type="hidden" value="<%= reportedQuizzes.get(i).getQuizID() %>"/>
-	<input name="admin_edit" type="hidden" value="true"/>
-	<input type="submit" value="Delete Quiz" /></p>
+	<form action="UnreportQuizServlet" method="post">
+		<input type="hidden" name="quiz_id" value="<%= reportedQuizzes.get(i).getQuizID() %>"/>
+		<input type="submit" value="Clear Report"/>
+	</form>
+		<form action="AdminRemoveQuizServlet" method="post">
+		<input name="id" type="hidden" value="<%= reportedQuizzes.get(i).getQuizID() %>"/>
+		<input name="admin_edit" type="hidden" value="true"/>
+		<input type="submit" value="Delete Quiz" style="color:red"/>
 	</form>
 <% } %>
-<h3>Site Statistics</h3>
+<h3 class="auth-center">Site Statistics</h3>
 <p>Number of users: <%= users.size() %></p>
 <p>Number of quizzes taken: <%= adminManager.getNumberOfQuizzes() %></p>
 <form action="LogoutServlet" method="post">

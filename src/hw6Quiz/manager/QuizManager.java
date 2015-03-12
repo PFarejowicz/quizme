@@ -343,7 +343,52 @@ public class QuizManager {
 		}
 		return history;
 	}
-		
+	
+	/**
+	 * Checks if a quiz is reported or not.
+	 * @param quiz_id
+	 * @return
+	 */
+	public boolean checkQuizReported(int quiz_id){
+		try{
+			Statement selectStmt = con.createStatement();
+			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quizzes WHERE quiz_id = " + quiz_id);
+			if(rs.next()){
+				return rs.getBoolean("reported");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	/**
+	 * Reports a quiz
+	 * @param quiz_id
+	 */
+	public void reportQuiz(int quiz_id){
+		try{
+			PreparedStatement updateStmt = con.prepareStatement("UPDATE quizzes SET reported = 1 WHERE quiz_id = ?");
+			updateStmt.setInt(1, quiz_id);
+			updateStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Unreports a quiz
+	 * @param quiz_id
+	 */
+	public void unreportQuiz(int quiz_id){
+		try{
+			PreparedStatement updateStmt = con.prepareStatement("UPDATE quizzes SET reported = 0 WHERE quiz_id = ?");
+			updateStmt.setInt(1, quiz_id);
+			updateStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * Check if user gets achievement for creating a certain number of quizzes
