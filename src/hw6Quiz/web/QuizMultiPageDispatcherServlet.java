@@ -160,7 +160,7 @@ public class QuizMultiPageDispatcherServlet extends HttpServlet {
 			
 			// Check immediate correction
 			if (request.getParameter("immediate_correction").equals("true")) {
-				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_immediate_feedback.jsp?correct_answer="+correct_answer+"&question_num="+question_number+"&is_quiz_finished="+isQuizFinished+"&score="+score+"&immediate_correction=true&time_elapsed="+timeTakenStr);
+				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_immediate_feedback.jsp?correct_answer="+correct_answer+"&question_num="+question_number+"&is_quiz_finished="+isQuizFinished+"&score="+score+"&immediate_correction=true&time_taken="+timeTakenStr);
 				dispatch.forward(request, response);
 			} else {
 				if (isQuizFinished && isPracticeMode) {
