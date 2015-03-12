@@ -1,11 +1,8 @@
 package hw6Quiz.web;
 
-import hw6Quiz.manager.QuestionManager;
-import hw6Quiz.manager.QuizManager;
-import hw6Quiz.model.FillInTheBlank;
-import hw6Quiz.model.MultipleChoice;
-import hw6Quiz.model.PictureResponse;
-import hw6Quiz.model.QuestionResponse;
+
+import hw6Quiz.manager.*;
+import hw6Quiz.model.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,8 +10,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

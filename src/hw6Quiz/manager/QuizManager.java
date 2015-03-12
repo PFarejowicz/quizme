@@ -1,8 +1,7 @@
 package hw6Quiz.manager;
 
-import hw6Quiz.model.Quiz;
-import hw6Quiz.model.QuizHistory;
-import hw6Quiz.model.User;
+
+import hw6Quiz.model.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
