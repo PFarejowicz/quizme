@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS quizzes (
     immediate_correction BOOL,
     date_time DATETIME,
     points INT,
+    reported BOOL,
     PRIMARY KEY (quiz_id)
 );
 

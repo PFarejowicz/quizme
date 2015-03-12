@@ -236,7 +236,7 @@ public class UserManager {
 		try {
 			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM quizzes WHERE author_id = " + user_id);
 			while (rs.next()) {
-				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"), rs.getTimestamp("date_time"), rs.getInt("points"));
+				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"), rs.getTimestamp("date_time"), rs.getInt("points"), rs.getBoolean("reported"));
 				quizList.add(quiz);
 			}
 		} catch (SQLException e) {
