@@ -76,19 +76,27 @@
 	
 	<h2>Summary Statistics</h2>
 	<p><%
-		out.println("Average: " + quizManager.convertToPercStr(quizManager.avgQuizScore(quiz_id), quiz.getPoints()));
+		double avg = quizManager.avgQuizScore(quiz_id);
+		if (avg < 0) {
+			out.println("Average: Insufficient data");
+		} else {
+			out.println("Average: " + quizManager.convertToPercStr(avg, quiz.getPoints()));
+		}
 		out.println("<br>");
-		out.println("Range: " + quizManager.quizRange(quiz_id));
+		int range = quizManager.quizRange(quiz_id);
+		if (range < 0) {
+			out.println("Range: Insufficient data");
+		} else {
+			out.println("Range: " + range);
+		}
 		out.println("<br>");
 		out.println("Times taken: " + quizManager.numTimesTaken(quiz_id));
 		out.println("<br>");
 	%></p>
 	
-	
-	<a href="homepage.jsp"><button type="button">Return Home</button></a>
 	<form action="QuizStartServlet" method="post" style="display: inline">
 		<p>Mode: <br>
-		<input type="radio" name="mode" value="regular" /> Regular <br>
+		<input type="radio" name="mode" value="regular" checked="checked"/> Regular <br>
 		<input type="radio" name="mode" value="practice" /> Practice 
 		</p>
 		<input type="hidden" name="quiz_id" value="<%=quiz_id%>"/>
@@ -97,5 +105,18 @@
 		<input type="hidden" name="immediate_correction" value="<%=quiz.isImmediateCorrection()%>"/>
 		<input  type="submit" value="Take Quiz" />
 	</form>
+	
+	<p><%
+		if (user_id == quiz.getAuthorID()) {
+			out.println("<form action=\"edit_quiz.jsp\" method=\"post\">");
+			out.println("<input type=\"hidden\" name=\"quiz_id\" value=\""+quiz_id+"\"/>");
+			out.println("<input type=\"hidden\" name=\"edit_mode\" value=\"true\"/>");
+			out.println("<input type=\"submit\" value=\"Edit Quiz\" />");
+			out.println("</form>");
+		}
+	%></p>
+	
+	<a href="homepage.jsp"><button type="button">Return Home</button></a>
+
 </body>
 </html>

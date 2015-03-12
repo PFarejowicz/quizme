@@ -47,13 +47,23 @@ public class QuizCreationServlet extends HttpServlet {
 		boolean random_order = request.getParameter("random_order").equals("yes");
 		boolean multiple_pages = request.getParameter("multiple_pages").equals("yes");
 		boolean immediate_correction = request.getParameter("immediate_correction").equals("yes");
-		quizManager.addQuiz(name, description, user_id, random_order, multiple_pages, immediate_correction, 0);
+		boolean edit_mode = request.getParameter("edit_mode").equals("true");
 		
-		// Check achievements
-		quizManager.authorAchievement(user_id);
-		
-		request.setAttribute("quiz_id", Integer.toString(quizManager.getIDByName(name)));
-		RequestDispatcher dispatch = request.getRequestDispatcher("add_question.jsp?points=0");
-		dispatch.forward(request, response); 
+		if (edit_mode) {
+			int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
+			quizManager.updateQuiz(name, description, random_order, multiple_pages, immediate_correction, quiz_id);
+			
+			RequestDispatcher dispatch = request.getRequestDispatcher("edit_question.jsp?quiz_id="+quiz_id);
+			dispatch.forward(request, response);
+		} else {
+			quizManager.addQuiz(name, description, user_id, random_order, multiple_pages, immediate_correction, 0);
+			
+			// Check achievements
+			//quizManager.authorAchievement(user_id);
+			
+			request.setAttribute("quiz_id", Integer.toString(quizManager.getIDByName(name)));
+			RequestDispatcher dispatch = request.getRequestDispatcher("add_question.jsp?points=0");
+			dispatch.forward(request, response);
+		}
 	}
 }

@@ -1,8 +1,7 @@
 package hw6Quiz.manager;
 
-import hw6Quiz.model.Quiz;
-import hw6Quiz.model.QuizHistory;
-import hw6Quiz.model.User;
+
+import hw6Quiz.model.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -48,6 +47,21 @@ public class QuizManager {
 			insertStmt.setTimestamp(7, timeStamp);
 			insertStmt.setInt(8, points);
 			insertStmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateQuiz(String name, String description, boolean random, boolean pages, boolean correction, int quiz_id) {
+		try {
+			PreparedStatement updateStmt = con.prepareStatement("UPDATE quizzes SET name = ?, description = ?, random_order = ?, multiple_pages = ?, immediate_correction = ? WHERE quiz_id = ?");
+			updateStmt.setString(1, name);
+			updateStmt.setString(2, description);
+			updateStmt.setBoolean(3, random);
+			updateStmt.setBoolean(4, pages);
+			updateStmt.setBoolean(5, correction);
+			updateStmt.setInt(6, quiz_id);
+			updateStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -126,12 +140,14 @@ public class QuizManager {
 		try {
 			Statement selectStmt = con.createStatement();
 			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\"");
-			double sum = 0;
-			while (rs.next()) {
-				sum += rs.getInt("score");
+			if (rs.next()) {
+				double sum = rs.getInt("score");
+				while (rs.next()) {
+					sum += rs.getInt("score");
+				}
+				int count = numTimesTaken(quiz_id);
+				return sum / (double) count; 
 			}
-			int count = numTimesTaken(quiz_id);
-			return sum / count; 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -142,18 +158,20 @@ public class QuizManager {
 		try {
 			Statement selectStmt = con.createStatement();
 			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\"");
-			int high = 0; 
-			int low = getQuizPoints(quiz_id);
-			while (rs.next()) {
-				int sc = rs.getInt("score");
-				if (sc > high) {
-					high = sc; 
+			if (rs.next()) {
+				int high = rs.getInt("score");
+				int low = high;
+				while (rs.next()) {
+					int sc = rs.getInt("score");
+					if (sc > high) {
+						high = sc; 
+					}
+					if (sc < low) {
+						low = sc; 
+					}
 				}
-				if (sc < low) {
-					low = sc; 
-				}
+				return high - low; 
 			}
-			return high - low; 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

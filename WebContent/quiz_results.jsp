@@ -27,7 +27,7 @@
 </head>
 <body>
 	<h1><%=quiz.getName()%> Results</h1>
-	<p>Score: <%=score%> / <%= total%> (<%=quizManager.convertToPercStr(score, total) %>%)</p>
+	<p>Score: <%=score%> / <%= total%> (<%=quizManager.convertToPercStr(score, total) %>)</p>
 	<p>Time Elapsed: <%=request.getParameter("time_elapsed")%></p> 
 	<form action="QuizReviewServlet" method="post">
 		<p>Review:</p>

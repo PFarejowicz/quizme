@@ -1,5 +1,7 @@
 package hw6Quiz.manager;
 
+import hw6Quiz.model.MultipleChoice;
+
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
@@ -24,6 +26,22 @@ public class QuestionManager {
 			prepStmt.setString(2, type);
 			prepStmt.setObject(3, bs.toByteArray());
 			prepStmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateQuestion(int question_id, Object obj) {
+		try {
+			ByteArrayOutputStream bs = new ByteArrayOutputStream();
+			ObjectOutputStream os = new ObjectOutputStream(bs);
+			os.writeObject(obj);
+			os.close();
+			
+			PreparedStatement updateStmt = con.prepareStatement("UPDATE questions SET metadata = ? WHERE question_id = ?");
+			updateStmt.setObject(1, bs.toByteArray());
+			updateStmt.setInt(2, question_id);
+			updateStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

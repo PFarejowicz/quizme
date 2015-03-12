@@ -95,7 +95,7 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 					int partials = 0;
 					for (int i = 0; i < num_answers; i++) {
 						System.out.println(request.getParameter("question_" + question_number + "_" + i));
-						if (question.getAnswerText().get(i).equals(request.getParameter("question_" + question_number + "_" + i).toLowerCase())) {
+						if (question.getAnswerAsList().get(i).equals(request.getParameter("question_" + question_number + "_" + i).toLowerCase())) {
 							score++;
 							partials++;
 						}

@@ -1,12 +1,7 @@
 package hw6Quiz.web;
 
 import hw6Quiz.DBConnection;
-import hw6Quiz.manager.AdminManager;
-import hw6Quiz.manager.FriendsManager;
-import hw6Quiz.manager.MessageManager;
-import hw6Quiz.manager.QuestionManager;
-import hw6Quiz.manager.QuizManager;
-import hw6Quiz.manager.UserManager;
+import hw6Quiz.manager.*;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
