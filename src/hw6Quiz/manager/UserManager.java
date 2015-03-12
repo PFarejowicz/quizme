@@ -266,7 +266,7 @@ public class UserManager {
 		}
 		return -1;
 	}
-	
+	 
 	public ArrayList<Quiz> quizTakenNewsfeed(int user_id) {
 		ArrayList<Quiz> recentlyTaken = new ArrayList<Quiz>();
 		try {
@@ -305,8 +305,6 @@ public class UserManager {
 		ArrayList<String> recentAchievements = new ArrayList<String>();
 		return recentAchievements;
 	}
-	
-	
 	
 	
 }
