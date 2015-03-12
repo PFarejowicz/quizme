@@ -7,7 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class FriendsManager {
 
@@ -45,8 +47,14 @@ public class FriendsManager {
 			}
 			
 			if (!alreadyAdded) {
-				PreparedStatement prepStmt = con.prepareStatement("INSERT INTO friends VALUES(\"" + userId + "\",\"" + friendId + "\")");
+			    Calendar calendar = Calendar.getInstance();
+			    Timestamp timeStamp = new Timestamp(calendar.getTime().getTime());
+				PreparedStatement prepStmt = con.prepareStatement("INSERT INTO friends (user_id1, user_id2, date_time) VALUES(?, ?, ?)");
+				prepStmt.setInt(1, userId);
+				prepStmt.setInt(2, friendId);
+				prepStmt.setTimestamp(3, timeStamp);
 				prepStmt.executeUpdate();
+				
 			}
 
 		} catch (Exception e) {
