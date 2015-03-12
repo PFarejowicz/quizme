@@ -11,6 +11,7 @@
 <head>
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="normalize.css">
+<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
 <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>QuizMe</title>
