@@ -25,7 +25,7 @@
 	<p>
 		Quiz Name: <%=quiz.getName() %><br>
 		Quiz Description: <%=quiz.getDescription() %> <br>
-		Quiz Author: <%=userManager.getNameByID(quiz.getAuthorID()) %>
+		Quiz Author: <a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(quiz.getAuthorID())%>"><%=userManager.getNameByID(quiz.getAuthorID()) %></a>
 		Quiz Rating: <%=String.format("%.2f", (float)quizManager.calculateRating(quiz_id)) %>
 	</p>
 	<p>
