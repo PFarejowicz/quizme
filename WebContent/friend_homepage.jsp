@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import ="java.util.*, hw6Quiz.*, hw6Quiz.manager.*"%>
+    pageEncoding="ISO-8859-1" import ="java.util.*, hw6Quiz.*, hw6Quiz.manager.*, hw6Quiz.model.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%
@@ -7,6 +7,7 @@
 	DBConnection connection = (DBConnection) getServletContext().getAttribute("connection");
 	MessageManager messageManager = (MessageManager) getServletContext().getAttribute("message manager");
 	FriendsManager friendsManager = (FriendsManager) getServletContext().getAttribute("friends manager");
+	QuizManager quizManager = (QuizManager) getServletContext().getAttribute("quiz manager");
 	String friendEmail = request.getParameter("friendEmail");
 	int friendId = userManager.getIDByEmail(friendEmail);
 	int userId = 0;
@@ -68,10 +69,44 @@
 <% } %>
 
 <p><%=friendName%>'s Quizzes</p>
+	<% ArrayList<Quiz> friendQuizzes = userManager.getAuthoredQuizzes(friendId); %>
+		<% if(friendQuizzes.size() > 0){ %>
+			<h5>Your Most Recent Created Quizzes:</h5><br/>
+			<% for(int i = friendQuizzes.size() - 1; i >= 0 && i >= friendQuizzes.size() - 3; i--){ %>
+				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= friendQuizzes.get(i).getQuizID() %>"><%= friendQuizzes.get(i).getName() %></a></p>
+				<p>Description: <%= friendQuizzes.get(i).getDescription() %></p>
+			<% } %>
+		<% } %>
 
 <p><%=friendName%>'s Achievements</p>
-
+		<ul>
+			<% ArrayList<String> achievements = quizManager.getAchievements(friendId); 
+			String check = "I am the Greatest";
+			%>
+			<% 
+			for (int i = 0 ; i < achievements.size() ; i++) { %>
+				<% String description = achievements.get(i);
+				String quizId = ""; %>
+				<% if (description.contains(check)) { %>
+					<% quizId = description.substring(check.length());
+					description = check; %>
+					<li><%=description%>: <%= quizManager.getQuizByID(Integer.parseInt(quizId)).getName() %></li>
+				<%} else {%>
+					<li><%= description %></li>
+				<%}%>
+			<%}%>
+		</ul>
+		
 <p><%=friendName%>'s Quiz History</p>
+		<% ArrayList<QuizHistory> history = userManager.getQuizHistoryById(friendId); %>
+		<% if(history.size() > 0){ %>
+			<h5>Your Most Recent Taken Quizzes:</h5><br/>
+			<% for(int i = history.size() - 1; i >= 0 && i >= history.size() - 3; i--){ %>
+				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= history.get(i).getQuizId() %>"><%= history.get(i).getName() %></a></p>
+				<p>Score: <%=quizManager.convertToPercStr(history.get(i).getScore(), history.get(i).getTotal()) %></p><br/>
+			<% } %>
+		<% } %>
+		<a href="user_quiz_history.jsp?id=<%= friendId %>"><button type="button">Show Full History</button></a>
 		
 <p><%=friendName%>'s Friends</p>
 	<ul>

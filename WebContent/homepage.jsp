@@ -51,14 +51,6 @@
 			<% } %>
 		<% } %>
 		
-		<h3 class="auth-center">Your Recent Activities </h3>
-			<h5>Recent Quiz Taking Activities:</h5><br/>
-			<% ArrayList<Quiz> recentlyTakenQuizzes = quizManager.getRecentQuizTaken(userId); %>
-
-			<h5>Recent Quiz Taking Activities:</h5><br/>
-			
-		
-		
 		<h3 class="auth-center">Recently Created Quizzes</h3>
 		<% ArrayList<Quiz> recentQuizzes = quizManager.getMostRecentlyCreatedQuizzes(); %>
 		<% if(recentQuizzes.size() > 0){ %>
@@ -151,6 +143,19 @@
 			<p><input type="text" name="info" />
 			<input type="submit" value="Search" /></p>
 			</form>
+		
+		<h3 class="auth-center">News Feed</h3>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		<h3 class="auth-center">Send Messages</h3>
 			<form action="MessageServlet" method="post">
