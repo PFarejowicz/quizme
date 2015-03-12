@@ -15,8 +15,9 @@
 <% ArrayList<QuizHistory> history = userManager.getQuizHistoryById(userId); %>
 <h1><%=userManager.getNameByID(userId)%>'s Quiz History</h1>
 <% for(int i = history.size() - 1; i >= 0; i--){ %>
-	<p>Quiz Name: <%= history.get(i).getName() %></p>
-	<p>Score: <%=String.format("%.2f", (float)history.get(i).getScore()/(float)history.get(i).getTotal()*100) %>%</p><br/>
+	<ul>
+		<li><a href="quiz_summary.jsp?quiz_id=<%= history.get(i).getQuizId() %>"><%= history.get(i).getName() %></a> (<%=String.format("%.2f", (float)history.get(i).getScore()/(float)history.get(i).getTotal()*100) %>%)</li>
+	</ul>
 <% } %>
 </body>
 </html>

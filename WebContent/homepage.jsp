@@ -45,19 +45,27 @@
 		<% if(popularQuizzes.size() > 0){ %>
 			<h5>Most Popular Quizzes:</h5><br/>
 			<% for(int i = popularQuizzes.size() - 1; i >= 0 && i >= popularQuizzes.size() - 3; i--){ %>
-				<p>Quiz Name: <%= popularQuizzes.get(i).getName() %></p>
+				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= popularQuizzes.get(i).getQuizID() %>"><%= popularQuizzes.get(i).getName() %></a></p>
 				<p>Description: <%= popularQuizzes.get(i).getDescription() %></p>
 			<% } %>
 		<% } %>
 		
 		<h3 class="auth-center">Recently Created Quizzes</h3>
+		<% ArrayList<Quiz> recentQuizzes = quizManager.getMostRecentlyCreatedQuizzes(); %>
+		<% if(recentQuizzes.size() > 0){ %>
+			<h5>Most Recently Created Quizzes:</h5><br/>
+			<% for(int i = recentQuizzes.size() - 1; i >= 0 && i >= recentQuizzes.size() - 3; i--){ %>
+				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= recentQuizzes.get(i).getQuizID() %>"><%= recentQuizzes.get(i).getName() %></a></p>
+				<p>Description: <%= recentQuizzes.get(i).getDescription() %></p>
+			<% } %>
+		<% } %>
 		
 		<h3 class="auth-center">Your Quiz History</h3>
 		<% ArrayList<QuizHistory> history = userManager.getQuizHistoryById(userId); %>
 		<% if(history.size() > 0){ %>
 			<h5>Your Most Recent Taken Quizzes:</h5><br/>
 			<% for(int i = history.size() - 1; i >= 0 && i >= history.size() - 3; i--){ %>
-				<p>Quiz Name: <%= history.get(i).getName() %></p>
+				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= history.get(i).getQuizId() %>"><%= history.get(i).getName() %></a></p>
 				<p>Score: <%=quizManager.convertToPercStr(history.get(i).getScore(), history.get(i).getTotal()) %></p><br/>
 			<% } %>
 		<% } %>
@@ -68,7 +76,7 @@
 		<% if(yourQuizzes.size() > 0){ %>
 			<h5>Your Most Recent Created Quizzes:</h5><br/>
 			<% for(int i = yourQuizzes.size() - 1; i >= 0 && i >= yourQuizzes.size() - 3; i--){ %>
-				<p>Quiz Name: <%= yourQuizzes.get(i).getName() %></p>
+				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= yourQuizzes.get(i).getQuizID() %>"><%= yourQuizzes.get(i).getName() %></a></p>
 				<p>Description: <%= yourQuizzes.get(i).getDescription() %></p>
 			<% } %>
 		<% } %>
@@ -98,7 +106,7 @@
 			ArrayList<Integer> friendsList = friendsManager.getFriends(userId);
 			%> 
 			<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
-				<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getEmailByID(friendsList.get(i))%></a></li>
+				<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getNameByID(friendsList.get(i))%></a></li>
 				
 			<%}%>
 			</ul>

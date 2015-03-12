@@ -32,5 +32,6 @@
 			<input type="submit" value="Login" />
 			<a href="create_account.html"><button type="button">Create New Account</button></a>
 		</form>
+		<p class="auth-center"><a href="nonregistered_access.jsp"><button type="button">Login As Guest</button></a></p>
 	</body>
 </html>

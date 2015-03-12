@@ -125,6 +125,56 @@ public class QuizManager {
 		return quizList;
 	}
 	
+	public int numTimesTaken(int quiz_id) {
+		try {
+			Statement selectStmt = con.createStatement();
+			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\"");
+			rs.last(); 
+			return rs.getRow(); 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public double avgQuizScore(int quiz_id) {
+		try {
+			Statement selectStmt = con.createStatement();
+			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\"");
+			double sum = 0;
+			while (rs.next()) {
+				sum += rs.getInt("score");
+			}
+			int count = numTimesTaken(quiz_id);
+			return sum / count; 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
+	public int quizRange(int quiz_id) {
+		try {
+			Statement selectStmt = con.createStatement();
+			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\"");
+			int high = 0; 
+			int low = getQuizPoints(quiz_id);
+			while (rs.next()) {
+				int sc = rs.getInt("score");
+				if (sc > high) {
+					high = sc; 
+				}
+				if (sc < low) {
+					low = sc; 
+				}
+			}
+			return high - low; 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+
 	public ArrayList<Quiz> getPopularQuizzes(){
 		ArrayList<Quiz> quizList = new ArrayList<Quiz>();
 		int [] topFrequencies = new int[3];
@@ -134,7 +184,6 @@ public class QuizManager {
 			while (rs.next()) {
 				int quizId = rs.getInt("quiz_id");
 				if(frequencies.containsKey(quizId)){
-					//System.out.println("getting frequency id: " + quizId + ", frequency" + frequencies.get(quizId));
 					frequencies.put(quizId, frequencies.get(quizId) + 1);
 				} else{
 					frequencies.put(quizId, 1);
@@ -202,8 +251,30 @@ public class QuizManager {
 	 * @param total total score
 	 * @return percentage in string
 	 */
-	public String convertToPercStr(int score, int total) {
+	public String convertToPercStr(double score, double total) {
 		return String.format("%.2f", (float) score / (float) total * 100) + "%";
+	}
+	
+	/**
+	 * Calculates average rating given a quiz_id
+	 * @param quiz_id quiz ID
+	 * @return average rating
+	 */
+	public double calculateRating(int quiz_id) {
+		double sum = 0; 
+		try {
+			Statement selectStmt = con.createStatement();
+			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\"");
+			int count = 0;
+			while (rs.next()) {
+				sum += rs.getDouble("rating");
+				count++;
+			}
+			return sum / count;  
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 	
 	/**
@@ -415,7 +486,19 @@ public class QuizManager {
 		return achievements;
 	}
 
-	
+	public ArrayList<Quiz> getMostRecentlyCreatedQuizzes(){
+		ArrayList<Quiz> recentQuizzes = new ArrayList<Quiz>();
+		try{
+			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM quizzes ORDER BY date_time DESC");
+			while(rs.next()){
+				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"), rs.getTimestamp("date_time"), rs.getInt("points"));
+				recentQuizzes.add(quiz);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return recentQuizzes;
+	}
 	
 //	public int numQuizMade(int user_id) {
 //	int count = 0;
@@ -423,22 +506,6 @@ public class QuizManager {
 //	try {
 //		stmt = con.createStatement();
 //		ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE author_id = \"" + user_id + "\"");
-//		while(rs.next()){
-//			count++;
-//		}
-//		return count;
-//	} catch (SQLException e) {
-//		e.printStackTrace();
-//	}
-//	return count;
-//}
-
-//public int numQuizzesTaken(int user_id) {
-//	int count = 0;
-//	Statement stmt;
-//	try {
-//		stmt = con.createStatement();
-//		ResultSet rs = stmt.executeQuery("SELECT * FROM quiz_history WHERE user_id = \"" + user_id + "\"");
 //		while(rs.next()){
 //			count++;
 //		}

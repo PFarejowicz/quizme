@@ -33,8 +33,6 @@ CREATE TABLE IF NOT EXISTS questions (
 	PRIMARY KEY (question_id)
 );
 
-DROP TABLE IF EXISTS quiz_history;
-
 CREATE TABLE IF NOT EXISTS quiz_history (
 	quiz_history_id INT UNSIGNED AUTO_INCREMENT,
 	quiz_id INT,
