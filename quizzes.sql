@@ -83,3 +83,12 @@ CREATE TABLE IF NOT EXISTS achievements (
 	date_time DATETIME,
 	PRIMARY KEY (achievement_id)
 );
+
+CREATE TABLE IF NOT EXISTS challenges (
+	challenge_id INT UNSIGNED AUTO_INCREMENT,
+	sender_id INT UNSIGNED,
+	receiver_id INT UNSIGNED,
+	quiz_id INT,
+	score INT,
+	PRIMARY KEY (challenge_id)
+);
