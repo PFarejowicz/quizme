@@ -45,15 +45,14 @@ public class QuestionCreationServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		QuestionManager quesManager = (QuestionManager) getServletContext().getAttribute("question manager");
-		request.setAttribute("quiz_id", request.getParameter("quiz_id"));
+		int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
 		int user_id = (Integer) request.getSession().getAttribute("user id"); 
 		int points = Integer.parseInt(request.getParameter("points"));
 		
 		if (request.getParameter("previous") != null) {
-			RequestDispatcher dispatch = request.getRequestDispatcher("add_question.jsp?points="+points);
+			RequestDispatcher dispatch = request.getRequestDispatcher("add_question.jsp?quiz_id="+quiz_id+"&points="+points+"&edit_mode="+request.getParameter("edit_mode"));
 			dispatch.forward(request, response); 
 		} else {
-			int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
 			if (request.getSession().getAttribute("user id") != null) {
 				user_id = (Integer) request.getSession().getAttribute("user id");
 			}
@@ -81,20 +80,27 @@ public class QuestionCreationServlet extends HttpServlet {
 				int numCorrect = Integer.parseInt(request.getParameter("num_correct"));
 				MultiAnswer questionObj = new MultiAnswer(quiz_id, user_id, prompt, answer, numCorrect, inOrder);
 				quesManager.addQuestion(quiz_id, "MultiAnswer", questionObj);
+				points+=questionObj.getNumAnswers();
 			} else if (request.getParameter("ques_type").equals("multiple_choice_multiple_answers")) {
 				String choices = request.getParameter("choices");
 				MultipleChoiceMultipleAnswers questionObj = new MultipleChoiceMultipleAnswers(quiz_id, user_id, prompt, choices, answer);
 				quesManager.addQuestion(quiz_id, "MultipleChoiceMultipleAnswers", questionObj);
+				points+=questionObj.getNumAnswers();
 			}
 			
 			if (request.getParameter("next") != null) {						// next question
-				RequestDispatcher dispatch = request.getRequestDispatcher("add_question.jsp?points="+points);
+				RequestDispatcher dispatch = request.getRequestDispatcher("add_question.jsp?quiz_id="+quiz_id+"&points="+points+"&edit_mode="+request.getParameter("edit_mode"));
 				dispatch.forward(request, response); 	
 			} else if (request.getParameter("finish") != null) {			// finished questions
 				QuizManager quizManager = (QuizManager) getServletContext().getAttribute("quiz manager");
 				quizManager.updateQuizPoints(quiz_id, points);
-				RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
-				dispatch.forward(request, response); 	
+				if (request.getParameter("edit_mode").equals("true")) {
+					RequestDispatcher dispatch = request.getRequestDispatcher("edit_question.jsp?quiz_id="+quiz_id);
+					dispatch.forward(request, response); 
+				} else {
+					RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
+					dispatch.forward(request, response); 
+				}	
 			}
 		}
 	}
