@@ -119,9 +119,7 @@
 				
 			<%}%>
 			</ul>
-					
-		<h3 class="auth-center">Challenge Friends</h3>
-			
+								
 		<h3 class="auth-center">Pending Friend Requests</h3>
 			<ul>
 			<% 
