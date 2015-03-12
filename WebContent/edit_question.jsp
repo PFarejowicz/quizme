@@ -62,6 +62,7 @@
 			}
 			%>
 		</table>
+		<a href="add_question.jsp?quiz_id=<%=quiz_id %>&points=<%=quizManager.getQuizPoints(quiz_id) %>&edit_mode=true"><button type="button">Add Questions</button></a>
 		<a href="quiz_summary.jsp?quiz_id=<%=quiz_id %>"><button type="button">Finish Editing</button></a>
 	</body>
 </html>
