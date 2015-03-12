@@ -13,7 +13,7 @@ public class User {
 		this.name = name;
 		this.admin = admin;
 	}
-	
+		
 	public int getId(){
 		return id;
 	}

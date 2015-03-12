@@ -146,16 +146,72 @@
 		
 		<h3 class="auth-center">News Feed</h3>
 		
+		<% ArrayList<Quiz> quizTakenNewsfeed = friendsManager.quizTakenNewsfeed(userId); %>
+		<% if(quizTakenNewsfeed.size() > 0){ %>
+			<h5>Recent Quizzes Your Friends Took:</h5><br/>
+			<ul>
+			<% for(int i = quizTakenNewsfeed.size() - 1; i >= 0 && i >= quizTakenNewsfeed.size() - 5; i--){ %>
+				<% Quiz currQuiz = quizTakenNewsfeed.get(i);%>
+				<% int friendId = currQuiz.getQuizTakerId();%>
+				<li>
+				<p><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendId)%>"><%=userManager.getNameByID(friendId)%></a> took <a href="quiz_summary.jsp?quiz_id=<%= currQuiz.getQuizID() %>"><%= currQuiz.getName() %></a> and got <%= currQuiz.getScore() %></p>
+				</li>
+			<% } %>
+			</ul>
+		<% } %>
 		
+		<% ArrayList<Quiz> quizCreatedNewsfeed = friendsManager.quizCreatedNewsfeed(userId); %>
+		<% if(quizCreatedNewsfeed.size() > 0){ %>
+			<h5>Recent Quizzes Your Friends Created:</h5><br/>
+			<ul>
+			<% for(int i = quizCreatedNewsfeed.size() - 1; i >= 0 && i >= quizCreatedNewsfeed.size() - 5; i--){ %>
+				<% Quiz madeQuiz = quizCreatedNewsfeed.get(i);%>
+				<% int friendId = madeQuiz.getQuizTakerId();%>
+				<li>
+				<p><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendId)%>"><%=userManager.getNameByID(friendId)%></a> created a quiz: <a href="quiz_summary.jsp?quiz_id=<%= madeQuiz.getQuizID() %>"><%= madeQuiz.getName() %></a></p>
+				</li>
+			<% } %>
+			</ul>
+		<% } %>
 		
+		<% ArrayList<String> achievementEarnedNewsfeed = friendsManager.achievementEarnedNewsfeed(userId); %>
+		<% if(achievementEarnedNewsfeed.size() > 0){ %>
+			<h5>Recent Quizzes Your Friends Created:</h5><br/>
+			<ul>
+			<% for(int i = achievementEarnedNewsfeed.size() - 1; i >= 0 && i >= achievementEarnedNewsfeed.size() - 10; i = i-2){ %>
+				<% String description = achievementEarnedNewsfeed.get(i);%>
+				<% int friendId = Integer.parseInt(achievementEarnedNewsfeed.get(i-1));%>
+				<% String greatest = "I am the Greatest";%>
+				<% if (description.contains(greatest)) { %>
+					<% 
+					int quizId = Integer.parseInt(description.substring(greatest.length()));
+					description = greatest; 
+					%>
+					<li>
+					<p><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendId)%>"><%=userManager.getNameByID(friendId)%></a> got an achievement award <%= description%> for <a href="quiz_summary.jsp?quiz_id=<%= quizId %>"><%= quizManager.getQuizByID(quizId).getName() %></a>.</p>
+					</li>
+				<% } else {%>
+				<li>
+				<p><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendId)%>"><%=userManager.getNameByID(friendId)%></a> got an achievement award <%= description%>.</p>
+				</li>
+				<% } %>
+			<% } %>
+			</ul>
+		<% } %>
 		
-		
-		
-		
-		
-		
-		
-		
+		<% ArrayList<Integer> becameFriendsNewsfeed = friendsManager.becameFriendsNewsfeed(userId); %>
+		<% if(becameFriendsNewsfeed.size() > 0){ %>
+			<h5>Recent Quizzes Your Friends Created:</h5><br/>
+			<ul>
+			<% for(int i = becameFriendsNewsfeed.size() - 1; i >= 0 && i >= becameFriendsNewsfeed.size() - 10; i = i-2){ %>
+				<% int friendId1 = becameFriendsNewsfeed.get(i);%>
+				<% int friendId2 = becameFriendsNewsfeed.get(i-1);%>
+				<li>
+				<p><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendId1)%>"><%=userManager.getNameByID(friendId1)%></a> became friends with <a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendId2)%>"><%=userManager.getNameByID(friendId2)%></a>.</p>
+				</li>
+			<% } %>
+			</ul>
+		<% } %>
 		
 		<h3 class="auth-center">Send Messages</h3>
 			<form action="MessageServlet" method="post">

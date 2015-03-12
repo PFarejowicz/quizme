@@ -1,12 +1,11 @@
 package hw6Quiz.manager;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import hw6Quiz.model.Quiz;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -138,6 +137,25 @@ public class FriendsManager {
 		return mutuals;
 	}
 	
+	public boolean isFriend(int userId1, int userId2) {
+		Statement stmt;
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id1 = \"" + userId1 + "\"");
+			while (rs.next()) {
+				if (rs.getInt("user_id2") == userId2) return true;
+			}
+			rs = stmt.executeQuery("SELECT * FROM friends WHERE user_id2 = \"" + userId1 + "\"");
+			while (rs.next()) {
+				if (rs.getInt("user_id1") == userId2) return true;
+			}
+			return false;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	public int checkFriendStatus(int userId1, int userId2) {
 		int areFriends = 1;
 		int user1Requested = 2;
@@ -214,6 +232,78 @@ public class FriendsManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<Quiz> quizTakenNewsfeed(int user_id) {
+		ArrayList<Quiz> recentlyTaken = new ArrayList<Quiz>();
+		try {
+			Statement selectStmt = con.createStatement();
+			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history");
+			while(rs.next()) {
+				if (isFriend(user_id, rs.getInt("author_id"))) {
+					Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getTimestamp("time_taken"), rs.getInt("score"), rs.getInt("user_id"));
+					recentlyTaken.add(quiz);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return recentlyTaken;
+	}
+	
+	public ArrayList<Quiz> quizCreatedNewsfeed(int user_id) {
+		
+		ArrayList<Quiz> recentlyCreated = new ArrayList<Quiz>();
+		try {
+			Statement selectStmt = con.createStatement();
+			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quizzes");
+			while(rs.next()) {
+				if (isFriend(user_id, rs.getInt("author_id"))) {
+					Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getTimestamp("date_time"), rs.getInt("author_id"));
+					recentlyCreated.add(quiz);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return recentlyCreated;
+	}
+	
+	public ArrayList<String> achievementEarnedNewsfeed(int user_id) {
+		ArrayList<String> recentAchievements = new ArrayList<String>();
+		try {
+			Statement selectStmt = con.createStatement();
+			ResultSet rs = selectStmt.executeQuery("SELECT * FROM achievements");
+			while(rs.next()) {
+				if (isFriend(user_id, rs.getInt("user_id"))) {
+					recentAchievements.add(rs.getInt("user_id") + "");
+					recentAchievements.add(rs.getString("description"));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return recentAchievements;
+	}
+	
+	public ArrayList<Integer> becameFriendsNewsfeed(int user_id) {
+		ArrayList<Integer> friends = new ArrayList<Integer>();
+		try {
+			Statement selectStmt = con.createStatement();
+			ResultSet rs = selectStmt.executeQuery("SELECT * FROM friends");
+			while(rs.next()) {
+				if (isFriend(user_id, rs.getInt("user_id1"))) {
+					friends.add(rs.getInt("user_id2"));
+					friends.add(rs.getInt("user_id1"));
+				} else if (isFriend(user_id, rs.getInt("user_id2"))) {
+					friends.add(rs.getInt("user_id1"));
+					friends.add(rs.getInt("user_id2"));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return friends;
 	}
 	
 }
