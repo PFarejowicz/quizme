@@ -37,7 +37,7 @@ public class QuizManager {
 		try {
 		    Calendar calendar = Calendar.getInstance();
 		    Timestamp timeStamp = new Timestamp(calendar.getTime().getTime());
-			PreparedStatement insertStmt = con.prepareStatement("INSERT INTO quizzes (name, description, author_id, random_order, multiple_pages, immediate_correction, date_time, points) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			PreparedStatement insertStmt = con.prepareStatement("INSERT INTO quizzes (name, description, author_id, random_order, multiple_pages, immediate_correction, date_time, points, reported) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			insertStmt.setString(1, name);
 			insertStmt.setString(2, description);
 			insertStmt.setInt(3, author);
