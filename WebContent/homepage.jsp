@@ -166,7 +166,7 @@
 			<ul>
 			<% for(int i = quizCreatedNewsfeed.size() - 1; i >= 0 && i >= quizCreatedNewsfeed.size() - 5; i--){ %>
 				<% Quiz madeQuiz = quizCreatedNewsfeed.get(i);%>
-				<% int friendId = madeQuiz.getQuizTakerId();%>
+				<% int friendId = madeQuiz.getAuthorID();%>
 				<li>
 				<p><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendId)%>"><%=userManager.getNameByID(friendId)%></a> created a quiz: <a href="quiz_summary.jsp?quiz_id=<%= madeQuiz.getQuizID() %>"><%= madeQuiz.getName() %></a></p>
 				</li>
@@ -176,7 +176,7 @@
 		
 		<% ArrayList<String> achievementEarnedNewsfeed = friendsManager.achievementEarnedNewsfeed(userId); %>
 		<% if(achievementEarnedNewsfeed.size() > 0){ %>
-			<h5>Recent Quizzes Your Friends Created:</h5><br/>
+			<h5>Recent Achievements Your Friends Earned:</h5><br/>
 			<ul>
 			<% for(int i = achievementEarnedNewsfeed.size() - 1; i >= 0 && i >= achievementEarnedNewsfeed.size() - 10; i = i-2){ %>
 				<% String description = achievementEarnedNewsfeed.get(i);%>
@@ -201,14 +201,20 @@
 		
 		<% ArrayList<Integer> becameFriendsNewsfeed = friendsManager.becameFriendsNewsfeed(userId); %>
 		<% if(becameFriendsNewsfeed.size() > 0){ %>
-			<h5>Recent Quizzes Your Friends Created:</h5><br/>
+			<h5>Your Friend's Social Activities:</h5><br/>
 			<ul>
 			<% for(int i = becameFriendsNewsfeed.size() - 1; i >= 0 && i >= becameFriendsNewsfeed.size() - 10; i = i-2){ %>
 				<% int friendId1 = becameFriendsNewsfeed.get(i);%>
 				<% int friendId2 = becameFriendsNewsfeed.get(i-1);%>
+				<% if (friendId2 == userId) { %>
+					<li>
+					<p>You and <a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendId1)%>"><%=userManager.getNameByID(friendId1)%></a> are now friends!</p>
+					</li>
+				<% } else {%>
 				<li>
 				<p><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendId1)%>"><%=userManager.getNameByID(friendId1)%></a> became friends with <a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendId2)%>"><%=userManager.getNameByID(friendId2)%></a>.</p>
 				</li>
+				<% } %>
 			<% } %>
 			</ul>
 		<% } %>
@@ -222,9 +228,11 @@
 			<% if (messageStatus != null) { %>
 				<% if (messageStatus.equals("sent")) { %>
 					<p>Message Sent!</p>
+					<% request.getSession().setAttribute("message status", "none"); %>
 				<% } %>
 				<% if (messageStatus.equals("failed")) { %>
 					<p>Failed to send message: Invalid user email</p>
+					<% request.getSession().setAttribute("message status", "none"); %>
 				<% } %>
 			<% } %>
 		
