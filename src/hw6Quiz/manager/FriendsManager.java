@@ -52,7 +52,7 @@ public class FriendsManager {
 				PreparedStatement prepStmt = con.prepareStatement("INSERT INTO friends (user_id1, user_id2, date_time) VALUES(?, ?, ?)");
 				prepStmt.setInt(1, userId);
 				prepStmt.setInt(2, friendId);
-				prepStmt.setTimestamp(2, timeStamp);
+				prepStmt.setTimestamp(3, timeStamp);
 				prepStmt.executeUpdate();
 				
 			}
