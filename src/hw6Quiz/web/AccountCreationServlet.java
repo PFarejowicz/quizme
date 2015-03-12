@@ -52,11 +52,18 @@ public class AccountCreationServlet extends HttpServlet {
 			// redirect to already used name page because the manager is already storing the name
 			RequestDispatcher dispatch = request.getRequestDispatcher("used_account.jsp");
 			dispatch.forward(request, response);
-		} else {
+		} else if(userManager.hasUsers()){
 			// switch to welcome page because account was created
 			userManager.addUser(email, password, name);
 			session.setAttribute("user id", userManager.getIDByEmail(email));
+			session.setAttribute("email", email);
 			RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
+			dispatch.forward(request, response);
+		} else{
+			userManager.addAdmin(email, password, name);
+			session.setAttribute("user id", userManager.getIDByEmail(email));
+			session.setAttribute("email", email);
+			RequestDispatcher dispatch = request.getRequestDispatcher("admin_homepage.jsp");
 			dispatch.forward(request, response);
 		}
 

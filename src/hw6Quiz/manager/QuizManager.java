@@ -37,7 +37,7 @@ public class QuizManager {
 		try {
 		    Calendar calendar = Calendar.getInstance();
 		    Timestamp timeStamp = new Timestamp(calendar.getTime().getTime());
-			PreparedStatement insertStmt = con.prepareStatement("INSERT INTO quizzes (name, description, author_id, random_order, multiple_pages, immediate_correction, date_time, points) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+			PreparedStatement insertStmt = con.prepareStatement("INSERT INTO quizzes (name, description, author_id, random_order, multiple_pages, immediate_correction, date_time, points) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			insertStmt.setString(1, name);
 			insertStmt.setString(2, description);
 			insertStmt.setInt(3, author);
@@ -46,6 +46,7 @@ public class QuizManager {
 			insertStmt.setBoolean(6, correction);
 			insertStmt.setTimestamp(7, timeStamp);
 			insertStmt.setInt(8, points);
+			insertStmt.setBoolean(9, false);
 			insertStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -97,7 +98,7 @@ public class QuizManager {
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE quiz_id = \"" + quiz_id + "\"");
 			if(rs.next()){
-				Quiz quiz = new Quiz(quiz_id, rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"), rs.getTimestamp("date_time"), rs.getInt("points"));
+				Quiz quiz = new Quiz(quiz_id, rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"), rs.getTimestamp("date_time"), rs.getInt("points"), rs.getBoolean("reported"));
 				return quiz;
 			}
 		} catch (SQLException e) {
@@ -115,7 +116,7 @@ public class QuizManager {
 		try {
 			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM quizzes ORDER BY name");
 			while (rs.next()) {
-				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"), rs.getTimestamp("date_time"), rs.getInt("points"));
+				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"), rs.getTimestamp("date_time"), rs.getInt("points"), rs.getBoolean("reported"));
 				quizList.add(quiz);
 			}
 		} catch (SQLException e) {
@@ -492,7 +493,7 @@ public class QuizManager {
 		try{
 			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM quizzes ORDER BY date_time DESC");
 			while (rs.next()) {
-				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"), rs.getTimestamp("date_time"), rs.getInt("points"));
+				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"), rs.getTimestamp("date_time"), rs.getInt("points"), rs.getBoolean("reported"));
 				recentQuizzes.add(quiz);
 			}
 		} catch (SQLException e) {

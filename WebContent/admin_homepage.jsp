@@ -65,6 +65,15 @@
 	<input type="submit" value="Delete Quiz" /></p>
 	</form>
 <% } %>
+<% ArrayList<Quiz> reportedQuizzes = adminManager.getReportedQuizzes(); %>
+<h3>Reported Quizzes</h3>
+<% for(int i = 0; i < quizzes.size(); i++){ %>
+	<%= quizzes.get(i).getName() %>
+	<form action="AdminRemoveQuizServlet" method="post">
+	<p><input name="id" type="hidden" value="<%= quizzes.get(i).getQuizID() %>"/>
+	<input type="submit" value="Delete Quiz" /></p>
+	</form>
+<% } %>
 <h3>Site Statistics</h3>
 <p>Number of users: <%= users.size() %></p>
 <p>Number of quizzes taken: <%= adminManager.getNumberOfQuizzes() %></p>
