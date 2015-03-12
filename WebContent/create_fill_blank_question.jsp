@@ -17,7 +17,7 @@
 			<textarea rows="4" cols="50" name="prompt" ></textarea></p>
 			<p>Answer: <br>
 			<textarea rows="4" cols="50" name="answer" ></textarea></p>
-			<!-- TODO: Add number check -->
+
 			<input type="hidden" name="ques_type" value="fill_blank"/>
 			<%
 				String quiz_id = (String) request.getAttribute("quiz_id");

@@ -3,12 +3,12 @@ package hw6Quiz.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MultipleChoice extends Question {
+public class MultipleChoiceMultipleAnswers extends Question {
 
 	private static final long serialVersionUID = 1L;
 	private String choices;
 
-	public MultipleChoice(int quiz_id, int author_id, String prompt, String choices, String answer) {
+	public MultipleChoiceMultipleAnswers(int quiz_id, int author_id, String prompt, String choices, String answer) {
 		this.quiz_id = quiz_id;
 		this.author_id = author_id;
 		this.question = prompt;
@@ -22,6 +22,10 @@ public class MultipleChoice extends Question {
 	
 	public int getNumChoices() {
 		return choices.split(",").length;
+	}
+	
+	public int getNumAnswers() {
+		return getAnswerAsList().size();
 	}
 
 	public String getQuestionText() {
@@ -37,7 +41,8 @@ public class MultipleChoice extends Question {
 		return choiceList;
 	}
 	
-	public String getAnswerText() {
-		return answer.toLowerCase();
+	public ArrayList<String> getAnswerAsList() {
+		ArrayList<String> answerList = new ArrayList<String>(Arrays.asList(answer.trim().toLowerCase().split("\\s*,\\s*")));
+		return answerList;
 	}
 }

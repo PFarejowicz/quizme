@@ -170,6 +170,11 @@ public class UserManager {
 		return null;
 	}
 	
+	/**
+	 * Return a list of quiz history of user 
+	 * @param user_id user ID
+	 * @return arraylist quiz history
+	 */
 	public ArrayList<QuizHistory> getQuizHistoryById(int user_id){
 		ArrayList<QuizHistory> history = new ArrayList<QuizHistory>();
 		try {
@@ -185,6 +190,11 @@ public class UserManager {
 		return history;
 	}
 	
+	/**
+	 * Return a list of quizzes the user has created
+	 * @param user_id user ID 
+	 * @return quiz list
+	 */
 	public ArrayList<Quiz> getAuthoredQuizzes(int user_id) {
 		ArrayList<Quiz> quizList = new ArrayList<Quiz>();
 		try {
@@ -197,6 +207,28 @@ public class UserManager {
 			e.printStackTrace();
 		}
 		return quizList;
+	}
+	
+	/**
+	 * Get top score of a user in a quiz
+	 * @param user_id user ID
+	 * @param quiz_id quiz ID
+	 * @return highscore, -1 if user has never taken quiz
+	 */
+	public int getTopScore(int user_id, int quiz_id) {
+		try {
+			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM quiz_history WHERE user_id = " + user_id + " AND quiz_id = " + quiz_id);
+			int highScore = 0;
+			while (rs.next()) {
+				if (rs.getInt("score") > highScore) {
+					highScore = rs.getInt("score");
+				}
+			}
+			return highScore;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 	
 }

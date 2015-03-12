@@ -3,7 +3,9 @@ package hw6Quiz.web;
 import hw6Quiz.manager.QuestionManager;
 import hw6Quiz.manager.QuizManager;
 import hw6Quiz.model.FillInTheBlank;
+import hw6Quiz.model.MultiAnswer;
 import hw6Quiz.model.MultipleChoice;
+import hw6Quiz.model.MultipleChoiceMultipleAnswers;
 import hw6Quiz.model.PictureResponse;
 import hw6Quiz.model.QuestionResponse;
 
@@ -44,13 +46,14 @@ public class QuestionCreationServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		QuestionManager quesManager = (QuestionManager) getServletContext().getAttribute("question manager");
 		request.setAttribute("quiz_id", request.getParameter("quiz_id"));
+		int user_id = (Integer) request.getSession().getAttribute("user id"); 
 		int points = Integer.parseInt(request.getParameter("points"));
+		
 		if (request.getParameter("previous") != null) {
 			RequestDispatcher dispatch = request.getRequestDispatcher("add_question.jsp?points="+points);
 			dispatch.forward(request, response); 
 		} else {
 			int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
-			int user_id = 1;			// TODO set default for testing
 			if (request.getSession().getAttribute("user id") != null) {
 				user_id = (Integer) request.getSession().getAttribute("user id");
 			}
@@ -73,6 +76,15 @@ public class QuestionCreationServlet extends HttpServlet {
 				PictureResponse questionObj = new PictureResponse(quiz_id, user_id, prompt, answer);
 				quesManager.addQuestion(quiz_id, "PictureResponse", questionObj);
 				points++;
+			} else if (request.getParameter("ques_type").equals("multianswer")) {
+				boolean inOrder =  request.getParameter("order").equals("true");
+				int numCorrect = Integer.parseInt(request.getParameter("num_correct"));
+				MultiAnswer questionObj = new MultiAnswer(quiz_id, user_id, prompt, answer, numCorrect, inOrder);
+				quesManager.addQuestion(quiz_id, "MultiAnswer", questionObj);
+			} else if (request.getParameter("ques_type").equals("multiple_choice_multiple_answers")) {
+				String choices = request.getParameter("choices");
+				MultipleChoiceMultipleAnswers questionObj = new MultipleChoiceMultipleAnswers(quiz_id, user_id, prompt, choices, answer);
+				quesManager.addQuestion(quiz_id, "MultipleChoiceMultipleAnswers", questionObj);
 			}
 			
 			if (request.getParameter("next") != null) {						// next question

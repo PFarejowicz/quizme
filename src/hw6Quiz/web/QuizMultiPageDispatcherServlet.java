@@ -31,14 +31,12 @@ public class QuizMultiPageDispatcherServlet extends HttpServlet {
      */
     public QuizMultiPageDispatcherServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -47,6 +45,7 @@ public class QuizMultiPageDispatcherServlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// Check if exiting
 		if (request.getParameter("quit") != null) {
 			RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
 			dispatch.forward(request, response); 
@@ -72,7 +71,7 @@ public class QuizMultiPageDispatcherServlet extends HttpServlet {
 				isQuizFinished = (question_number >= questions.size());
 			}
 			
-			String timeElapsedStr = "";
+			String timeTakenStr = "";
 			if (isQuizFinished) {
 				Date startTime = (Date) session.getAttribute("start_time");
 				Calendar cal = Calendar.getInstance();
@@ -80,9 +79,10 @@ public class QuizMultiPageDispatcherServlet extends HttpServlet {
 				long diff = endTime.getTime() - startTime.getTime();
 				int diffMin = (int) (diff / (60 * 1000));
 				int diffSec = (int) (diff / 1000);
-				timeElapsedStr = diffMin + " minutes, " + diffSec + " seconds";
+				timeTakenStr = diffMin + " minutes, " + diffSec + " seconds";
 			}
 			
+			// Check answers
 			String type = questionManager.getTypeByID(question_id);
 			String correct_answer = "false";
 			if (type.equals("QuestionResponse")) {
@@ -114,8 +114,31 @@ public class QuizMultiPageDispatcherServlet extends HttpServlet {
 					correct_answer = "true";
 					score++;
 				}
+			} else if (type.equals("MultiAnswer")) {
+				MultiAnswer question = (MultiAnswer) questionManager.getQuestionByID(question_id);
+				int num_answers = question.getNumAnswers();
+				int partials = 0;
+				for (int i = 0; i < num_answers; i++) {
+					if (question.getAnswerAsList().get(i).equals(request.getParameter("question_" + question_number + "_" + i).toLowerCase())) {
+						score++;
+						partials++;
+					}
+				}
+				if (partials == num_answers && isPracticeMode) quesFrequency.put(question_id, quesFrequency.get(question_id) - 1);
+			} else if (type.equals("MultipleChoiceMultipleAnswers")) {
+				MultipleChoiceMultipleAnswers question = (MultipleChoiceMultipleAnswers) questionManager.getQuestionByID(question_id);
+				int num_answers = question.getNumAnswers();
+				int partials = 0;
+				for (int i = 0; i < num_answers; i++) {
+					if (question.getAnswerAsList().get(i).equals(request.getParameter("question_" + question_number + "_" + question.getAnswerAsList().get(i)).toLowerCase())) {
+						score++;
+						partials++;
+					}
+				}
+				if (partials == num_answers && isPracticeMode) quesFrequency.put(question_id, quesFrequency.get(question_id) - 1);
 			}
 			
+			// Check practice mode
 			if (isPracticeMode) {
 				if (correct_answer.equals("true")) {							// decrease question frequency for practice mode
 					int newFreq = quesFrequency.get(question_id) - 1;
@@ -135,15 +158,16 @@ public class QuizMultiPageDispatcherServlet extends HttpServlet {
 				session.setAttribute("ques_frequency", quesFrequency);
 			}
 			
+			// Check immediate correction
 			if (request.getParameter("immediate_correction").equals("true")) {
-				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_immediate_feedback.jsp?correct_answer="+correct_answer+"&question_num="+question_number+"&is_quiz_finished="+isQuizFinished+"&score="+score+"&immediate_correction=true&time_elapsed="+timeElapsedStr);
+				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_immediate_feedback.jsp?correct_answer="+correct_answer+"&question_num="+question_number+"&is_quiz_finished="+isQuizFinished+"&score="+score+"&immediate_correction=true&time_elapsed="+timeTakenStr);
 				dispatch.forward(request, response);
 			} else {
 				if (isQuizFinished && isPracticeMode) {
 					RequestDispatcher dispatch = request.getRequestDispatcher("practice_finished.jsp"); 
 					dispatch.forward(request, response);
 				} else if (isQuizFinished) {
-					RequestDispatcher dispatch = request.getRequestDispatcher("quiz_results.jsp?score="+score+"&time_elapsed="+timeElapsedStr);
+					RequestDispatcher dispatch = request.getRequestDispatcher("quiz_results.jsp?score="+score+"&time_taken="+timeTakenStr);
 					dispatch.forward(request, response);
 				} else {
 					RequestDispatcher dispatch = request.getRequestDispatcher("quiz_multiple_page_view.jsp?practice_mode="+isPracticeMode+"&question_num="+question_number+"&score="+score+"&quiz_id="+quiz_id+"&random_order="+random_order+"immediate_correction="+request.getParameter("immediate_correction"));

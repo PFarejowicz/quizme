@@ -2,15 +2,13 @@ package hw6Quiz.web;
 
 import hw6Quiz.manager.QuestionManager;
 import hw6Quiz.manager.QuizManager;
-import hw6Quiz.model.FillInTheBlank;
-import hw6Quiz.model.MultipleChoice;
-import hw6Quiz.model.PictureResponse;
-import hw6Quiz.model.QuestionResponse;
+import hw6Quiz.model.*;
 
 import java.util.Collections;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -65,7 +63,7 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 			long diff = endTime.getTime() - startTime.getTime();
 			int diffMin = (int) (diff / (60 * 1000));
 			int diffSec = (int) (diff / 1000);
-			String timeElapsedStr = diffMin + " minutes, " + diffSec + " seconds";
+			String timeTakenStr = diffMin + " minutes, " + diffSec + " seconds";
 			
 			ArrayList<Integer> questions = (ArrayList<Integer>) session.getAttribute("questions");
 			HashMap<Integer, Integer> quesFrequency = null;
@@ -81,6 +79,7 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 				isQuizFinished = true;
 			}
 			
+			// Check answers
 			for (int question_id : questions) {
 				String type = questionManager.getTypeByID(question_id);
 				if (type.equals("QuestionResponse")) {
@@ -94,7 +93,6 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 					int num_answers = question.getNumBlanks();
 					int partials = 0;
 					for (int i = 0; i < num_answers; i++) {
-						System.out.println(request.getParameter("question_" + question_number + "_" + i));
 						if (question.getAnswerAsList().get(i).equals(request.getParameter("question_" + question_number + "_" + i).toLowerCase())) {
 							score++;
 							partials++;
@@ -113,6 +111,37 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 						score++;
 						if (isPracticeMode) quesFrequency.put(question_id, quesFrequency.get(question_id) - 1);
 					}
+				} else if (type.equals("MultiAnswer")) {
+					MultiAnswer question = (MultiAnswer) questionManager.getQuestionByID(question_id);
+					int num_answers = question.getNumAnswers();
+					int partials = 0;
+					boolean inOrder = question.getInOrder();
+					for (int i = 0; i < num_answers; i++) {
+						String user_input = request.getParameter("question_" + question_number + "_" + i).toLowerCase();
+						if (inOrder && question.getAnswerAsList().get(i).equals(user_input)) {
+							score++;
+							partials++;
+						} else if (!inOrder) {
+							HashSet<String> answerList = new HashSet<String>(question.getAnswerAsList());
+							if (answerList.contains(user_input)) {
+								score++;
+								partials++;
+								answerList.remove(user_input);
+							}
+						}
+					}
+					if (partials == num_answers && isPracticeMode) quesFrequency.put(question_id, quesFrequency.get(question_id) - 1);
+				} else if (type.equals("MultipleChoiceMultipleAnswers")) {
+					MultipleChoiceMultipleAnswers question = (MultipleChoiceMultipleAnswers) questionManager.getQuestionByID(question_id);
+					int num_answers = question.getNumAnswers();
+					int partials = 0;
+					for (int i = 0; i < num_answers; i++) {
+						if (question.getAnswerAsList().get(i).equals(request.getParameter("question_" + question_number + "_" + question.getAnswerAsList().get(i)).toLowerCase())) {
+							score++;
+							partials++;
+						}
+					}
+					if (partials == num_answers && isPracticeMode) quesFrequency.put(question_id, quesFrequency.get(question_id) - 1);
 				}
 				question_number++;
 			}
@@ -137,7 +166,7 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 				 RequestDispatcher dispatch = request.getRequestDispatcher("practice_finished.jsp");
 				dispatch.forward(request, response);
 			} else if (isQuizFinished) {
-				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_results.jsp?quiz_id="+quiz_id+"&score="+score+"&time_elapsed="+timeElapsedStr);
+				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_results.jsp?quiz_id="+quiz_id+"&score="+score+"&time_taken="+timeTakenStr);
 				dispatch.forward(request, response);
 			} else {
 				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_single_page_view.jsp?practice_mode="+isPracticeMode+"&random_order=" + request.getParameter("random_order"));

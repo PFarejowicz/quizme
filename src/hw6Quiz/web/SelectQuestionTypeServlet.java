@@ -49,6 +49,12 @@ public class SelectQuestionTypeServlet extends HttpServlet {
 		} else if (ques_type.equals("picture")) {
 			RequestDispatcher dispatch = request.getRequestDispatcher("create_picture_question.jsp?points="+request.getParameter("points"));
 			dispatch.forward(request, response); 
+		} else if (ques_type.equals("multianswer")) {
+			RequestDispatcher dispatch = request.getRequestDispatcher("create_multianswer_question.jsp?points="+request.getParameter("points"));
+			dispatch.forward(request, response); 
+		} else if (ques_type.equals("multiple_choice_multiple_answers")) {
+			RequestDispatcher dispatch = request.getRequestDispatcher("create_multiple_choice_multiple_answers.jsp?points="+request.getParameter("points"));
+			dispatch.forward(request, response); 
 		}
 	}
 }
