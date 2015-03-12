@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 public class MultipleChoice extends Question {
 
+	private static final long serialVersionUID = 1L;
 	private String choices;
 
 	public MultipleChoice(int quiz_id, int author_id, String prompt, String choices, String answer) {

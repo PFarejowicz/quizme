@@ -53,7 +53,7 @@ public class QuestionEditServlet extends HttpServlet {
 		} else if (request.getParameter("ques_type").equals("fill_blank")) {
 			FillInTheBlank questionObj = new FillInTheBlank(quiz_id, user_id, prompt, answer);
 			quesManager.updateQuestion(question_id, questionObj);
-			int point_diff = questionObj.getNumBlanks() - Integer.parseInt("prev_points");
+			int point_diff = questionObj.getNumBlanks() - Integer.parseInt(request.getParameter("prev_points"));
 			if (point_diff != 0) {
 				QuizManager quizManager = (QuizManager) getServletContext().getAttribute("quiz manager");
 				quizManager.updateQuizPoints(quiz_id, quizManager.getQuizPoints(quiz_id)+point_diff);

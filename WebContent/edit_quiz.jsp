@@ -13,7 +13,9 @@
 	<body>
 		<%
 			QuizManager quizManager = (QuizManager) application.getAttribute("quiz manager");
+			AdminManager adminManager = ((AdminManager)request.getServletContext().getAttribute("admin manager"));
 			int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
+			adminManager.clearHistoryForQuiz(quiz_id);
 			int user_id = (Integer) session.getAttribute("user id");
 			Quiz quiz = quizManager.getQuizByID(quiz_id);
 		%>

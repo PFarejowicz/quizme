@@ -5,6 +5,8 @@ import java.util.Arrays;
 
 public class FillInTheBlank extends Question {
 
+	private static final long serialVersionUID = 1L;
+
 	public FillInTheBlank(int quiz_id, int author_id, String prompt, String answer) {
 		this.quiz_id = quiz_id;
 		this.author_id = author_id;

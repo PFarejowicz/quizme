@@ -140,12 +140,14 @@ public class QuizManager {
 		try {
 			Statement selectStmt = con.createStatement();
 			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\"");
-			double sum = 0;
-			while (rs.next()) {
-				sum += rs.getInt("score");
+			if (rs.next()) {
+				double sum = rs.getInt("score");
+				while (rs.next()) {
+					sum += rs.getInt("score");
+				}
+				int count = numTimesTaken(quiz_id);
+				return sum / (double) count; 
 			}
-			int count = numTimesTaken(quiz_id);
-			return sum / count; 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -156,18 +158,20 @@ public class QuizManager {
 		try {
 			Statement selectStmt = con.createStatement();
 			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\"");
-			int high = 0; 
-			int low = getQuizPoints(quiz_id);
-			while (rs.next()) {
-				int sc = rs.getInt("score");
-				if (sc > high) {
-					high = sc; 
+			if (rs.next()) {
+				int high = rs.getInt("score");
+				int low = high;
+				while (rs.next()) {
+					int sc = rs.getInt("score");
+					if (sc > high) {
+						high = sc; 
+					}
+					if (sc < low) {
+						low = sc; 
+					}
 				}
-				if (sc < low) {
-					low = sc; 
-				}
+				return high - low; 
 			}
-			return high - low; 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

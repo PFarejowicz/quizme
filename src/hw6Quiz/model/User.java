@@ -1,7 +1,5 @@
 package hw6Quiz.model;
 
-import java.util.*;
-
 public class User {
 
 	private int id;
