@@ -62,6 +62,7 @@
 	</form>
 	<form action="AdminRemoveQuizServlet" method="post">
 	<p><input name="id" type="hidden" value="<%= quizzes.get(i).getQuizID() %>"/>
+	<input name="admin_edit" type="hidden" value="true"/>
 	<input type="submit" value="Delete Quiz" /></p>
 	</form>
 <% } %>
@@ -71,6 +72,7 @@
 	<%= quizzes.get(i).getName() %>
 	<form action="AdminRemoveQuizServlet" method="post">
 	<p><input name="id" type="hidden" value="<%= quizzes.get(i).getQuizID() %>"/>
+	<input name="admin_edit" type="hidden" value="true"/>
 	<input type="submit" value="Delete Quiz" /></p>
 	</form>
 <% } %>

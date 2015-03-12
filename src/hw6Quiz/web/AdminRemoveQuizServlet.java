@@ -40,8 +40,13 @@ public class AdminRemoveQuizServlet extends HttpServlet {
 		AdminManager adminManager = ((AdminManager)request.getServletContext().getAttribute("admin manager"));
 		int id = Integer.parseInt(request.getParameter("id"));
 		adminManager.removeQuiz(id);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("admin_homepage.jsp");
-		dispatcher.forward(request, response);
+		if (request.getParameter("admin_edit").equals("true")) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("admin_homepage.jsp");
+			dispatcher.forward(request, response);
+		} else {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("homepage.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
 }
