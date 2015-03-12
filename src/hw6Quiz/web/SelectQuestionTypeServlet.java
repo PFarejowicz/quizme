@@ -36,24 +36,24 @@ public class SelectQuestionTypeServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String ques_type = request.getParameter("ques_type");
-		request.setAttribute("quiz_id", request.getParameter("quiz_id"));
+		int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
 		if (ques_type.equals("text_response")) {
-			RequestDispatcher dispatch = request.getRequestDispatcher("create_question_response_question.jsp?points="+request.getParameter("points"));
+			RequestDispatcher dispatch = request.getRequestDispatcher("create_question_response_question.jsp?quiz_id="+quiz_id+"&points="+request.getParameter("points")+"&edit_mode="+request.getParameter("edit_mode"));
 			dispatch.forward(request, response); 
 		} else if (ques_type.equals("fill_blank")) {
-			RequestDispatcher dispatch = request.getRequestDispatcher("create_fill_blank_question.jsp?points="+request.getParameter("points"));
+			RequestDispatcher dispatch = request.getRequestDispatcher("create_fill_blank_question.jsp?quiz_id="+quiz_id+"&points="+request.getParameter("points")+"&edit_mode="+request.getParameter("edit_mode"));
 			dispatch.forward(request, response); 
 		} else if (ques_type.equals("multiple_choice")) {
-			RequestDispatcher dispatch = request.getRequestDispatcher("create_multiple_choice_question.jsp?points="+request.getParameter("points"));
+			RequestDispatcher dispatch = request.getRequestDispatcher("create_multiple_choice_question.jsp?quiz_id="+quiz_id+"&points="+request.getParameter("points")+"&edit_mode="+request.getParameter("edit_mode"));
 			dispatch.forward(request, response); 
 		} else if (ques_type.equals("picture")) {
-			RequestDispatcher dispatch = request.getRequestDispatcher("create_picture_question.jsp?points="+request.getParameter("points"));
+			RequestDispatcher dispatch = request.getRequestDispatcher("create_picture_question.jsp?quiz_id="+quiz_id+"&points="+request.getParameter("points")+"&edit_mode="+request.getParameter("edit_mode"));
 			dispatch.forward(request, response); 
 		} else if (ques_type.equals("multianswer")) {
-			RequestDispatcher dispatch = request.getRequestDispatcher("create_multianswer_question.jsp?points="+request.getParameter("points"));
+			RequestDispatcher dispatch = request.getRequestDispatcher("create_multianswer_question.jsp?quiz_id="+quiz_id+"&points="+request.getParameter("points")+"&edit_mode="+request.getParameter("edit_mode"));
 			dispatch.forward(request, response); 
 		} else if (ques_type.equals("multiple_choice_multiple_answers")) {
-			RequestDispatcher dispatch = request.getRequestDispatcher("create_multiple_choice_multiple_answers.jsp?points="+request.getParameter("points"));
+			RequestDispatcher dispatch = request.getRequestDispatcher("create_multiple_choice_multiple_answers.jsp?quiz_id="+quiz_id+"&points="+request.getParameter("points")+"&edit_mode="+request.getParameter("edit_mode"));
 			dispatch.forward(request, response); 
 		}
 	}
