@@ -71,7 +71,7 @@
 <p><%=friendName%>'s Quizzes</p>
 	<% ArrayList<Quiz> friendQuizzes = userManager.getAuthoredQuizzes(friendId); %>
 		<% if(friendQuizzes.size() > 0){ %>
-			<h5>Your Most Recent Created Quizzes:</h5><br/>
+			<h5><%=friendName%>'s Most Recent Created Quizzes:</h5><br/>
 			<% for(int i = friendQuizzes.size() - 1; i >= 0 && i >= friendQuizzes.size() - 3; i--){ %>
 				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= friendQuizzes.get(i).getQuizID() %>"><%= friendQuizzes.get(i).getName() %></a></p>
 				<p>Description: <%= friendQuizzes.get(i).getDescription() %></p>
@@ -100,7 +100,7 @@
 <p><%=friendName%>'s Quiz History</p>
 		<% ArrayList<QuizHistory> history = userManager.getQuizHistoryById(friendId); %>
 		<% if(history.size() > 0){ %>
-			<h5>Your Most Recent Taken Quizzes:</h5><br/>
+			<h5><%=friendName%>'s Most Recent Taken Quizzes:</h5><br/>
 			<% for(int i = history.size() - 1; i >= 0 && i >= history.size() - 3; i--){ %>
 				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= history.get(i).getQuizId() %>"><%= history.get(i).getName() %></a></p>
 				<p>Score: <%=quizManager.convertToPercStr(history.get(i).getScore(), history.get(i).getTotal()) %></p><br/>
