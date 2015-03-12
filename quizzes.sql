@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS quizzes (
 CREATE TABLE IF NOT EXISTS questions (
 	question_id INT UNSIGNED AUTO_INCREMENT,
 	quiz_id INT,
-	question_type enum('QuestionResponse','FillInTheBlank','MultipleChoice','PictureResponse'),
+	question_type enum('QuestionResponse','FillInTheBlank','MultipleChoice','PictureResponse', 'MultiAnswer', 'MultipleChoiceMultipleAnswers', 'Matching', 'GradedQuestions'),
 	metadata LONGBLOB,
 	PRIMARY KEY (question_id)
 );
@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS quiz_history (
 	review VARCHAR(255),
 	name VARCHAR(255),
 	date_time DATETIME,
+	time_taken DATETIME
 	PRIMARY KEY (quiz_history_id)
 );
 

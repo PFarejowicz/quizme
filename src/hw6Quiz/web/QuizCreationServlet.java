@@ -59,7 +59,7 @@ public class QuizCreationServlet extends HttpServlet {
 			quizManager.addQuiz(name, description, user_id, random_order, multiple_pages, immediate_correction, 0);
 			
 			// Check achievements
-			//quizManager.authorAchievement(user_id);
+			quizManager.authorAchievement(user_id);
 			
 			request.setAttribute("quiz_id", Integer.toString(quizManager.getIDByName(name)));
 			RequestDispatcher dispatch = request.getRequestDispatcher("add_question.jsp?points=0");

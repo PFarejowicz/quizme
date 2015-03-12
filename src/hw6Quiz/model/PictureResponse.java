@@ -14,7 +14,7 @@ public class PictureResponse extends Question {
 	public int getQuizID() {
 		return quiz_id;
 	}
-
+	
 	public String getQuestionText() {
 		return question;
 	}

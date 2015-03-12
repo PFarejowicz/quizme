@@ -51,7 +51,22 @@
 					out.println("<p>" + question_number + ".) " + "</p>");
 					out.println("<p><img src=" + question.getQuestionText() + "/></p>");
 					out.println("<input type=\"text\" name=\"question_" + question_number + "\"/>");
-				}
+				} else if (type.equals("MultiAnswer")) {
+					MultiAnswer question = (MultiAnswer) questionManager.getQuestionByID(question_id);
+					out.println("<p>" + question_number + ".) " + question.getQuestionText() + "</p>");
+					int size = question.getNumAnswers();
+					for (int i = 0; i < size; i++) {
+						out.println("<p><input type=\"text\" name=\"question_" + question_number + "_" + i + "\"/></p>");
+					}
+				} else if (type.equals("MultipleChoiceMultipleAnswers")) {
+					MultipleChoiceMultipleAnswers question = (MultipleChoiceMultipleAnswers) questionManager.getQuestionByID(question_id);
+					out.println("<p>" + question_number + ".) " + question.getQuestionText() + "</p>");
+					ArrayList<String> choices = question.getChoicesAsList();
+					for (String choice : choices) {
+						out.println("<input type=\"radio\" name=\"question_" + question_number + "_" + choices + "\" value=\"" + choice + "\">" + choice + "<br>");
+					}
+					out.println("<p></p>");
+				} 
 			%>
 			<input type="hidden" name="quiz_id" value="<%=quiz_id%>" />
 			<input type="hidden" name="question_num" value="<%=question_number%>" />

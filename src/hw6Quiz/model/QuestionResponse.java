@@ -22,5 +22,4 @@ public class QuestionResponse extends Question {
 	public String getAnswerText() {
 		return answer.toLowerCase();
 	}
-
 }

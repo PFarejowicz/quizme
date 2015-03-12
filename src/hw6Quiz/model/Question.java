@@ -9,4 +9,5 @@ public abstract class Question implements java.io.Serializable {
 	protected String answer;
 	
 	abstract String getQuestionText();
+	abstract int getQuizID();
 }

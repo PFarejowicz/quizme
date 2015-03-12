@@ -4,6 +4,7 @@ import hw6Quiz.manager.QuestionManager;
 import hw6Quiz.manager.QuizManager;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -41,6 +42,7 @@ public class QuizReviewServlet extends HttpServlet {
 		int user_id = (Integer) request.getSession().getAttribute("user id");
 		int score = Integer.parseInt(request.getParameter("score"));
 		int total = Integer.parseInt(request.getParameter("total"));
+		Timestamp time_taken = Timestamp.valueOf(request.getParameter("time_taken"));
 		
 		// Check achievements
 		quizManager.iAmGreatestAchievement(user_id, quiz_id, score);
@@ -52,7 +54,7 @@ public class QuizReviewServlet extends HttpServlet {
 		}
 		String review = request.getParameter("review");
 		String name = request.getParameter("name");
-		quizManager.addQuizResult(quiz_id, user_id, score, total, rating, review, name);
+		quizManager.addQuizResult(quiz_id, user_id, score, total, rating, review, name, time_taken);
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
 		dispatch.forward(request, response); 

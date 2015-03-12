@@ -20,7 +20,7 @@
 			<textarea rows="4" cols="50" name="choices" ></textarea></p>
 			<p>Answer: <br>
 			<textarea rows="4" cols="50" name="answer" ></textarea></p>
-			<!-- TODO: Add number check -->
+
 			<input type="hidden" name="ques_type" value="multiple_choice"/>
 			<%
 				String quiz_id = (String) request.getAttribute("quiz_id");

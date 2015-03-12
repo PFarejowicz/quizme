@@ -1,6 +1,5 @@
 package hw6Quiz.manager;
 
-import hw6Quiz.model.MultipleChoice;
 
 import java.io.*;
 import java.sql.*;
