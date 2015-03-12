@@ -265,16 +265,18 @@ public class QuizManager {
 	 * @return average rating
 	 */
 	public double calculateRating(int quiz_id) {
-		double sum = 0; 
 		try {
 			Statement selectStmt = con.createStatement();
 			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\"");
-			int count = 0;
-			while (rs.next()) {
-				sum += rs.getDouble("rating");
-				count++;
+			if (rs.next()) {
+				double sum = rs.getDouble("rating");
+				double count = 1;
+				while (rs.next()) {
+					sum += rs.getDouble("rating");
+					count++;
+				}
+				return sum / count;  
 			}
-			return sum / count;  
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

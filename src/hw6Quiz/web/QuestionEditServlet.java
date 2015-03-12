@@ -65,6 +65,25 @@ public class QuestionEditServlet extends HttpServlet {
 		} else if (request.getParameter("ques_type").equals("picture")) {
 			PictureResponse questionObj = new PictureResponse(quiz_id, user_id, prompt, answer);
 			quesManager.updateQuestion(question_id, questionObj);
+		} else if (request.getParameter("ques_type").equals("multianswer")) {
+			int num_correct = Integer.parseInt(request.getParameter("num_correct"));
+			boolean in_order = request.getParameter("order").equals("yes");
+			MultiAnswer questionObj = new MultiAnswer(quiz_id, user_id, prompt, answer, num_correct, in_order);
+			quesManager.updateQuestion(question_id, questionObj);
+			int point_diff = questionObj.getNumAnswers() - Integer.parseInt(request.getParameter("prev_points"));
+			if (point_diff != 0) {
+				QuizManager quizManager = (QuizManager) getServletContext().getAttribute("quiz manager");
+				quizManager.updateQuizPoints(quiz_id, quizManager.getQuizPoints(quiz_id)+point_diff);
+			}
+		} else if (request.getParameter("ques_type").equals("multiple_choice_multiple_answers")) {
+			String choices = request.getParameter("choices");
+			MultipleChoiceMultipleAnswers questionObj = new MultipleChoiceMultipleAnswers(quiz_id, user_id, prompt, choices, answer);
+			quesManager.updateQuestion(question_id, questionObj);
+			int point_diff = questionObj.getNumAnswers() - Integer.parseInt(request.getParameter("prev_points"));
+			if (point_diff != 0) {
+				QuizManager quizManager = (QuizManager) getServletContext().getAttribute("quiz manager");
+				quizManager.updateQuizPoints(quiz_id, quizManager.getQuizPoints(quiz_id)+point_diff);
+			}
 		}
 		RequestDispatcher dispatch = request.getRequestDispatcher("edit_question.jsp?quiz_id="+quiz_id);
 		dispatch.forward(request, response); 	
