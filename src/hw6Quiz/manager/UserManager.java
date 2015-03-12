@@ -33,6 +33,18 @@ public class UserManager {
 		return false; 
 	}
 	
+	public boolean hasUsers(){
+		Statement stmt; 
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM users");
+			return (rs.next());				// not empty
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	public ArrayList<Integer> findUsers(int userId, String info) {
 		ArrayList<Integer> possibleUsers = new ArrayList<Integer>();
 		Statement stmt;
@@ -120,6 +132,30 @@ public class UserManager {
 			password = UserManager.hexToString(mdbytes);					// convert back to string	
 			prepStmt.setString(2, password);
 			prepStmt.setBoolean(5, false);
+			prepStmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void addAdmin(String email, String password, String name) {
+		try {
+			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO users (email, password, salt, name, admin_privilege) VALUES(?, ?, ?, ?, ?)");
+			prepStmt.setString(1, email);
+			prepStmt.setString(4, name);
+			
+			final Random r = new SecureRandom();
+			byte[] saltBytes = new byte[32];			
+			r.nextBytes(saltBytes);											// generate salt
+			String salt = UserManager.hexToString(saltBytes);
+			prepStmt.setString(3, salt);
+			
+			MessageDigest md = MessageDigest.getInstance("SHA");
+			password = password + salt; 									// adding salt to original password
+			byte[] mdbytes = md.digest(password.getBytes());				// hash the password + salt 
+			password = UserManager.hexToString(mdbytes);					// convert back to string	
+			prepStmt.setString(2, password);
+			prepStmt.setBoolean(5, true);
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
