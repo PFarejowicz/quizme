@@ -62,15 +62,17 @@
 	</form>
 	<form action="AdminRemoveQuizServlet" method="post">
 	<p><input name="id" type="hidden" value="<%= quizzes.get(i).getQuizID() %>"/>
+	<input name="admin_edit" type="hidden" value="true"/>
 	<input type="submit" value="Delete Quiz" /></p>
 	</form>
 <% } %>
 <% ArrayList<Quiz> reportedQuizzes = adminManager.getReportedQuizzes(); %>
 <h3>Reported Quizzes</h3>
-<% for(int i = 0; i < reportedQuizzes.size(); i++){ %>
-	<%= reportedQuizzes.get(i).getName() %>
+<% for(int i = 0; i < quizzes.size(); i++){ %>
+	<%= quizzes.get(i).getName() %>
 	<form action="AdminRemoveQuizServlet" method="post">
-	<p><input name="id" type="hidden" value="<%= reportedQuizzes.get(i).getQuizID() %>"/>
+	<p><input name="id" type="hidden" value="<%= quizzes.get(i).getQuizID() %>"/>
+	<input name="admin_edit" type="hidden" value="true"/>
 	<input type="submit" value="Delete Quiz" /></p>
 	</form>
 <% } %>

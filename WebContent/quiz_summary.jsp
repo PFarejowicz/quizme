@@ -116,10 +116,16 @@
 	
 	<p><%
 		if (user_id == quiz.getAuthorID()) {
+			out.println("<h2>Author Toolbox</h2>");
 			out.println("<form action=\"edit_quiz.jsp\" method=\"post\">");
 			out.println("<input type=\"hidden\" name=\"quiz_id\" value=\""+quiz_id+"\"/>");
 			out.println("<input type=\"hidden\" name=\"edit_mode\" value=\"true\"/>");
-			out.println("<input type=\"submit\" value=\"Edit Quiz\" />");
+			out.println("<input type=\"submit\" value=\"Edit Quiz\" onclick=\"return confirm('WARNING: This operation will delete all prior quiz history. Continue?')\"/>");
+			out.println("</form>");
+			out.println("<form action=\"AdminRemoveServlet\" method=\"post\">");
+			out.println("<input type=\"hidden\" name=\"id\" value=\""+quiz_id+"\"/>");
+			out.println("<input name=\"admin_edit\" type=\"hidden\" value=\"false\"/>");
+			out.println("<input type=\"submit\" value=\"Delete Quiz\" />");
 			out.println("</form>");
 		}
 	%></p>
