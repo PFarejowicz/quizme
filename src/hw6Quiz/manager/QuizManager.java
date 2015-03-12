@@ -501,55 +501,5 @@ public class QuizManager {
 		}
 		return recentQuizzes;
 	}
-	
-	public ArrayList<Quiz> getRecentQuizTaken(int user_id) {
-		ArrayList<Quiz> recentlyTaken = new ArrayList<Quiz>();
-		try {
-			Statement selectStmt = con.createStatement();
-			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history ORDER BY time_taken DESC");
-			while(rs.next()) {
-				if (rs.getInt("user_id") == user_id) {
-					Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getTimestamp("time_taken"), rs.getInt("score"));
-					recentlyTaken.add(quiz);
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return recentlyTaken;
-	}
-	
-	public ArrayList<Quiz> getRecentQuizCreated(int user_id) {
-		ArrayList<Quiz> recentlyCreated = new ArrayList<Quiz>();
-		try {
-			Statement selectStmt = con.createStatement();
-			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quizzes ORDER BY date_time DESC");
-			while(rs.next()) {
-				if (rs.getInt("author_id") == user_id) {
-					Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getTimestamp("date_time"));
-					recentlyCreated.add(quiz);
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return recentlyCreated;
-	}
-	
-	
-//	public int numQuizMade(int user_id) {
-//	int count = 0;
-//	Statement stmt;
-//	try {
-//		stmt = con.createStatement();
-//		ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE author_id = \"" + user_id + "\"");
-//		while(rs.next()){
-//			count++;
-//		}
-//		return count;
-//	} catch (SQLException e) {
-//		e.printStackTrace();
-//	}
-//	return count;
-//}
+
 }

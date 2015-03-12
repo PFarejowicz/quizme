@@ -147,6 +147,16 @@
 		<h3 class="auth-center">News Feed</h3>
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		<h3 class="auth-center">Send Messages</h3>
 			<form action="MessageServlet" method="post">
 			<p>Send to: <input type="text" name="receiver" /></p>

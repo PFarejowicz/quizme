@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS quiz_history (
 CREATE TABLE IF NOT EXISTS friends (
 	user_id1 INT UNSIGNED,
     user_id2 INT UNSIGNED,
+    date_time DATETIME,
 	PRIMARY KEY (user_id1)
 );
 
@@ -79,5 +80,6 @@ CREATE TABLE IF NOT EXISTS achievements (
 	achievement_id INT UNSIGNED AUTO_INCREMENT,
 	user_id INT UNSIGNED,
 	description VARCHAR(255),
+	date_time DATETIME,
 	PRIMARY KEY (achievement_id)
 );
