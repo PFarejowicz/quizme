@@ -75,6 +75,10 @@
 	<input name="admin_edit" type="hidden" value="true"/>
 	<input type="submit" value="Delete Quiz" /></p>
 	</form>
+	<form action="UnreportQuizServlet" method="post">
+		<input type="hidden" name="quiz_id" value="<%= reportedQuizzes.get(i).getQuizID() %>"/>
+		<input type="submit" value="Clear Report"/>
+	</form>
 <% } %>
 <h3>Site Statistics</h3>
 <p>Number of users: <%= users.size() %></p>

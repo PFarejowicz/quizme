@@ -103,6 +103,11 @@ body {
 .auth-center{
 	text-align: center;
 }
+
+.reported{
+	color: red;
+}
+
 .img-center{
 	margin-left: auto;
 	margin-right: auto;

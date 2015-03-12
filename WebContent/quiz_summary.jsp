@@ -27,6 +27,16 @@
 </head>
 <body>
 	<h1>Welcome to a QuizMe Quiz</h1>
+	<% if(email != null){ %>
+		<% if(quizManager.checkQuizReported(quiz_id)){ %>
+			<p class="reported">THIS QUIZ HAS BEEN REPORTED!</p>
+		<% } else{ %>
+			<form action="ReportQuizServlet" method="post">
+				<input type="hidden" name="quiz_id" value="<%= quiz_id %>"/>
+				<input type="submit" value="Report Quiz" style="color:red" />
+			</form>
+		<% } %>
+	<% } %>
 	<p>
 		Quiz Name: <%=quiz.getName() %><br>
 		Quiz Description: <%=quiz.getDescription() %> <br>
