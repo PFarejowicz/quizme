@@ -17,7 +17,8 @@
 <title>QuizMe</title>
 </head>
 <body>
-	<h1>Welcome Guest!</h1>
+	<a href="index.jsp"><button type="button">Back to Login</button></a>
+	<h1 class="auth-center">Welcome Guest!</h1>
 
 	<h3 class="auth-center">Announcements</h3>
 	<% ArrayList<String> announcements = adminManager.getAnnouncements(); %>
@@ -32,7 +33,7 @@
 	<% if(popularQuizzes.size() > 0){ %>
 		<h5>Most Popular Quizzes:</h5><br/>
 		<% for(int i = popularQuizzes.size() - 1; i >= 0 && i >= popularQuizzes.size() - 3; i--){ %>
-			<p>Quiz Name: <%= popularQuizzes.get(i).getName() %></p>
+			<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= popularQuizzes.get(i).getQuizID() %>"><%= popularQuizzes.get(i).getName() %></a></p>
 			<p>Description: <%= popularQuizzes.get(i).getDescription() %></p>
 		<% } %>
 	<% } %>

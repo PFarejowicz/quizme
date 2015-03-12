@@ -15,7 +15,11 @@
 		QuizManager quizManager = (QuizManager) application.getAttribute("quiz manager");
 		UserManager userManager = (UserManager) application.getAttribute("user manager");
 		int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
-		int user_id = (Integer) session.getAttribute("user id");
+		int user_id = 0;
+		if((Integer) session.getAttribute("user id") != null){
+			user_id = (Integer) session.getAttribute("user id");
+		}
+		String email = (String) session.getAttribute("email");
 		Quiz quiz = quizManager.getQuizByID(quiz_id);
 		out.println(quiz.getName());
 		%>
@@ -35,6 +39,7 @@
 		Immediate Corrections Provided for Questions? <%= quiz.isImmediateCorrection() ? "Yes" : "No" %>
 	</p>
 	
+	<% if(email != null){ %>
 	<h2>Your Past Performance</h2>
 	<p><%
 		ArrayList<QuizHistory> pastPerformance = quizManager.getQuizHistory(quiz_id, user_id, "past performance");
@@ -44,11 +49,12 @@
 	        out.println("<br>");
 		}
 	%></p>
+	<% } %>
 	
 	<h2>All Time High Scores</h2>
 	<p><%
 		ArrayList<QuizHistory> allTimeHigh = quizManager.getQuizHistory(quiz_id, user_id, "all time high");
-		size = allTimeHigh.size();
+		int size = allTimeHigh.size();
 		for (int i = 0; i < size && i < num_scores; i++) {
 	        out.println((i + 1) + ": " + allTimeHigh.get(i).getName() + " (" + quizManager.convertToPercStr(allTimeHigh.get(i).getScore(), allTimeHigh.get(i).getTotal()) + ")");
 	        out.println("<br>");
@@ -95,6 +101,7 @@
 		out.println("<br>");
 	%></p>
 	
+	<% if(email != null){ %>
 	<form action="QuizStartServlet" method="post" style="display: inline">
 		<p>Mode: <br>
 		<input type="radio" name="mode" value="regular" checked="checked"/> Regular <br>
@@ -118,6 +125,8 @@
 	%></p>
 	
 	<a href="homepage.jsp"><button type="button">Return Home</button></a>
-
+	<% } else{ %>
+		<a href="nonregistered_access.jsp"><button type="button">Return Home</button></a>
+	<% } %>
 </body>
 </html>

@@ -9,7 +9,11 @@
 	FriendsManager friendsManager = (FriendsManager) getServletContext().getAttribute("friends manager");
 	String friendEmail = request.getParameter("friendEmail");
 	int friendId = userManager.getIDByEmail(friendEmail);
-	int userId = (Integer) session.getAttribute("user id");
+	int userId = 0;
+	if((Integer) session.getAttribute("user id") != null){
+		userId = (Integer) session.getAttribute("user id");
+	}
+	String email = (String) session.getAttribute("email");
 	String friendName = userManager.getNameByID(friendId);
 	int isFriend = friendsManager.checkFriendStatus(userId, friendId);
 %>
@@ -25,10 +29,15 @@
 </head>
 <body>
 
+<% if(email != null){ %>
 <a href="homepage.jsp"><button type="button">Back to My Profile</button></a>
+<% } else{ %>
+<a href="nonregistered_access.jsp"><button type="button">Back Home</button></a>
+<% } %>
 
 <h1><%=friendName%></h1>
 
+<% if(email != null){ %>
 <%
 	if (isFriend == 2) {%>  
 		<p>Friend Request Sent</p>
@@ -56,6 +65,7 @@
 	    <input type="submit" value="Send Friend Request" /></p>
 	    </form>
 	<%}%>
+<% } %>
 
 <p><%=friendName%>'s Quizzes</p>
 
@@ -76,6 +86,7 @@
 	<%}%>
 	</ul>
 	
+	<% if(email != null){ %>
 	<%
 	if (isFriend == 1) {%> 
 		<p> Unfriend <%=friendName%></p>
@@ -84,6 +95,7 @@
 		<input type="submit" value="Unfriend" name="decision"/>
 		</form>
 	<%}%>
+	<% } %>
 	
 </body>
 </html>
