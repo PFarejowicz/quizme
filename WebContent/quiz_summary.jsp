@@ -41,7 +41,14 @@
 		Quiz Name: <%=quiz.getName() %><br>
 		Quiz Description: <%=quiz.getDescription() %> <br>
 		Quiz Author: <a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(quiz.getAuthorID())%>"><%=userManager.getNameByID(quiz.getAuthorID()) %></a><br>
-		Quiz Rating: <%=String.format("%.2f", (float)quizManager.calculateRating(quiz_id)) %>
+		<%
+		double rating = quizManager.calculateRating(quiz_id);
+		if (rating < 0) {
+			out.println("Quiz Rating: N/A");
+		} else {
+			out.println("Quiz Rating: " + String.format("%.2f", (float)rating));
+		}
+		%>
 	</p>
 	<p>
 		Questions Presented in Random Order? <%= quiz.isRandomOrder() ? "Yes" : "No" %><br>
@@ -95,14 +102,14 @@
 	<p><%
 		double avg = quizManager.avgQuizScore(quiz_id);
 		if (avg < 0) {
-			out.println("Average: Insufficient data");
+			out.println("Average: N/A");
 		} else {
 			out.println("Average: " + quizManager.convertToPercStr(avg, quiz.getPoints()));
 		}
 		out.println("<br>");
 		int range = quizManager.quizRange(quiz_id);
 		if (range < 0) {
-			out.println("Range: Insufficient data");
+			out.println("Range: N/A");
 		} else {
 			out.println("Range: " + range);
 		}
@@ -127,12 +134,12 @@
 	<p><%
 		if (user_id == quiz.getAuthorID()) {
 			out.println("<h2>Author Toolbox</h2>");
-			out.println("<form action=\"edit_quiz.jsp\" method=\"post\">");
+			out.println("<form action=\"edit_quiz.jsp\" method=\"post\" style=\"display: inline\">");
 			out.println("<input type=\"hidden\" name=\"quiz_id\" value=\""+quiz_id+"\"/>");
 			out.println("<input type=\"hidden\" name=\"edit_mode\" value=\"true\"/>");
 			out.println("<input type=\"submit\" value=\"Edit Quiz\" onclick=\"return confirm('WARNING: This operation will delete all prior quiz history for this quiz. Continue?')\"/>");
 			out.println("</form>");
-			out.println("<form action=\"AdminRemoveServlet\" method=\"post\">");
+			out.println("<form action=\"AdminRemoveServlet\" method=\"post\" style=\"display: inline\">");
 			out.println("<input type=\"hidden\" name=\"id\" value=\""+quiz_id+"\"/>");
 			out.println("<input name=\"admin_edit\" type=\"hidden\" value=\"false\"/>");
 			out.println("<input type=\"submit\" value=\"Delete Quiz\" onclick=\"return confirm('WARNING: This operation will delete all prior quiz history for this quiz. Continue?')\"/>");

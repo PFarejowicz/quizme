@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS quizzes (
 CREATE TABLE IF NOT EXISTS questions (
 	question_id INT UNSIGNED AUTO_INCREMENT,
 	quiz_id INT,
-	question_type enum('QuestionResponse','FillInTheBlank','MultipleChoice','PictureResponse', 'MultiAnswer', 'MultipleChoiceMultipleAnswers', 'Matching', 'GradedQuestions'),
+	question_type enum('QuestionResponse','FillInTheBlank','MultipleChoice','PictureResponse', 'MultiAnswer', 'MultipleChoiceMultipleAnswers'),
 	metadata LONGBLOB,
 	PRIMARY KEY (question_id)
 );
