@@ -53,6 +53,21 @@ public class QuizManager {
 		}
 	}
 	
+	public void updateQuiz(String name, String description, boolean random, boolean pages, boolean correction, int quiz_id) {
+		try {
+			PreparedStatement updateStmt = con.prepareStatement("UPDATE quizzes SET name = ?, description = ?, random_order = ?, multiple_pages = ?, immediate_correction = ? WHERE quiz_id = ?");
+			updateStmt.setString(1, name);
+			updateStmt.setString(2, description);
+			updateStmt.setBoolean(3, random);
+			updateStmt.setBoolean(4, pages);
+			updateStmt.setBoolean(5, correction);
+			updateStmt.setInt(6, quiz_id);
+			updateStmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Get quiz ID given name 
 	 * @param name name

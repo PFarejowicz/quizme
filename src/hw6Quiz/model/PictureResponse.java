@@ -8,6 +8,10 @@ public class PictureResponse extends Question {
 		this.question = url;
 		this.answer = answer;
 	}
+	
+	public int getQuizID() {
+		return quiz_id;
+	}
 
 	public String getQuestionText() {
 		return question;

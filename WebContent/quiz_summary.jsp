@@ -75,8 +75,6 @@
 	
 	<h2>Summary Statistics</h2>
 	
-	
-	<a href="homepage.jsp"><button type="button">Return Home</button></a>
 	<form action="QuizStartServlet" method="post" style="display: inline">
 		<p>Mode: <br>
 		<input type="radio" name="mode" value="regular" /> Regular <br>
@@ -88,5 +86,18 @@
 		<input type="hidden" name="immediate_correction" value="<%=quiz.isImmediateCorrection()%>"/>
 		<input  type="submit" value="Take Quiz" />
 	</form>
+	
+	<p><%
+		if (user_id == quiz.getAuthorID()) {
+			out.println("<form action=\"edit_quiz.jsp\" method=\"post\">");
+			out.println("<input type=\"hidden\" name=\"quiz_id\" value=\""+quiz_id+"\"/>");
+			out.println("<input type=\"hidden\" name=\"edit_mode\" value=\"true\"/>");
+			out.println("<input type=\"submit\" value=\"Edit Quiz\" />");
+			out.println("</form>");
+		}
+	%></p>
+	
+	<a href="homepage.jsp"><button type="button">Return Home</button></a>
+
 </body>
 </html>

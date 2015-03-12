@@ -15,6 +15,10 @@ public class MultipleChoice extends Question {
 		this.answer = answer;
 	}
 	
+	public int getQuizID() {
+		return quiz_id;
+	}
+	
 	public int getNumChoices() {
 		return choices.split(",").length;
 	}
@@ -23,7 +27,11 @@ public class MultipleChoice extends Question {
 		return question;
 	}
 	
-	public ArrayList<String> getChoicesText() {
+	public String getChoicesAsText() {
+		return choices;
+	}
+	
+	public ArrayList<String> getChoicesAsList() {
 		ArrayList<String> choiceList = new ArrayList<String>(Arrays.asList(choices.trim().toLowerCase().split("\\s*,\\s*")));
 		return choiceList;
 	}

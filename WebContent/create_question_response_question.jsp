@@ -7,10 +7,10 @@
 <link rel="stylesheet" href="normalize.css">
 <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Create Text Response Question</title>
+<title>Create Question Response Question</title>
 </head>
 <body>
-	<h1>Create Text Response Question</h1>
+	<h1>Create Question Response Question</h1>
 	<form action="QuestionCreationServlet" method="post">
 		<p>Question: <br>
 		<textarea rows="4" cols="50" name="prompt" ></textarea></p>

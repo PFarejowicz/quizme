@@ -26,8 +26,8 @@
 			<input type="radio" name="immediate_correction" value="yes" /> Yes <br>
 			<input type="radio" name="immediate_correction" value="no" /> No 
 			</p>
-			
-			<input  type="submit" value="Create" />
+			<input type="hidden" name="edit_mode" value="false"/>
+			<input type="submit" value="Create" />
 		</form>
 	</body>
 </html>

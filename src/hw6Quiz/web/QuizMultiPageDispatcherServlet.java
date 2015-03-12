@@ -101,7 +101,7 @@ public class QuizMultiPageDispatcherServlet extends HttpServlet {
 				int num_answers = question.getNumBlanks();
 				int partials = 0;
 				for (int i = 0; i < num_answers; i++) {
-					if (question.getAnswerText().get(i).equals(request.getParameter("question_" + question_number + "_" + i).toLowerCase())) {
+					if (question.getAnswerAsList().get(i).equals(request.getParameter("question_" + question_number + "_" + i).toLowerCase())) {
 						score++;
 						partials++;
 					}

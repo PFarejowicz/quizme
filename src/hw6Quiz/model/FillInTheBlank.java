@@ -12,6 +12,10 @@ public class FillInTheBlank extends Question {
 		this.answer = answer;
 	}
 	
+	public int getQuizID() {
+		return quiz_id;
+	}
+	
 	public int getNumBlanks() {
 		int count = 1;
 		count += answer.length() - answer.replace(",", "").length();
@@ -22,7 +26,15 @@ public class FillInTheBlank extends Question {
 		return question.replaceAll("\\*", "__________");
 	}
 	
-	public ArrayList<String> getAnswerText() {
+	public String getQuestionRegex() {
+		return question;
+	}
+	
+	public String getAnswerAsText() {
+		return answer;
+	}
+	
+	public ArrayList<String> getAnswerAsList() {
 		ArrayList<String> answerList = new ArrayList<String>(Arrays.asList(answer.trim().toLowerCase().split("\\s*,\\s*")));
 		return answerList;
 	}

@@ -7,5 +7,6 @@ public abstract class Question implements java.io.Serializable {
 	protected String question;
 	protected String answer;
 	
+	abstract int getQuizID();
 	abstract String getQuestionText();
 }

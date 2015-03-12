@@ -8,6 +8,10 @@ public class QuestionResponse extends Question {
 		this.question = prompt;
 		this.answer = answer;
 	}
+	
+	public int getQuizID() {
+		return quiz_id;
+	}
 
 	public String getQuestionText() {
 		return question;
@@ -16,4 +20,5 @@ public class QuestionResponse extends Question {
 	public String getAnswerText() {
 		return answer.toLowerCase();
 	}
+
 }
