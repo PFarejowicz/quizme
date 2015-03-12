@@ -56,6 +56,16 @@
 					out.println("<td>Picture Response</td>");
 					out.println("<td>"+question.getQuestionText()+"</td>");
 					out.println("<td><a href=\"edit_picture_question.jsp?question_id="+question_id+"\"><button type=\"button\">Edit Question</button></a></td>");
+				} else if (type.equals("MultiAnswer")) {
+					MultiAnswer question = (MultiAnswer) questionManager.getQuestionByID(question_id);
+					out.println("<td>Multi-Answer</td>");
+					out.println("<td>"+question.getQuestionText()+"</td>");
+					out.println("<td><a href=\"edit_multianswer_question.jsp?question_id="+question_id+"\"><button type=\"button\">Edit Question</button></a></td>");
+				} else if (type.equals("MultipleChoiceMultipleAnswers")) {
+					MultipleChoiceMultipleAnswers question = (MultipleChoiceMultipleAnswers) questionManager.getQuestionByID(question_id);
+					out.println("<td>Multiple Choice Multiple Answers</td>");
+					out.println("<td>"+question.getQuestionText()+"</td>");
+					out.println("<td><a href=\"edit_multiple_choice_multiple_answers.jsp?question_id="+question_id+"\"><button type=\"button\">Edit Question</button></a></td>");
 				}
 				out.println("</tr>");
 				question_number++;

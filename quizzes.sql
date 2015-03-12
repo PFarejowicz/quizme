@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS quizzes (
 CREATE TABLE IF NOT EXISTS questions (
 	question_id INT UNSIGNED AUTO_INCREMENT,
 	quiz_id INT,
-	question_type enum('QuestionResponse','FillInTheBlank','MultipleChoice','PictureResponse', 'MultiAnswer', 'MultipleChoiceMultipleAnswers', 'Matching', 'GradedQuestions'),
+	question_type enum('QuestionResponse','FillInTheBlank','MultipleChoice','PictureResponse', 'MultiAnswer', 'MultipleChoiceMultipleAnswers'),
 	metadata LONGBLOB,
 	PRIMARY KEY (question_id)
 );
@@ -82,4 +82,13 @@ CREATE TABLE IF NOT EXISTS achievements (
 	description VARCHAR(255),
 	date_time DATETIME,
 	PRIMARY KEY (achievement_id)
+);
+
+CREATE TABLE IF NOT EXISTS challenges (
+	challenge_id INT UNSIGNED AUTO_INCREMENT,
+	sender_id INT UNSIGNED,
+	receiver_id INT UNSIGNED,
+	quiz_id INT,
+	score INT,
+	PRIMARY KEY (challenge_id)
 );

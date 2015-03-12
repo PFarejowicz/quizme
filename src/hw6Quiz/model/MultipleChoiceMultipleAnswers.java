@@ -36,6 +36,10 @@ public class MultipleChoiceMultipleAnswers extends Question {
 		return choices;
 	}
 	
+	public String getAnswerAsText() {
+		return answer;
+	}
+	
 	public ArrayList<String> getChoicesAsList() {
 		ArrayList<String> choiceList = new ArrayList<String>(Arrays.asList(choices.trim().toLowerCase().split("\\s*,\\s*")));
 		return choiceList;

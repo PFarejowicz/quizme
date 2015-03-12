@@ -25,6 +25,10 @@ public class MultiAnswer extends Question {
 		return question;
 	}
 	
+	public String getAnswerAsText() {
+		return answer;
+	}
+	
 	public ArrayList<String> getAnswerAsList() {
 		ArrayList<String> answerList = new ArrayList<String>(Arrays.asList(answer.trim().toLowerCase().split("\\s*,\\s*")));
 		return answerList;
