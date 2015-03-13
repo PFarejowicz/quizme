@@ -136,6 +136,8 @@
 .field-right{
 	width: 75%;
 	float: right; }
+.field-center{
+	width: 100%;}
 
 /* Base Styles
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
