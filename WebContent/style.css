@@ -1,6 +1,26 @@
 /* Grid
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
+.box{
+	background:#FFF;
+	border:1px solid #AAA;
+	border-bottom:3px solid #BBB;
+	padding:0px;
+	margin:15px;
+	overflow: hidden;
+}
+
+.box h5{
+	margin:0px;
+	padding:10px;
+	padding-bottom:0px;
+}
+
+.box p{
+	margin:0px;
+	padding:10px;
+}
+
 .container {
   position: relative;
   width: 100%;
@@ -97,7 +117,7 @@ body {
   font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #222; }
 p {
-	margin:0;
+	margin: 5px;
 	padding:0 0 0 0;
 	border: 0;
 }
@@ -163,11 +183,10 @@ input[type="button"] {
   padding: 0 30px;
   color: #94C4E9;
   text-align: center;
-  font-size: 11px;
-  font-weight: 600;
+  font: inherit;
   line-height: 38px;
   letter-spacing: .1rem;
-  text-transform: uppercase;
+  text-transform: none;
   text-decoration: none;
   white-space: nowrap;
   background-color: transparent;
