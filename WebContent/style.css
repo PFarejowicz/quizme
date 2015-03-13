@@ -1,7 +1,7 @@
 /* Grid
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
-.box{
+.card{
 	background:#FFF;
 	border:1px solid #AAA;
 	border-bottom:3px solid #BBB;
@@ -10,13 +10,13 @@
 	overflow: hidden;
 }
 
-.box h5{
+.card h5{
 	margin:0px;
 	padding:10px;
 	padding-bottom:0px;
 }
 
-.box p{
+.card p{
 	margin:0px;
 	padding:10px;
 }
