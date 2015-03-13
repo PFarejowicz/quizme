@@ -57,7 +57,7 @@
 	</p>
 	
 	<% if(email != null){ %>
-	<h2>Your Past Performance</h2>
+	<h5>Your Past Performance</h5>
 	<p><%
 		ArrayList<QuizHistory> pastPerformance = quizManager.getQuizHistory(quiz_id, user_id, "past performance");
 		int size = pastPerformance.size();
@@ -98,7 +98,7 @@
 		}
 	%></p>
 	
-	<h2>Summary Statistics</h2>
+	<h5>Summary Statistics</h5>
 	<p><%
 		double avg = quizManager.avgQuizScore(quiz_id);
 		if (avg < 0) {

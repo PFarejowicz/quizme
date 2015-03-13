@@ -74,7 +74,7 @@ public class QuestionCreationServlet extends HttpServlet {
 				quesManager.addQuestion(quiz_id, "PictureResponse", questionObj);
 				points++;
 			} else if (request.getParameter("ques_type").equals("multianswer")) {
-				boolean inOrder =  request.getParameter("order").equals("true");
+				boolean inOrder =  request.getParameter("order").equals("yes");
 				int numCorrect = Integer.parseInt(request.getParameter("num_correct"));
 				MultiAnswer questionObj = new MultiAnswer(quiz_id, user_id, prompt, answer, numCorrect, inOrder);
 				quesManager.addQuestion(quiz_id, "MultiAnswer", questionObj);

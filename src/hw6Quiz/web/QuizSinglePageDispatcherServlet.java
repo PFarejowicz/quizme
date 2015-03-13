@@ -119,10 +119,13 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 					int numAnswers = question.getNumAnswers();
 					int partials = 0;
 					boolean inOrder = question.getInOrder();
+					System.out.println("in order " + inOrder);
 					if (inOrder) {
 						ArrayList<String> answerList = question.getAnswerAsList();
 						for (int i = 0; i < numAnswers; i++) {
+							System.out.println("num answers " + numAnswers);
 							String userInput = request.getParameter("question_" + question_number + "_" + i).toLowerCase();
+							System.out.println("user input " + userInput);
 							if (answerList.get(i).equals(userInput)) {
 								score++;
 								partials++;
