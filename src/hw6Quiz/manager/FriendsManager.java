@@ -248,7 +248,7 @@ public class FriendsManager {
 			Statement selectStmt = con.createStatement();
 			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history");
 			while(rs.next()) {
-				if (isFriend(user_id, rs.getInt("author_id"))) {
+				if (isFriend(user_id, rs.getInt("user_id"))) {
 					Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getTimestamp("time_taken"), rs.getInt("score"), rs.getInt("user_id"));
 					recentlyTaken.add(quiz);
 				}

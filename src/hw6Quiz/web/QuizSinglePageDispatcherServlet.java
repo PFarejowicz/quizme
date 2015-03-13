@@ -4,6 +4,7 @@ import hw6Quiz.manager.QuestionManager;
 import hw6Quiz.manager.QuizManager;
 import hw6Quiz.model.*;
 
+import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Calendar;
@@ -45,7 +46,7 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request.getParameter("quit") != null) {
 			RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
@@ -64,6 +65,8 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 			int diffMin = (int) (diff / (60 * 1000));
 			int diffSec = (int) (diff / 1000);
 			String timeTakenStr = diffMin + " minutes, " + diffSec + " seconds";
+			Timestamp timeTaken = new Timestamp(0, 0, 0, 0, diffMin, diffSec, 0);
+			session.setAttribute("time_taken", timeTaken);
 			
 			ArrayList<Integer> questions = (ArrayList<Integer>) session.getAttribute("questions");
 			HashMap<Integer, Integer> quesFrequency = null;
@@ -90,15 +93,15 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 					}
 				} else if (type.equals("FillInTheBlank")) {
 					FillInTheBlank question = (FillInTheBlank) questionManager.getQuestionByID(question_id);
-					int num_answers = question.getNumBlanks();
+					int numAnswers = question.getNumBlanks();
 					int partials = 0;
-					for (int i = 0; i < num_answers; i++) {
+					for (int i = 0; i < numAnswers; i++) {
 						if (question.getAnswerAsList().get(i).equals(request.getParameter("question_" + question_number + "_" + i).toLowerCase())) {
 							score++;
 							partials++;
 						}
 					}
-					if (partials == num_answers && isPracticeMode) quesFrequency.put(question_id, quesFrequency.get(question_id) - 1);
+					if (partials == numAnswers && isPracticeMode) quesFrequency.put(question_id, quesFrequency.get(question_id) - 1);
 				} else if (type.equals("MultipleChoice")) {
 					MultipleChoice question = (MultipleChoice) questionManager.getQuestionByID(question_id);
 					if (question.getAnswerText().equals(request.getParameter("question_" + question_number).toLowerCase())) {
@@ -113,35 +116,37 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 					}
 				} else if (type.equals("MultiAnswer")) {
 					MultiAnswer question = (MultiAnswer) questionManager.getQuestionByID(question_id);
-					int num_answers = question.getNumAnswers();
+					int numAnswers = question.getNumAnswers();
 					int partials = 0;
 					boolean inOrder = question.getInOrder();
-					for (int i = 0; i < num_answers; i++) {
-						String user_input = request.getParameter("question_" + question_number + "_" + i).toLowerCase();
-						if (inOrder && question.getAnswerAsList().get(i).equals(user_input)) {
+					for (int i = 0; i < numAnswers; i++) {
+						String userInput = request.getParameter("question_" + question_number + "_" + i).toLowerCase();
+						if (inOrder && question.getAnswerAsList().get(i).equals(userInput)) {
 							score++;
 							partials++;
 						} else if (!inOrder) {
 							HashSet<String> answerList = new HashSet<String>(question.getAnswerAsList());
-							if (answerList.contains(user_input)) {
+							if (answerList.contains(userInput)) {
 								score++;
 								partials++;
-								answerList.remove(user_input);
+								answerList.remove(userInput);
 							}
 						}
 					}
-					if (partials == num_answers && isPracticeMode) quesFrequency.put(question_id, quesFrequency.get(question_id) - 1);
+					if (partials == numAnswers && isPracticeMode) quesFrequency.put(question_id, quesFrequency.get(question_id) - 1);
 				} else if (type.equals("MultipleChoiceMultipleAnswers")) {
 					MultipleChoiceMultipleAnswers question = (MultipleChoiceMultipleAnswers) questionManager.getQuestionByID(question_id);
-					int num_answers = question.getNumAnswers();
 					int partials = 0;
-					for (int i = 0; i < num_answers; i++) {
-						if (question.getAnswerAsList().get(i).equals(request.getParameter("question_" + question_number + "_" + question.getAnswerAsList().get(i)).toLowerCase())) {
+					String[] selectedAnswers = request.getParameterValues("question_" + question_number);
+					HashSet<String> answerList = new HashSet<String>(question.getAnswerAsList());
+					for (int i = 0; i < selectedAnswers.length; i++) {
+						if (answerList.contains(selectedAnswers[i])) {
 							score++;
 							partials++;
+							answerList.remove(selectedAnswers[i]);
 						}
 					}
-					if (partials == num_answers && isPracticeMode) quesFrequency.put(question_id, quesFrequency.get(question_id) - 1);
+					if (partials == question.getNumAnswers() && isPracticeMode) quesFrequency.put(question_id, quesFrequency.get(question_id) - 1);
 				}
 				question_number++;
 			}
