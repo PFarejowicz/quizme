@@ -1,6 +1,12 @@
 /* Grid
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
+#newsfeed{
+	font-weight: bold;
+	text-decoration: underline;
+	margin:15px;
+}
+
 .card{
 	background:#FFF;
 	border:1px solid #AAA;
