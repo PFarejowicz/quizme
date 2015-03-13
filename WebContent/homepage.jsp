@@ -39,7 +39,7 @@
 		<% ArrayList<String> announcements = adminManager.getAnnouncements(); %>
 		<% if(announcements.size() > 0){ %>
 		<div class="card">
-		<h5>Announcements</h5>
+		<h5>Announcements:</h5>
 		<ul>
 			<% for(int i = 0; i < announcements.size(); i++){ %>
 			<li><%= announcements.get(i) %></li>
@@ -104,7 +104,7 @@
 			%>
 			<% if(achievements.size() > 0){ %>
 			<div class="card">
-			<h5>Achievements</h5>
+			<h5>Achievements:</h5>
 			<ul>
 			<% 
 			for (int i = 0 ; i < achievements.size() ; i++) { %>
@@ -131,7 +131,7 @@
 			%>
 			<% if(friendsList.size() > 0){ %>
 				<div class="card">
-					<h5>Your Friends</h5>
+					<h5>Your Friends:</h5>
 					<ul>
 						<% for(int i = 0 ; i < friendsList.size() ; i++) { %>
 							<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getNameByID(friendsList.get(i))%></a></li>
@@ -148,7 +148,7 @@
 			%>
 			<% if(requestList.size() > 0){ %>
 			<div class="card">					
-			<h5>Pending Friend Requests</h5>
+			<h5>Pending Friend Requests:</h5>
 			<ul>
 			<%
 			for (int i = 0 ; i < requestList.size() ; i++) { %>
@@ -293,7 +293,7 @@
 			%>
 			<% if(messages.size() > 0){ %>
 			<div class="card">
-			<h5>Your Messages</h5>
+			<h5>Your Messages:</h5>
 			<ul>
 			<%for (int i = messages.size() - 1 ; i >= 0 ; i-=2) { %>
 				<li><a href="friend_homepage.jsp?friendEmail=<%=messages.get(i)%>"><%=messages.get(i)%></a>: <%=messages.get(i-1)%></li>

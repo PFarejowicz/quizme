@@ -9,13 +9,20 @@
 		<title>Create QuizMe Account</title>
 	</head>
 	<body>
-		<h1 class="auth-center">Create New QuizMe Account</h1>
-		<p class="auth-center">Please enter proposed name and password.</p>
-		<form class="auth-center" action="AccountCreationServlet" method="post">
-			<p>Email: <input type="text" name="email" /></p>
-			<p>Password: <input type="text" name="password" /></p>
-			<p>Full Name: <input type="text" name="name" /></p>
-			<input  type="submit" value="Create" />
-		</form>
+		<div style="text-align:center">
+			<div style="display:inline-block">
+				<h1 class="auth-center">Create New QuizMe Account</h1><br>
+				<p class="auth-center"><img alt="QuizMe Mascot" src="images/quizme_mascot.png"></p><br>
+				<p class="auth-center">Please enter proposed name and password</p><br>
+				<form class="auth-center" action="AccountCreationServlet" method="post">
+					<p class="auth-left">Email: <input class="field-right" type="text" name="email" /></p><br>
+					<p class="auth-left">Password: <input class="field-right" type="text" name="password" /></p><br>
+					<p class="auth-left">Full Name: <input class="field-right" type="text" name="name" /></p>
+					<p><br></p>
+					<input class="auth-center" type="submit" value="Create" />
+				</form><br>
+				<p class="auth-center"><a class="auth-center" href="index.jsp"><button class="auth-center" type="button">Go Back</button></a></p>
+			</div>
+		</div>
 	</body>
 </html>
