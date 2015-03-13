@@ -15,9 +15,14 @@
 <title>Admin</title>
 </head>
 <body>
+<form action="LogoutServlet" method="post">
+	<input type="submit" value="Log Out" />
+</form>
 <h1 class="auth-center">Welcome <%= userManager.getNameByID(userId) %></h1>
-<h3 class="auth-center">Announcements</h3>
+
 <% ArrayList<String> announcements = adminManager.getAnnouncements(); %>
+<div class="card">
+<h5 class="auth-center">Announcements</h5>
 <ul>
 <% for(int i = 0; i < announcements.size(); i++){ %>
 <li><%= announcements.get(i) %></li>
@@ -25,37 +30,50 @@
 </ul>
 <form action="AdminCreateAnnouncementServlet" method="post">
 <p><input type="text" name="announcement" /></p>
-<input type="submit" value="Add Announcement" />
+<p><input type="submit" value="Add Announcement" /></p>
 </form>
-<% ArrayList<User> users = adminManager.getUsers(); %>
-<h3 class="auth-center">Admins</h3>
-<% for(int i = 0; i < users.size(); i++){ %>
-	<% if (users.get(i).getAdmin()){ %>
-		<p><%= users.get(i).getName() %></p>
+</div>
+
+<% ArrayList<User> admins = adminManager.getAdmins(); %>
+<% if(admins.size() > 1){ %>
+<div class="card">
+<h5 class="auth-center">Admins</h5>
+<% for(int i = 0; i < admins.size(); i++){ %>
+	<% if (admins.get(i).getId() != userId){ %>
+		<p><%= admins.get(i).getName() %></p>
 		<form action="AdminRemoveUserServlet" method="post">
-		<input name="id" type="hidden" value="<%= users.get(i).getId() %>"/>
+		<input name="id" type="hidden" value="<%= admins.get(i).getId() %>"/>
 		<input type="submit" value="Delete User" style="color:red"/>
 		</form>
 	<% } %>
 <% } %>
-<h3 class="auth-center">Users</h3>
-<% for(int i = 0; i < users.size(); i++){ %>
-	<% if (!users.get(i).getAdmin()){ %>
-		<p><%= users.get(i).getName() %></p>
-		<form action="AdminPromotionServlet" method="post">
-		<input name="id" type="hidden" value="<%= users.get(i).getId() %>"/>
-		<input type="submit" value="Promote to Admin" />
-		</form>
-		<form action="AdminRemoveUserServlet" method="post">
-		<input name="id" type="hidden" value="<%= users.get(i).getId() %>"/>
-		<input type="submit" value="Delete User" style="color:red"/>
-		</form>
-	<% } %>
+</div>
 <% } %>
+
+<% ArrayList<User> nonAdmins = adminManager.getNonAdmins(); %>
+<% if(nonAdmins.size() > 0){ %>
+<div class="card">
+<h5 class="auth-center">Users</h5>
+<% for(int i = 0; i < nonAdmins.size(); i++){ %>
+	<p><%= nonAdmins.get(i).getName() %></p>
+	<form action="AdminPromotionServlet" method="post">
+	<input name="id" type="hidden" value="<%= nonAdmins.get(i).getId() %>"/>
+	<p><input type="submit" value="Promote to Admin" /></p>
+	</form>
+	<form action="AdminRemoveUserServlet" method="post">
+	<input name="id" type="hidden" value="<%= nonAdmins.get(i).getId() %>"/>
+	<p><input type="submit" value="Delete User" style="color:red"/></p>
+	</form>
+<% } %>
+</div>
+<% } %>
+
 <% ArrayList<Quiz> quizzes = adminManager.getQuizzes(); %>
-<h3 class="auth-center">Quizzes</h3>
+<% if(quizzes.size() > 0){ %>
+<div class="card">
+<h5 class="auth-center">Quizzes</h5>
 <% for(int i = 0; i < quizzes.size(); i++){ %>
-	<%= quizzes.get(i).getName() %>
+	<p><%= quizzes.get(i).getName() %></p>
 	<form action="AdminClearQuizHistoryServlet" method="post">
 	<p><input name="id" type="hidden" value="<%= quizzes.get(i).getQuizID() %>"/>
 	<input type="submit" value="Clear Quiz History" /></p>
@@ -66,8 +84,13 @@
 	<input type="submit" value="Delete Quiz" style="color:red"/></p>
 	</form>
 <% } %>
+</div>
+<% } %>
+
 <% ArrayList<Quiz> reportedQuizzes = adminManager.getReportedQuizzes(); %>
-<h3 class="auth-center">Reported Quizzes</h3>
+<% if(reportedQuizzes.size() > 0){ %>
+<div class="card">
+<h5 class="auth-center">Reported Quizzes</h5>
 <% for(int i = 0; i < reportedQuizzes.size(); i++){ %>
 	<%= reportedQuizzes.get(i).getName() %>
 	<form action="UnreportQuizServlet" method="post">
@@ -80,11 +103,15 @@
 		<input type="submit" value="Delete Quiz" style="color:red"/>
 	</form>
 <% } %>
-<h3 class="auth-center">Site Statistics</h3>
+</div>
+<% } %>
+
+<% ArrayList<User> users = adminManager.getUsers(); %>
+<div class="card">
+<h5 class="auth-center">Site Statistics</h5>
 <p>Number of users: <%= users.size() %></p>
 <p>Number of quizzes taken: <%= adminManager.getNumberOfQuizzes() %></p>
-<form action="LogoutServlet" method="post">
-	<input type="submit" value="Log Out" />
-</form>
+</div>
+
 </body>
 </html>

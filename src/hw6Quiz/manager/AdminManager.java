@@ -66,6 +66,36 @@ public class AdminManager {
 		return users;
 	}
 	
+	public ArrayList<User> getAdmins(){
+		ArrayList<User> users = new ArrayList<User>();
+		try {
+			PreparedStatement prepStmt = con.prepareStatement("SELECT * FROM users WHERE admin_privilege = 1");
+			rs = prepStmt.executeQuery();
+			while(rs.next()){
+				User user = new User(rs.getInt("user_id"), rs.getString("email"), rs.getString("name"), rs.getBoolean("admin_privilege"));
+				users.add(user);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return users;
+	}
+	
+	public ArrayList<User> getNonAdmins(){
+		ArrayList<User> users = new ArrayList<User>();
+		try {
+			PreparedStatement prepStmt = con.prepareStatement("SELECT * FROM users WHERE admin_privilege = 0");
+			rs = prepStmt.executeQuery();
+			while(rs.next()){
+				User user = new User(rs.getInt("user_id"), rs.getString("email"), rs.getString("name"), rs.getBoolean("admin_privilege"));
+				users.add(user);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return users;
+	}
+	
 	public void removeUserAccount(int id){
 		try {
 			PreparedStatement prepStmt = con.prepareStatement("DELETE FROM users WHERE user_id = " + id);
