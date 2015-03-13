@@ -113,7 +113,7 @@
 				<% if (description.contains(check)) { %>
 					<% quizId = description.substring(check.length());
 					description = check; %>
-					<li><%=description%>: <%= quizManager.getQuizByID(Integer.parseInt(quizId)).getName() %></li>
+					<li><%=description%>: <a href="quiz_summary.jsp?quiz_id=<%= Integer.parseInt(quizId) %>"><%= quizManager.getQuizByID(Integer.parseInt(quizId)).getName() %></a></li>
 				<%} else {%>
 					<li><%= description %></li>
 				<%}%>
