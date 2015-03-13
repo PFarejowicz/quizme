@@ -25,8 +25,8 @@
 			<input type="hidden" name="quiz_id" value="<%=request.getParameter("quiz_id")%>"/>
 			<input type="hidden" name="points" value="<%=request.getParameter("points")%>"/>
 			<input type="hidden" name="edit_mode" value="<%=request.getParameter("edit_mode")%>"/>
-			<input type="submit" name="next" value="Next"/>
 			<input type="submit" name="previous" value="Previous"/>
+			<input type="submit" name="next" value="Next"/>
 			<input type="submit" name="finish" value="Finish" />
 		</form>
 	</body>
