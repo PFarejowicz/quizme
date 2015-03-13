@@ -15,10 +15,15 @@
 <body>
 <% ArrayList<QuizHistory> history = userManager.getQuizHistoryById(userId); %>
 <h1><%=userManager.getNameByID(userId)%>'s Quiz History</h1>
+<% if(history.size() > 0){ %>
+<div class="card">
+<h5>Full History:</h5>
 <% for(int i = history.size() - 1; i >= 0; i--){ %>
 	<ul>
 		<li><a href="quiz_summary.jsp?quiz_id=<%= history.get(i).getQuizId() %>"><%= history.get(i).getName() %></a> (<%=String.format("%.2f", (float)history.get(i).getScore()/(float)history.get(i).getTotal()*100) %>%)</li>
 	</ul>
+<% } %>
+</div>
 <% } %>
 </body>
 </html>
