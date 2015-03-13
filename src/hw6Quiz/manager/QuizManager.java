@@ -373,6 +373,8 @@ public class QuizManager {
 				rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\" ORDER BY score DESC, time_taken ASC");
 			} else if (type.equals("recent")) {
 				rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\" ORDER BY date_time DESC, time_taken ASC");
+			} else if (type.equals("reviews")) {
+				rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\" AND user_id = \"" + user_id + "\" ORDER BY date_time DESC");
 			}
 			while (rs.next()){
 				QuizHistory qh = new QuizHistory(rs.getInt("quiz_history_id"), rs.getInt("quiz_id"), rs.getInt("user_id"), rs.getInt("score"), rs.getInt("total"), rs.getInt("rating"), rs.getString("review"), rs.getString("name"), rs.getTimestamp("date_time"));
