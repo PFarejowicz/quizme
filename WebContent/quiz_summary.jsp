@@ -37,6 +37,7 @@
 			</form>
 		<% } %>
 	<% } %>
+	<div class="card">
 	<p>
 		Quiz Name: <%=quiz.getName() %><br>
 		Quiz Description: <%=quiz.getDescription() %> <br>
@@ -55,49 +56,67 @@
 		Questions Presented on Multiple Pages? <%= quiz.isMultiplePages() ? "Yes" : "No" %><br>
 		Immediate Corrections Provided for Questions? <%= quiz.isImmediateCorrection() ? "Yes" : "No" %>
 	</p>
+	</div>
 	
 	<% if(email != null){ %>
+	<% ArrayList<QuizHistory> pastPerformance = quizManager.getQuizHistory(quiz_id, user_id, "past performance"); %>
+	<% if(pastPerformance.size() > 0){ %>
+	<div class="card">
 	<h5>Your Past Performance</h5>
 	<p><%
-		ArrayList<QuizHistory> pastPerformance = quizManager.getQuizHistory(quiz_id, user_id, "past performance");
 		int size = pastPerformance.size();
 		for (int i = 0; i < size; i++) {
 	        out.println("Date: " + pastPerformance.get(i).getTimeStamp() + " Score: " + pastPerformance.get(i).getScore());
 	        out.println("<br>");
 		}
 	%></p>
+	</div>
+	<% } %>
 	<% } %>
 	
+	<% ArrayList<QuizHistory> allTimeHigh = quizManager.getQuizHistory(quiz_id, user_id, "all time high"); %>
+	<% if(allTimeHigh.size() > 0){ %>
+	<div class="card">
 	<h5>All Time High Scores</h5>
 	<p><%
-		ArrayList<QuizHistory> allTimeHigh = quizManager.getQuizHistory(quiz_id, user_id, "all time high");
 		int size = allTimeHigh.size();
 		for (int i = 0; i < size && i < num_scores; i++) {
 	        out.println((i + 1) + ": " + allTimeHigh.get(i).getName() + " (" + quizManager.convertToPercStr(allTimeHigh.get(i).getScore(), allTimeHigh.get(i).getTotal()) + ")");
 	        out.println("<br>");
 		}
 	%></p>
+	</div>
+	<% } %>
 	
+	<% ArrayList<QuizHistory> lastDayHigh = quizManager.getQuizHistory(quiz_id, user_id, "last day high"); %>
+	<% if(lastDayHigh.size() > 0){ %>
+	<div class="card">
 	<h5>24 Hour High Scores</h5>
 	<p><%
-		ArrayList<QuizHistory> lastDayHigh = quizManager.getQuizHistory(quiz_id, user_id, "last day high");
-		size = lastDayHigh.size();
+		int size = lastDayHigh.size();
 		for (int i = 0; i < size && i < num_scores; i++) {
 	        out.println((i + 1) + ": " + lastDayHigh.get(i).getName() + " (" + quizManager.convertToPercStr(lastDayHigh.get(i).getScore(), lastDayHigh.get(i).getTotal()) + ")");
 	        out.println("<br>");
 		}
 	%></p>
+	</div>
+	<% } %>
 	
+	<% ArrayList<QuizHistory> recentScores = quizManager.getQuizHistory(quiz_id, user_id, "recent"); %>
+	<% if(recentScores.size() > 0){ %>
+	<div class="card">
 	<h5>Recent Scores</h5>
 	<p><%
-		ArrayList<QuizHistory> recentScores = quizManager.getQuizHistory(quiz_id, user_id, "recent");
-		size = recentScores.size();
+		int size = recentScores.size();
 		for (int i = 0; i < size && i < num_scores; i++) {
 	        out.println((i + 1) + ": " + recentScores.get(i).getName() + " (" + quizManager.convertToPercStr(recentScores.get(i).getScore(), recentScores.get(i).getTotal()) + ")");
 	        out.println("<br>");
 		}
 	%></p>
+	</div>
+	<% } %>
 	
+	<div class="card">
 	<h5>Summary Statistics</h5>
 	<p><%
 		double avg = quizManager.avgQuizScore(quiz_id);
@@ -117,6 +136,7 @@
 		out.println("Times taken: " + quizManager.numTimesTaken(quiz_id));
 		out.println("<br>");
 	%></p>
+	</div>
 	
 	<% if(email != null){ %>
 	<form action="QuizStartServlet" method="post" style="display: inline">
