@@ -1,3 +1,14 @@
+/* quiz_search.jsp
+------------------------------------- */
+.quiz_search{
+	float: left;
+	margin: 10px;
+}
+
+#quiz_search_return_home{
+	margin: 15px;
+}
+
 /* homepage.jsp
 ------------------------------------- */
 

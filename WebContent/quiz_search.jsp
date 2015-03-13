@@ -12,12 +12,12 @@
 		<title>QuizMe Quiz Finder</title>
 	</head>
 	<body>
-		<h1>QuizMe Quiz Finder</h1>
-		<p><a href="homepage.jsp"><button type="button">Return Home</button></a></p>
+		<h1 class="auth-center">QuizMe Quiz Finder</h1>
+		<div class="card">
 		<h5>Search Filters:</h5>
 		<form action="QuizSearchServlet" method="post">
-			<label style="float:left">Name: <input type="text" name="name"/></label>
-			<label style="float:left">Category: <select name="category">
+			<label class="quiz_search">Name: <input type="text" name="name"/></label>
+			<label class="quiz_search">Category: <select name="category">
 				<option value=""></option>
 				<option value="animals">Animals</option>
 				<option value="entertainment">Entertainment</option>
@@ -37,8 +37,11 @@
 				<option value="television">Television</option>
 				<option value="world">World</option>
 			</select></label>
-			<label style="float:left">Tag: <input type="text" name="tag"/></label>
-			<input type="submit" value="Search" />
+			<label class="quiz_search">Tag: <input type="text" name="tag"/></label>
+			<input class="quiz_search" type="submit" value="Search" />
 		</form>
+		</div>
+		<br/>
+		<p id="quiz_search_return_home"><a href="homepage.jsp"><button type="button">Return Home</button></a></p>
 	</body>
 </html>
