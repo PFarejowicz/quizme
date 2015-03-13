@@ -45,22 +45,26 @@
 		
 		<% ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes(); %>
 		<% if(popularQuizzes.size() > 0){ %>
+			<div class="box">
 			<h5>Most Popular Quizzes:</h5><br/>
 			<% for(int i = popularQuizzes.size() - 1; i >= 0 && i >= popularQuizzes.size() - 3; i--){ %>
 				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= popularQuizzes.get(i).getQuizID() %>"><%= popularQuizzes.get(i).getName() %></a></p>
 				<p>Description: <%= popularQuizzes.get(i).getDescription() %></p>
 				<br/>
 			<% } %>
+			</div>
 		<% } %>
 		
 		<% ArrayList<Quiz> recentQuizzes = quizManager.getMostRecentlyCreatedQuizzes(); %>
 		<% if(recentQuizzes.size() > 0){ %>
+			<div class="box">
 			<h5>Most Recently Created Quizzes:</h5><br/>
 			<% for(int i = recentQuizzes.size() - 1; i >= 0 && i >= recentQuizzes.size() - 3; i--){ %>
 				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= recentQuizzes.get(i).getQuizID() %>"><%= recentQuizzes.get(i).getName() %></a></p>
 				<p>Description: <%= recentQuizzes.get(i).getDescription() %></p>
 				<br/>
 			<% } %>
+			</div>
 		<% } %>
 		
 		<% ArrayList<QuizHistory> history = userManager.getQuizHistoryById(userId); %>
