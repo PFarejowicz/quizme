@@ -1,3 +1,9 @@
+/* search_user.jsp
+------------------------------------- */
+#search_user_back_to_profile{
+	margin: 15px;
+}
+
 /* friend_homepage.jsp
 ------------------------------------- */
 #friend_request_sent{
@@ -155,6 +161,10 @@
 	float: right; }
 .field-center{
 	width: 100%;}
+.smooth-edge{
+	margin: 15px;}
+.headers{
+	padding: 10px;}
 
 /* Base Styles
 –––––––––––––––––––––––––––––––––––––––––––––––––– */

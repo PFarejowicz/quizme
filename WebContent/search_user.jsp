@@ -25,17 +25,20 @@
 </head>
 <body>
 
-<h1>Search Result for <%=info%>:</h1>
-
-	<ul>
+<h1 class="auth-center">Search Result for <%=info%>:</h1>
+	<% if(userInfo.size() > 0){ %>
+	<div class="card">
 	<%for (int i = 0 ; i < userInfo.size() ; i++) { %>
 		<% 
 		otherUserId = userInfo.get(i);
 		otherUserEmail = userManager.getEmailByID(otherUserId);
 		friendStatus = friendsManager.checkFriendStatus(userId, otherUserId); 
 		%>
+		<ul>
 		<li>
 		<a href="friend_homepage.jsp?friendEmail=<%=otherUserEmail%>"><%=userManager.getNameByID(otherUserId)%>: <%=otherUserEmail%></a>
+		</li>
+		</ul>
 		<%
 		if (friendStatus == 1) {%>  
 			<p>Friends</p>
@@ -65,11 +68,12 @@
 		    <input type="submit" value="Send Friend Request" /></p>
 		    </form>
 		<%}%>
-		</li>
+		<br/>
 	<%}%>
-	</ul>
+	</div>
+	<% } %>
 
-<a href="homepage.jsp"><button type="button">Back to My Profile</button></a>
+<p id="search_user_back_to_profile"><a href="homepage.jsp"><button type="button">Back to My Profile</button></a></p>
 
 
 </body>
