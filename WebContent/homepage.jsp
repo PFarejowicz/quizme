@@ -24,7 +24,8 @@
 	<title>QuizMe</title>
 </head>
 	<body>
-		<form action="LogoutServlet" method="post">
+		<img alt="QuizMe Logo" src="images/quizme_logo_2.png">
+		<form action="LogoutServlet" method="post" style="display: inline; float: right">
 			<input type="submit" value="Log Out" />
 		</form>
 		
@@ -78,7 +79,7 @@
 			<h5>Your Most Recent Taken Quizzes:</h5><br/>
 			<% for(int i = history.size() - 1; i >= 0 && i >= history.size() - 3; i--){ %>
 				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= history.get(i).getQuizId() %>"><%= history.get(i).getName() %></a></p>
-				<p>Score: <%=quizManager.convertToPercStr(history.get(i).getScore(), history.get(i).getTotal()) %></p><br/>
+				<p>Score: <%=quizManager.convertToPercStr(history.get(i).getScore(), history.get(i).getTotal()) %></p>
 				<br/>
 			<% } %>
 			<p><a href="user_quiz_history.jsp?id=<%= userId %>"><button type="button">Show Full History</button></a></p>
@@ -156,13 +157,13 @@
 				int otherUserId = requestList.get(i); 
 				String otherUserEmail = userManager.getEmailByID(otherUserId);
 				%>
-					<li><a href="friend_homepage.jsp?friendEmail=<%=otherUserEmail%>"><%=userManager.getNameByID(requestList.get(i))%></a>
-					<form action="FriendServlet" method="post">
+					<li><a href="friend_homepage.jsp?friendEmail=<%=otherUserEmail%>" style="display: inline"><%=userManager.getNameByID(requestList.get(i))%></a>
+					<form action="FriendServlet" method="post" style="display: inline">
 						<input type="hidden" value=<%=otherUserEmail%> name="friendEmail" />
 					    <input type="hidden" value="Accept From Home Page" name="decision" />
 					    <input type="submit" value="Accept Friend Request" />
 				    </form>
-				    <form action="FriendServlet" method="post">
+				    <form action="FriendServlet" method="post" style="display: inline">
 						<input type="hidden" value=<%=otherUserEmail%> name="friendEmail" />
 						<input type="hidden" value="Reject From Home Page" name="decision" />
 					    <input type="submit" value="Reject Friend Request" />

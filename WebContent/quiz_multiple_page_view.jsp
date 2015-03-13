@@ -78,7 +78,7 @@
 			<input type="hidden" name="immediate_correction" value="<%=request.getParameter("immediate_correction")%>" />
 			<% 
 			if (request.getParameter("practice_mode").equals("true")) {											
-				out.println("<input type=\"submit\" name=\"quit\" value=\"Quit\" />");
+				out.println("<input type=\"submit\" name=\"quit\" value=\"Quit\" style=\"float:right\"/>");
 			}
 			%>
 			<p><input type="submit" value="Next" style="float:right"/></p>
