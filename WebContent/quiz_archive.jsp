@@ -9,14 +9,16 @@
 		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
 		<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>QuizMe Quiz Archive</title>
+		<title>Search Results</title>
 	</head>
 	<body>
-		<h1>QuizMe Quiz Archive</h1>
-		<p>Available quizzes ranked in alphabetical order:</p>
+		<h1>QuizMe Quiz Finder Search Results</h1>
+		<p class="auth-center"><a href="quiz_search.jsp"><button type="button">New Search</button></a>
+		<a href="homepage.jsp"><button type="button">Return Home</button></a></p>
+		<h5>Search Results Found:</h5>
 		<% 
 		QuizManager quizManager = (QuizManager) application.getAttribute("quiz manager");
-		ArrayList<Quiz> quizList = quizManager.getQuizzes();
+		ArrayList<Quiz> quizList = (ArrayList<Quiz>) session.getAttribute("search");
 		out.println("<ul>");
 		for(Quiz quiz: quizList){
 			out.println("<li>"+quiz.getName());

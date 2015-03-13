@@ -30,8 +30,10 @@
 		
 		<h1 class="auth-center">Welcome, <%=userManager.getNameByID(userId)%>!</h1>
 		
-		<p><a href="create_quiz.jsp">Create a Quiz</a></p>
-		<p><a href="quiz_archive.jsp">Go to Quiz Archive</a></p>
+		<p class="auth-center">
+			<a href="create_quiz.jsp"><button type="button">Create a Quiz</button></a>
+			<a href="quiz_search.jsp"><button type="button">Find a Quiz</button></a>
+		</p>
 		
 		<h3 class="auth-center">Announcements</h3>
 		<% ArrayList<String> announcements = adminManager.getAnnouncements(); %>

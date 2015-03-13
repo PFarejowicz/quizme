@@ -145,6 +145,33 @@ public class QuizManager {
 		return quizList;
 	}
 	
+	public ArrayList<Quiz> searchQuizzes(String name, String category, String tag) {
+		ArrayList<Quiz> quizList = new ArrayList<Quiz>();
+		StringBuilder result = new StringBuilder("SELECT * FROM quizzes");
+		if (!name.equals("") || !category.equals("") || !tag.equals("")) result.append(" WHERE"); 
+		if (!name.equals("")) {
+            result.append(" name LIKE \"%" + name + "%\"");
+            if (!category.equals("") || !tag.equals("")) result.append(" AND");
+        }
+        if (!category.equals("")) {
+            result.append(" category LIKE \"%" + category + "%\"");
+            if (!tag.equals("")) result.append(" AND");
+        }
+        if (!tag.equals("")) {
+        	result.append(" tags LIKE \"%" + tag + "%\"");
+        }
+		try {
+			ResultSet rs = con.createStatement().executeQuery(result.toString());
+			while (rs.next()) {
+				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"), rs.getTimestamp("date_time"), rs.getInt("points"), rs.getBoolean("reported"));
+				quizList.add(quiz);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return quizList;
+	}
+	
 	public int numTimesTaken(int quiz_id) {
 		try {
 			Statement selectStmt = con.createStatement();
