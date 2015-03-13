@@ -110,11 +110,13 @@
 			<% 
 			for (int i = 0 ; i < achievements.size() ; i++) { %>
 				<% String description = achievements.get(i);
-				String quizId = ""; %>
+				int quizId = 0; %>
 				<% if (description.contains(check)) { %>
-					<% quizId = description.substring(check.length());
+					<% quizId = Integer.parseInt(description.substring(check.length()));
 					description = check; %>
-					<li><%=description%>: <%= quizManager.getQuizByID(Integer.parseInt(quizId)).getName() %></li>
+					<%if (quizManager.quizExists(quizId)) { %>
+						<li><%=description%>: <a href="quiz_summary.jsp?quiz_id=<%= quizId %>"><%= quizManager.getQuizByID(quizId).getName() %></a></li>	
+					<% } %>
 				<%} else {%>
 					<li><%= description %></li>
 				<%}%>

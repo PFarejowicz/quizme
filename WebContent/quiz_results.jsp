@@ -45,26 +45,6 @@
         <input type="radio" name="rating" value="4" class="star">
         <input type="radio" name="rating" value="5" class="star">
         <br>
-        <p>Your Past Performance</p>
-		<ul><%
-		ArrayList<QuizHistory> pastPerformance = quizManager.getQuizHistory(quiz_id, user_id, "past performance");
-		int size = pastPerformance.size();
-		for (int i = 0; i < size; i++) {
-			out.println("<li>");
-	        out.println("Date: " + pastPerformance.get(i).getTimeStamp() + " Score: " + pastPerformance.get(i).getScore());
-		}
-		%></ul>
-		<p>Your Friends' Performances</p>
-		<% 
-			ArrayList<Integer> friendsList = friendsManager.getFriends(user_id);
-		%> 
-		<ul>
-		<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
-			<% if (quiz.getAuthorID() != friendsList.get(i)) { %>
-				<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getNameByID(friendsList.get(i))%> (<%=quizManager.convertToPercStr(userManager.getTopScore(user_id, quiz_id), total)%>%)</a></li>	
-			<%}%>
-		<%}%>
-		</ul>
 		
         <input type="hidden" name="quiz_id" value="<%=quiz_id%>" />
         <input type="hidden" name="score" value="<%=score%>" />
@@ -74,7 +54,38 @@
         <input type="submit" name="finish" value="Finish" />
 	</form>
 	
-	<p>Challenge Friends</p>
+	
+	<% ArrayList<QuizHistory> pastPerformance = quizManager.getQuizHistory(quiz_id, user_id, "past performance"); %>
+	<% if(pastPerformance.size() > 0){ %>
+	<div class="card">
+	<h5>Your Past Performance</h5>
+		<ul><%
+		int size = pastPerformance.size();
+		for (int i = 0; i < size; i++) {
+			out.println("<li>");
+	        out.println("Date: " + pastPerformance.get(i).getTimeStamp() + " Score: " + pastPerformance.get(i).getScore());
+		}
+		%></ul>
+	</div>
+	<% } %>
+	
+	<% ArrayList<Integer> friendsList = friendsManager.getFriends(user_id); %> 
+	<% if(friendsList.size() > 0){ %>
+	<div class="card">
+		<h5>Your Friends' Performances</h5>
+		<ul>
+		<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
+			<% if (quiz.getAuthorID() != friendsList.get(i)) { %>
+				<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getNameByID(friendsList.get(i))%> (<%=quizManager.convertToPercStr(userManager.getTopScore(user_id, quiz_id), total)%>%)</a></li>	
+			<%}%>
+		<%}%>
+		</ul>
+	</div>
+	<% } %>
+		
+	
+	<div class="card">
+	<h5>Challenge Friends</h5>
 		<% if (friendsList.size() > 0) { %>
 			<ul>
 			<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
@@ -98,6 +109,7 @@
 		<%} else {%>
 			<p> Currently don't have any friend to challenge. </p>
 		<%}%>
-		
+	</div>
+
 </body>
 </html>

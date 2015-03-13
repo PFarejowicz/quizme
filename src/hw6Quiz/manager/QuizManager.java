@@ -610,5 +610,16 @@ public class QuizManager {
 		}
 		return recentQuizzes;
 	}
+	
+	public boolean quizExists(int quiz_id) {
+		try {
+			Statement selectStmt = con.createStatement();
+			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quizzes WHERE quiz_id = \"" + quiz_id + "\"");
+			if (rs.next()) return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 }
