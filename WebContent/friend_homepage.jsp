@@ -36,55 +36,61 @@
 <a href="nonregistered_access.jsp"><button type="button">Back Home</button></a>
 <% } %>
 
-<h1><%=friendName%></h1>
+<h1 class="auth-center"><%=friendName%></h1>
 
 <% if(email != null){ %>
 <%
 	if (isFriend == 2) {%>  
-		<p>Friend Request Sent</p>
+		<h5 id="friend_request_sent">Friend Request Sent</h5>
 	<%}%>
 	<%
-	if (isFriend == 3) {%>  
-		<p>Respond to Friend Request</p>
+	if (isFriend == 3) {%>
+		<div class="card">
+		<h5>Respond to Friend Request:</h5>
 		<form action="FriendServlet" method="post">
 		<input type="hidden" value=<%=friendEmail%> name="friendEmail" />
 		<input type="hidden" value="Accept From Friend Page" name="decision" />
-		<input type="submit" value="Accept Friend Request" />
+		<p><input type="submit" value="Accept Friend Request" /></p>
 		</form>
 		<form action="FriendServlet" method="post">
 		<input type="hidden" value=<%=friendEmail%> name="friendEmail" />
 		<input type="hidden" value="Reject From Friend Page" name="decision" />
-		<input type="submit" value="Reject Friend Request" />
+		<p><input type="submit" value="Reject Friend Request" /></p>
 		</form>
+		</div>
 	<%}%>
 	<%
-	if (isFriend == 4) {%>  
-		<p>Add Friend</p>
+	if (isFriend == 4) {%>
+		<div class="card">
+		<h5>Add Friend:</h5>
 		<form action="FriendRequestServlet" method="post">
-		<p><input type="hidden" value=<%=friendEmail%> name="friendEmail" />
+		<input type="hidden" value=<%=friendEmail%> name="friendEmail" />
 		<input type="hidden" value="Request from Friend Page" name="requestSent" />
-	    <input type="submit" value="Send Friend Request" /></p>
+	    <p><input type="submit" value="Send Friend Request" /></p>
 	    </form>
+	    </div>
 	<%}%>
 <% } %>
 
-<p><%=friendName%>'s Quizzes</p>
 	<% ArrayList<Quiz> friendQuizzes = userManager.getAuthoredQuizzes(friendId); %>
 		<% if(friendQuizzes.size() > 0){ %>
+			<div class="card">
 			<h5><%=friendName%>'s Most Recent Created Quizzes:</h5><br/>
 			<% for(int i = friendQuizzes.size() - 1; i >= 0 && i >= friendQuizzes.size() - 3; i--){ %>
 					<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= friendQuizzes.get(i).getQuizID() %>"><%= friendQuizzes.get(i).getName() %></a></p>
 					<p>Description: <%= friendQuizzes.get(i).getDescription() %></p>
 			<% } %>
+			</div>
 		<% } %>
 
-<p><%=friendName%>'s Achievements</p>
-		<ul>
-			<% ArrayList<String> achievements = quizManager.getAchievements(friendId); 
-			String check = "I am the Greatest";
-			%>
-			<% 
-			for (int i = 0 ; i < achievements.size() ; i++) { %>
+
+<% ArrayList<String> achievements = quizManager.getAchievements(friendId); %>
+			<% String check = "I am the Greatest"; %>
+			<% if(achievements.size() > 0){ %>
+			<div class="card">
+			<h5><%=friendName%>'s Achievements:</h5>
+			<% for (int i = 0 ; i < achievements.size() ; i++) { %>
+				<ul>
 				<% String description = achievements.get(i);
 				int quizId = 0; %>
 				<% if (description.contains(check)) { %>
@@ -96,25 +102,30 @@
 				<%} else {%>
 					<li><%= description %></li>
 				<%}%>
+				</ul>
 			<%}%>
-		</ul>
+			</div>
+			<% } %>
 		
-<p><%=friendName%>'s Quiz History</p>
+		
 		<% ArrayList<QuizHistory> history = userManager.getQuizHistoryById(friendId); %>
 		<% if(history.size() > 0){ %>
+			<div class="card">
 			<h5><%=friendName%>'s Most Recent Taken Quizzes:</h5><br/>
 			<% for(int i = history.size() - 1; i >= 0 && i >= history.size() - 3; i--){ %>
 				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= history.get(i).getQuizId() %>"><%= history.get(i).getName() %></a></p>
 				<p>Score: <%=quizManager.convertToPercStr(history.get(i).getScore(), history.get(i).getTotal()) %></p><br/>
 			<% } %>
+			<p><a href="user_quiz_history.jsp?id=<%= friendId %>"><button type="button">Show Full History</button></a></p>
+			</div>
 		<% } %>
-		<a href="user_quiz_history.jsp?id=<%= friendId %>"><button type="button">Show Full History</button></a>
 		
-<p><%=friendName%>'s Friends</p>
+	
+	<% ArrayList<Integer> friendsList = friendsManager.getFriends(friendId); %>
+	<% if(friendsList.size() > 0){ %>
+	<div class="card">
+	<h5><%=friendName%>'s Friends:</h5>
 	<ul>
-	<% 
-	ArrayList<Integer> friendsList = friendsManager.getFriends(friendId);
-	%>
 	<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
 		<%
 		if (friendsList.get(i) != userId) {%>
@@ -122,16 +133,20 @@
 		<%}%>
 	<%}%>
 	</ul>
+	</div>
 	
 	<% if(email != null){ %>
-	<%
-	if (isFriend == 1) {%> 
-		<p> Unfriend <%=friendName%></p>
+	<% if (isFriend == 1) { %> 
+		<div class="card">
+		<h5> Unfriend <%=friendName%>:</h5>
 		<form action="FriendServlet" method="post">
 		<input type="hidden" value=<%=friendEmail%> name="friendEmail" />
-		<input type="submit" value="Unfriend" name="decision"/>
+		<p><input type="submit" value="Unfriend" name="decision"/></p>
 		</form>
+		</div>
 	<%}%>
+	<% } %>
+	
 	<% } %>
 	
 </body>

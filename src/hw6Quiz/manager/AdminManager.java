@@ -6,6 +6,7 @@ import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.*;
 
 public class AdminManager {
@@ -42,9 +43,9 @@ public class AdminManager {
 		return announcements;
 	}
 	
-	public void removeAnnouncement(int id){
+	public void removeAnnouncement(int announcement_id){
 		try {
-			PreparedStatement prepStmt = con.prepareStatement("DELETE FROM announcements WHERE announcement_id = " + id);
+			PreparedStatement prepStmt = con.prepareStatement("DELETE FROM announcements WHERE announcement_id = " + announcement_id);
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -96,18 +97,35 @@ public class AdminManager {
 		return users;
 	}
 	
-	public void removeUserAccount(int id){
+	/**
+	 * Given a user_id, remove all associated quizzes, questions, history, friends, messages, and challenges associated with taht user
+	 * @param id user id 
+	 */
+	public void removeUserAccount(int user_id){
 		try {
-			PreparedStatement prepStmt = con.prepareStatement("DELETE FROM users WHERE user_id = " + id);
-			prepStmt.executeUpdate();
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate("DELETE FROM users WHERE user_id = " + user_id);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE author_id = " + user_id);
+			while (rs.next()) {
+				clearHistoryForQuiz(rs.getInt("quiz_id"));
+				clearQuestionsForQuiz(rs.getInt("quiz_id"));
+				removeQuiz(rs.getInt("quiz_id"));
+			}
+			stmt.executeUpdate("DELETE FROM friends WHERE user_id1 = " + user_id);
+			stmt.executeUpdate("DELETE FROM friends WHERE user_id2 = " + user_id);
+			stmt.executeUpdate("DELETE FROM friend_requests WHERE from_user_id = " + user_id);
+			stmt.executeUpdate("DELETE FROM friend_requests WHERE to_user_id = " + user_id);
+			stmt.executeUpdate("DELETE FROM achievements WHERE user_id = " + user_id);
+			stmt.executeUpdate("DELETE FROM challenges WHERE sender_id = " + user_id);
+			stmt.executeUpdate("DELETE FROM challenges WHERE receiver_id = " + user_id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void promoteToAdmin(int id){
+	public void promoteToAdmin(int user_id){
 		try {
-			PreparedStatement prepStmt = con.prepareStatement("UPDATE users SET admin_privilege = true WHERE user_id = " + id);
+			PreparedStatement prepStmt = con.prepareStatement("UPDATE users SET admin_privilege = true WHERE user_id = " + user_id);
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -144,27 +162,35 @@ public class AdminManager {
 		return quizzes;
 	}
 	
-	public void clearHistoryForQuiz(int id){
+	public void clearHistoryForQuiz(int quiz_id){
 		try {
-			PreparedStatement prepStmt = con.prepareStatement("DELETE FROM quiz_history WHERE quiz_id = " + id);
+			PreparedStatement prepStmt = con.prepareStatement("DELETE FROM quiz_history WHERE quiz_id = " + quiz_id);
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void clearQuestionsForQuiz(int id) {
+	/**
+	 * Remove all questions associated to a quiz given quiz id 
+	 * @param quiz_id quiz id 
+	 */
+	public void clearQuestionsForQuiz(int quiz_id) {
 		try {
-			PreparedStatement prepStmt = con.prepareStatement("DELETE FROM questions WHERE quiz_id = " + id);
+			PreparedStatement prepStmt = con.prepareStatement("DELETE FROM questions WHERE quiz_id = " + quiz_id);
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void removeQuiz(int id){
+	/**
+	 * Remove quiz given quiz id
+	 * @param quiz_id quiz id
+	 */
+	public void removeQuiz(int quiz_id){
 		try {
-			PreparedStatement prepStmt = con.prepareStatement("DELETE FROM quizzes WHERE quiz_id = " + id);
+			PreparedStatement prepStmt = con.prepareStatement("DELETE FROM quizzes WHERE quiz_id = " + quiz_id);
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
