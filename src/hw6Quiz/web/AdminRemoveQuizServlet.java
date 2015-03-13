@@ -39,6 +39,8 @@ public class AdminRemoveQuizServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AdminManager adminManager = ((AdminManager)request.getServletContext().getAttribute("admin manager"));
 		int id = Integer.parseInt(request.getParameter("id"));
+		adminManager.clearHistoryForQuiz(id);
+		adminManager.clearQuestionsForQuiz(id);
 		adminManager.removeQuiz(id);
 		if (request.getParameter("admin_edit").equals("true")) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("admin_homepage.jsp");

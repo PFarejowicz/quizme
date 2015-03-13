@@ -24,6 +24,28 @@
 		<form action="QuizCreationServlet" method="post">
 			<p>Name: <input type="text" name="name" value="<%=quiz.getName()%>"/></p>
 			<p>Description: <br><textarea rows="4" cols="50" name="description"><%=quiz.getDescription()%></textarea></p>
+			<p>Category: 
+				<select name="category">
+					<option value="animals" <% if (quiz.getCategory().equals("animals")) out.println("selected"); %>>Animals</option>
+					<option value="entertainment" <% if (quiz.getCategory().equals("entertainment")) out.println("selected"); %>>Entertainment</option>
+					<option value="fun" <% if (quiz.getCategory().equals("fun")) out.println("selected"); %>>Fun</option>
+					<option value="gaming" <% if (quiz.getCategory().equals("gaming")) out.println("selected"); %>>Gaming</option>
+					<option value="geography" <% if (quiz.getCategory().equals("geography")) out.println("selected"); %>>Geography</option>
+					<option value="history" <% if (quiz.getCategory().equals("history")) out.println("selected"); %>>History</option>
+					<option value="hobbies" <% if (quiz.getCategory().equals("hobbies")) out.println("selected"); %>>Hobbies</option>
+					<option value="literature" <% if (quiz.getCategory().equals("literature")) out.println("selected"); %>>Literature</option>
+					<option value="language" <% if (quiz.getCategory().equals("language")) out.println("selected"); %>>Language</option>
+					<option value="miscellaneous" <% if (quiz.getCategory().equals("miscellaneous")) out.println("selected"); %>>Miscellaneous</option>
+					<option value="movies" <% if (quiz.getCategory().equals("movies")) out.println("selected"); %>>Movies</option>
+					<option value="music" <% if (quiz.getCategory().equals("music")) out.println("selected"); %>>Music</option>
+					<option value="religion" <% if (quiz.getCategory().equals("religion")) out.println("selected"); %>>Religion</option>
+					<option value="science" <% if (quiz.getCategory().equals("science")) out.println("selected"); %>>Science</option>
+					<option value="sports" <% if (quiz.getCategory().equals("sports")) out.println("selected"); %>>Sports</option>
+					<option value="television" <% if (quiz.getCategory().equals("television")) out.println("selected"); %>>Television</option>
+					<option value="world" <% if (quiz.getCategory().equals("world")) out.println("selected"); %>>World</option>
+				</select>
+			</p>
+			<p>Tags (separate with comma): <br><textarea rows="4" cols="50" name="tags" ><%=quiz.getTags()%></textarea></p>
 			<p>Random order: <br>
 			<input type="radio" name="random_order" value="yes" <% if (quiz.isRandomOrder()) out.println("checked"); %>/> Yes <br>
 			<input type="radio" name="random_order" value="no" <% if (!quiz.isRandomOrder()) out.println("checked"); %>/> No 

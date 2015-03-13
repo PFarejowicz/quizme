@@ -14,10 +14,12 @@ public class Quiz {
 	private Timestamp date_created;
 	private int points;
 	private boolean reported;
+	private String category;
+	private String tags;
 	private int score;
 	private int quiz_taker_id;
 
-	public Quiz(int quiz_id, String name, String description, int author_id, boolean randO, boolean multP, boolean immC, Timestamp dt, int points, boolean reported) {
+	public Quiz(int quiz_id, String name, String description, int author_id, boolean randO, boolean multP, boolean immC, Timestamp dt, int points, boolean reported, String category, String tags) {
 		this.quiz_id = quiz_id;
 		this.name = name;
 		this.description = description;
@@ -28,6 +30,8 @@ public class Quiz {
 		this.date_created = dt;
 		this.points = points;
 		this.reported = reported;
+		this.category = category;
+		this.tags = tags;
 	}
 	
 	public Quiz(int quiz_id, String name, Timestamp dt, int score, int quiz_taker_id) {
@@ -83,6 +87,14 @@ public class Quiz {
 	
 	public boolean isReported(){
 		return reported;
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+	
+	public String getTags() {
+		return tags;
 	}
 	
 	public int getScore() {

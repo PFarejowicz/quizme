@@ -90,7 +90,7 @@ public class AdminManager {
 			PreparedStatement prepStmt = con.prepareStatement("SELECT * FROM quizzes");
 			rs = prepStmt.executeQuery();
 			while(rs.next()){
-				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"), rs.getTimestamp("date_time"), rs.getInt("points"), rs.getBoolean("reported"));
+				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"), rs.getTimestamp("date_time"), rs.getInt("points"), rs.getBoolean("reported"), rs.getString("category"), rs.getString("tags"));
 				quizzes.add(quiz);
 			}
 		} catch (Exception e) {
@@ -105,7 +105,7 @@ public class AdminManager {
 			PreparedStatement prepStmt = con.prepareStatement("SELECT * FROM quizzes WHERE reported = 1");
 			rs = prepStmt.executeQuery();
 			while(rs.next()){
-				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"), rs.getTimestamp("date_time"), rs.getInt("points"), rs.getBoolean("reported"));
+				Quiz quiz = new Quiz(rs.getInt("quiz_id"), rs.getString("name"), rs.getString("description"), rs.getInt("author_id"), rs.getBoolean("random_order"), rs.getBoolean("multiple_pages"), rs.getBoolean("immediate_correction"), rs.getTimestamp("date_time"), rs.getInt("points"), rs.getBoolean("reported"), rs.getString("category"), rs.getString("tags"));
 				quizzes.add(quiz);
 			}
 		} catch (Exception e) {
@@ -117,6 +117,15 @@ public class AdminManager {
 	public void clearHistoryForQuiz(int id){
 		try {
 			PreparedStatement prepStmt = con.prepareStatement("DELETE FROM quiz_history WHERE quiz_id = " + id);
+			prepStmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void clearQuestionsForQuiz(int id) {
+		try {
+			PreparedStatement prepStmt = con.prepareStatement("DELETE FROM questions WHERE quiz_id = " + id);
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
