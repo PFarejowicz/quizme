@@ -34,6 +34,7 @@
 	<h1><%=quiz.getName()%> Results</h1>
 	<p>Score: <%=score%> / <%= total%> (<%=quizManager.convertToPercStr(score, total) %>)</p>
 	<p>Time Taken: <%=request.getParameter("time_taken")%></p> 
+	
 	<form action="QuizReviewServlet" method="post">
 		<p>Review:</p>
 		<textarea name="review" rows="5" cols="50"></textarea>
@@ -60,15 +61,7 @@
 		<ul>
 		<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
 			<% if (quiz.getAuthorID() != friendsList.get(i)) { %>
-				<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getNameByID(friendsList.get(i))%> (<%=quizManager.convertToPercStr(userManager.getTopScore(user_id, quiz_id), total)%>%)</a>
-				<form action="ChallengeServlet" method="post">
-					<input type="hidden" value=<%=user_id%> name="sender_id" />
-					<input type="hidden" value=<%=friendsList.get(i)%> name="receiver_id" />
-					<input type="hidden" value=<%=quiz_id%> name="quiz_id" />
-					<input type="hidden" value=<%=score%> name="score" />
-					<input type="submit" value="Send Challenge" name="decision" />
-				</form>
-				</li>	
+				<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getNameByID(friendsList.get(i))%> (<%=quizManager.convertToPercStr(userManager.getTopScore(user_id, quiz_id), total)%>%)</a></li>	
 			<%}%>
 		<%}%>
 		</ul>
@@ -80,5 +73,26 @@
         <input type="hidden" name="name" value="<%=name%>" />
         <input type="submit" name="finish" value="Finish" />
 	</form>
+	
+	<p>Challenge Friends</p>
+		<ul>
+		<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
+			<% if (quiz.getAuthorID() != friendsList.get(i)) { %>
+				<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getNameByID(friendsList.get(i))%></a>
+				<% if (messageManager.alreadyChallenged(user_id, friendsList.get(i), quiz_id)) { %>
+					<p> Already sent a challenge! </p>
+				<%} else {%>
+					<form action="ChallengeServlet" method="post">
+						<input type="hidden" value=<%=user_id%> name="sender_id" />
+						<input type="hidden" value=<%=friendsList.get(i)%> name="receiver_id" />
+						<input type="hidden" value=<%=quiz_id%> name="quiz_id" />
+						<input type="hidden" value=<%=score%> name="score" />
+						<input type="submit" value="Send Challenge" name="decision" />
+					</form>
+				<%}%>
+				</li>	
+			<%}%>
+		<%}%>
+		</ul>
 </body>
 </html>

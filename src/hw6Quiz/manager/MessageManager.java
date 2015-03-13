@@ -80,6 +80,7 @@ public class MessageManager {
 			prepStmt.setInt(4, score);
 			prepStmt.executeUpdate();
 			System.out.println("test"); 
+			System.out.println(receiver);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
@@ -92,7 +93,7 @@ public class MessageManager {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM challenges WHERE receiver_id = \"" + receiver_id + "\"");
 			while(rs.next()) {
-				Challenge challenge = new Challenge(rs.getInt("sender_id"), rs.getInt("receiver_id"), rs.getInt("quid_id"), rs.getInt("score"));
+				Challenge challenge = new Challenge(rs.getInt("sender_id"), rs.getInt("receiver_id"), rs.getInt("quiz_id"), rs.getInt("score"));
 				challengeList.add(challenge);
 			}
 			return challengeList;
@@ -109,6 +110,18 @@ public class MessageManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
+	}
+	
+	public boolean alreadyChallenged(int sender_id, int receiver_id, int quiz_id) {
+		Statement stmt;
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM challenges WHERE sender_id = \"" + sender_id + "\" AND receiver_id = \"" + receiver_id + "\" AND quiz_id = \"" + quiz_id + "\"");
+			if (rs.next()) return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return false;
 	}
 
 }
