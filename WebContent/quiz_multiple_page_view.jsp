@@ -22,6 +22,7 @@
 	<body>
 	<h1><%=quiz.getName() %></h1>
 		<form action="QuizDispatcherServlet" method="post">
+			<div class="card">
 			<%
 				ArrayList<Integer> questions = (ArrayList<Integer>) session.getAttribute("questions");
 				int question_number = Integer.parseInt(request.getParameter("question_num"));
@@ -68,6 +69,7 @@
 					out.println("<p></p>");
 				} 
 			%>
+			</div>
 			<input type="hidden" name="quiz_id" value="<%=quiz_id%>" />
 			<input type="hidden" name="question_num" value="<%=question_number%>" />
 			<input type="hidden" name="practice_mode" value="<%=request.getParameter("practice_mode")%>" />
@@ -79,7 +81,7 @@
 				out.println("<input type=\"submit\" name=\"quit\" value=\"Quit\" />");
 			}
 			%>
-			<p><input type="submit" value="Next" /></p>
+			<p><input type="submit" value="Next" style="float:right"/></p>
 		</form>
 	</body>
 </html>
