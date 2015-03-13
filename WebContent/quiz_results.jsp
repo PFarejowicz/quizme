@@ -75,24 +75,29 @@
 	</form>
 	
 	<p>Challenge Friends</p>
-		<ul>
-		<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
-			<% if (quiz.getAuthorID() != friendsList.get(i)) { %>
-				<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getNameByID(friendsList.get(i))%></a>
-				<% if (messageManager.alreadyChallenged(user_id, friendsList.get(i), quiz_id)) { %>
-					<p> Already sent a challenge! </p>
-				<%} else {%>
-					<form action="ChallengeServlet" method="post">
-						<input type="hidden" value=<%=user_id%> name="sender_id" />
-						<input type="hidden" value=<%=friendsList.get(i)%> name="receiver_id" />
-						<input type="hidden" value=<%=quiz_id%> name="quiz_id" />
-						<input type="hidden" value=<%=score%> name="score" />
-						<input type="submit" value="Send Challenge" name="decision" />
-					</form>
+		<% if (friendsList.size() > 0) { %>
+			<ul>
+			<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
+				<% if (quiz.getAuthorID() != friendsList.get(i)) { %>
+					<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getNameByID(friendsList.get(i))%></a>
+					<% if (messageManager.alreadyChallenged(user_id, friendsList.get(i), quiz_id)) { %>
+						<p> Already sent a challenge! </p>
+					<%} else {%>
+						<form action="ChallengeServlet" method="post">
+							<input type="hidden" value=<%=user_id%> name="sender_id" />
+							<input type="hidden" value=<%=friendsList.get(i)%> name="receiver_id" />
+							<input type="hidden" value=<%=quiz_id%> name="quiz_id" />
+							<input type="hidden" value=<%=score%> name="score" />
+							<input type="submit" value="Send Challenge" name="decision" />
+						</form>
+					<%}%>
+					</li>	
 				<%}%>
-				</li>	
 			<%}%>
+			</ul>
+		<%} else {%>
+			<p> Currently don't have any friend to challenge. </p>
 		<%}%>
-		</ul>
+		
 </body>
 </html>
