@@ -14,6 +14,6 @@
 		<h1 class="auth-center">Please Try Again</h1>
 		<img alt="QuizMe Error" src="images/quizme_error.png" class="img-center">
 		<p class="auth-center">Either your email or password is incorrect. Please try again.</p>
-		<p class="auth-center"><a href="index.html"><button type="button">Go Back</button></a></p>
+		<p class="auth-center"><a href="index.jsp"><button type="button">Go Back</button></a></p>
 	</body>
 </html>
