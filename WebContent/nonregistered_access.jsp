@@ -20,22 +20,27 @@
 	<a href="index.jsp"><button type="button">Back to Login</button></a>
 	<h1 class="auth-center">Welcome Guest!</h1>
 
-	<h3 class="auth-center">Announcements</h3>
 	<% ArrayList<String> announcements = adminManager.getAnnouncements(); %>
+	<% if(announcements.size() > 0){ %>
+	<div class="card">
+	<h5>Announcements:</h5>
 	<ul>
 		<% for(int i = 0; i < announcements.size(); i++){ %>
 		<li><%= announcements.get(i) %></li>
 		<% } %>
 	</ul>
+	</div>
+	<% } %>
 	
-	<h3 class="auth-center">Popular Quizzes</h3>
 	<% ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes(); %>
 	<% if(popularQuizzes.size() > 0){ %>
-		<h5>Most Popular Quizzes:</h5><br/>
+		<div class="card">
+		<h5>Most Popular Quizzes:</h5>
 		<% for(int i = popularQuizzes.size() - 1; i >= 0 && i >= popularQuizzes.size() - 3; i--){ %>
 			<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= popularQuizzes.get(i).getQuizID() %>"><%= popularQuizzes.get(i).getName() %></a></p>
 			<p>Description: <%= popularQuizzes.get(i).getDescription() %></p>
 		<% } %>
+		</div>
 	<% } %>
 	
 </body>

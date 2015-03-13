@@ -18,11 +18,11 @@
 <form action="LogoutServlet" method="post">
 	<input type="submit" value="Log Out" />
 </form>
-<h1 class="auth-center">Welcome <%= userManager.getNameByID(userId) %></h1>
+<h1 class="auth-center">Welcome, <%= userManager.getNameByID(userId) %>!</h1>
 
 <% ArrayList<String> announcements = adminManager.getAnnouncements(); %>
 <div class="card">
-<h5 class="auth-center">Announcements</h5>
+<h5>Announcements:</h5>
 <ul>
 <% for(int i = 0; i < announcements.size(); i++){ %>
 <li><%= announcements.get(i) %></li>
@@ -37,7 +37,7 @@
 <% ArrayList<User> admins = adminManager.getAdmins(); %>
 <% if(admins.size() > 1){ %>
 <div class="card">
-<h5 class="auth-center">Admins</h5>
+<h5>Admins:</h5>
 <% for(int i = 0; i < admins.size(); i++){ %>
 	<% if (admins.get(i).getId() != userId){ %>
 		<p><%= admins.get(i).getName() %></p>
@@ -53,7 +53,7 @@
 <% ArrayList<User> nonAdmins = adminManager.getNonAdmins(); %>
 <% if(nonAdmins.size() > 0){ %>
 <div class="card">
-<h5 class="auth-center">Users</h5>
+<h5>Users:</h5>
 <% for(int i = 0; i < nonAdmins.size(); i++){ %>
 	<p><%= nonAdmins.get(i).getName() %></p>
 	<form action="AdminPromotionServlet" method="post">
@@ -71,7 +71,7 @@
 <% ArrayList<Quiz> quizzes = adminManager.getQuizzes(); %>
 <% if(quizzes.size() > 0){ %>
 <div class="card">
-<h5 class="auth-center">Quizzes</h5>
+<h5>Quizzes:</h5>
 <% for(int i = 0; i < quizzes.size(); i++){ %>
 	<p><%= quizzes.get(i).getName() %></p>
 	<form action="AdminClearQuizHistoryServlet" method="post">
@@ -90,7 +90,7 @@
 <% ArrayList<Quiz> reportedQuizzes = adminManager.getReportedQuizzes(); %>
 <% if(reportedQuizzes.size() > 0){ %>
 <div class="card">
-<h5 class="auth-center">Reported Quizzes</h5>
+<h5>Reported Quizzes:</h5>
 <% for(int i = 0; i < reportedQuizzes.size(); i++){ %>
 	<%= reportedQuizzes.get(i).getName() %>
 	<form action="UnreportQuizServlet" method="post">
@@ -108,7 +108,7 @@
 
 <% ArrayList<User> users = adminManager.getUsers(); %>
 <div class="card">
-<h5 class="auth-center">Site Statistics</h5>
+<h5>Site Statistics:</h5>
 <p>Number of users: <%= users.size() %></p>
 <p>Number of quizzes taken: <%= adminManager.getNumberOfQuizzes() %></p>
 </div>
