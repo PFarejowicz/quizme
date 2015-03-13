@@ -318,8 +318,8 @@ ul {
 ul li {
     background-image: url(images/brown_acorn.png);
     background-repeat: no-repeat;
-    background-position: 0px center; 
-    padding-left: 24px; }
+    background-position: 15px center; 
+    padding-left: 35px; }
 ol {
   list-style: decimal inside; }
 ol, ul {
