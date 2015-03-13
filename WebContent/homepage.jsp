@@ -48,6 +48,7 @@
 			<% for(int i = popularQuizzes.size() - 1; i >= 0 && i >= popularQuizzes.size() - 3; i--){ %>
 				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= popularQuizzes.get(i).getQuizID() %>"><%= popularQuizzes.get(i).getName() %></a></p>
 				<p>Description: <%= popularQuizzes.get(i).getDescription() %></p>
+				<br/>
 			<% } %>
 		<% } %>
 		
@@ -58,6 +59,7 @@
 			<% for(int i = recentQuizzes.size() - 1; i >= 0 && i >= recentQuizzes.size() - 3; i--){ %>
 				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= recentQuizzes.get(i).getQuizID() %>"><%= recentQuizzes.get(i).getName() %></a></p>
 				<p>Description: <%= recentQuizzes.get(i).getDescription() %></p>
+				<br/>
 			<% } %>
 		<% } %>
 		
@@ -68,6 +70,7 @@
 			<% for(int i = history.size() - 1; i >= 0 && i >= history.size() - 3; i--){ %>
 				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= history.get(i).getQuizId() %>"><%= history.get(i).getName() %></a></p>
 				<p>Score: <%=quizManager.convertToPercStr(history.get(i).getScore(), history.get(i).getTotal()) %></p><br/>
+				<br/>
 			<% } %>
 		<% } %>
 		<a href="user_quiz_history.jsp?id=<%= userId %>"><button type="button">Show Full History</button></a>
@@ -79,6 +82,7 @@
 			<% for(int i = yourQuizzes.size() - 1; i >= 0 && i >= yourQuizzes.size() - 3; i--){ %>
 				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= yourQuizzes.get(i).getQuizID() %>"><%= yourQuizzes.get(i).getName() %></a></p>
 				<p>Description: <%= yourQuizzes.get(i).getDescription() %></p>
+				<br/>
 			<% } %>
 		<% } %>
 		
@@ -222,6 +226,7 @@
 		<h3 class="auth-center">Send Messages</h3>
 			<form action="MessageServlet" method="post">
 			<p>Send to: <input type="text" name="receiver" /></p>
+			<br/>
 			<p>Message: <input type="text" name="new message" />
 			<input type="submit" value="Send" /></p>
 			</form>

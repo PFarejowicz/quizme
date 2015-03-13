@@ -96,6 +96,11 @@ body {
   font-weight: 400;
   font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #222; }
+p {
+	margin:0;
+	padding:0 0 0 0;
+	border: 0;
+}
 
 
 /* Typography
@@ -341,7 +346,7 @@ p,
 ul,
 ol,
 form {
-  margin-bottom: 2.5rem; }
+  margin-bottom: 0; }
 
 
 /* Utilities
