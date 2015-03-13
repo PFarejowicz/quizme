@@ -24,15 +24,20 @@
 		<title>Welcome to QuizMe</title>
 	</head>
 	<body>
-		<h1 class="auth-center">Welcome to QuizMe</h1>
-		<img alt="QuizMe Logo" src="images/quizme_logo_1.png" class="img-center">
-		<p class="auth-center">Please log in with your user credentials</p>
-		<form  class="auth-center" action="LoginServlet" method="post">
-			<p>Email: <input type="text" name="email" /></p>
-			<p>Password: <input type="text" name="password" /></p>
-			<input type="submit" value="Login" />
-			<a href="nonregistered_access.jsp"><button type="button">Login As Guest</button></a>
-		</form>
-		<p class="auth-center"><a href="create_account.html"><button type="button">Create New Account</button></a></p>
+		<div style="text-align:center">
+			<div id="login panel" style="display:inline-block">
+				<h1 class="auth-center">Welcome to QuizMe</h1><br>
+				<p class="auth-center"><img alt="QuizMe Logo" src="images/quizme_logo_1.png"></p><br>
+				<p class="auth-center">Please log in with your user credentials</p><br>
+				<form class="auth-center" action="LoginServlet" method="post">
+					<p class="auth-center">Email: <input class="field-right" type="text" name="email" /></p><br>
+					<p class="auth-center">Password: <input class="field-right" type="text" name="password" /></p><br>
+					<p><br></p>
+					<input class="auth-center" type="submit" value="Login" /><br>
+				</form><br>
+				<p class="auth-center"><a class="auth-center" href="nonregistered_access.jsp"><button class="auth-center" type="button">Login As Guest</button></a></p><br>
+				<p class="auth-center"><a class="auth-center" href="create_account.html"><button class="auth-center" type="button">Create New Account</button></a></p>
+			</div>
+		</div>
 	</body>
 </html>
