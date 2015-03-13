@@ -42,6 +42,6 @@
 		</form>
 		</div>
 		<br/>
-		<p id="quiz_search_return_home"><a href="homepage.jsp"><button type="button">Return Home</button></a></p>
+		<a href="homepage.jsp"><button class="quiz_search_return_home" type="button">Return Home</button></a>
 	</body>
 </html>

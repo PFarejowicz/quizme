@@ -73,7 +73,7 @@
 	</div>
 	<% } %>
 
-<a href="homepage.jsp"><button type="button">Back to My Profile</button></a>
+<p id="search_user_back_to_profile"><a href="homepage.jsp"><button type="button">Back to My Profile</button></a></p>
 
 
 </body>
