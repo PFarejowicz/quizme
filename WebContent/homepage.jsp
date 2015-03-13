@@ -81,8 +81,8 @@
 				<p>Score: <%=quizManager.convertToPercStr(history.get(i).getScore(), history.get(i).getTotal()) %></p><br/>
 				<br/>
 			<% } %>
+			<p><a href="user_quiz_history.jsp?id=<%= userId %>"><button type="button">Show Full History</button></a></p>
 			</div>
-			<a href="user_quiz_history.jsp?id=<%= userId %>"><button type="button">Show Full History</button></a>
 		<% } %>
 		
 		<% ArrayList<Quiz> yourQuizzes = userManager.getAuthoredQuizzes(userId); %>
