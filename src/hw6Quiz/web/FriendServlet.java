@@ -49,7 +49,10 @@ public class FriendServlet extends HttpServlet {
 		String decision = request.getParameter("decision");
 		
 		if (userManager.containsUser(userEmail) && userManager.containsUser(friendEmail)) {
-			if (decision.equals("Accept From Home Page")) {
+			if (userEmail.equals(friendEmail)) {
+				RequestDispatcher dispatch = request.getRequestDispatcher("homepage.jsp");
+				dispatch.forward(request, response);
+			} else if (decision.equals("Accept From Home Page")) {
 	 			friendsManager.addFriend(userEmail, friendEmail);
 				friendsManager.addFriend(friendEmail, userEmail);
 				friendsManager.deleteFriendRequest(userEmail, friendEmail);

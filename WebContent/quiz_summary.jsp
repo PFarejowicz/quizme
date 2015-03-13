@@ -41,7 +41,11 @@
 	<p>
 		Quiz Name: <%=quiz.getName() %><br>
 		Quiz Description: <%=quiz.getDescription() %> <br>
+		<% if (userManager.getEmailByID(quiz.getAuthorID()).equals(email)) { %>
+		Quiz Author: <a href="homepage.jsp"><%=userManager.getNameByID(quiz.getAuthorID()) %></a><br>
+		<% } else {%>
 		Quiz Author: <a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(quiz.getAuthorID())%>"><%=userManager.getNameByID(quiz.getAuthorID()) %></a><br>
+		<% } %>
 		<%
 		double rating = quizManager.calculateRating(quiz_id);
 		if (rating < 0) {
