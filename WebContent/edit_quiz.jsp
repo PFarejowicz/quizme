@@ -47,7 +47,7 @@
 							<option value="world" <% if (quiz.getCategory().equals("world")) out.println("selected"); %>>World</option>
 						</select>
 					</p><br>
-					<p>Tags (separate with comma): <br><textarea rows="4" cols="50" name="tags" ><%=quiz.getTags()%></textarea></p>
+					<p>Tags (separate with comma): <br><textarea rows="4" cols="50" name="tags" ><%=quiz.getTags()%></textarea></p><br>
 					<p>Random order:
 					<input type="radio" name="random_order" value="yes" <% if (quiz.isRandomOrder()) out.println("checked"); %>/> Yes
 					<input type="radio" name="random_order" value="no" <% if (!quiz.isRandomOrder()) out.println("checked"); %>/> No 
