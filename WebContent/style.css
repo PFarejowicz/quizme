@@ -107,6 +107,8 @@ p {
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .auth-center{
 	text-align: center;
+	margin-top: 8px;
+  	margin-bottom: 8px;
 }
 
 .reported{
