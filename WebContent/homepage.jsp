@@ -244,7 +244,9 @@
 					description = greatest; 
 					%>
 					<li>
-					<p><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendId)%>"><%=userManager.getNameByID(friendId)%></a> got an achievement award <%= description%> for <a href="quiz_summary.jsp?quiz_id=<%= quizId %>"><%= quizManager.getQuizByID(quizId).getName() %></a>.</p>
+						<%if (quizManager.quizExists(quizId)) { %>
+								<p><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendId)%>"><%=userManager.getNameByID(friendId)%></a> got an achievement award <%= description%> for <a href="quiz_summary.jsp?quiz_id=<%= quizId %>"><%= quizManager.getQuizByID(quizId).getName() %></a>.</p>
+						<% } %>
 					</li>
 				<% } else {%>
 				<li>
