@@ -35,17 +35,22 @@
 			<a href="quiz_search.jsp"><button type="button">Find a Quiz</button></a>
 		</p>
 		
-		<h5>Announcements</h5>
+		
 		<% ArrayList<String> announcements = adminManager.getAnnouncements(); %>
+		<% if(announcements.size() > 0){ %>
+		<div class="card">
+		<h5>Announcements</h5>
 		<ul>
 			<% for(int i = 0; i < announcements.size(); i++){ %>
 			<li><%= announcements.get(i) %></li>
 			<% } %>
 		</ul>
+		</div>
+		<% } %>
 		
 		<% ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes(); %>
 		<% if(popularQuizzes.size() > 0){ %>
-			<div class="box">
+			<div class="card">
 			<h5>Most Popular Quizzes:</h5><br/>
 			<% for(int i = popularQuizzes.size() - 1; i >= 0 && i >= popularQuizzes.size() - 3; i--){ %>
 				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= popularQuizzes.get(i).getQuizID() %>"><%= popularQuizzes.get(i).getName() %></a></p>
@@ -57,7 +62,7 @@
 		
 		<% ArrayList<Quiz> recentQuizzes = quizManager.getMostRecentlyCreatedQuizzes(); %>
 		<% if(recentQuizzes.size() > 0){ %>
-			<div class="box">
+			<div class="card">
 			<h5>Most Recently Created Quizzes:</h5><br/>
 			<% for(int i = recentQuizzes.size() - 1; i >= 0 && i >= recentQuizzes.size() - 3; i--){ %>
 				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= recentQuizzes.get(i).getQuizID() %>"><%= recentQuizzes.get(i).getName() %></a></p>
@@ -69,30 +74,38 @@
 		
 		<% ArrayList<QuizHistory> history = userManager.getQuizHistoryById(userId); %>
 		<% if(history.size() > 0){ %>
+			<div class="card">
 			<h5>Your Most Recent Taken Quizzes:</h5><br/>
 			<% for(int i = history.size() - 1; i >= 0 && i >= history.size() - 3; i--){ %>
 				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= history.get(i).getQuizId() %>"><%= history.get(i).getName() %></a></p>
 				<p>Score: <%=quizManager.convertToPercStr(history.get(i).getScore(), history.get(i).getTotal()) %></p><br/>
 				<br/>
 			<% } %>
+			</div>
+			<a href="user_quiz_history.jsp?id=<%= userId %>"><button type="button">Show Full History</button></a>
 		<% } %>
-		<a href="user_quiz_history.jsp?id=<%= userId %>"><button type="button">Show Full History</button></a>
 		
 		<% ArrayList<Quiz> yourQuizzes = userManager.getAuthoredQuizzes(userId); %>
 		<% if(yourQuizzes.size() > 0){ %>
+			<div class="card">
 			<h5>Your Most Recent Created Quizzes:</h5><br/>
 			<% for(int i = yourQuizzes.size() - 1; i >= 0 && i >= yourQuizzes.size() - 3; i--){ %>
 				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= yourQuizzes.get(i).getQuizID() %>"><%= yourQuizzes.get(i).getName() %></a></p>
 				<p>Description: <%= yourQuizzes.get(i).getDescription() %></p>
 				<br/>
 			<% } %>
+			</div>
 		<% } %>
 		
-		<h5>Achievements</h5>
-			<ul>
+		
+			
 			<% ArrayList<String> achievements = quizManager.getAchievements(userId); 
 			String check = "I am the Greatest";
 			%>
+			<% if(achievements.size() > 0){ %>
+			<div class="card">
+			<h5>Achievements</h5>
+			<ul>
 			<% 
 			for (int i = 0 ; i < achievements.size() ; i++) { %>
 				<% String description = achievements.get(i);
@@ -106,23 +119,37 @@
 				<%}%>
 			<%}%>
 			</ul>
+			</div>
+			<% } %>
+			
 		
-		<h5>Your Friends</h5>
-			<ul>
+		
+		
+			
 			<% 
 			ArrayList<Integer> friendsList = friendsManager.getFriends(userId);
-			%> 
-			<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
-				<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getNameByID(friendsList.get(i))%></a></li>
-				
-			<%}%>
-			</ul>
-								
-		<h5>Pending Friend Requests</h5>
-			<ul>
+			%>
+			<% if(friendsList.size() > 0){ %>
+				<div class="card">
+					<h5>Your Friends</h5>
+					<ul>
+						<% for(int i = 0 ; i < friendsList.size() ; i++) { %>
+							<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getNameByID(friendsList.get(i))%></a></li>
+						<% } %>
+					</ul>
+				</div>
+			<% } %>
+		
+			
+		
+			
 			<% 
 			ArrayList<Integer> requestList = friendsManager.showFriendRequests(userId);
 			%>
+			<% if(requestList.size() > 0){ %>
+			<div class="card">					
+			<h5>Pending Friend Requests</h5>
+			<ul>
 			<%
 			for (int i = 0 ; i < requestList.size() ; i++) { %>
 				<% 
@@ -143,17 +170,24 @@
 				</li>
 			<%}%>
 			</ul>
+			</div>
+			<% } %>
 		
+		
+		<div class="card">
 		<h5>Search Users</h5>
 			<form action="UserSearchServlet" method="post">
 			<p><input type="text" name="info" />
 			<input type="submit" value="Search" /></p>
 			</form>
+		</div>
 		
-		<h5>News Feed</h5>
+		
+		<h3 id="newsfeed">News Feed</h3>
 		
 		<% ArrayList<Quiz> quizTakenNewsfeed = friendsManager.quizTakenNewsfeed(userId); %>
 		<% if(quizTakenNewsfeed.size() > 0){ %>
+			<div class="card">
 			<h5>Recent Quizzes Your Friends Took:</h5><br/>
 			<ul>
 			<% for(int i = quizTakenNewsfeed.size() - 1; i >= 0 && i >= quizTakenNewsfeed.size() - 5; i--){ %>
@@ -164,10 +198,12 @@
 				</li>
 			<% } %>
 			</ul>
+			</div>
 		<% } %>
 		
 		<% ArrayList<Quiz> quizCreatedNewsfeed = friendsManager.quizCreatedNewsfeed(userId); %>
 		<% if(quizCreatedNewsfeed.size() > 0){ %>
+			<div class="card">
 			<h5>Recent Quizzes Your Friends Created:</h5><br/>
 			<ul>
 			<% for(int i = quizCreatedNewsfeed.size() - 1; i >= 0 && i >= quizCreatedNewsfeed.size() - 5; i--){ %>
@@ -178,10 +214,12 @@
 				</li>
 			<% } %>
 			</ul>
+			</div>
 		<% } %>
 		
 		<% ArrayList<String> achievementEarnedNewsfeed = friendsManager.achievementEarnedNewsfeed(userId); %>
 		<% if(achievementEarnedNewsfeed.size() > 0){ %>
+			<div class="card">
 			<h5>Recent Achievements Your Friends Earned:</h5><br/>
 			<ul>
 			<% for(int i = achievementEarnedNewsfeed.size() - 1; i >= 0 && i >= achievementEarnedNewsfeed.size() - 10; i = i-2){ %>
@@ -203,10 +241,12 @@
 				<% } %>
 			<% } %>
 			</ul>
+			</div>
 		<% } %>
 		
 		<% ArrayList<Integer> becameFriendsNewsfeed = friendsManager.becameFriendsNewsfeed(userId); %>
 		<% if(becameFriendsNewsfeed.size() > 0){ %>
+			<div class="card">
 			<h5>Your Friend's Social Activities:</h5><br/>
 			<ul>
 			<% for(int i = becameFriendsNewsfeed.size() - 1; i >= 0 && i >= becameFriendsNewsfeed.size() - 10; i = i-2){ %>
@@ -223,8 +263,10 @@
 				<% } %>
 			<% } %>
 			</ul>
+			</div>
 		<% } %>
 		
+		<div class="card">
 		<h5>Send Messages</h5>
 			<form action="MessageServlet" method="post">
 			<p>Send to: <input type="text" name="receiver" /></p>
@@ -242,20 +284,32 @@
 					<% request.getSession().setAttribute("message status", "none"); %>
 				<% } %>
 			<% } %>
+		</div>
 		
-		<h5>Your Messages</h5>
-			<ul>
+		
+			
 			<% 
 			ArrayList<String> messages = messageManager.getMessage(email);
 			%>
+			<% if(messages.size() > 0){ %>
+			<div class="card">
+			<h5>Your Messages</h5>
+			<ul>
 			<%for (int i = messages.size() - 1 ; i >= 0 ; i-=2) { %>
 				<li><a href="friend_homepage.jsp?friendEmail=<%=messages.get(i)%>"><%=messages.get(i)%></a>: <%=messages.get(i-1)%></li>
 			<%}%>
 			</ul>
+			</div>
+			<% } %>
+		
 			
-		<h5>Challenges</h5>
-			<ul>
+		
+			
 			<% ArrayList<Challenge> challenges = messageManager.getChallenge(userId); %>
+			<% if(challenges.size() > 0){ %>
+			<div class="card">
+			<h5>Challenges</h5>
+			<ul>
 			<%
 			for (int i = 0 ; i < challenges.size() ; i++) { %>
 				<% 
@@ -284,6 +338,9 @@
 				</li>
 			<%}%>
 			</ul>
+			</div>
+			<% } %>
+			
 			
 	</body>
 </html>
