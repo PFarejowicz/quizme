@@ -72,7 +72,6 @@ public class QuizMultiPageDispatcherServlet extends HttpServlet {
 			} else {
 				isQuizFinished = (question_number >= questions.size());
 			}
-			
 			String timeTakenStr = "";
 			if (isQuizFinished) {
 				Date startTime = (Date) session.getAttribute("start_time");
@@ -178,7 +177,7 @@ public class QuizMultiPageDispatcherServlet extends HttpServlet {
 			
 			// Check immediate correction
 			if (request.getParameter("immediate_correction").equals("true")) {
-				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_immediate_feedback.jsp?correct_answer="+correctAnswer+"&question_num="+question_number+"&is_quiz_finished="+isQuizFinished+"&score="+score+"&immediate_correction=true&time_taken="+timeTakenStr);
+				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_immediate_feedback.jsp?correct_answer="+correctAnswer+"&practice_mode="+isPracticeMode+"&question_num="+question_number+"&is_quiz_finished="+isQuizFinished+"&score="+score+"&immediate_correction=true&time_taken="+timeTakenStr);
 				dispatch.forward(request, response);
 			} else {
 				if (isQuizFinished && isPracticeMode) {
