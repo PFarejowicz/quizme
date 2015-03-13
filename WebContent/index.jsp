@@ -3,9 +3,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 	String email = (String) session.getAttribute("email");
-	if(email != null){
-		UserManager userManager = (UserManager) getServletContext().getAttribute("user manager");
-		if(userManager.isAdmin(email)){
+	UserManager userManager = (UserManager) getServletContext().getAttribute("user manager");
+	if (email != null && userManager.getIDByEmail(email) != -1) {
+		if (userManager.isAdmin(email)) {
 			RequestDispatcher dispatch = request.getRequestDispatcher("admin_homepage.jsp");
 			dispatch.forward(request, response);
 		} else{
