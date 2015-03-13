@@ -177,7 +177,7 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 			} 
 			
 			if (isPracticeMode && isQuizFinished) {
-				 RequestDispatcher dispatch = request.getRequestDispatcher("practice_finished.jsp");
+				RequestDispatcher dispatch = request.getRequestDispatcher("practice_finished.jsp");
 				dispatch.forward(request, response);
 			} else if (isQuizFinished) {
 				RequestDispatcher dispatch = request.getRequestDispatcher("quiz_results.jsp?quiz_id="+quiz_id+"&score="+score+"&time_taken="+timeTakenStr);
