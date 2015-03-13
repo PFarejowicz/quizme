@@ -44,6 +44,7 @@ public class QuizCreationServlet extends HttpServlet {
 		// Set parameters for quiz and add to database
 		String name = "";																			// defaults it to blank
 		name = request.getParameter("name");
+		if (name.equals("")) name = "Untitled";
 		String description = "";
 		description = request.getParameter("description");
 		String category = request.getParameter("category");
