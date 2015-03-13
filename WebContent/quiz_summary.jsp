@@ -68,7 +68,7 @@
 	%></p>
 	<% } %>
 	
-	<h2>All Time High Scores</h2>
+	<h5>All Time High Scores</h5>
 	<p><%
 		ArrayList<QuizHistory> allTimeHigh = quizManager.getQuizHistory(quiz_id, user_id, "all time high");
 		int size = allTimeHigh.size();
@@ -78,7 +78,7 @@
 		}
 	%></p>
 	
-	<h2>24 Hour High Scores</h2>
+	<h5>24 Hour High Scores</h5>
 	<p><%
 		ArrayList<QuizHistory> lastDayHigh = quizManager.getQuizHistory(quiz_id, user_id, "last day high");
 		size = lastDayHigh.size();
@@ -88,7 +88,7 @@
 		}
 	%></p>
 	
-	<h2>Recent Scores</h2>
+	<h5>Recent Scores</h5>
 	<p><%
 		ArrayList<QuizHistory> recentScores = quizManager.getQuizHistory(quiz_id, user_id, "recent");
 		size = recentScores.size();

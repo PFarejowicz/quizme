@@ -35,7 +35,7 @@
 			<a href="quiz_search.jsp"><button type="button">Find a Quiz</button></a>
 		</p>
 		
-		<h3 class="auth-center">Announcements</h3>
+		<h5>Announcements</h5>
 		<% ArrayList<String> announcements = adminManager.getAnnouncements(); %>
 		<ul>
 			<% for(int i = 0; i < announcements.size(); i++){ %>
@@ -43,7 +43,6 @@
 			<% } %>
 		</ul>
 		
-		<h3 class="auth-center">Popular Quizzes</h3>
 		<% ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes(); %>
 		<% if(popularQuizzes.size() > 0){ %>
 			<h5>Most Popular Quizzes:</h5><br/>
@@ -54,7 +53,6 @@
 			<% } %>
 		<% } %>
 		
-		<h3 class="auth-center">Recently Created Quizzes</h3>
 		<% ArrayList<Quiz> recentQuizzes = quizManager.getMostRecentlyCreatedQuizzes(); %>
 		<% if(recentQuizzes.size() > 0){ %>
 			<h5>Most Recently Created Quizzes:</h5><br/>
@@ -65,7 +63,6 @@
 			<% } %>
 		<% } %>
 		
-		<h3 class="auth-center">Your Quiz History</h3>
 		<% ArrayList<QuizHistory> history = userManager.getQuizHistoryById(userId); %>
 		<% if(history.size() > 0){ %>
 			<h5>Your Most Recent Taken Quizzes:</h5><br/>
@@ -77,7 +74,6 @@
 		<% } %>
 		<a href="user_quiz_history.jsp?id=<%= userId %>"><button type="button">Show Full History</button></a>
 		
-		<h3 class="auth-center">Your Quizzes</h3>
 		<% ArrayList<Quiz> yourQuizzes = userManager.getAuthoredQuizzes(userId); %>
 		<% if(yourQuizzes.size() > 0){ %>
 			<h5>Your Most Recent Created Quizzes:</h5><br/>
@@ -88,7 +84,7 @@
 			<% } %>
 		<% } %>
 		
-		<h3 class="auth-center">Achievements</h3>
+		<h5>Achievements</h5>
 			<ul>
 			<% ArrayList<String> achievements = quizManager.getAchievements(userId); 
 			String check = "I am the Greatest";
@@ -107,7 +103,7 @@
 			<%}%>
 			</ul>
 		
-		<h3 class="auth-center">Your Friends</h3>
+		<h5>Your Friends</h5>
 			<ul>
 			<% 
 			ArrayList<Integer> friendsList = friendsManager.getFriends(userId);
@@ -118,7 +114,7 @@
 			<%}%>
 			</ul>
 								
-		<h3 class="auth-center">Pending Friend Requests</h3>
+		<h5>Pending Friend Requests</h5>
 			<ul>
 			<% 
 			ArrayList<Integer> requestList = friendsManager.showFriendRequests(userId);
@@ -144,13 +140,13 @@
 			<%}%>
 			</ul>
 		
-		<h3 class="auth-center">Search Users</h3>
+		<h5>Search Users</h5>
 			<form action="UserSearchServlet" method="post">
 			<p><input type="text" name="info" />
 			<input type="submit" value="Search" /></p>
 			</form>
 		
-		<h3 class="auth-center">News Feed</h3>
+		<h5>News Feed</h5>
 		
 		<% ArrayList<Quiz> quizTakenNewsfeed = friendsManager.quizTakenNewsfeed(userId); %>
 		<% if(quizTakenNewsfeed.size() > 0){ %>
@@ -225,7 +221,7 @@
 			</ul>
 		<% } %>
 		
-		<h3 class="auth-center">Send Messages</h3>
+		<h5>Send Messages</h5>
 			<form action="MessageServlet" method="post">
 			<p>Send to: <input type="text" name="receiver" /></p>
 			<br/>
@@ -243,7 +239,7 @@
 				<% } %>
 			<% } %>
 		
-		<h3 class="auth-center">Your Messages</h3>
+		<h5>Your Messages</h5>
 			<ul>
 			<% 
 			ArrayList<String> messages = messageManager.getMessage(email);
@@ -253,7 +249,7 @@
 			<%}%>
 			</ul>
 			
-		<h3 class="auth-center">Challenges</h3>
+		<h5>Challenges</h5>
 			<ul>
 			<% ArrayList<Challenge> challenges = messageManager.getChallenge(userId); %>
 			<%
