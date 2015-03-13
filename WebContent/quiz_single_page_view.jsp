@@ -77,10 +77,10 @@
 			<input type="hidden" name="quiz_id" value="<%=quiz_id%>" />
 			<% 
 			if (request.getParameter("practice_mode").equals("true")) {											
-				out.println("<input type=\"submit\" name=\"quit\" value=\"Quit\" style=\"width: 100%\"/>");
+				out.println("<input type=\"submit\" name=\"quit\" value=\"Quit\" style=\"float: right\"/>");
 			}
 			%>
-			<input type="submit" value="Finish" style="width: 100%"/>
+			<input type="submit" value="Finish" style="float: right"/>
 		</form>
 	</body>
 </html>
