@@ -155,6 +155,10 @@
 	float: right; }
 .field-center{
 	width: 100%;}
+.smooth-edge{
+	margin: 15px;}
+.headers{
+	padding: 10px;}
 
 /* Base Styles
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
