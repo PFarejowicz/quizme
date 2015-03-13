@@ -38,110 +38,114 @@
 			<% } %>
 		<% } %>
 
-	<div class="card">
-	<p>
-		Quiz Name: <%=quiz.getName() %><br>
-		Quiz Description: <%=quiz.getDescription() %> <br>
-		<% if (userManager.getEmailByID(quiz.getAuthorID()).equals(email)) { %>
-		Quiz Author: <a href="homepage.jsp"><%=userManager.getNameByID(quiz.getAuthorID()) %></a><br>
-		<% } else {%>
-		Quiz Author: <a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(quiz.getAuthorID())%>"><%=userManager.getNameByID(quiz.getAuthorID()) %></a><br>
+		<div class="card">
+		<p>
+			Quiz Name: <%=quiz.getName() %><br>
+			Quiz Description: <%=quiz.getDescription() %> <br>
+			<% if (userManager.getEmailByID(quiz.getAuthorID()).equals(email)) { %>
+			Quiz Author: <a href="homepage.jsp"><%=userManager.getNameByID(quiz.getAuthorID()) %></a><br>
+			<% } else {%>
+			Quiz Author: <a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(quiz.getAuthorID())%>"><%=userManager.getNameByID(quiz.getAuthorID()) %></a><br>
+			<% } %>
+			<%
+			double rating = quizManager.calculateRating(quiz_id);
+			if (rating < 0) {
+				out.println("Quiz Rating: N/A");
+			} else {
+				out.println("Quiz Rating: " + String.format("%.2f", (float)rating));
+			}
+			%>
+		</p>
+		<p>
+			Questions Presented in Random Order? <%= quiz.isRandomOrder() ? "Yes" : "No" %><br>
+			Questions Presented on Multiple Pages? <%= quiz.isMultiplePages() ? "Yes" : "No" %><br>
+			Immediate Corrections Provided for Questions? <%= quiz.isImmediateCorrection() ? "Yes" : "No" %>
+		</p>
+		</div>
+		
+		<% if(email != null){ %>
+		<% ArrayList<QuizHistory> pastPerformance = quizManager.getQuizHistory(quiz_id, user_id, "past performance"); %>
+		<% if(pastPerformance.size() > 0){ %>
+		<div class="card">
+		<h5>Your Past Performance</h5>
+		<p><%
+			int size = pastPerformance.size();
+			for (int i = 0; i < size; i++) {
+		        out.println("Date: " + pastPerformance.get(i).getTimeStamp() + " Score: " + pastPerformance.get(i).getScore());
+		        out.println("<br>");
+			}
+		%></p>
+		</div>
 		<% } %>
-		<%
-		double rating = quizManager.calculateRating(quiz_id);
-		if (rating < 0) {
-			out.println("Quiz Rating: N/A");
-		} else {
-			out.println("Quiz Rating: " + String.format("%.2f", (float)rating));
-		}
-		%>
-	</p>
-	<p>
-		Questions Presented in Random Order? <%= quiz.isRandomOrder() ? "Yes" : "No" %><br>
-		Questions Presented on Multiple Pages? <%= quiz.isMultiplePages() ? "Yes" : "No" %><br>
-		Immediate Corrections Provided for Questions? <%= quiz.isImmediateCorrection() ? "Yes" : "No" %>
-	</p>
-	</div>
-	
-	<% if(email != null){ %>
-	<% ArrayList<QuizHistory> pastPerformance = quizManager.getQuizHistory(quiz_id, user_id, "past performance"); %>
-	<% if(pastPerformance.size() > 0){ %>
-	<div class="card">
-	<h5>Your Past Performance</h5>
-	<p><%
-		int size = pastPerformance.size();
-		for (int i = 0; i < size; i++) {
-	        out.println("Date: " + pastPerformance.get(i).getTimeStamp() + " Score: " + pastPerformance.get(i).getScore());
-	        out.println("<br>");
-		}
-	%></p>
-	</div>
-	<% } %>
-	<% } %>
-	
-	<% ArrayList<QuizHistory> allTimeHigh = quizManager.getQuizHistory(quiz_id, user_id, "all time high"); %>
-	<% if(allTimeHigh.size() > 0){ %>
-	<div class="card">
-	<h5>All Time High Scores</h5>
-	<p><%
-		int size = allTimeHigh.size();
-		for (int i = 0; i < size && i < num_scores; i++) {
-	        out.println((i + 1) + ": " + userManager.getNameByID(allTimeHigh.get(i).getUserId()) + " (" + quizManager.convertToPercStr(allTimeHigh.get(i).getScore(), allTimeHigh.get(i).getTotal()) + ")");
-	        out.println("<br>");
-		}
-	%></p>
-	</div>
-	<% } %>
-	
-	<% ArrayList<QuizHistory> lastDayHigh = quizManager.getQuizHistory(quiz_id, user_id, "last day high"); %>
-	<% if (lastDayHigh.size() > 0) { %>
-	<div class="card">
-	<h5>24 Hour High Scores</h5>
-	<p><%
-		int size = lastDayHigh.size();
-		for (int i = 0; i < size && i < num_scores; i++) {
-	        out.println((i + 1) + ": " + userManager.getNameByID(lastDayHigh.get(i).getUserId()) + " (" + quizManager.convertToPercStr(lastDayHigh.get(i).getScore(), lastDayHigh.get(i).getTotal()) + ")");
-	        out.println("<br>");
-		}
-	%></p>
-	</div>
-	<% } %>
-	
-	<% ArrayList<QuizHistory> recentScores = quizManager.getQuizHistory(quiz_id, user_id, "recent"); %>
-	<% if (recentScores.size() > 0) { %>
-	<div class="card">
-	<h5>Recent Scores</h5>
-	<p><%
-		int size = recentScores.size();
-		for (int i = 0; i < size && i < num_scores; i++) {
-	        out.println((i + 1) + ": " + userManager.getNameByID(recentScores.get(i).getUserId()) + " (" + quizManager.convertToPercStr(recentScores.get(i).getScore(), recentScores.get(i).getTotal()) + ")");
-	        out.println("<br>");
-		}
-	%></p>
-	</div>
-	<% } %>
-	
-	<div class="card">
-	<h5>Summary Statistics</h5>
-	<p><%
-		double avg = quizManager.avgQuizScore(quiz_id);
-		if (avg < 0) {
-			out.println("Average: N/A");
-		} else {
-			out.println("Average: " + quizManager.convertToPercStr(avg, quiz.getPoints()));
-		}
-		out.println("<br>");
-		int range = quizManager.quizRange(quiz_id);
-		if (range < 0) {
-			out.println("Range: N/A");
-		} else {
-			out.println("Range: " + range);
-		}
-		out.println("<br>");
-		out.println("Times taken: " + quizManager.numTimesTaken(quiz_id));
-		out.println("<br>");
-	%></p>
-	</div>
+		<% } %>
+		
+		<% ArrayList<QuizHistory> allTimeHigh = quizManager.getQuizHistory(quiz_id, user_id, "all time high"); %>
+		<% if(allTimeHigh.size() > 0){ %>
+		<div class="card">
+		<h5>All Time High Scores</h5>
+		<p><%
+			int size = allTimeHigh.size();
+			for (int i = 0; i < size && i < num_scores; i++) {
+		        out.println((i + 1) + ": " + userManager.getNameByID(allTimeHigh.get(i).getUserId()) + " (" + quizManager.convertToPercStr(allTimeHigh.get(i).getScore(), allTimeHigh.get(i).getTotal()) + ")");
+		        out.println("<br>");
+			}
+		%></p>
+		</div>
+		<% } %>
+		
+		<% ArrayList<QuizHistory> lastDayHigh = quizManager.getQuizHistory(quiz_id, user_id, "last day high"); %>
+		<% if (lastDayHigh.size() > 0) { %>
+		<div class="card">
+		<h5>24 Hour High Scores</h5>
+		<p><%
+			int size = lastDayHigh.size();
+			for (int i = 0; i < size && i < num_scores; i++) {
+		        out.println((i + 1) + ": " + userManager.getNameByID(lastDayHigh.get(i).getUserId()) + " (" + quizManager.convertToPercStr(lastDayHigh.get(i).getScore(), lastDayHigh.get(i).getTotal()) + ")");
+		        out.println("<br>");
+			}
+		%></p>
+		</div>
+		<% } %>
+		
+		<% ArrayList<QuizHistory> recentScores = quizManager.getQuizHistory(quiz_id, user_id, "recent"); %>
+		<% if (recentScores.size() > 0) { %>
+		<div class="card">
+		<h5>Recent Scores</h5>
+		<p><%
+			int size = recentScores.size();
+			for (int i = 0; i < size && i < num_scores; i++) {
+		        out.println((i + 1) + ": " + userManager.getNameByID(recentScores.get(i).getUserId()) + " (" + quizManager.convertToPercStr(recentScores.get(i).getScore(), recentScores.get(i).getTotal()) + ")");
+		        out.println("<br>");
+			}
+		%></p>
+		</div>
+		<% } %>
+		
+		<div class="card">
+		<h5>Summary Statistics</h5>
+		<p><%
+			double avg = quizManager.avgQuizScore(quiz_id);
+			if (avg < 0) {
+				out.println("Average: N/A");
+			} else {
+				out.println("Average: " + quizManager.convertToPercStr(avg, quiz.getPoints()));
+			}
+			out.println("<br>");
+			int range = quizManager.quizRange(quiz_id);
+			if (range < 0) {
+				out.println("Range: N/A");
+			} else {
+				out.println("Range: " + range);
+			}
+			out.println("<br>");
+			out.println("Times taken: " + quizManager.numTimesTaken(quiz_id));
+			out.println("<br>");
+		%></p>
+		</div>
+		
+		<div class="card">
+		<h5>Reviews</h5>
+		</div>
 
 		<% if (email != null) { %>
 		<form action="QuizStartServlet" method="post" style="display: inline">
