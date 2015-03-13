@@ -42,8 +42,10 @@ public class QuizCreationServlet extends HttpServlet {
 		int user_id = (Integer) request.getSession().getAttribute("user id"); 
 		
 		// Set parameters for quiz and add to database
-		String name = request.getParameter("name");
-		String description = request.getParameter("description");
+		String name = "";																			// defaults it to blank
+		name = request.getParameter("name");
+		String description = "";
+		description = request.getParameter("description");
 		String category = request.getParameter("category");
 		String tags = request.getParameter("tags");
 		boolean random_order = request.getParameter("random_order").equals("yes");

@@ -39,15 +39,15 @@
 			<p>Tags (separate with comma): <br><textarea rows="4" cols="50" name="tags" ></textarea></p>
 			<p>Random order: <br>
 				<input type="radio" name="random_order" value="yes" /> Yes <br>
-				<input type="radio" name="random_order" value="no" /> No 
+				<input type="radio" name="random_order" value="no" checked="checked"/> No 
 			</p>
 			<p>Multiple pages: <br>
 				<input type="radio" name="multiple_pages" value="yes" /> Yes <br>
-				<input type="radio" name="multiple_pages" value="no" /> No 
+				<input type="radio" name="multiple_pages" value="no" checked="checked"/> No 
 			</p>
 			<p>Immediate correction: <br>
 				<input type="radio" name="immediate_correction" value="yes" /> Yes <br>
-				<input type="radio" name="immediate_correction" value="no" /> No 
+				<input type="radio" name="immediate_correction" value="no" checked="checked"/> No 
 			</p>
 			<input type="hidden" name="edit_mode" value="false"/>
 			<input type="submit" value="Create" />
