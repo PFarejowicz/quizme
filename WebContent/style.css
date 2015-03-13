@@ -270,7 +270,12 @@ label > .label-body {
 /* Lists
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 ul {
-  list-style: circle inside; }
+  list-style-type: none; }
+ul li {
+    background-image: url(images/brown_acorn.png);
+    background-repeat: no-repeat;
+    background-position: 0px center; 
+    padding-left: 24px; }
 ol {
   list-style: decimal inside; }
 ol, ul {
