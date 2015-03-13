@@ -3,6 +3,8 @@ package hw6Quiz.manager;
 import java.sql.*;
 import java.util.*;
 
+import hw6Quiz.model.Challenge;
+
 public class MessageManager {
 	
 	private Connection con; 
@@ -67,6 +69,45 @@ public class MessageManager {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public void sendChallenge(int sender, int receiver, int quizId, int score) {
+		try {
+			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO challenges (sender_id, receiver_id, quiz_id, score) VALUES(?, ?, ?, ?)");
+			prepStmt.setInt(1, sender);
+			prepStmt.setInt(2, receiver);
+			prepStmt.setInt(3, quizId);
+			prepStmt.setInt(4, score);
+			prepStmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+	}
+	
+	public ArrayList<Challenge> getChallenge(int receiver_id) {
+		ArrayList<Challenge> challengeList = new ArrayList<Challenge>();
+		Statement stmt;
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM challenges WHERE receiver_id = \"" + receiver_id + "\"");
+			while(rs.next()) {
+				Challenge challenge = new Challenge(rs.getInt("sender_id"), rs.getInt("receiver_id"), rs.getInt("quid_id"), rs.getInt("score"));
+				challengeList.add(challenge);
+			}
+			return challengeList;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return challengeList;
+	}
+	
+	public void deleteChallenge(int sender_id, int receiver_id, int quiz_id, int score) {
+		try {
+			PreparedStatement prepStmt = con.prepareStatement("DELETE FROM challenges WHERE sender_id = \"" + sender_id + "\" AND receiver_id = \"" + receiver_id + "\" AND quiz_id = \"" + quiz_id + "\" AND score = \"" + score + "\"");
+			prepStmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
 	}
 
 }
