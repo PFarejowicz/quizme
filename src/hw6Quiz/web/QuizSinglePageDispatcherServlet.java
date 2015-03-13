@@ -119,13 +119,19 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 					int numAnswers = question.getNumAnswers();
 					int partials = 0;
 					boolean inOrder = question.getInOrder();
-					for (int i = 0; i < numAnswers; i++) {
-						String userInput = request.getParameter("question_" + question_number + "_" + i).toLowerCase();
-						if (inOrder && question.getAnswerAsList().get(i).equals(userInput)) {
-							score++;
-							partials++;
-						} else if (!inOrder) {
-							HashSet<String> answerList = new HashSet<String>(question.getAnswerAsList());
+					if (inOrder) {
+						ArrayList<String> answerList = question.getAnswerAsList();
+						for (int i = 0; i < numAnswers; i++) {
+							String userInput = request.getParameter("question_" + question_number + "_" + i).toLowerCase();
+							if (answerList.get(i).equals(userInput)) {
+								score++;
+								partials++;
+							}
+						}
+					} else {
+						HashSet<String> answerList = new HashSet<String>(question.getAnswerAsList());
+						for (int i = 0; i < numAnswers; i++) {
+							String userInput = request.getParameter("question_" + question_number + "_" + i).toLowerCase();
 							if (answerList.contains(userInput)) {
 								score++;
 								partials++;
@@ -144,6 +150,9 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 							score++;
 							partials++;
 							answerList.remove(selectedAnswers[i]);
+						} else {
+							score--;
+							partials--;
 						}
 					}
 					if (partials == question.getNumAnswers() && isPracticeMode) quesFrequency.put(question_id, quesFrequency.get(question_id) - 1);

@@ -148,6 +148,9 @@ public class QuizMultiPageDispatcherServlet extends HttpServlet {
 						score++;
 						partials++;
 						answerList.remove(selectedAnswers[i]);
+					} else {
+						score--;
+						partials--;
 					}
 				}
 				if (partials == question.getNumAnswers()) correctAnswer = "true";
