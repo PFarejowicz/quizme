@@ -19,6 +19,7 @@
 			if((Integer) session.getAttribute("user id") != null){
 				user_id = (Integer) session.getAttribute("user id");
 			}
+			quizManager.practiceMakesPerfect(user_id);
 			String email = (String) session.getAttribute("email");
 			Quiz quiz = quizManager.getQuizByID(quiz_id);
 			out.println(quiz.getName());

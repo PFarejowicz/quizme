@@ -16,7 +16,7 @@
 			UserManager userManager = (UserManager) application.getAttribute("user manager");
 			int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
 			int user_id = 0;
-			if((Integer) session.getAttribute("user id") != null){
+			if((Integer) session.getAttribute("user id") != null) {
 				user_id = (Integer) session.getAttribute("user id");
 			}
 			String email = (String) session.getAttribute("email");
@@ -144,7 +144,7 @@
 		</div>
 		
 		<div class="card">
-		<h5>Reviews</h5>
+		<h5><a href="quiz_reviews.jsp?quiz_id="<%=quiz_id%>>Reviews</a></h5>
 		</div>
 
 		<% if (email != null) { %>
@@ -157,7 +157,7 @@
 			<input type="hidden" name="random_order" value="<%=quiz.isRandomOrder()%>"/>
 			<input type="hidden" name="multiple_pages" value="<%=quiz.isMultiplePages()%>"/>
 			<input type="hidden" name="immediate_correction" value="<%=quiz.isImmediateCorrection()%>"/>
-			<input  type="submit" value="Take Quiz" />
+			<input type="submit" value="Take Quiz" />
 		</form>
 		
 		<p><%
