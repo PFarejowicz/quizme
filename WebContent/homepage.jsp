@@ -310,7 +310,13 @@
 			<h5>Your Messages:</h5>
 			<ul>
 			<%for (int i = messages.size() - 1 ; i >= 0 ; i-=2) { %>
-				<li><a href="friend_homepage.jsp?friendEmail=<%=messages.get(i)%>"><%=messages.get(i)%></a>: <%=messages.get(i-1)%></li>
+				<li>
+				<% if (messages.get(i).equals(email)) { %>
+				<a href="homepage.jsp"><%=messages.get(i)%></a>: <%=messages.get(i-1)%>
+				<% } else {%>
+				<a href="friend_homepage.jsp?friendEmail=<%=messages.get(i)%>"><%=messages.get(i)%></a>: <%=messages.get(i-1)%>
+				<% } %>
+				</li>
 			<%}%>
 			</ul>
 			</div>
