@@ -11,9 +11,14 @@
 		<title>Account Already in Use</title>
 	</head>
 	<body>
-		<h1 class="auth-center">The email <%= request.getParameter("email") %> is already in use</h1>
-		<img alt="QuizMe Error" src="images/quizme_error.png" class="img-center">
-		<p class="auth-center">Please enter another email and password.</p>
-		<p class="auth-center"><a href="create_account.html"><button type="button">Go Back</button></a></p>
+		<div style="text-align:center">
+			<div style="display:inline-block">
+				<h1 class="auth-center">Please Try Again</h1><br>
+				<p class="auth-center"><img alt="QuizMe Error" src="images/quizme_error.png" class="img-center"></p><br>
+				<p class="auth-center">The email <%= request.getParameter("email") %> is already in use</p><br>
+				<p class="auth-center">Please enter another email and password</p><br>
+				<p class="auth-center"><a class="auth-center" href="create_account.html"><button class="auth-center" type="button">Go Back</button></a></p>
+			</div>
+		</div>
 	</body>
 </html>

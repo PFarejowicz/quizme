@@ -25,13 +25,13 @@
 	</head>
 	<body>
 		<div style="text-align:center">
-			<div id="login panel" style="display:inline-block">
+			<div style="display:inline-block">
 				<h1 class="auth-center">Welcome to QuizMe</h1><br>
 				<p class="auth-center"><img alt="QuizMe Logo" src="images/quizme_logo_1.png"></p><br>
 				<p class="auth-center">Please log in with your user credentials</p><br>
 				<form class="auth-center" action="LoginServlet" method="post">
-					<p class="auth-center">Email: <input class="field-right" type="text" name="email" /></p><br>
-					<p class="auth-center">Password: <input class="field-right" type="text" name="password" /></p><br>
+					<p class="auth-left">Email: <input class="field-right" type="text" name="email" /></p><br>
+					<p class="auth-left">Password: <input class="field-right" type="text" name="password" /></p><br>
 					<p><br></p>
 					<input class="auth-center" type="submit" value="Login" /><br>
 				</form><br>

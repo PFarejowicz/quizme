@@ -122,11 +122,17 @@
 	width: 100%;
 	margin-top: 2px;
   	margin-bottom: 2px; }
+.auth-left{
+	text-align: left;
+	display: inline-block;
+	width: 100%;
+	margin-top: 2px;
+  	margin-bottom: 2px; }
 .img-center{
 	text-align: center;
 	display: inline-block;
-	margin-top: 8px;
-  	margin-bottom: 8px; }
+	margin-top: 2px;
+  	margin-bottom: 2px; }
 .field-right{
 	width: 75%;
 	float: right; }
