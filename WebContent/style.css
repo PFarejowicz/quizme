@@ -1,3 +1,14 @@
+/* quiz_search.jsp
+------------------------------------- */
+.quiz_search{
+	float: left;
+	margin: 10px;
+}
+
+#quiz_search_return_home{
+	margin: 15px;
+}
+
 /* homepage.jsp
 ------------------------------------- */
 
@@ -136,6 +147,8 @@
 .field-right{
 	width: 75%;
 	float: right; }
+.field-center{
+	width: 100%;}
 
 /* Base Styles
 –––––––––––––––––––––––––––––––––––––––––––––––––– */

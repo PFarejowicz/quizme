@@ -15,10 +15,12 @@
 		<h1>QuizMe Quiz Finder Search Results</h1>
 		<p class="auth-center"><a href="quiz_search.jsp"><button type="button">New Search</button></a>
 		<a href="homepage.jsp"><button type="button">Return Home</button></a></p>
+		<% QuizManager quizManager = (QuizManager) application.getAttribute("quiz manager");
+		ArrayList<Quiz> quizList = (ArrayList<Quiz>) session.getAttribute("search"); %>
+		<% if(quizList.size() > 0){ %>
+		<div class="card">
 		<h5>Search Results Found:</h5>
 		<% 
-		QuizManager quizManager = (QuizManager) application.getAttribute("quiz manager");
-		ArrayList<Quiz> quizList = (ArrayList<Quiz>) session.getAttribute("search");
 		out.println("<ul>");
 		for(Quiz quiz: quizList){
 			out.println("<li>"+quiz.getName());
@@ -26,5 +28,7 @@
 		}
 		out.println("</ul>");
 		%>
+		</div>
+		<% } %>
 	</body>
 </html>
