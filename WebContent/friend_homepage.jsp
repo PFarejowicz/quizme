@@ -73,8 +73,8 @@
 		<% if(friendQuizzes.size() > 0){ %>
 			<h5><%=friendName%>'s Most Recent Created Quizzes:</h5><br/>
 			<% for(int i = friendQuizzes.size() - 1; i >= 0 && i >= friendQuizzes.size() - 3; i--){ %>
-				<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= friendQuizzes.get(i).getQuizID() %>"><%= friendQuizzes.get(i).getName() %></a></p>
-				<p>Description: <%= friendQuizzes.get(i).getDescription() %></p>
+					<p>Quiz Name: <a href="quiz_summary.jsp?quiz_id=<%= friendQuizzes.get(i).getQuizID() %>"><%= friendQuizzes.get(i).getName() %></a></p>
+					<p>Description: <%= friendQuizzes.get(i).getDescription() %></p>
 			<% } %>
 		<% } %>
 
