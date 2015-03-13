@@ -114,6 +114,22 @@
 
 }
 
+/* Typography
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.auth-center{
+	text-align: center;
+	display: inline-block;
+	width: 100%;
+	margin-top: 2px;
+  	margin-bottom: 2px; }
+.img-center{
+	text-align: center;
+	display: inline-block;
+	margin-top: 8px;
+  	margin-bottom: 8px; }
+.field-right{
+	width: 75%;
+	float: right; }
 
 /* Base Styles
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -126,7 +142,6 @@ body {
   font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #222; }
 p {
-	margin: 5px;
 	padding:0 0 0 0;
 	border: 0;
 }
@@ -134,20 +149,8 @@ p {
 
 /* Typography
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-.auth-center{
-	text-align: center;
-	margin-top: 8px;
-  	margin-bottom: 8px;
-}
-
 .reported{
 	color: red;
-}
-
-.img-center{
-	margin-left: auto;
-	margin-right: auto;
-	display:block;
 }
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
