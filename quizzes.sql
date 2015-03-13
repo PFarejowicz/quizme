@@ -17,6 +17,8 @@ CREATE TABLE IF NOT EXISTS quizzes (
     name VARCHAR(255),
     description VARCHAR(255),
     author_id INT,
+    category VARCHAR(255),
+    tags VARCHAR(255),
     random_order BOOL,
     multiple_pages BOOL,
     immediate_correction BOOL,

@@ -22,7 +22,6 @@
 				<option value="multianswer">Multiple-Answer Question</option>
 				<option value="multiple_choice_multiple_answers">Multiple Choice with Multiple Answers</option>
 			</select>
-			</p>
 			<input type="hidden" name="quiz_id" value="<%=request.getParameter("quiz_id")%>"/>
 			<input type="hidden" name="points" value="<%=request.getParameter("points")%>"/>
 			<input type="hidden" name="edit_mode" value="<%=request.getParameter("edit_mode")%>"/>

@@ -33,35 +33,41 @@ public class QuizManager {
 	 * @param correction immediate correction or not
 	 * @param points total points
 	 */
-	public void addQuiz(String name, String description, int author, boolean random, boolean pages, boolean correction, int points) {
+	public void addQuiz(String name, String description, int author, String category, String tags, boolean random, boolean pages, boolean correction, int points) {
 		try {
 		    Calendar calendar = Calendar.getInstance();
 		    Timestamp timeStamp = new Timestamp(calendar.getTime().getTime());
-			PreparedStatement insertStmt = con.prepareStatement("INSERT INTO quizzes (name, description, author_id, random_order, multiple_pages, immediate_correction, date_time, points, reported) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		    tags = tags.replace(" ", "");
+			PreparedStatement insertStmt = con.prepareStatement("INSERT INTO quizzes (name, description, author_id, category, tags, random_order, multiple_pages, immediate_correction, date_time, points, reported) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			insertStmt.setString(1, name);
 			insertStmt.setString(2, description);
 			insertStmt.setInt(3, author);
-			insertStmt.setBoolean(4, random);
-			insertStmt.setBoolean(5, pages);
-			insertStmt.setBoolean(6, correction);
-			insertStmt.setTimestamp(7, timeStamp);
-			insertStmt.setInt(8, points);
-			insertStmt.setBoolean(9, false);
+			insertStmt.setString(4, category);
+			insertStmt.setString(5, tags);
+			insertStmt.setBoolean(6, random);
+			insertStmt.setBoolean(7, pages);
+			insertStmt.setBoolean(8, correction);
+			insertStmt.setTimestamp(9, timeStamp);
+			insertStmt.setInt(10, points);
+			insertStmt.setBoolean(11, false);
 			insertStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void updateQuiz(String name, String description, boolean random, boolean pages, boolean correction, int quiz_id) {
+	public void updateQuiz(String name, String description, String category, String tags, boolean random, boolean pages, boolean correction, int quiz_id) {
 		try {
-			PreparedStatement updateStmt = con.prepareStatement("UPDATE quizzes SET name = ?, description = ?, random_order = ?, multiple_pages = ?, immediate_correction = ? WHERE quiz_id = ?");
+			tags = tags.replace(" ", "");
+			PreparedStatement updateStmt = con.prepareStatement("UPDATE quizzes SET name = ?, description = ?, category = ?, tags = ?, random_order = ?, multiple_pages = ?, immediate_correction = ? WHERE quiz_id = ?");
 			updateStmt.setString(1, name);
 			updateStmt.setString(2, description);
-			updateStmt.setBoolean(3, random);
-			updateStmt.setBoolean(4, pages);
-			updateStmt.setBoolean(5, correction);
-			updateStmt.setInt(6, quiz_id);
+			updateStmt.setString(3, category);
+			updateStmt.setString(4, tags);
+			updateStmt.setBoolean(5, random);
+			updateStmt.setBoolean(6, pages);
+			updateStmt.setBoolean(7, correction);
+			updateStmt.setInt(8, quiz_id);
 			updateStmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,7 +85,6 @@ public class QuizManager {
 			selectStmt.setString(1, name);
 			ResultSet rs = selectStmt.executeQuery();
 			rs.next();
-			System.out.println(rs.getInt("quiz_id"));
 			return rs.getInt("quiz_id");
 		} catch (Exception e) {
 			e.printStackTrace();
