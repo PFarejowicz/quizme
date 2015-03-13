@@ -4,7 +4,7 @@
 <%
 	String email = (String) session.getAttribute("email");
 	UserManager userManager = (UserManager) getServletContext().getAttribute("user manager");
-	if (email != null || userManager.getIDByEmail(email) != -1) {
+	if (email != null && userManager.getIDByEmail(email) != -1) {
 		if (userManager.isAdmin(email)) {
 			RequestDispatcher dispatch = request.getRequestDispatcher("admin_homepage.jsp");
 			dispatch.forward(request, response);
