@@ -20,59 +20,61 @@
 		</title>
 	</head>
 	<body>
-		<h1>Questions belonging to <%=quiz.getName() %></h1>
-		<p>Select a question to be edited:</p>
-		<table style="width:100%">
-			<tr>
-				<th>Question Number</th>
-				<th>Question Type</th>
-				<th>Question Prompt</th>
-				<th>Question Edit</th>
-			</tr>
-			<% 
-			ArrayList<Integer> questions = questionManager.getQuestionIDs(quiz_id);
-			int question_number = 1;
-			for (int question_id : questions) {
-				String type = questionManager.getTypeByID(question_id);
-				out.println("<tr>");
-				out.println("<td>"+question_number+"</td>");
-				if (type.equals("QuestionResponse")) {
-					QuestionResponse question = (QuestionResponse) questionManager.getQuestionByID(question_id);
-					out.println("<td>Question Response</td>");
-					out.println("<td>"+question.getQuestionText()+"</td>");
-					out.println("<td><a href=\"edit_question_response_question.jsp?question_id="+question_id+"\"><button type=\"button\">Edit Question</button></a></td>");
-				} else if (type.equals("FillInTheBlank")) {
-					FillInTheBlank question = (FillInTheBlank) questionManager.getQuestionByID(question_id);
-					out.println("<td>Fill In The Blank</td>");
-					out.println("<td>"+question.getQuestionText()+"</td>");
-					out.println("<td><a href=\"edit_fill_blank_question.jsp?question_id="+question_id+"\"><button type=\"button\">Edit Question</button></a></td>");
-				} else if (type.equals("MultipleChoice")) {
-					MultipleChoice question = (MultipleChoice) questionManager.getQuestionByID(question_id);
-					out.println("<td>Multiple Choice</td>");
-					out.println("<td>"+question.getQuestionText()+"</td>");
-					out.println("<td><a href=\"edit_multiple_choice_question.jsp?question_id="+question_id+"\"><button type=\"button\">Edit Question</button></a></td>");
-				} else if (type.equals("PictureResponse")) {
-					PictureResponse question = (PictureResponse) questionManager.getQuestionByID(question_id);
-					out.println("<td>Picture Response</td>");
-					out.println("<td>"+question.getQuestionText()+"</td>");
-					out.println("<td><a href=\"edit_picture_question.jsp?question_id="+question_id+"\"><button type=\"button\">Edit Question</button></a></td>");
-				} else if (type.equals("MultiAnswer")) {
-					MultiAnswer question = (MultiAnswer) questionManager.getQuestionByID(question_id);
-					out.println("<td>Multi-Answer</td>");
-					out.println("<td>"+question.getQuestionText()+"</td>");
-					out.println("<td><a href=\"edit_multianswer_question.jsp?question_id="+question_id+"\"><button type=\"button\">Edit Question</button></a></td>");
-				} else if (type.equals("MultipleChoiceMultipleAnswers")) {
-					MultipleChoiceMultipleAnswers question = (MultipleChoiceMultipleAnswers) questionManager.getQuestionByID(question_id);
-					out.println("<td>Multiple Choice Multiple Answers</td>");
-					out.println("<td>"+question.getQuestionText()+"</td>");
-					out.println("<td><a href=\"edit_multiple_choice_multiple_answers.jsp?question_id="+question_id+"\"><button type=\"button\">Edit Question</button></a></td>");
+		<h1 class="auth-center">Questions belonging to <%=quiz.getName() %></h1>
+		<div class="card">
+			<p>Select a question to be edited:</p>
+			<table class="field-center">
+				<tr>
+					<th class="headers">Question Number</th>
+					<th class="headers">Question Type</th>
+					<th class="headers">Question Prompt</th>
+					<th class="headers">Question Edit</th>
+				</tr>
+				<% 
+				ArrayList<Integer> questions = questionManager.getQuestionIDs(quiz_id);
+				int question_number = 1;
+				for (int question_id : questions) {
+					String type = questionManager.getTypeByID(question_id);
+					out.println("<tr>");
+					out.println("<td>"+question_number+"</td>");
+					if (type.equals("QuestionResponse")) {
+						QuestionResponse question = (QuestionResponse) questionManager.getQuestionByID(question_id);
+						out.println("<td>Question Response</td>");
+						out.println("<td>"+question.getQuestionText()+"</td>");
+						out.println("<td><a href=\"edit_question_response_question.jsp?question_id="+question_id+"\"><button type=\"button\">Edit Question</button></a></td>");
+					} else if (type.equals("FillInTheBlank")) {
+						FillInTheBlank question = (FillInTheBlank) questionManager.getQuestionByID(question_id);
+						out.println("<td>Fill In The Blank</td>");
+						out.println("<td>"+question.getQuestionText()+"</td>");
+						out.println("<td><a href=\"edit_fill_blank_question.jsp?question_id="+question_id+"\"><button type=\"button\">Edit Question</button></a></td>");
+					} else if (type.equals("MultipleChoice")) {
+						MultipleChoice question = (MultipleChoice) questionManager.getQuestionByID(question_id);
+						out.println("<td>Multiple Choice</td>");
+						out.println("<td>"+question.getQuestionText()+"</td>");
+						out.println("<td><a href=\"edit_multiple_choice_question.jsp?question_id="+question_id+"\"><button type=\"button\">Edit Question</button></a></td>");
+					} else if (type.equals("PictureResponse")) {
+						PictureResponse question = (PictureResponse) questionManager.getQuestionByID(question_id);
+						out.println("<td>Picture Response</td>");
+						out.println("<td>"+question.getQuestionText()+"</td>");
+						out.println("<td><a href=\"edit_picture_question.jsp?question_id="+question_id+"\"><button type=\"button\">Edit Question</button></a></td>");
+					} else if (type.equals("MultiAnswer")) {
+						MultiAnswer question = (MultiAnswer) questionManager.getQuestionByID(question_id);
+						out.println("<td>Multi-Answer</td>");
+						out.println("<td>"+question.getQuestionText()+"</td>");
+						out.println("<td><a href=\"edit_multianswer_question.jsp?question_id="+question_id+"\"><button type=\"button\">Edit Question</button></a></td>");
+					} else if (type.equals("MultipleChoiceMultipleAnswers")) {
+						MultipleChoiceMultipleAnswers question = (MultipleChoiceMultipleAnswers) questionManager.getQuestionByID(question_id);
+						out.println("<td>Multiple Choice Multiple Answers</td>");
+						out.println("<td>"+question.getQuestionText()+"</td>");
+						out.println("<td><a href=\"edit_multiple_choice_multiple_answers.jsp?question_id="+question_id+"\"><button type=\"button\">Edit Question</button></a></td>");
+					}
+					out.println("</tr>");
+					question_number++;
 				}
-				out.println("</tr>");
-				question_number++;
-			}
-			%>
-		</table>
-		<a href="add_question.jsp?quiz_id=<%=quiz_id %>&points=<%=quizManager.getQuizPoints(quiz_id) %>&edit_mode=true"><button type="button">Add Questions</button></a>
-		<a href="quiz_summary.jsp?quiz_id=<%=quiz_id %>"><button type="button">Finish Editing</button></a>
+				%>
+			</table>
+		</div>
+		<a class="smooth-edge" href="add_question.jsp?quiz_id=<%=quiz_id %>&points=<%=quizManager.getQuizPoints(quiz_id) %>&edit_mode=true"><button type="button">Add Questions</button></a>
+		<a class="smooth-edge" href="quiz_summary.jsp?quiz_id=<%=quiz_id %>"><button type="button">Finish Editing</button></a>
 	</body>
 </html>
