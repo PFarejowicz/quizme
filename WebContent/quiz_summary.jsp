@@ -89,7 +89,7 @@
 	<% } %>
 	
 	<% ArrayList<QuizHistory> lastDayHigh = quizManager.getQuizHistory(quiz_id, user_id, "last day high"); %>
-	<% if(lastDayHigh.size() > 0){ %>
+	<% if (lastDayHigh.size() > 0) { %>
 	<div class="card">
 	<h5>24 Hour High Scores</h5>
 	<p><%
@@ -103,7 +103,7 @@
 	<% } %>
 	
 	<% ArrayList<QuizHistory> recentScores = quizManager.getQuizHistory(quiz_id, user_id, "recent"); %>
-	<% if(recentScores.size() > 0){ %>
+	<% if (recentScores.size() > 0) { %>
 	<div class="card">
 	<h5>Recent Scores</h5>
 	<p><%
@@ -138,7 +138,7 @@
 	%></p>
 	</div>
 	
-	<% if(email != null){ %>
+	<% if (email != null) { %>
 	<form action="QuizStartServlet" method="post" style="display: inline">
 		<p>Mode: <br>
 		<input type="radio" name="mode" value="regular" checked="checked"/> Regular <br>
