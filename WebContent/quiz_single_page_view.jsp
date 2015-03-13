@@ -43,7 +43,7 @@
 						out.println("<p>" + question_number + ".) " + question.getQuestionText() + "</p>");
 						ArrayList<String> choices = question.getChoicesAsList();
 						for (String choice : choices) {
-							out.println("<input type=\"radio\" name=\"question_" + question_number + "\" value=\"" + choice + "\">" + choice + "<br>");
+							out.println("<input type=\"radio\" name=\"question_" + question_number + "\" value=\"" + choice + "\"> " + choice + "<br>");
 						}
 						out.println("<p></p>");
 					} else if (type.equals("PictureResponse")) {
@@ -63,7 +63,7 @@
 						out.println("<p>" + question_number + ".) " + question.getQuestionText() + "</p>");
 						ArrayList<String> choices = question.getChoicesAsList();
 						for (String choice : choices) {
-							out.println("<input type=\"checkbox\" name=\"question_" + question_number + "\" value=\"" + choice + "\">" + choice + "<br>");
+							out.println("<input type=\"checkbox\" name=\"question_" + question_number + "\" value=\"" + choice + "\"> " + choice + "<br>");
 						}
 						out.println("<p></p>");
 					} 
