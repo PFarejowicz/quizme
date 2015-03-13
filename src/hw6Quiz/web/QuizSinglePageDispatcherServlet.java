@@ -87,7 +87,7 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 				String type = questionManager.getTypeByID(question_id);
 				if (type.equals("QuestionResponse")) {
 					QuestionResponse question = (QuestionResponse) questionManager.getQuestionByID(question_id);
-					if (question.getAnswerText().equals(request.getParameter("question_" + question_number).toLowerCase())) {
+					if (question.getAnswerText().equals(request.getParameter("question_" + question_number).toLowerCase().trim())) {
 						score++;
 						if (isPracticeMode) quesFrequency.put(question_id, quesFrequency.get(question_id) - 1);
 					}
@@ -96,7 +96,7 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 					int numAnswers = question.getNumBlanks();
 					int partials = 0;
 					for (int i = 0; i < numAnswers; i++) {
-						if (question.getAnswerAsList().get(i).equals(request.getParameter("question_" + question_number + "_" + i).toLowerCase())) {
+						if (question.getAnswerAsList().get(i).equals(request.getParameter("question_" + question_number + "_" + i).toLowerCase().trim())) {
 							score++;
 							partials++;
 						}
@@ -110,7 +110,7 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 					}
 				} else if (type.equals("PictureResponse")) {
 					PictureResponse question = (PictureResponse) questionManager.getQuestionByID(question_id);
-					if (question.getAnswerText().equals(request.getParameter("question_" + question_number).toLowerCase())) {
+					if (question.getAnswerText().equals(request.getParameter("question_" + question_number).toLowerCase().trim())) {
 						score++;
 						if (isPracticeMode) quesFrequency.put(question_id, quesFrequency.get(question_id) - 1);
 					}
@@ -122,7 +122,7 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 					if (inOrder) {
 						ArrayList<String> answerList = question.getAnswerAsList();
 						for (int i = 0; i < numAnswers; i++) {
-							String userInput = request.getParameter("question_" + question_number + "_" + i).toLowerCase();
+							String userInput = request.getParameter("question_" + question_number + "_" + i).toLowerCase().trim();
 							if (answerList.get(i).equals(userInput)) {
 								score++;
 								partials++;
@@ -131,7 +131,7 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 					} else {
 						HashSet<String> answerList = new HashSet<String>(question.getAnswerAsList());
 						for (int i = 0; i < numAnswers; i++) {
-							String userInput = request.getParameter("question_" + question_number + "_" + i).toLowerCase();
+							String userInput = request.getParameter("question_" + question_number + "_" + i).toLowerCase().trim();
 							if (answerList.contains(userInput)) {
 								score++;
 								partials++;
@@ -146,7 +146,7 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 					String[] selectedAnswers = request.getParameterValues("question_" + question_number);
 					HashSet<String> answerList = new HashSet<String>(question.getAnswerAsList());
 					for (int i = 0; i < selectedAnswers.length; i++) {
-						if (answerList.contains(selectedAnswers[i])) {
+						if (answerList.contains(selectedAnswers[i].toLowerCase().trim())) {
 							score++;
 							partials++;
 							answerList.remove(selectedAnswers[i]);
