@@ -139,7 +139,7 @@
 			out.println("<input type=\"hidden\" name=\"edit_mode\" value=\"true\"/>");
 			out.println("<input type=\"submit\" value=\"Edit Quiz\" onclick=\"return confirm('WARNING: This operation will delete all prior quiz history for this quiz. Continue?')\"/>");
 			out.println("</form>");
-			out.println("<form action=\"AdminRemoveServlet\" method=\"post\" style=\"display: inline\">");
+			out.println("<form action=\"AdminRemoveQuizServlet\" method=\"post\" style=\"display: inline\">");
 			out.println("<input type=\"hidden\" name=\"id\" value=\""+quiz_id+"\"/>");
 			out.println("<input name=\"admin_edit\" type=\"hidden\" value=\"false\"/>");
 			out.println("<input type=\"submit\" value=\"Delete Quiz\" onclick=\"return confirm('WARNING: This operation will delete all prior quiz history for this quiz. Continue?')\"/>");

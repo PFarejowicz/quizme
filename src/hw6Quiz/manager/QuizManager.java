@@ -482,7 +482,7 @@ public class QuizManager {
 		boolean achievementAdded = false; 
 		try {
 			Statement selectStmt = con.createStatement();
-			ResultSet rs = selectStmt.executeQuery("SELECT * FROM achievements WHERE user_id = \"" + user_id + "\" AND description = Practice Makes Perfect");
+			ResultSet rs = selectStmt.executeQuery("SELECT * FROM achievements WHERE user_id = \"" + user_id + "\" AND description = \"Practice Makes Perfect\"");
 			if (rs == null) {
 				PreparedStatement insertStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
 				insertStmt.setInt(1, user_id);
