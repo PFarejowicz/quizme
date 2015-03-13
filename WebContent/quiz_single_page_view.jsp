@@ -26,6 +26,7 @@
 				ArrayList<Integer> questions = (ArrayList<Integer>) session.getAttribute("questions");
 				int question_number = 1;
 				for (int question_id : questions) {
+					out.println("<div class=\"card\">");
 					String type = questionManager.getTypeByID(question_id);
 					if (type.equals("QuestionResponse")) {
 						QuestionResponse question = (QuestionResponse) questionManager.getQuestionByID(question_id);
@@ -67,6 +68,7 @@
 						}
 						out.println("<p></p>");
 					} 
+					out.println("</div>");
 					question_number++;
 				}
 			%>
@@ -75,10 +77,10 @@
 			<input type="hidden" name="quiz_id" value="<%=quiz_id%>" />
 			<% 
 			if (request.getParameter("practice_mode").equals("true")) {											
-				out.println("<input type=\"submit\" name=\"quit\" value=\"Quit\" />");
+				out.println("<input type=\"submit\" name=\"quit\" value=\"Quit\" style=\"width: 100%\"/>");
 			}
 			%>
-			<input type="submit" value="Finish" />
+			<input type="submit" value="Finish" style="width: 100%"/>
 		</form>
 	</body>
 </html>

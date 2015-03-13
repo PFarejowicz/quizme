@@ -444,26 +444,35 @@ public class QuizManager {
 	 */
 	public boolean authorAchievement(int user_id) {
 		boolean achievementAdded = false;
+		boolean amateur = false;
+		boolean prolific = false;
+		boolean prodigious = false;
 		try {
 			Statement selectStmt = con.createStatement();
 			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quizzes WHERE author_id = \"" + user_id + "\"");
 			rs.last(); 
 			int count = rs.getRow(); 
-			if (count == 1) {
+			rs = selectStmt.executeQuery("SELECT * FROM achievements WHERE user_id = \"" + user_id + "\"");
+			if (rs.next()) {
+				if (rs.getString("description").equals("Amateur Author")) amateur = true;
+				if (rs.getString("description").equals("Prolific Author")) prolific = true;
+				if (rs.getString("description").equals("Prodigious Author")) prodigious = true;
+			}
+			if (count == 1 && !amateur) {
 				PreparedStatement insertStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
 				insertStmt.setInt(1, user_id);
 				insertStmt.setString(2, "Amateur Author");
 				insertStmt.executeUpdate();
 				achievementAdded = true;
 			}
-			if (count == 5) {
+			if (count == 5 && !prolific) {
 				PreparedStatement insertStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
 				insertStmt.setInt(1, user_id);
 				insertStmt.setString(2, "Prolific Author");
 				insertStmt.executeUpdate();
 				achievementAdded = true;
 			}
-			if (count == 10) {
+			if (count == 10 && !prodigious) {
 				PreparedStatement insertStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
 				insertStmt.setInt(1, user_id);
 				insertStmt.setString(2, "Prodigious Author");
@@ -483,12 +492,17 @@ public class QuizManager {
 	 */
 	public boolean quizTakerAchievement(int user_id) {
 		boolean achievementAdded = false;
+		boolean quizMachine = false;
 		try {
 			Statement selectStmt = con.createStatement();
 			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE user_id = \"" + user_id + "\"");
 			rs.last(); 
 			int count = rs.getRow(); 
-			if (count == 10) {
+			rs = selectStmt.executeQuery("SELECT * FROM achievements WHERE user_id = \"" + user_id + "\"");
+			if (rs.next()) {
+				if (rs.getString("description").equals("Quiz Machine")) quizMachine = true;
+			}
+			if (count == 10 && !quizMachine) {
 				PreparedStatement insertStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
 				insertStmt.setInt(1, user_id);
 				insertStmt.setString(2, "Quiz Machine");
@@ -548,12 +562,13 @@ public class QuizManager {
 					if (currScore > highest) {
 						highest = currScore;
 					}
-					if (score >= highest) {
-						PreparedStatement prepStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
-						prepStmt.setInt(1, user_id);
-						prepStmt.setString(2, achievement);
-						achievementAdded = true;
-					}
+				}
+				if (score >= highest) {
+					PreparedStatement prepStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
+					prepStmt.setInt(1, user_id);
+					prepStmt.setString(2, achievement);
+					prepStmt.executeUpdate();
+					achievementAdded = true;
 				}
 			}
 		} catch (SQLException e) {

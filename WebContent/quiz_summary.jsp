@@ -81,7 +81,7 @@
 	<p><%
 		int size = allTimeHigh.size();
 		for (int i = 0; i < size && i < num_scores; i++) {
-	        out.println((i + 1) + ": " + allTimeHigh.get(i).getName() + " (" + quizManager.convertToPercStr(allTimeHigh.get(i).getScore(), allTimeHigh.get(i).getTotal()) + ")");
+	        out.println((i + 1) + ": " + userManager.getNameByID(allTimeHigh.get(i).getUserId()) + " (" + quizManager.convertToPercStr(allTimeHigh.get(i).getScore(), allTimeHigh.get(i).getTotal()) + ")");
 	        out.println("<br>");
 		}
 	%></p>
@@ -95,7 +95,7 @@
 	<p><%
 		int size = lastDayHigh.size();
 		for (int i = 0; i < size && i < num_scores; i++) {
-	        out.println((i + 1) + ": " + lastDayHigh.get(i).getName() + " (" + quizManager.convertToPercStr(lastDayHigh.get(i).getScore(), lastDayHigh.get(i).getTotal()) + ")");
+	        out.println((i + 1) + ": " + userManager.getNameByID(lastDayHigh.get(i).getUserId()) + " (" + quizManager.convertToPercStr(lastDayHigh.get(i).getScore(), lastDayHigh.get(i).getTotal()) + ")");
 	        out.println("<br>");
 		}
 	%></p>
@@ -109,7 +109,7 @@
 	<p><%
 		int size = recentScores.size();
 		for (int i = 0; i < size && i < num_scores; i++) {
-	        out.println((i + 1) + ": " + recentScores.get(i).getName() + " (" + quizManager.convertToPercStr(recentScores.get(i).getScore(), recentScores.get(i).getTotal()) + ")");
+	        out.println((i + 1) + ": " + userManager.getNameByID(recentScores.get(i).getUserId()) + " (" + quizManager.convertToPercStr(recentScores.get(i).getScore(), recentScores.get(i).getTotal()) + ")");
 	        out.println("<br>");
 		}
 	%></p>

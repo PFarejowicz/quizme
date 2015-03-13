@@ -33,7 +33,7 @@ public class QuizHistory {
 		return quizId;
 	}
 	
-	public int userId(){
+	public int getUserId(){
 		return userId;
 	}
 	
