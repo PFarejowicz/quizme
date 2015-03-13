@@ -250,5 +250,38 @@
 				<li><a href="friend_homepage.jsp?friendEmail=<%=messages.get(i)%>"><%=messages.get(i)%></a>: <%=messages.get(i-1)%></li>
 			<%}%>
 			</ul>
+			
+		<h3 class="auth-center">Challenges</h3>
+			<ul>
+			<% ArrayList<Challenge> challenges = messageManager.getChallenge(userId); %>
+			<%
+			for (int i = 0 ; i < challenges.size() ; i++) { %>
+				<% 
+				Challenge challenge = challenges.get(i);
+				int quizId = challenge.getQuizId();
+				int senderId = challenge.getSenderId();
+				String sender = userManager.getNameByID(senderId);
+				int score = challenge.getScore();
+				%>
+				<li>
+				<p><%= sender %> got a score of <%= score %> in <a href="quiz_summary.jsp?quiz_id=<%=quizId%>"><%=quizManager.getQuizNameByID(quizId)%></a>. Accept the challenge to get a new record!</p>
+					<form action="ChallengeServlet" method="post">
+						<input type="hidden" value=<%=senderId%> name="sender_id" />
+						<input type="hidden" value=<%=userId%> name="receiver_id" />
+						<input type="hidden" value=<%=quizId%> name="quiz_id" />
+						<input type="hidden" value=<%=score%> name="score" />
+					    <input type="submit" value="Accept Challenge" name="decision" />
+				    </form>
+				    <form action="ChallengeServlet" method="post">
+						<input type="hidden" value=<%=senderId%> name="sender_id" />
+						<input type="hidden" value=<%=userId%> name="receiver_id" />
+						<input type="hidden" value=<%=quizId%> name="quiz_id" />
+						<input type="hidden" value=<%=score%> name="score" />
+					    <input type="submit" value="Reject Challenge"  name="decision"/>
+				    </form>
+				</li>
+			<%}%>
+			</ul>
+			
 	</body>
 </html>

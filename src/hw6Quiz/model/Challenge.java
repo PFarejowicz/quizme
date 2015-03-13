@@ -21,7 +21,7 @@ public class Challenge {
 		return receiver_id;
 	}
 	
-	public int getQuidId() {
+	public int getQuizId() {
 		return quiz_id;
 	}
 	

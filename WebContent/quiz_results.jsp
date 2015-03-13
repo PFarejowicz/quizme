@@ -19,6 +19,7 @@
 		UserManager userManager = (UserManager) application.getAttribute("user manager");
 		QuizManager quizManager = (QuizManager) application.getAttribute("quiz manager");
 		QuestionManager questionManager = (QuestionManager) application.getAttribute("question manager");
+		MessageManager messageManager = (MessageManager) getServletContext().getAttribute("message manager");
 		int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
 		int user_id = (Integer) session.getAttribute("user id");
 		Quiz quiz = quizManager.getQuizByID(quiz_id);
@@ -58,9 +59,17 @@
 		%> 
 		<ul>
 		<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
-			<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getNameByID(friendsList.get(i))%> (<%=quizManager.convertToPercStr(userManager.getTopScore(user_id, quiz_id), total)%>%)</a>
-
-			</li>	
+			<% if (quiz.getAuthorID() != friendsList.get(i)) { %>
+				<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getNameByID(friendsList.get(i))%> (<%=quizManager.convertToPercStr(userManager.getTopScore(user_id, quiz_id), total)%>%)</a>
+				<form action="ChallengeServlet" method="post">
+					<input type="hidden" value=<%=user_id%> name="sender_id" />
+					<input type="hidden" value=<%=friendsList.get(i)%> name="receiver_id" />
+					<input type="hidden" value=<%=quiz_id%> name="quiz_id" />
+					<input type="hidden" value=<%=score%> name="score" />
+					<input type="submit" value="Send Challenge" name="decision" />
+				</form>
+				</li>	
+			<%}%>
 		<%}%>
 		</ul>
 		

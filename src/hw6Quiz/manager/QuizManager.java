@@ -87,6 +87,21 @@ public class QuizManager {
 		return -1;
 	}
 	
+	public String getQuizNameByID(int id) {
+		Statement stmt;
+		String name = "";
+		try {
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE quiz_id = \"" + id + "\"");
+			if (rs.next()) {
+				return rs.getString("name");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return name;
+	}
+	
 	/**
 	 * Get quiz object given ID
 	 * @param quiz_id quiz ID 

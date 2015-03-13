@@ -79,6 +79,7 @@ public class MessageManager {
 			prepStmt.setInt(3, quizId);
 			prepStmt.setInt(4, score);
 			prepStmt.executeUpdate();
+			System.out.println("test"); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
