@@ -42,7 +42,7 @@ public class QuizReviewServlet extends HttpServlet {
 		int user_id = (Integer) request.getSession().getAttribute("user id");
 		int score = Integer.parseInt(request.getParameter("score"));
 		int total = Integer.parseInt(request.getParameter("total"));
-		Timestamp time_taken = Timestamp.valueOf(request.getParameter("time_taken"));
+		Timestamp time_taken = (Timestamp) request.getSession().getAttribute("time_taken");
 		
 		// Check achievements
 		quizManager.iAmGreatestAchievement(user_id, quiz_id, score);

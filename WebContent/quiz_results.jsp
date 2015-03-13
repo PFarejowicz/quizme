@@ -33,7 +33,7 @@
 <body>
 	<h1><%=quiz.getName()%> Results</h1>
 	<p>Score: <%=score%> / <%= total%> (<%=quizManager.convertToPercStr(score, total) %>)</p>
-	<p>Time Elapsed: <%=request.getParameter("time_taken")%></p> 
+	<p>Time Taken: <%=request.getParameter("time_taken")%></p> 
 	<form action="QuizReviewServlet" method="post">
 		<p>Review:</p>
 		<textarea name="review" rows="5" cols="50"></textarea>
