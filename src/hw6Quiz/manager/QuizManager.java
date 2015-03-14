@@ -619,6 +619,22 @@ public class QuizManager {
 		return recentQuizzes;
 	}
 	
+	public boolean contains(String quiz_name) {
+		try {
+			Statement selectStmt = con.createStatement();
+			ResultSet rs = selectStmt.executeQuery("SELECT * FROM quizzes WHERE name = \"" + quiz_name + "\"");
+			if (rs.next()) return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	/**
+	 * Checks if a quiz exists in the database given a quiz id
+	 * @param quiz_id quiz id 
+	 * @return if exists
+	 */
 	public boolean quizExists(int quiz_id) {
 		try {
 			Statement selectStmt = con.createStatement();

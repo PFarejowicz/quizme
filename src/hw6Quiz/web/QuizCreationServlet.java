@@ -60,7 +60,7 @@ public class QuizCreationServlet extends HttpServlet {
 			
 			RequestDispatcher dispatch = request.getRequestDispatcher("edit_question.jsp?quiz_id="+quiz_id);
 			dispatch.forward(request, response);
-		} else {
+		} else if (!quizManager.contains(name)){
 			quizManager.addQuiz(name, description, user_id, category, tags, random_order, multiple_pages, immediate_correction, 0);
 			
 			// Check achievements
@@ -68,6 +68,9 @@ public class QuizCreationServlet extends HttpServlet {
 			
 			int quiz_id = quizManager.getIDByName(name);
 			RequestDispatcher dispatch = request.getRequestDispatcher("add_question.jsp?quiz_id="+quiz_id+"&points=0&edit_mode=false");
+			dispatch.forward(request, response);
+		} else {
+			RequestDispatcher dispatch = request.getRequestDispatcher("create_quiz.jsp?error=duplicate_name");
 			dispatch.forward(request, response);
 		}
 	}
