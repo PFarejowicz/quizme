@@ -20,7 +20,7 @@
 		</title>
 	</head>
 	<body>
-	<h1><%=quiz.getName() %></h1>
+	<h1 class="auth-center"><%=quiz.getName() %></h1>
 		<form action="QuizDispatcherServlet" method="post">
 			<div class="card">
 			<%
@@ -32,39 +32,39 @@
 				if (type.equals("QuestionResponse")) {
 					QuestionResponse question = (QuestionResponse) questionManager.getQuestionByID(question_id);
 					out.println("<p>" + question_number + ".) " + question.getQuestionText() + "</p>");
-					out.println("<input type=\"text\" name=\"question_" + question_number + "\"/>");
+					out.println("<input class=\"light-edge\" type=\"text\" name=\"question_" + question_number + "\"/>");
 				} else if (type.equals("FillInTheBlank")) {
 					FillInTheBlank question = (FillInTheBlank) questionManager.getQuestionByID(question_id);
 					out.println("<p>" + question_number + ".) " + question.getQuestionText() + "</p>");
 					int num_answers = question.getNumBlanks();
 					for (int i = 0; i < num_answers; i++) {
-						out.println("<input type=\"text\" name=\"question_" + question_number + "_" + i + "\"/>");
+						out.println("<input class=\"light-edge\" type=\"text\" name=\"question_" + question_number + "_" + i + "\"/>");
 					}
 				} else if (type.equals("MultipleChoice")) {
 					MultipleChoice question = (MultipleChoice) questionManager.getQuestionByID(question_id);
 					out.println("<p>" + question_number + ".) " + question.getQuestionText() + "</p>");
 					ArrayList<String> choices = question.getChoicesAsList();
 					for (String choice : choices) {
-						out.println("<input type=\"radio\" name=\"question_" + question_number + "\" value=\"" + choice + "\"> " + choice + "<br>");
+						out.println("<input class=\"light-edge\" type=\"radio\" name=\"question_" + question_number + "\" value=\"" + choice + "\"> " + choice + "<br>");
 					}
 				} else if (type.equals("PictureResponse")) {
 					PictureResponse question = (PictureResponse) questionManager.getQuestionByID(question_id);
 					out.println("<p>" + question_number + ".) " + "</p>");
-					out.println("<p><img src=" + question.getQuestionText() + "/></p>");
-					out.println("<input type=\"text\" name=\"question_" + question_number + "\"/>");
+					out.println("<p><img class=\"light-edge\" src=" + question.getQuestionText() + "/></p>");
+					out.println("<input class=\"light-edge\" type=\"text\" name=\"question_" + question_number + "\"/>");
 				} else if (type.equals("MultiAnswer")) {
 					MultiAnswer question = (MultiAnswer) questionManager.getQuestionByID(question_id);
 					out.println("<p>" + question_number + ".) " + question.getQuestionText() + "</p>");
 					int size = question.getNumAnswers();
 					for (int i = 0; i < size; i++) {
-						out.println("<p><input type=\"text\" name=\"question_" + question_number + "_" + i + "\"/></p>");
+						out.println("<p><input class=\"light-edge\" type=\"text\" name=\"question_" + question_number + "_" + i + "\"/></p>");
 					}
 				} else if (type.equals("MultipleChoiceMultipleAnswers")) {
 					MultipleChoiceMultipleAnswers question = (MultipleChoiceMultipleAnswers) questionManager.getQuestionByID(question_id);
 					out.println("<p>" + question_number + ".) " + question.getQuestionText() + "</p>");
 					ArrayList<String> choices = question.getChoicesAsList();
 					for (String choice : choices) {
-						out.println("<input type=\"checkbox\" name=\"question_" + question_number + "\" value=\"" + choice + "\"> " + choice + "<br>");
+						out.println("<input class=\"light-edge\" type=\"checkbox\" name=\"question_" + question_number + "\" value=\"" + choice + "\"> " + choice + "<br>");
 					}
 					out.println("<p></p>");
 				} 
