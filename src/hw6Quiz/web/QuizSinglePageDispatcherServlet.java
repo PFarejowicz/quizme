@@ -63,7 +63,7 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 			Date endTime = new Date(cal.getTimeInMillis()); 
 			long diff = endTime.getTime() - startTime.getTime();
 			int diffMin = (int) (diff / (60 * 1000));
-			int diffSec = (int) (diff / 1000);
+			int diffSec = (int) ((diff % (60 * 1000)) / 1000);
 			String timeTakenStr = diffMin + " minutes, " + diffSec + " seconds";
 			Timestamp timeTaken = new Timestamp(0, 0, 0, 0, diffMin, diffSec, 0);
 			session.setAttribute("time_taken", timeTaken);
