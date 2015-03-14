@@ -144,7 +144,7 @@
 		</div>
 		
 		<div class="card">
-		<h5><a href="quiz_reviews.jsp?quiz_id="<%=quiz_id%>>Reviews</a></h5>
+		<h5><a href="quiz_reviews.jsp?quiz_id=<%=quiz_id%>">Reviews</a></h5>
 		</div>
 
 		<% if (email != null) { %>
