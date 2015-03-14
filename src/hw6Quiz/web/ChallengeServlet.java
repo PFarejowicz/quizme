@@ -27,14 +27,12 @@ public class ChallengeServlet extends HttpServlet {
      */
     public ChallengeServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -50,6 +48,7 @@ public class ChallengeServlet extends HttpServlet {
 		int receiver_id = Integer.parseInt(request.getParameter("receiver_id"));
 		int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
 		int score = Integer.parseInt(request.getParameter("score"));
+		String time_taken = request.getParameter("time_taken");
 		String decision = request.getParameter("decision");
 		
 		if (decision.equals("Accept Challenge")) {
@@ -62,7 +61,7 @@ public class ChallengeServlet extends HttpServlet {
 			dispatch.forward(request, response);
 		} else if (decision.equals("Send Challenge")) {
 			messageManager.sendChallenge(sender_id, receiver_id, quiz_id, score);
-			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_results.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_results.jsp?time_taken="+time_taken);
 			dispatch.forward(request, response);
 		}
 	}

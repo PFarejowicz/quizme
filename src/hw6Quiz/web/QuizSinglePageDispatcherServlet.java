@@ -53,7 +53,6 @@ public class QuizSinglePageDispatcherServlet extends HttpServlet {
 			dispatch.forward(request, response); 
 		} else {
 			QuestionManager questionManager = (QuestionManager) getServletContext().getAttribute("question manager");
-			QuizManager quizManager = (QuizManager) getServletContext().getAttribute("quiz manager");
 			int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
 			HttpSession session = request.getSession();
 			
