@@ -73,8 +73,6 @@ public class QuizStartServlet extends HttpServlet {
 				}
 				session.setAttribute("ques_frequency", quesFrequency);
 				
-				// Check achievements
-				quizManager.practiceMakesPerfect(user_id);
 			} else {
 				quizManager.quizTakerAchievement(user_id);
 			}
