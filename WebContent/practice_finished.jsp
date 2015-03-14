@@ -27,7 +27,7 @@
 		</title>
 	</head>
 	<body>
-		<h1>Congratulations!</h1>
+		<h1 class="auth-center">Congratulations!</h1>
 		<% if(email != null){ %>
 			<% if(quizManager.checkQuizReported(quiz_id)){ %>
 				<p class="reported">THIS QUIZ HAS BEEN REPORTED!</p>
