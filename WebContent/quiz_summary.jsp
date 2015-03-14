@@ -16,7 +16,7 @@
 			UserManager userManager = (UserManager) application.getAttribute("user manager");
 			int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
 			int user_id = 0;
-			if((Integer) session.getAttribute("user id") != null){
+			if((Integer) session.getAttribute("user id") != null) {
 				user_id = (Integer) session.getAttribute("user id");
 			}
 			String email = (String) session.getAttribute("email");
@@ -26,14 +26,14 @@
 		</title>
 	</head>
 	<body>
-		<h1>Welcome to a QuizMe Quiz</h1>
+		<h1 class="auth-center">Welcome to a QuizMe Quiz</h1>
 		<% if(email != null){ %>
 			<% if(quizManager.checkQuizReported(quiz_id)){ %>
-				<p class="reported">THIS QUIZ HAS BEEN REPORTED!</p>
+				<p class="reported quiz_summary_indent">THIS QUIZ HAS BEEN REPORTED!</p>
 			<% } else{ %>
 				<form action="ReportQuizServlet" method="post">
 					<input type="hidden" name="quiz_id" value="<%= quiz_id %>"/>
-					<input type="submit" value="Report Quiz" style="color:red" />
+					<input class="reported quiz_summary_indent" type="submit" value="Report Quiz" style="color:red" />
 				</form>
 			<% } %>
 		<% } %>
@@ -144,29 +144,29 @@
 		</div>
 		
 		<div class="card">
-		<h5>Reviews</h5>
+		<h5><a href="quiz_reviews.jsp?quiz_id=<%=quiz_id%>">Reviews</a></h5>
 		</div>
 
 		<% if (email != null) { %>
 		<form action="QuizStartServlet" method="post" style="display: inline">
-			<p>Mode: <br>
-			<input type="radio" name="mode" value="regular" checked="checked"/> Regular <br>
-			<input type="radio" name="mode" value="practice" /> Practice 
+			<p class="quiz_summary_indent">Mode: <br>
+			<input class="quiz_summary_indent" type="radio" name="mode" value="regular" checked="checked"/> Regular <br>
+			<input class="quiz_summary_indent" type="radio" name="mode" value="practice" /> Practice 
 			</p>
 			<input type="hidden" name="quiz_id" value="<%=quiz_id%>"/>
 			<input type="hidden" name="random_order" value="<%=quiz.isRandomOrder()%>"/>
 			<input type="hidden" name="multiple_pages" value="<%=quiz.isMultiplePages()%>"/>
 			<input type="hidden" name="immediate_correction" value="<%=quiz.isImmediateCorrection()%>"/>
-			<input  type="submit" value="Take Quiz" />
+			<input class="quiz_summary_indent" type="submit" value="Take Quiz" />
 		</form>
 		
 		<p><%
 			if (user_id == quiz.getAuthorID()) {
-				out.println("<h2>Author Toolbox</h2>");
+				out.println("<h2 class=\"quiz_summary_indent\">Author Toolbox</h2>");
 				out.println("<form action=\"edit_quiz.jsp\" method=\"post\" style=\"display: inline\">");
 				out.println("<input type=\"hidden\" name=\"quiz_id\" value=\""+quiz_id+"\"/>");
 				out.println("<input type=\"hidden\" name=\"edit_mode\" value=\"true\"/>");
-				out.println("<input type=\"submit\" value=\"Edit Quiz\" onclick=\"return confirm('WARNING: This operation will delete all prior quiz history for this quiz. Continue?')\"/>");
+				out.println("<input class=\"quiz_summary_indent\" type=\"submit\" value=\"Edit Quiz\" onclick=\"return confirm('WARNING: This operation will delete all prior quiz history for this quiz. Continue?')\"/>");
 				out.println("</form>");
 				out.println("<form action=\"AdminRemoveQuizServlet\" method=\"post\" style=\"display: inline\">");
 				out.println("<input type=\"hidden\" name=\"id\" value=\""+quiz_id+"\"/>");
@@ -176,9 +176,9 @@
 			}
 		%></p>
 		
-		<a href="homepage.jsp"><button type="button">Return Home</button></a>
+		<a class="quiz_summary_indent" href="homepage.jsp"><button type="button">Return Home</button></a>
 		<% } else{ %>
-			<a href="nonregistered_access.jsp"><button type="button">Return Home</button></a>
+			<a class="quiz_summary_indent" href="nonregistered_access.jsp"><button type="button">Return Home</button></a>
 		<% } %>
 	</body>
 </html>

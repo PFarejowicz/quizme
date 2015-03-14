@@ -23,12 +23,12 @@
 		<h1 class="auth-center">Questions belonging to <%=quiz.getName() %></h1>
 		<div class="card">
 			<p>Select a question to be edited:</p>
-			<table class="field-center">
+			<table class="field-center" cellpadding="10">
 				<tr>
-					<th class="headers">Question Number</th>
-					<th class="headers">Question Type</th>
-					<th class="headers">Question Prompt</th>
-					<th class="headers">Question Edit</th>
+					<th>Question Number</th>
+					<th>Question Type</th>
+					<th>Question Prompt</th>
+					<th>Question Edit</th>
 				</tr>
 				<% 
 				ArrayList<Integer> questions = questionManager.getQuestionIDs(quiz_id);

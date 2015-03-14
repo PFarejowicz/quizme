@@ -1,3 +1,15 @@
+/* quiz_summary.jsp
+------------------------------------- */
+.quiz_summary_indent{
+	margin: 15px;
+}
+
+/* edit_question.jsp
+------------------------------------- */
+.headers{
+	padding: 10px;
+}
+
 /* search_user.jsp
 ------------------------------------- */
 #search_user_back_to_profile{
@@ -384,16 +396,8 @@ pre > code {
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 th,
 td {
-  padding: 12px 15px;
   text-align: left;
   border-bottom: 1px solid #E1E1E1; }
-th:first-child,
-td:first-child {
-  padding-left: 0; }
-th:last-child,
-td:last-child {
-  padding-right: 0; }
-
 
 /* Spacing
 –––––––––––––––––––––––––––––––––––––––––––––––––– */

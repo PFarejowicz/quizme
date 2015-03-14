@@ -373,6 +373,8 @@ public class QuizManager {
 				rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\" ORDER BY score DESC, time_taken ASC");
 			} else if (type.equals("recent")) {
 				rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\" ORDER BY date_time DESC, time_taken ASC");
+			} else if (type.equals("reviews")) {
+				rs = selectStmt.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \"" + quiz_id + "\" ORDER BY date_time DESC");
 			}
 			while (rs.next()){
 				QuizHistory qh = new QuizHistory(rs.getInt("quiz_history_id"), rs.getInt("quiz_id"), rs.getInt("user_id"), rs.getInt("score"), rs.getInt("total"), rs.getInt("rating"), rs.getString("review"), rs.getString("name"), rs.getTimestamp("date_time"));
@@ -520,14 +522,20 @@ public class QuizManager {
 	 * @return added successfully
 	 */
 	public boolean practiceMakesPerfect(int user_id) {
+		boolean alreadyAdded = false;
 		boolean achievementAdded = false; 
+		System.out.print("test practice makes perfect");
+		String achievement = "Practice Makes Perfect";
 		try {
-			Statement selectStmt = con.createStatement();
-			ResultSet rs = selectStmt.executeQuery("SELECT * FROM achievements WHERE user_id = \"" + user_id + "\" AND description = \"Practice Makes Perfect\"");
-			if (rs == null) {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM achievements WHERE user_id = \"" + user_id + "\"");
+			while(rs.next()) {
+				if (rs.getString("description").equals(achievement)) alreadyAdded = true;
+			}
+			if (!alreadyAdded) {
 				PreparedStatement insertStmt = con.prepareStatement("INSERT INTO achievements (user_id, description) VALUES (?, ?)");
 				insertStmt.setInt(1, user_id);
-				insertStmt.setString(2, "Practice Makes Perfect");
+				insertStmt.setString(2, achievement);
 				insertStmt.executeUpdate();
 				achievementAdded = true;
 			}

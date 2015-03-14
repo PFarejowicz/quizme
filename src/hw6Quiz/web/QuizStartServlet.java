@@ -60,7 +60,7 @@ public class QuizStartServlet extends HttpServlet {
 
 		// Set up questions
 		ArrayList<Integer> questions = questionManager.getQuestionIDs(quiz_id);
-		if (questions.isEmpty()) {													// no questions in quiz
+		if (questions.isEmpty()) {	// no questions in quiz
 			RequestDispatcher dispatch = request.getRequestDispatcher("quiz_results.jsp?quiz_id="+quiz_id+"&score=0&time_taken= 0 seconds");
 			dispatch.forward(request, response);
 		} else {
@@ -73,8 +73,6 @@ public class QuizStartServlet extends HttpServlet {
 				}
 				session.setAttribute("ques_frequency", quesFrequency);
 				
-				// Check achievements
-				quizManager.practiceMakesPerfect(user_id);
 			} else {
 				quizManager.quizTakerAchievement(user_id);
 			}
