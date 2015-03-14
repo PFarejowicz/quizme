@@ -11,21 +11,25 @@
 		<title>Add Question</title>
 	</head>
 	<body>
-		<h1>Select Question Type</h1>
-		<form action="SelectQuestionTypeServlet" method="post">
-			<p>Question Type: 
-			<select name="ques_type">
-				<option value="text_response">Question-Response Question</option>
-				<option value="fill_blank">Fill in the Blank Question</option>
-				<option value="multiple_choice">Multiple Choice Question</option>
-				<option value="picture">Picture-Response Question</option>
-				<option value="multianswer">Multiple-Answer Question</option>
-				<option value="multiple_choice_multiple_answers">Multiple Choice with Multiple Answers</option>
-			</select>
-			<input type="hidden" name="quiz_id" value="<%=request.getParameter("quiz_id")%>"/>
-			<input type="hidden" name="points" value="<%=request.getParameter("points")%>"/>
-			<input type="hidden" name="edit_mode" value="<%=request.getParameter("edit_mode")%>"/>
-			<p><input type="submit" value="Next" /></p>
-		</form>
+		<div style="text-align:center">
+			<div style="display:inline-block">
+				<h1 class="auth-center">Select Question Type</h1><br><br>
+				<form action="SelectQuestionTypeServlet" method="post">
+					<p class="auth-center">Question Type: 
+					<select name="ques_type">
+						<option value="text_response">Question-Response Question</option>
+						<option value="fill_blank">Fill in the Blank Question</option>
+						<option value="multiple_choice">Multiple Choice Question</option>
+						<option value="picture">Picture-Response Question</option>
+						<option value="multianswer">Multiple-Answer Question</option>
+						<option value="multiple_choice_multiple_answers">Multiple Choice with Multiple Answers</option>
+					</select>
+					<input type="hidden" name="quiz_id" value="<%=request.getParameter("quiz_id")%>"/>
+					<input type="hidden" name="points" value="<%=request.getParameter("points")%>"/>
+					<input type="hidden" name="edit_mode" value="<%=request.getParameter("edit_mode")%>"/>
+					<input type="submit" value="Next" /></p>
+				</form>
+			</div>
+		</div>
 	</body>
 </html>

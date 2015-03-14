@@ -20,7 +20,8 @@
 		</title>
 	</head>
 	<body>
-		<h1><%=quiz.getName() %></h1>
+		<h1 class="auth-center">QuizMe Feedback</h1>
+		<p class="auth-center">See your graded response for : <%=quiz.getName() %><p>
 		<h2>
 			<%
 			if (request.getParameter("correct_answer").equals("true")) {

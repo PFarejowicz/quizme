@@ -11,21 +11,24 @@
 	<title>Create Picture Question</title>
 	</head>
 	<body>
-		<h1>Create Picture Question</h1>
-		<form action="QuestionCreationServlet" method="post">
-			<p>Enter a URL of an image.</p>
-			<p>URL: <br>
-			<textarea rows="4" cols="50" name="prompt" ></textarea></p>
-			<p>Answer: <br>
-			<textarea rows="4" cols="50" name="answer" ></textarea></p>
-			<!-- TODO: Add number check -->
-			<input type="hidden" name="ques_type" value="picture"/>
-			<input type="hidden" name="quiz_id" value="<%=request.getParameter("quiz_id")%>"/>
-			<input type="hidden" name="points" value="<%=request.getParameter("points")%>"/>
-			<input type="hidden" name="edit_mode" value="<%=request.getParameter("edit_mode")%>"/>
-			<input type="submit" name="previous" value="Previous"/>
-			<input type="submit" name="next" value="Next"/>
-			<input type="submit" name="finish" value="Finish" />
-		</form>
+		<div style="text-align:center">
+			<div style="display:inline-block">
+				<h1 class="auth-center">Create Picture Question</h1>
+				<form action="QuestionCreationServlet" method="post">
+					<p class="auth-center">Enter a URL of an image and the desired response.</p><br>
+					<p class="auth-center">URL: <br>
+					<textarea rows="4" cols="50" name="prompt" ></textarea></p><br>
+					<p class="auth-center">Answer: <br>
+					<textarea rows="4" cols="50" name="answer" ></textarea></p><br><br>
+					<input type="hidden" name="ques_type" value="picture"/>
+					<input type="hidden" name="quiz_id" value="<%=request.getParameter("quiz_id")%>"/>
+					<input type="hidden" name="points" value="<%=request.getParameter("points")%>"/>
+					<input type="hidden" name="edit_mode" value="<%=request.getParameter("edit_mode")%>"/>
+					<input type="submit" name="previous" value="Previous"/>
+					<input type="submit" name="next" value="Next"/>
+					<input type="submit" name="finish" value="Finish" />
+				</form>
+			</div>
+		</div>
 	</body>
 </html>
