@@ -17,19 +17,21 @@
 			int question_id = Integer.parseInt(request.getParameter("question_id"));
 			PictureResponse question = (PictureResponse) questionManager.getQuestionByID(question_id);
 		%>
-		<h1>Edit Picture Question</h1>
-		<p>Current Image:</p>
-		<p><img src="<%=question.getQuestionText() %>"></p>
-		<form action="QuestionEditServlet" method="post">
-			<p>Enter a URL of an image.</p>
-			<p>URL: <br>
-			<textarea rows="4" cols="50" name="prompt" ><%=question.getQuestionText() %></textarea></p>
-			<p>Answer: <br>
-			<textarea rows="4" cols="50" name="answer" ><%=question.getAnswerText() %></textarea></p>
-			<input type="hidden" name="ques_type" value="picture"/>
-			<input type="hidden" name="quiz_id" value="<%=question.getQuizID() %>"/>
-			<input type="hidden" name="question_id" value="<%=question_id %>"/>
-			<input type="submit" name="update" value="Continue Editing"/>
-		</form>
+		<div style="text-align:center">
+			<div style="display:inline-block">
+				<h1 class="auth-center">Edit Picture Question</h1>
+				<form action="QuestionEditServlet" method="post">
+					<p class="auth-center">Enter a URL of an image and the desired response.</p><br>
+					<p class="auth-center">URL: <br>
+					<textarea rows="4" cols="50" name="prompt" ><%=question.getQuestionText() %></textarea></p><br>
+					<p class="auth-center">Answer: <br>
+					<textarea rows="4" cols="50" name="answer" ><%=question.getAnswerText() %></textarea></p><br><br>
+					<input type="hidden" name="ques_type" value="picture"/>
+					<input type="hidden" name="quiz_id" value="<%=question.getQuizID() %>"/>
+					<input type="hidden" name="question_id" value="<%=question_id %>"/>
+					<input type="submit" name="update" value="Continue Editing"/>
+				</form>
+			</div>
+		</div>
 	</body>
 </html>

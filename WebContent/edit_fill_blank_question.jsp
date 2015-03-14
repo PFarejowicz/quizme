@@ -17,18 +17,25 @@
 			int question_id = Integer.parseInt(request.getParameter("question_id"));
 			FillInTheBlank question = (FillInTheBlank) questionManager.getQuestionByID(question_id);
 		%>
-		<h1>Edit Fill in the Blank Question</h1>
-		<form action="QuestionEditServlet" method="post">
-			<p>Enter the question and use * to represent a blank (do not include * in the actual question). Separate the answers with commas (do not include , in the actual answer).</p>
-			<p>Question: <br>
-			<textarea rows="4" cols="50" name="prompt" ><%=question.getQuestionRegex() %></textarea></p>
-			<p>Answer: <br>
-			<textarea rows="4" cols="50" name="answer" ><%=question.getAnswerAsText()%></textarea></p>
-			<input type="hidden" name="ques_type" value="fill_blank"/>
-			<input type="hidden" name="quiz_id" value="<%=question.getQuizID() %>"/>
-			<input type="hidden" name="question_id" value="<%=question_id %>"/>
-			<input type="hidden" name="prev_points" value="<%=question.getNumBlanks() %>"/>
-			<input type="submit" name="update" value="Continue Editing"/>
-		</form>
+		<div style="text-align:center">
+			<div style="display:inline-block">
+				<h1 class="auth-center">Edit Fill in the Blank Question</h1><br>
+				<form action="QuestionEditServlet" method="post">
+					<p class="auth-center">Enter the question and use * to represent a blank<br>
+					(do not include * in the actual question).<br>
+					Separate the answers with commas <br>
+					(do not include , in the actual answer).</p><br>
+					<p class="auth-center">Question: <br>
+					<textarea rows="4" cols="50" name="prompt" ><%=question.getQuestionRegex() %></textarea></p><br>
+					<p class="auth-center">Answer: <br>
+					<textarea rows="4" cols="50" name="answer" ><%=question.getAnswerAsText()%></textarea></p><br><br>
+					<input type="hidden" name="ques_type" value="fill_blank"/>
+					<input type="hidden" name="quiz_id" value="<%=question.getQuizID() %>"/>
+					<input type="hidden" name="question_id" value="<%=question_id %>"/>
+					<input type="hidden" name="prev_points" value="<%=question.getNumBlanks() %>"/>
+					<input type="submit" name="update" value="Continue Editing"/>
+				</form>
+			</div>
+		</div>
 	</body>
 </html>
