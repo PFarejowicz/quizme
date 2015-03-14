@@ -76,7 +76,7 @@
 		<ul>
 		<%for (int i = 0 ; i < friendsList.size() ; i++) { %>
 			<% if (quiz.getAuthorID() != friendsList.get(i)) { %>
-				<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getNameByID(friendsList.get(i))%> (<%=quizManager.convertToPercStr(userManager.getTopScore(user_id, quiz_id), total)%>%)</a></li>	
+				<li><a href="friend_homepage.jsp?friendEmail=<%=userManager.getEmailByID(friendsList.get(i))%>"><%=userManager.getNameByID(friendsList.get(i))%> (<%=quizManager.convertToPercStr(userManager.getTopScore(user_id, quiz_id), total)%>)</a></li>	
 			<%}%>
 		<%}%>
 		</ul>

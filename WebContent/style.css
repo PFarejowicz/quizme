@@ -175,8 +175,14 @@
 	width: 100%;}
 .smooth-edge{
 	margin: 15px;}
+.light-edge{
+	margin: 10px;}
 .headers{
 	padding: 10px;}
+.feedback_correct h2{
+	color:#617A62;}
+.feedback_incorrect h2{
+	color:#A85352;}
 
 /* Base Styles
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
