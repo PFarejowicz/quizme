@@ -50,7 +50,7 @@
 					} else if (type.equals("PictureResponse")) {
 						PictureResponse question = (PictureResponse) questionManager.getQuestionByID(question_id);
 						out.println("<p>" + question_number + ".) " + "</p>");
-						out.println("<img class=\"light-edge\" src=" + question.getQuestionText() + "/>");
+						out.println("<p><img class=\"light-edge\" src=\"" + question.getQuestionText() + "\"/></p>");
 						out.println("<p><input class=\"light-edge\" type=\"text\" name=\"question_" + question_number + "\"/></p>");
 					} else if (type.equals("MultiAnswer")) {
 						MultiAnswer question = (MultiAnswer) questionManager.getQuestionByID(question_id);
