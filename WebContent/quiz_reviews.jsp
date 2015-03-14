@@ -37,6 +37,7 @@
 		 } %>
 		</div>
 		<% } %>
-		<p id="quiz_search_return_home"><a href="homepage.jsp"><button type="button">Return Home</button></a></p>
+		<p class="auth-center"><a href="quiz_summary.jsp?quiz_id=<%=quiz_id%>"><button type="button">Go Back</button></a>
+		<a href="homepage.jsp"><button type="button">Return Home</button></a></p>
 	</body>
 </html>

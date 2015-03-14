@@ -32,6 +32,10 @@
 #quiz_search_return_home{
 	margin: 15px;
 }
+#quiz_review_button{
+	margin: 15px;
+	float: left;}
+}
 
 /* homepage.jsp
 ------------------------------------- */

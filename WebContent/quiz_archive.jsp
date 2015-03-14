@@ -13,8 +13,6 @@
 	</head>
 	<body>
 		<h1>QuizMe Quiz Finder Search Results</h1>
-		<p class="auth-center"><a href="quiz_search.jsp"><button type="button">New Search</button></a>
-		<a href="homepage.jsp"><button type="button">Return Home</button></a></p>
 		<% QuizManager quizManager = (QuizManager) application.getAttribute("quiz manager");
 		ArrayList<Quiz> quizList = (ArrayList<Quiz>) session.getAttribute("search"); %>
 		<% if(quizList.size() > 0){ %>
@@ -30,5 +28,7 @@
 		%>
 		</div>
 		<% } %>
+		<p class="auth-center"><a href="quiz_search.jsp"><button type="button">New Search</button></a>
+		<a href="homepage.jsp"><button type="button">Return Home</button></a></p>
 	</body>
 </html>

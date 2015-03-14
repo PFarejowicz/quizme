@@ -41,7 +41,6 @@
 			<input class="quiz_search" type="submit" value="Search" />
 		</form>
 		</div>
-		<br/>
-		<a href="homepage.jsp"><button class="quiz_search_return_home" type="button">Return Home</button></a>
+		<p class="auth-center"><a href="homepage.jsp"><button type="button">Return Home</button></a></p>
 	</body>
 </html>

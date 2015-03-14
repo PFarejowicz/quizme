@@ -63,6 +63,7 @@
 					<input type="hidden" name="edit_mode" value="false"/>
 					<input class="auth-center" type="submit" value="Create" />
 				</form>
+				<p class="auth-center"><a class="auth-center" href="index.jsp"><button class="auth-center" type="button">Return to Home</button></a></p>
 			</div>
 		</div>
 	</body>
