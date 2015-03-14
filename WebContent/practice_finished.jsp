@@ -139,6 +139,24 @@
 		%></p>
 		</div>
 		
+		<p><%
+			if (user_id == quiz.getAuthorID()) {
+				out.println("<div class=\"card\">");
+				out.println("<h5>Author Toolbox</h5>");
+				out.println("<form class=\"smooth-edge\" action=\"edit_quiz.jsp\" method=\"post\">");
+				out.println("<input type=\"hidden\" name=\"quiz_id\" value=\""+quiz_id+"\"/>");
+				out.println("<input type=\"hidden\" name=\"edit_mode\" value=\"true\"/>");
+				out.println("<input type=\"submit\" value=\"Edit Quiz\" onclick=\"return confirm('WARNING: This operation will delete all prior quiz history for this quiz. Continue?')\"/>");
+				out.println("</form>");
+				out.println("<form class=\"smooth-edge\" action=\"AdminRemoveQuizServlet\" method=\"post\">");
+				out.println("<input type=\"hidden\" name=\"id\" value=\""+quiz_id+"\"/>");
+				out.println("<input name=\"admin_edit\" type=\"hidden\" value=\"false\"/>");
+				out.println("<input type=\"submit\" value=\"Delete Quiz\" onclick=\"return confirm('WARNING: This operation will permanently delete this quiz. Continue?')\"/>");
+				out.println("</form>");
+				out.println("</div>");
+			}
+		%></p>
+		
 		<% if (email != null) { %>
 		<form action="QuizStartServlet" method="post" style="display: inline">
 			<p>Mode: <br>
@@ -151,22 +169,6 @@
 			<input type="hidden" name="immediate_correction" value="<%=quiz.isImmediateCorrection()%>"/>
 			<input  type="submit" value="Take Quiz" />
 		</form>
-		
-		<p><%
-			if (user_id == quiz.getAuthorID()) {
-				out.println("<h2>Author Toolbox</h2>");
-				out.println("<form action=\"edit_quiz.jsp\" method=\"post\" style=\"display: inline\">");
-				out.println("<input type=\"hidden\" name=\"quiz_id\" value=\""+quiz_id+"\"/>");
-				out.println("<input type=\"hidden\" name=\"edit_mode\" value=\"true\"/>");
-				out.println("<input type=\"submit\" value=\"Edit Quiz\" onclick=\"return confirm('WARNING: This operation will delete all prior quiz history for this quiz. Continue?')\"/>");
-				out.println("</form>");
-				out.println("<form action=\"AdminRemoveQuizServlet\" method=\"post\" style=\"display: inline\">");
-				out.println("<input type=\"hidden\" name=\"id\" value=\""+quiz_id+"\"/>");
-				out.println("<input name=\"admin_edit\" type=\"hidden\" value=\"false\"/>");
-				out.println("<input type=\"submit\" value=\"Delete Quiz\" onclick=\"return confirm('WARNING: This operation will permanently delete this quiz. Continue?')\"/>");
-				out.println("</form>");
-			}
-		%></p>
 		
 		<a href="homepage.jsp"><button type="button">Return Home</button></a>
 		<% } else{ %>
