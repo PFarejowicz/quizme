@@ -6,6 +6,7 @@
 	<head>
 		<%
 		QuizManager quizManager = (QuizManager) getServletContext().getAttribute("quiz manager");
+		UserManager userManager = (UserManager) getServletContext().getAttribute("user manager");
 		int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
 		int user_id = 0;
 		if((Integer) request.getSession().getAttribute("user id") != null) {
@@ -23,14 +24,16 @@
 	<body>
 		<h1 class="auth-center"><%=quiz_name%> Reviews</h1>
 		<br/>
-		<%
-		ArrayList<QuizHistory> quiz_history = quizManager.getQuizHistory(quiz_id, user_id, "reviews");
-		int size = quiz_history.size();
-		for (int i = 0; i < size; i++) {
-			out.println(quiz_history.get(i).getUserId());
-			out.println(quiz_history.get(i).getReview());
-		}
-		%>
+		<% ArrayList<QuizHistory> quiz_history = quizManager.getQuizHistory(quiz_id, user_id, "reviews"); %>
+		<% if(quiz_history.size() > 0){ %>
+		<div class="card">
+		<% int size = quiz_history.size();
+		for (int i = 0; i < size; i++) { %>
+			<p><%= userManager.getNameByID(quiz_history.get(i).getUserId()) %></p>
+			<p><%= quiz_history.get(i).getReview() %></p>
+		<% } %>
+		</div>
+		<% } %>
 		<p id="quiz_search_return_home"><a href="homepage.jsp"><button type="button">Return Home</button></a></p>
 	</body>
 </html>
