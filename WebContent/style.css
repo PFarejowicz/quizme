@@ -1,3 +1,9 @@
+/* quiz_summary.jsp
+------------------------------------- */
+.quiz_summary_indent{
+	margin: 15px;
+}
+
 /* edit_question.jsp
 ------------------------------------- */
 .headers{
