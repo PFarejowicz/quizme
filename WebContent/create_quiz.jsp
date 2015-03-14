@@ -9,6 +9,15 @@
 		<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Create Quiz</title>
+		<%
+			if (request.getParameter("error") != null) {
+				if (request.getParameter("error").equals("duplicate_name")) {
+					out.println("<script>");
+					out.println("alert('ERROR: There is already a quiz with this name. Please choose a different name.')");
+					out.println("</script>");
+				}
+			}
+		%>
 	</head>
 	<body>
 		<div style="text-align:center">
