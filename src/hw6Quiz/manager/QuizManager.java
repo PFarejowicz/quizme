@@ -524,7 +524,6 @@ public class QuizManager {
 	public boolean practiceMakesPerfect(int user_id) {
 		boolean alreadyAdded = false;
 		boolean achievementAdded = false; 
-		System.out.print("test practice makes perfect");
 		String achievement = "Practice Makes Perfect";
 		try {
 			Statement stmt = con.createStatement();
