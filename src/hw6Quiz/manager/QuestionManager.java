@@ -57,8 +57,6 @@ public class QuestionManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("quiz id " + quiz_id);
-		System.out.println("Empty ? " + questions.isEmpty());
 		return questions;
 	}
 	
