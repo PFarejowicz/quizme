@@ -51,12 +51,14 @@ public class QuestionManager {
 		try {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM questions WHERE quiz_id = \"" + quiz_id + "\"");
-			while (rs.next()){
+			while (rs.next()) {
 				questions.add(rs.getInt("question_id"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println("quiz id " + quiz_id);
+		System.out.println("Empty ? " + questions.isEmpty());
 		return questions;
 	}
 	
