@@ -28,10 +28,13 @@
 		<% if(quiz_history.size() > 0){ %>
 		<div class="card">
 		<% int size = quiz_history.size();
-		for (int i = 0; i < size; i++) { %>
-			<p><%= userManager.getNameByID(quiz_history.get(i).getUserId()) %></p>
-			<p><%= quiz_history.get(i).getReview() %></p>
-		<% } %>
+		for (int i = 0; i < size; i++) { 
+			String review = quiz_history.get(i).getReview();
+			if (!review.trim().equals("")) { %>
+				<p><%= userManager.getNameByID(quiz_history.get(i).getUserId()) %></p>
+				<p><%=review%></p>	
+		<%	}
+		 } %>
 		</div>
 		<% } %>
 		<p id="quiz_search_return_home"><a href="homepage.jsp"><button type="button">Return Home</button></a></p>
