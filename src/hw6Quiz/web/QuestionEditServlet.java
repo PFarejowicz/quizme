@@ -41,7 +41,7 @@ public class QuestionEditServlet extends HttpServlet {
 		QuestionManager quesManager = (QuestionManager) getServletContext().getAttribute("question manager");
 		int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
 		int question_id = Integer.parseInt(request.getParameter("question_id"));
-		int user_id = 1;			// TODO set default for testing
+		int user_id = 1;			
 		if (request.getSession().getAttribute("user id") != null) {
 			user_id = (Integer) request.getSession().getAttribute("user id");
 		}

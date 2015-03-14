@@ -98,6 +98,7 @@
 							<input type="hidden" value=<%=user_id%> name="sender_id" />
 							<input type="hidden" value=<%=friendsList.get(i)%> name="receiver_id" />
 							<input type="hidden" value=<%=quiz_id%> name="quiz_id" />
+							<input type="hidden" name="time_taken" value="<%=request.getParameter("time_taken")%>" />
 							<input type="hidden" value=<%=score%> name="score" />
 							<input type="submit" value="Send Challenge" name="decision" />
 						</form>
