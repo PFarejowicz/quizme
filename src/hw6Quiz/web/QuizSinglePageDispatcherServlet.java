@@ -1,7 +1,6 @@
 package hw6Quiz.web;
 
 import hw6Quiz.manager.QuestionManager;
-import hw6Quiz.manager.QuizManager;
 import hw6Quiz.model.*;
 
 import java.sql.Timestamp;

@@ -1,11 +1,7 @@
 package hw6Quiz.web;
 
 import hw6Quiz.manager.UserManager;
-
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

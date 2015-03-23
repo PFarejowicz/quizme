@@ -1,8 +1,6 @@
 package hw6Quiz.manager;
-import hw6Quiz.model.*;
 
-import java.security.MessageDigest;
-import java.security.SecureRandom;
+import hw6Quiz.model.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
